@@ -5,7 +5,7 @@ routes = require('./app/routes')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static('web/public'))
+app.use(express.static('./public'))
 routes(app)
 models = require('./app/models/index')
 
