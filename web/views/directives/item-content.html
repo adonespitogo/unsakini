@@ -7,16 +7,11 @@
   <div class="modal-body">
 
     <uib-tabset active="active">
-      <uib-tab index="0" heading="View as Markdown" active="true">
-        <div ng-bind-html="markdown"></div>
+      <uib-tab index="0" heading="View as Plain Text" active="true">
+        <pre>{{plain_text}}</pre>
       </uib-tab>
-      <uib-tab index="1" heading="View as Plain Text">
-      <pre>{{plain_text}}</pre>
-        <!-- <form>
-          <div class="form-group">
-            <textarea rows="10" class="form-control" ng-model="plain_text"></textarea>
-          </div>
-        </form> -->
+      <uib-tab index="1" heading="View as Markdown">
+        <div ng-bind-html="markdown"></div>
       </uib-tab>
     </uib-tabset>
 
