@@ -10,5 +10,6 @@ app.use(require('./app/middlewares/jwt'))
 routes(app)
 models = require('./app/models')
 
-app.listen 3000, ->
-  console.log "Express running on port #{3000}"
+port = process.env.PORT || 3000
+app.listen port, ->
+  console.log "Express running on port #{port}"
