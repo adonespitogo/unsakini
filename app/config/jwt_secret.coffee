@@ -1,1 +1,1 @@
-module.exports = "testsecret13sdfasdf"
+module.exports = process.env.JWT_SECRET || "testsecret13sdfasdf"
