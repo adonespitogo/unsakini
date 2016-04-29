@@ -1,5 +1,5 @@
 {
-  "name": "kinsaka",
+  "name": "unsakini",
   "version": "1.0.0",
   "description": "Encrypted server-agnostic social networking client.",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adonespitogo/kinsaka.git"
+    "url": "git+https://github.com/adonespitogo/unsakini.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adonespitogo/kinsaka/issues"
+    "url": "https://github.com/adonespitogo/unsakini/issues"
   },
-  "homepage": "https://github.com/adonespitogo/kinsaka#readme",
+  "homepage": "https://github.com/adonespitogo/unsakini#readme",
   "dependencies": {
     "bcrypt": "^0.8.6",
     "body-parser": "^1.15.0",

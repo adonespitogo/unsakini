@@ -2,11 +2,13 @@ window.App.run([
   '$rootScope'
   '$http'
   'LoginPop'
-  ($rootScope, $http, LoginPop) ->
+  'PassphraseService'
+  ($rootScope, $http, LoginPop, PassphraseService) ->
 
     $rootScope.$on 'event:auth-loginRequired', (e) ->
-      console.log e
       LoginPop.open()
+
+    PassphraseService.init()
 
 
 ])

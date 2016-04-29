@@ -4,7 +4,7 @@
       <strong>Lists</strong>
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="list in lists">
-          <a ui-sref="list.show({id: list.id})">{{list.name}}</a>
+          <a ui-sref="list.show({id: list.id})">{{list.name | decrypt}}</a>
         </li>
       </ul>
       <a ui-sref="list.new" class="btn btn-primary">

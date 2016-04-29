@@ -1,12 +1,12 @@
 {
-  "name": "kinsaka",
+  "name": "unsakini",
   "description": "Encrypted server-agnostic social networking client.",
   "main": "index.js",
   "authors": [
     "Adones Pitogo <pitogo.adones@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/adonespitogo/kinsaka",
+  "homepage": "https://github.com/adonespitogo/unsakini",
   "ignore": [
     "**/.*",
     "node_modules",

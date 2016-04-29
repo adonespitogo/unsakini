@@ -29,6 +29,7 @@ app_tmp_js_files = [
   '.tmp/app/js/controllers/*.js'
   '.tmp/app/js/directives/*.js'
   '.tmp/app/js/services/*.js'
+  '.tmp/app/js/filters/*.js'
   '.tmp/app/js/templates.js'
   '.tmp/app/js/login.js'
 ]

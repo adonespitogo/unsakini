@@ -6,7 +6,6 @@ window.App.controller 'ShowListCtrl', [
 
     ListService.get($stateParams.id)
     .then (resp) ->
-      console.log resp
       $scope.list = resp.data
 
 ]
