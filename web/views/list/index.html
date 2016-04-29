@@ -4,14 +4,12 @@
       <strong>Lists</strong>
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="list in lists">
-          {{list.name}}
-        </li>
-        <li class="list-group-item">
-          <a ui-sref="list.new" class="btn btn-primary">
-            New List
-          </a>
+          <a ui-sref="list.show({id: list.id})">{{list.name}}</a>
         </li>
       </ul>
+      <a ui-sref="list.new" class="btn btn-primary">
+        New List
+      </a>
     </div>
     <div class="col-md-8" ui-view></div>
   </div>
