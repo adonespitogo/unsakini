@@ -13,7 +13,7 @@ App.controller 'LoginPopCtrl', [
       $http.post('/login', $scope.user)
       .then (resp) ->
         $.jStorage.set 'auth_token', resp.data.token
-        $uibModalInstance.dismiss()
+        $uibModalInstance.close()
         authService.loginConfirmed()
       .catch (resp) ->
         alert(resp.data)
@@ -25,8 +25,11 @@ App.factory 'LoginPop', [
   ($uibModal) ->
 
     open: ->
-      $uibModal.open
+      modal = $uibModal.open
         animation: true
         templateUrl: 'login-popup.html'
         controller: 'LoginPopCtrl as LoginPopCtrl'
+
+      modal.result.catch ->
+        window.location.assign '/'
 ]

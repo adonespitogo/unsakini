@@ -26,6 +26,8 @@ window.App.factory 'PassphraseService', [
       $uibModal.open
         templateUrl: 'passphrase-popup.html'
         controller: 'PassphrasePopupCtrl as PassphrasePopupCtrl'
+        backdrop: 'static'
+        keyboard: false
 
     getKey: ->
       $.jStorage.get 'passphrase'

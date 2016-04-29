@@ -23,6 +23,7 @@
     "bower": "^1.7.9",
     "coffee-script": "^1.10.0",
     "del": "^2.2.0",
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",
     "gulp": "^3.9.1",
@@ -31,6 +32,7 @@
     "gulp-coffee": "^2.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
+    "gulp-strip-debug": "^1.1.0",
     "gulp-uglify": "^1.5.3",
     "gulp-watch": "^4.3.5",
     "js2coffee": "^2.2.0",
@@ -39,9 +41,7 @@
     "q": "^1.4.1",
     "require-dir": "^0.3.0",
     "sequelize": "^3.22.0",
-    "sequelize-cli": "^2.4.0",
-    "gulp-strip-debug": "^1.1.0"
+    "sequelize-cli": "^2.4.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

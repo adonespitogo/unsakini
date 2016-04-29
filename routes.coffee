@@ -2,6 +2,10 @@ controllers = require('require-dir')('./app/controllers/')
 Auth = require('./app/middlewares/auth')
 
 module.exports = (app) ->
+
+  app.get '/', controllers.public_controller.index
+  app.get '/app', controllers.public_controller.app
+
   app.get '/lists', Auth, controllers.list_controller.index
   app.post '/lists', Auth, controllers.list_controller.create
   app.get '/lists/:id', Auth, controllers.list_controller.show
