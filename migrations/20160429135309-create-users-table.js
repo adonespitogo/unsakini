@@ -9,37 +9,38 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-      return queryInterface.createTable('users', {
-        id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
-        },
-        name: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-        email: {
-          type: Sequelize.STRING,
-          unique: true,
-          allowNull: false
-        },
-        encrypted_password: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-        salt: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-        created_at: {
-          type: Sequelize.DATE
-        },
-        updated_at: {
-          type: Sequelize.DATE
-        }
+    return queryInterface.createTable('users', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+      },
+      encrypted_password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      salt: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      created_at: {
+        type: Sequelize.DATE
+      },
+      updated_at: {
+        type: Sequelize.DATE
       }
-    );
+    }, {
+      engine: 'InnoDB'
+    });
   },
 
   down: function (queryInterface, Sequelize) {

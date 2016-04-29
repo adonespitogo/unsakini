@@ -17,4 +17,7 @@ window.App.factory 'ListService', [
       data.name = CryptoService.encrypt(data.name)
       $http.put("/lists/#{data.id}", data)
 
+    delete: (id) ->
+      $http.delete "/lists/#{id}"
+
 ]

@@ -15,12 +15,22 @@ module.exports = {
           autoIncrement: true,
           primaryKey: true
         },
-        list_id: Sequelize.INTEGER,
+        list_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'lists',
+            key: 'id'
+          },
+          onUpdate: 'cascade',
+          onDelete: 'cascade',
+        },
         title: Sequelize.STRING,
         content: Sequelize.TEXT,
         created_at: Sequelize.DATE,
         updated_at: Sequelize.DATE,
         deleted_at: Sequelize.DATE,
+      }, {
+        engine: 'InnoDB'
       });
   },
 

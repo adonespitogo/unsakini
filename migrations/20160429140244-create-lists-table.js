@@ -15,8 +15,18 @@ module.exports = {
           autoIncrement: true,
           primaryKey: true
         },
-        user_id: Sequelize.INTEGER,
+        user_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'users',
+            key: 'id'
+          },
+          onUpdate: 'cascade',
+          onDelete: 'cascade',
+        },
         name: Sequelize.STRING
+      }, {
+        engine: 'InnoDB'
       });
   },
 

@@ -3,9 +3,10 @@ List = require('./list')
 Item = require('./item')
 
 # associations
+User.hasMany(List)
 List.belongsTo(User)
-Item.belongsTo(List)
 List.hasMany(Item)
+Item.belongsTo(List)
 
 module.exports = {
   User: User
