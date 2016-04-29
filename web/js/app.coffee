@@ -4,5 +4,6 @@ window.App = angular.module('unsakini', [
   'templates'
   'http-auth-interceptor'
   'ui.bootstrap'
+  'ngSanitize'
 ])
 

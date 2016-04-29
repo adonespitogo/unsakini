@@ -1,8 +1,11 @@
-window.App.controller 'LoginPopCtrl', [
+App = window.App
+
+App.controller 'LoginPopCtrl', [
   '$scope'
   '$http'
   '$uibModalInstance'
-  ($scope, $http, $uibModalInstance) ->
+  'authService'
+  ($scope, $http, $uibModalInstance, authService) ->
 
     $scope.user = {}
 
@@ -11,13 +14,13 @@ window.App.controller 'LoginPopCtrl', [
       .then (resp) ->
         $.jStorage.set 'auth_token', resp.data.token
         $uibModalInstance.dismiss()
+        authService.loginConfirmed()
       .catch (resp) ->
         alert(resp.data)
 
 ]
 
-
-window.App.factory 'LoginPop', [
+App.factory 'LoginPop', [
   '$uibModal'
   ($uibModal) ->
 

@@ -1,8 +1,9 @@
 window.App.controller 'ShowListCtrl', [
   '$scope'
   'ListService'
+  'ItemService'
   '$stateParams'
-  ($scope, ListService, $stateParams) ->
+  ($scope, ListService, ItemService, $stateParams) ->
 
     ListService.get($stateParams.id)
     .then (resp) ->

@@ -1,4 +1,6 @@
-List = require('../models/list')
+models = require('../models/index')
+List = models.List
+Item = models.Item
 
 exports.index = (req, res, next) ->
 
@@ -24,8 +26,16 @@ exports.create = (req, res, next) ->
     res.status(422).send(err)
 
 exports.show = (req, res, next) ->
-  List.findById(req.params.id)
+
+  List.findOne({
+    where:
+      id: req.params.id
+    include: [
+      {model: Item}
+    ]
+  })
   .then (db_list) ->
     res.send db_list
   .catch (err) ->
-    res.status(422).send(err)
+    console.log err
+    res.status(500).send(err)

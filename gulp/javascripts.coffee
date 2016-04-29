@@ -12,10 +12,12 @@ renameJS = (path) ->
   path.extname  = '.js';
 
 vendor_js_files = [
+  "./web/js/libs/markdown.js"
   "./bower_components/jquery/dist/jquery.js"
   "./bower_components/jStorage/jstorage.js"
   "./bower_components/cryptojslib/rollups/aes.js"
   "./bower_components/angular/angular.js"
+  "./bower_components/angular-sanitize/angular-sanitize.js"
   "./bower_components/angular-ui-router/release/angular-ui-router.js"
   "./bower_components/angular-http-auth/src/http-auth-interceptor.js"
   "./bower_components/angular-bootstrap/ui-bootstrap.js"

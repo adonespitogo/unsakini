@@ -1,14 +1,14 @@
-jwt = require('express-jwt')
-secret = require('../config/jwt_secret')
+User = require('../models/user')
 
-authMiddleware = jwt({
-  secret: secret
-  credentialsRequired: true
-  getToken: (req) ->
-    if req.headers.authorization and req.headers.authorization.split(' ')[0] == 'Bearer'
-      return req.headers.authorization.split(' ')[1]
-    else if req.query and req.query.token
-      return req.query.token
-})
-
-module.exports = authMiddleware
+module.exports = (req, res, next) ->
+  User.findById(req.user?.id)
+  .then (user) ->
+    if !user
+      res.status(401)
+      return next()
+    req.current_user = user
+    next()
+  .catch (err) ->
+    console.log err
+    res.status(401)
+    next()
