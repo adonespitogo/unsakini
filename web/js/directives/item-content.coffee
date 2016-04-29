@@ -8,9 +8,11 @@ window.App.directive 'itemContent', [
       item: '=itemContent'
     link: ($scope, elem, attrs) ->
 
+      decrypted = CryptoService.decrypt($scope.item.content)
       $scope.title = CryptoService.decrypt($scope.item.title)
-      $scope.content = CryptoService.decrypt($scope.item.content)
-      $scope.content = markdown.toHTML($scope.content)
+      $scope.plain_text = decrypted
+      console.log $scope.plain_text
+      $scope.markdown = markdown.toHTML(decrypted)
 
       elem.click ->
         $uibModal.open

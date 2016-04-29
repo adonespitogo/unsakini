@@ -3,12 +3,12 @@ del = require('del')
 watch = require('gulp-watch')
 batch = require('gulp-batch')
 
-gulp.task 'clean:tmp', (done) ->
+gulp.task 'clean:tmp', ->
   del(['.tmp/**/*'])
 
 gulp.task 'default', ['clean:tmp', 'js:concat', 'uglify'], ->
-  gulp.src('.tmp/app/js/application.js')
-      .pipe(gulp.dest('./public/js'))
+  gulp.src('.tmp/app/js/uglify/**/*')
+      .pipe(gulp.dest('public/js'))
 
 
 gulp.task 'watch', ->

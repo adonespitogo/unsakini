@@ -4,6 +4,7 @@ rename = require('gulp-rename')
 concat = require('gulp-concat')
 templateCache = require('gulp-angular-templatecache')
 uglify = require('gulp-uglify')
+strip_debug = require('gulp-strip-debug')
 helpers = require('./helpers')
 
 renameJS = (path) ->
@@ -56,14 +57,14 @@ gulp.task 'js:concat', ['app:coffee', 'templates'], ->
   files = vendor_js_files.concat(app_tmp_js_files)
   gulp.src(files)
       .pipe(concat('application.js'))
-      .pipe(gulp.dest('.tmp/app/js/'))
+      .pipe(gulp.dest('.tmp/app/js/concat'))
 
-gulp.task 'uglify', ['js:concat'], ->
-  stream = gulp.src('.tmp/app/js/application.js')
+gulp.task 'uglify', ['js:concat', 'templates', 'app:coffee'], ->
+  stream = gulp.src('.tmp/app/js/concat/application.js')
 
   if (process.env.NODE_ENV is 'production')
-    stream.pipe(uglify())
+    stream
+    .pipe(uglify())
+    .pipe(strip_debug())
 
-  stream.pipe(gulp.dest('.tmp/app/js'))
-
-  return stream
+  stream.pipe(gulp.dest('.tmp/app/js/uglify'))

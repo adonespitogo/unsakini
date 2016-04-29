@@ -5,6 +5,23 @@
     </div>
   </div>
   <div class="modal-body">
-    <div ng-bind-html="content"></div>
+
+    <uib-tabset active="active">
+      <uib-tab index="0" heading="View as Markdown" active="true">
+        <div ng-bind-html="markdown"></div>
+      </uib-tab>
+      <uib-tab index="1" heading="View as Plain Text">
+      <pre>{{plain_text}}</pre>
+        <!-- <form>
+          <div class="form-group">
+            <textarea rows="10" class="form-control" ng-model="plain_text"></textarea>
+          </div>
+        </form> -->
+      </uib-tab>
+    </uib-tabset>
+
+
+
+
   </div>
 </div>
