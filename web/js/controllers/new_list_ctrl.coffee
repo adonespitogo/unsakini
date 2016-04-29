@@ -8,11 +8,10 @@ window.App.controller 'NewListCtrl', [
     $scope.list = {}
 
     @create = (list) ->
-      list.name = CryptoService.encrypt(list.name)
       ListService.create(list)
       .then (resp) ->
         alert('list successfully created!')
-        $state.go('list.item', {id: resp.data.id}, {reload: true})
+        $state.go('list.items', {id: resp.data.id}, {reload: true})
       .catch (resp) ->
         console.log resp
 
