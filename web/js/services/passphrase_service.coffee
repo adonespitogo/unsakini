@@ -8,6 +8,7 @@ window.App.controller 'PassphrasePopupCtrl', [
     @submit = ->
       $.jStorage.set 'passphrase', $scope.passphrase
       $uibModalInstance.dismiss()
+      window.location.reload()
 
     null
 ]
