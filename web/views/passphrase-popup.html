@@ -6,9 +6,16 @@
     <form>
       <div class="form-group">
         <label for="passphrase">Passphrase</label>
-        <input type="passphrase" name="passphrase" ng-model="passphrase">
+        <input class="form-control" type="text" name="passphrase" ng-model="passphrase">
       </div>
-      <button type="submit" ng-click="PassphrasePopupCtrl.submit()">Submit</button>
+      <div class="form-group">
+        <label for="passphrase">Confirm Passphrase</label>
+        <input class="form-control" type="text" name="confirm_passphrase" ng-model="confirm_passphrase">
+        <span class="help-block" ng-show="passphrase !== confirm_passphrase">
+          <span class="text-danger">Passphrase do not match.</span>
+        </span>
+      </div>
+      <button class="btn btn-success" type="submit" ng-click="PassphrasePopupCtrl.submit()" ng-disabled="confirm_passphrase !== passphrase">Set My Passphrase</button>
     </form>
   </div>
 </div>
