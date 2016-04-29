@@ -8,14 +8,15 @@
       Passphrase serves as a key to encrypt your data before sending to the server and to
       decrypt encrypted data from the server. <strong>You will not be able to read your data if you loose this key.</strong>
     </p>
+    <hr>
     <form>
       <div class="form-group">
         <label for="passphrase">Passphrase</label>
-        <input class="form-control" type="text" name="passphrase" ng-model="passphrase">
+        <input class="form-control" type="password" name="passphrase" ng-model="passphrase">
       </div>
       <div class="form-group">
         <label for="passphrase">Confirm Passphrase</label>
-        <input class="form-control" type="text" name="confirm_passphrase" ng-model="confirm_passphrase">
+        <input class="form-control" type="password" name="confirm_passphrase" ng-model="confirm_passphrase">
         <span class="help-block" ng-show="passphrase !== confirm_passphrase">
           <span class="text-danger">Passphrase do not match.</span>
         </span>
