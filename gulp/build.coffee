@@ -6,7 +6,7 @@ batch = require('gulp-batch')
 gulp.task 'clean:tmp', (done) ->
   del(['.tmp/**/*'])
 
-gulp.task 'default', ['clean:tmp', 'js:concat'], ->
+gulp.task 'default', ['clean:tmp', 'js:concat', 'uglify'], ->
   gulp.src('.tmp/app/js/application.js')
       .pipe(gulp.dest('./public/js'))
 
