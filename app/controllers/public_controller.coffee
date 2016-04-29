@@ -3,3 +3,6 @@ exports.index = (req, res, next) ->
 
 exports.app = (req, res, next) ->
   res.render 'app'
+
+exports.login = (req, res, next) ->
+  res.render 'login'

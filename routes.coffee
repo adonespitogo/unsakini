@@ -4,7 +4,9 @@ Auth = require('./app/middlewares/auth')
 module.exports = (app) ->
 
   app.get '/', controllers.public_controller.index
+  app.get '/login', controllers.public_controller.login
   app.get '/app', controllers.public_controller.app
+  app.get '/auth/verify', controllers.auth_controller.verify
 
   app.get '/lists', Auth, controllers.list_controller.index
   app.post '/lists', Auth, controllers.list_controller.create

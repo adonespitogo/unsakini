@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="unsakini">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
@@ -26,7 +26,13 @@
                       Unsakini
                   </a>
                   <li><a href="" ng-click="HeaderCtrl.resetPassphrase()">Edit Passphrase</a></li>
-
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="" logout>
+                      Logout
+                    </a>
+                  </li>
               </ul>
           </nav>
           <nav class="visible-xs collapse" uib-collapse="!isCollapsed" style="height: 0px;">
@@ -39,5 +45,20 @@
   </header>
 
   <div ui-view style="padding-top: 70px;"></div>
+  <script type="text/javascript">
+      var token = $.jStorage.get('auth_token')
+      if(!token)
+        window.location.assign('/')
+      else {
+        $.get('/auth/verify?token='+token)
+        .done(function () {
+          angular.bootstrap(document, ['unsakini'])
+        })
+        .fail(function () {
+          window.location.assign('/')
+        })
+      }
+
+  </script>
 </body>
 </html>
