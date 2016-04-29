@@ -5,8 +5,9 @@
     </div>
     <div class="panel-body">
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="item in list.items" item-content="item">
-          <a>{{item.title | decrypt}}</a>
+        <li class="list-group-item" ng-repeat="item in list.items">
+          <a href="" item-content="item">{{item.title | decrypt}}</a>
+          <a ui-sref="list.edit_item({list_id: list.id, item_id: item.id})"><i class="fa fa-pencil" style="float: right;"></i></a>
         </li>
       </ul>
       <a ui-sref="list.new_item({id: list.id})" class="btn btn-primary">Add Item</a>

@@ -27,4 +27,9 @@ App.config [
       templateUrl: 'item/new.html'
       controller: 'NewItemCtrl as NewItemCtrl'
 
+    .state 'list.edit_item',
+      url: '/:list_id/item/:item_id/edit'
+      templateUrl: 'item/edit.html'
+      controller: 'EditItemCtrl as EditItemCtrl'
+
 ]

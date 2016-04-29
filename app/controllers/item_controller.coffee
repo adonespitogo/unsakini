@@ -22,3 +22,23 @@ exports.create = (req, res, next) ->
     res.send db_item
   .catch (err) ->
     res.status(422).send(err)
+
+exports.show = (req, res, next) ->
+  Item.findById(req.params.id)
+  .then (db_item) ->
+    res.send db_item
+  .catch (err) ->
+    res.status(500).send(err)
+
+exports.update = (req, res, next) ->
+  Item.update({
+    title: req.body.title
+    content: req.body.content
+  }, {
+    where:
+      id: req.params.id
+  })
+  .then (db_item) ->
+    res.send db_item
+  .catch (err) ->
+    res.status(422).send(err)

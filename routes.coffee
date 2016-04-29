@@ -8,7 +8,9 @@ module.exports = (app) ->
   app.put '/lists/:id', Auth, controllers.list_controller.update
 
   app.get '/lists/:id/items', Auth, controllers.item_controller.index
+  app.get '/items/:id', Auth, controllers.item_controller.show
   app.post '/items', Auth, controllers.item_controller.create
+  app.put '/items/:id', Auth, controllers.item_controller.update
 
   app.post '/login', controllers.auth_controller.index
   app.post '/users', controllers.user_controller.create
