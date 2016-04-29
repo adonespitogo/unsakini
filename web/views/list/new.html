@@ -1,0 +1,7 @@
+<form ng-controller="NewListCtrl as NewListCtrl">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" placeholder="List Name" ng-model="list.name">
+  </div>
+  <button type="submit" class="btn btn-default" ng-click="NewListCtrl.create(list)">Submit</button>
+</form>

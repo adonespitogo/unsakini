@@ -12,9 +12,14 @@ renameJS = (path) ->
   path.extname  = '.js';
 
 vendor_js_files = [
+  "./bower_components/jquery/dist/jquery.js"
+  "./bower_components/jStorage/jstorage.js"
+  "./bower_components/cryptojslib/rollups/aes.js"
   "./bower_components/angular/angular.js"
   "./bower_components/angular-ui-router/release/angular-ui-router.js"
-  "./bower_components/cryptojslib/rollups/aes.js"
+  "./bower_components/angular-http-auth/src/http-auth-interceptor.js"
+  "./bower_components/angular-bootstrap/ui-bootstrap.js"
+  "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
 ]
 
 app_tmp_js_files = [
@@ -23,10 +28,12 @@ app_tmp_js_files = [
   '.tmp/app/js/routes.js'
   '.tmp/app/js/controllers/*.js'
   '.tmp/app/js/directives/*.js'
+  '.tmp/app/js/services/*.js'
   '.tmp/app/js/templates.js'
+  '.tmp/app/js/login.js'
 ]
 
-gulp.task 'app:coffee', ->
+gulp.task 'app:coffee', ['clean:tmp'], ->
   gulp.src("./web/js/**/*.coffee")
       .pipe(coffee())
       .on('error', helpers.swallowError)
@@ -34,7 +41,7 @@ gulp.task 'app:coffee', ->
       .pipe(gulp.dest('.tmp/app/js'))
 
 
-gulp.task 'templates', ->
+gulp.task 'templates', ['clean:tmp'], ->
   gulp.src('web/views/**/*.html')
       .pipe(templateCache({
         standalone:true

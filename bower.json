@@ -1,0 +1,26 @@
+{
+  "name": "kinsaka",
+  "description": "Encrypted server-agnostic social networking client.",
+  "main": "index.js",
+  "authors": [
+    "Adones Pitogo <pitogo.adones@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/adonespitogo/kinsaka",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "^0.2.18",
+    "angular": "angularjs#^1.5.5",
+    "cryptojslib": "^3.1.2",
+    "jStorage": "jstorage#^0.4.12",
+    "jquery": "^2.2.3",
+    "angular-http-auth": "^1.3.0",
+    "bootstrap": "^3.3.6"
+  }
+}

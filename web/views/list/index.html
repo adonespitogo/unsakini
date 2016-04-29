@@ -1,0 +1,18 @@
+<div ng-controller="ListCtrl as ListCtrl" class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <strong>Lists</strong>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="list in lists">
+          {{list.name}}
+        </li>
+        <li class="list-group-item">
+          <a ui-sref="list.new" class="btn btn-primary">
+            New List
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8" ui-view></div>
+  </div>
+</div>

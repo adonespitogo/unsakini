@@ -4,7 +4,7 @@
   "description": "Encrypted server-agnostic social networking client.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "node_modules/bower/bin/bower install; node_modules/gulp/bin/gulp.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,9 @@
   "dependencies": {
     "bcrypt": "^0.8.6",
     "body-parser": "^1.15.0",
+    "bower": "^1.7.9",
     "coffee-script": "^1.10.0",
+    "del": "^2.2.0",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",
     "gulp": "^3.9.1",
@@ -32,5 +34,9 @@
     "q": "^1.4.1",
     "require-dir": "^0.3.0",
     "sequelize": "^3.22.0"
+  },
+  "devDependencies": {
+    "gulp-batch": "^1.0.5",
+    "gulp-watch": "^4.3.5"
   }
 }
