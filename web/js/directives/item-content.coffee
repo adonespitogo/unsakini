@@ -11,7 +11,6 @@ window.App.directive 'itemContent', [
       decrypted = CryptoService.decrypt($scope.item.content)
       $scope.title = CryptoService.decrypt($scope.item.title)
       $scope.plain_text = decrypted
-      console.log $scope.plain_text
       $scope.markdown = markdown.toHTML(decrypted)
 
       elem.click ->
