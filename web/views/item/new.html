@@ -8,4 +8,5 @@
     <textarea ng-model="item.content" class="form-control" rows="10"></textarea>
   </div>
   <button class="btn btn-success" ng-click="NewItemCtrl.create(item)">Add</button>
+  <a ui-sref="list.items({id: item.list_id})" class="btn btn-default">Cancel</a>
 </form>

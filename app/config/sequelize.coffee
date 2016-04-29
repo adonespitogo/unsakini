@@ -1,5 +1,5 @@
 Sequelize = require('sequelize')
-sequelize = new Sequelize 'kinsaka', 'root', '',
+sequelize = new Sequelize 'unsakini', 'root', '',
   host: '127.0.0.1'
   dialect: 'mysql'
   pool:

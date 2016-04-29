@@ -22,6 +22,6 @@ List = sequelize.define('list', {
     type: Sequelize.INTEGER
 }, tableConfig)
 
-List.sync(force: false)
+# List.sync(force: false)
 
 module.exports = List

@@ -42,3 +42,10 @@ exports.update = (req, res, next) ->
     res.send db_item
   .catch (err) ->
     res.status(422).send(err)
+
+exports.destroy = (req, res, next) ->
+  Item.destroy({where: id: req.params.id})
+  .then ->
+    res.status(200).send()
+  .catch (err) ->
+    res.status(422).send err

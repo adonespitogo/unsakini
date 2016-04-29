@@ -7,7 +7,15 @@
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="item in list.items">
           <a href="" item-content="item">{{item.title | decrypt}}</a>
-          <a ui-sref="list.edit_item({list_id: list.id, item_id: item.id})"><i class="fa fa-pencil" style="float: right;"></i></a>
+          <a href="" delete-item="item" class="padd-right">
+            <i class="fa fa-times" style="float: right;"></i>
+          </a>
+          <a ui-sref="list.edit_item({list_id: list.id, item_id: item.id})">
+            <i class="fa fa-pencil" style="float: right; margin-right: 10px"></i>
+          </a>
+        </li>
+        <li class="list-group-item" ng-show="list.items.length === 0">
+          <i>No items yet.</i>
         </li>
       </ul>
       <a ui-sref="list.new_item({id: list.id})" class="btn btn-primary">Add Item</a>

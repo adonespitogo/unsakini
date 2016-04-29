@@ -23,6 +23,6 @@ Item = sequelize.define('item', {
     type: Sequelize.INTEGER
 }, tableConfig)
 
-Item.sync(force: false)
+# Item.sync(force: false)
 
 module.exports = Item

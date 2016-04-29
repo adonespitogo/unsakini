@@ -4,13 +4,13 @@ window.App.factory 'CryptoService', [
 
     encrypt: (string) ->
       key = PassphraseService.getKey()
-      return string if !key
+      return string if !string or !key
       encryptedAES = CryptoJS.AES.encrypt(string, key)
       encryptedAES.toString()
 
     decrypt: (encryptedAESString) ->
-      return null if !encryptedAESString
       key = PassphraseService.getKey()
+      return encryptedAESString if !encryptedAESString or !key
       decrypted = CryptoJS.AES.decrypt(encryptedAESString, key)
       decrypted.toString(CryptoJS.enc.Utf8)
 

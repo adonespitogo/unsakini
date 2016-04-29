@@ -53,3 +53,10 @@ exports.update = (req, res, next) ->
       name: req.body.name
   .catch (err) ->
     res.status(422).send(err)
+
+exports.destroy = (req, res, next) ->
+  List.destroy({where: id: req.params.id})
+  .then ->
+    res.status(200).send()
+  .catch (err) ->
+    res.status(422).send err

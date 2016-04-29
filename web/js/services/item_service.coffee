@@ -1,6 +1,4 @@
-App = window.App
-
-App.factory 'ItemService', [
+window.App.factory 'ItemService', [
   '$http'
   'CryptoService'
   ($http, CryptoService) ->
@@ -19,5 +17,8 @@ App.factory 'ItemService', [
         content: CryptoService.encrypt(item.content)
 
       $http.put "/items/#{item.id}", new_item
+
+    delete: (id) ->
+      $http.delete "/items/#{id}"
 
 ]
