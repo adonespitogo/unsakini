@@ -3,6 +3,8 @@ window.App.controller 'PassphrasePopupCtrl', [
   '$uibModalInstance'
   ($scope, $uibModalInstance) ->
 
+    $scope.passphrase = $.jStorage.get 'passphrase', null
+
     @submit = ->
       $.jStorage.set 'passphrase', $scope.passphrase
       $uibModalInstance.dismiss()
@@ -18,9 +20,12 @@ window.App.factory 'PassphraseService', [
       key = $.jStorage.get 'passphrase', null
 
       if !key
-        $uibModal.open
-          templateUrl: 'passphrase-popup.html'
-          controller: 'PassphrasePopupCtrl as PassphrasePopupCtrl'
+        @open()
+
+    open: ->
+      $uibModal.open
+        templateUrl: 'passphrase-popup.html'
+        controller: 'PassphrasePopupCtrl as PassphrasePopupCtrl'
 
     getKey: ->
       $.jStorage.get 'passphrase'

@@ -1,5 +1,5 @@
 
-window.App = angular.module('kinsaka', [
+window.App = angular.module('unsakini', [
   'ui.router'
   'templates'
   'http-auth-interceptor'
