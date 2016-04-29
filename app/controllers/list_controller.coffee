@@ -39,3 +39,17 @@ exports.show = (req, res, next) ->
   .catch (err) ->
     console.log err
     res.status(500).send(err)
+
+exports.update = (req, res, next) ->
+  List.update({
+    name: req.body.name
+  }, {
+
+    where:
+      id: req.params.id
+  })
+  .then (db_list) ->
+    res.send
+      name: req.body.name
+  .catch (err) ->
+    res.status(422).send(err)

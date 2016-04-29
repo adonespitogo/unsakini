@@ -10,9 +10,11 @@ window.App.factory 'ListService', [
       data.name = CryptoService.encrypt(data.name)
       $http.post('/lists', data)
 
-
     get: (id) ->
       $http.get("/lists/#{id}")
 
+    update: (data) ->
+      data.name = CryptoService.encrypt(data.name)
+      $http.put("/lists/#{data.id}", data)
 
 ]

@@ -1,0 +1,14 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">Rename List</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <input type="text" ng-model="new_list.name" class="form-control">
+      </div>
+      <button type="submit" ng-click="update(new_list)" class="btn btn-success">Done</button>
+      <a ng-click="close()" class="btn btn-default">Cancel</a>
+    </form>
+  </div>
+</div>
