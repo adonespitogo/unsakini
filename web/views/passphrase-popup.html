@@ -23,7 +23,7 @@
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" ng-model="update_db"> Re-encrypt database entries? <i>Make sure you have your correct passphrase set before updating! <b>Do not check this if you're unsure to avoid corrupting your data.</b></i>
+          <input type="checkbox" ng-model="update_db"> Re-encrypt database entries using this new passphrase? <i>Make sure you have your current passphrase set correctly before updating! <b>Do not check this if you're unsure to avoid corrupting your data.</b></i>
         </label>
       </div>
       <button class="btn btn-success" type="submit" ng-click="PassphrasePopupCtrl.submit()" ng-disabled="confirm_passphrase !== passphrase">Set My Passphrase</button>
