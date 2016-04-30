@@ -14,8 +14,7 @@ gulp.task 'css:nano', ['css:concat'], ->
     stream.pipe(cssnano())
 
   stream.pipe(gulp.dest('.tmp/app/css/nano'))
-  stream
 
-gulp.task 'app:css', ['css:nano'], ->
+gulp.task 'app:css', ['css:nano', 'css:concat'], ->
   gulp.src('.tmp/app/css/nano/application.css')
-      .pipe(gulp.dest('public/css'))
+      .pipe(gulp.dest('public/css/'))

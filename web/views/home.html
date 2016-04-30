@@ -13,7 +13,7 @@
         <li class="sidebar-title"><span>LISTS</span></li>
         <li class="sidebar-list" ng-repeat="list in lists">
           <a ui-sref="list.items({id: list.id})">
-            {{ list.name | decrypt }} <span class="menu-icon fa fa-folder"></span>
+            {{ list.name | decrypt | limitTo: 15 }} <span class="menu-icon fa fa-folder"></span>
           </a>
         </li>
         <li class="sidebar-list">
