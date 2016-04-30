@@ -1,3 +1,4 @@
+(function () {
 /**
  * Master Controller
  */
@@ -37,3 +38,4 @@ function MasterCtrl($scope, $cookieStore) {
         $scope.$apply();
     };
 }
+})();

@@ -73,9 +73,11 @@ gulp.task 'js:concat', ['app:coffee', 'templates'], ->
 gulp.task 'uglify', ['js:concat', 'templates', 'app:coffee'], ->
   stream = gulp.src('.tmp/app/js/concat/application.js')
 
+  if (process.env.debug isnt 'true')
+    stream.pipe(strip_debug())
+
   if (process.env.NODE_ENV is 'production')
     stream
     .pipe(uglify())
-    .pipe(strip_debug())
 
   stream.pipe(gulp.dest('.tmp/app/js/uglify'))

@@ -2,6 +2,7 @@
  * Loading Directive
  * @see http://tobiasahlin.com/spinkit/
  */
+(function () {
 
 angular
     .module('RDash')
@@ -14,3 +15,5 @@ function rdLoading() {
     };
     return directive;
 };
+
+})();

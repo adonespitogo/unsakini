@@ -10,10 +10,9 @@ window.App.run([
       LoginPop.open()
 
     $timeout ->
-      console.log 'PassphraseService open !!!'
       key = $.jStorage.get 'passphrase'
       PassphraseService.open() if !key
     , 500
 
 
-])
+]);

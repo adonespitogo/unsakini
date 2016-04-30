@@ -1,1 +1,1 @@
-angular.module('RDash', ['ngCookies'])
+(function(){angular.module('RDash', ['ngCookies'])})();
