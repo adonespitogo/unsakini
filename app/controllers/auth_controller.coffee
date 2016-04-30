@@ -6,24 +6,24 @@ module.exports =
     email = req.body['email']
     password = req.body['password']
     if !email or !password
-      res.json 401, err: 'Email and password required'
+      res.status( 401).send err: 'Email and password required'
       return next()
     Users.findOne(where: email: email).then((user) ->
       user.comparePassword password, (err, match) ->
         if !match
-          res.send 401, 'Invalid password'
+          res.status(401).send 'Invalid password'
           return next()
         if err
           return next(err)
-        res.json
+        res.send
           user: user
           token: jwToken.issue(id: user.id)
         next()
       return
     ).catch (err) ->
-      res.json 404, 'User with email ' + email + ' does not exist'
+      res.status(403).send 'User with email ' + email + ' does not exist'
       next()
     return
   verify: (req, res, next) ->
-    res.send 200
+    res.sendStatus 200
     next()
