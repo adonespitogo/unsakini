@@ -103,6 +103,8 @@
                       <div class="form-group">
                         <div>
                           <input required type="email" class="form-control" placeholder="Email" ng-model="user.email" name="email">
+                          <span ng-show="signupForm.email.$error.required && signupForm.password.$touched">Required.</span>
+                          <span ng-show="signupForm.email.$error.email && signupForm.password.$touched">Must be a valid email.</span>
                         </div>
                       </div>
                       <div class="form-group">
