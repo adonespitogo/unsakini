@@ -6,11 +6,12 @@ window.App.controller 'PassphrasePopupCtrl', [
   ($scope, $uibModalInstance, $http, CryptoService) ->
 
     $scope.passphrase = $.jStorage.get 'passphrase', null
+    $scope.update_db = false
 
     @submit = ->
       old_key = $.jStorage.get 'passphrase'
 
-      if !old_key
+      if !update_db
         $.jStorage.set 'passphrase', $scope.passphrase
         window.location.reload()
       else
