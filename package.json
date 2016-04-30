@@ -4,7 +4,7 @@
   "description": "Encrypted server-agnostic social networking client.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node_modules/bower/bin/bower install; node_modules/gulp/bin/gulp.js; node_modules/sequelize-cli/bin/sequelize db:migrate",
+    "postinstall": "bower install; gulp; sequelize db:migrate",
     "start": "node index.js"
   },
   "repository": {
