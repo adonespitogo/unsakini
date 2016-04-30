@@ -16,6 +16,7 @@ renameJS = (path) ->
 vendor_js_files = [
   "./web/js/libs/markdown.js"
   "./bower_components/jquery/dist/jquery.js"
+  "./bower_components/lodash/lodash.js"
   "./bower_components/jStorage/jstorage.js"
   "./bower_components/cryptojslib/rollups/aes.js"
   "./bower_components/angular/angular.js"

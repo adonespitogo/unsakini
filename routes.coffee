@@ -56,3 +56,11 @@ module.exports = (app) ->
   app.delete '/items/:id',
           Auth, AC.is_item_owner,
           controllers.item_controller.destroy
+
+  app.get '/passphrase/update',
+          Auth,
+          controllers.passphrase_controller.get
+
+  app.put '/passphrase/update',
+          Auth,
+          controllers.passphrase_controller.update

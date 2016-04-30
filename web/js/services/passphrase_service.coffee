@@ -1,14 +1,27 @@
 window.App.controller 'PassphrasePopupCtrl', [
   '$scope'
   '$uibModalInstance'
-  ($scope, $uibModalInstance) ->
+  '$http'
+  'CryptoService'
+  ($scope, $uibModalInstance, $http, CryptoService) ->
 
     $scope.passphrase = $.jStorage.get 'passphrase', null
 
     @submit = ->
-      $.jStorage.set 'passphrase', $scope.passphrase
-      $uibModalInstance.dismiss()
-      window.location.reload()
+      $http.get('/passphrase/update').then (resp) ->
+        new_data = _.map resp.data, (list) ->
+          list.name = CryptoService.encrypt(CryptoService.decrypt(list.name), $scope.passphrase )
+          list.items = _.map list.items, (item) ->
+            item.title = CryptoService.encrypt(CryptoService.decrypt(item.title), $scope.passphrase )
+            item.content = CryptoService.encrypt(CryptoService.decrypt(item.content), $scope.passphrase )
+            item
+
+          list
+
+        $http.put('/passphrase/update', new_data).then ->
+          $.jStorage.set 'passphrase', $scope.passphrase
+          $uibModalInstance.dismiss()
+          window.location.reload()
 
     null
 ]
