@@ -10,7 +10,8 @@ window.App.controller 'PassphrasePopupCtrl', [
     @submit = ->
       $http.get('/passphrase/update').then (resp) ->
         new_data = _.map resp.data, (list) ->
-          list.name = CryptoService.encrypt(CryptoService.decrypt(list.name), $scope.passphrase )
+          old_key = $.jStorage.get 'passphrase' || $scope.passphrase
+          list.name = CryptoService.encrypt(CryptoService.decrypt(list.name, old_key), $scope.passphrase )
           list.items = _.map list.items, (item) ->
             item.title = CryptoService.encrypt(CryptoService.decrypt(item.title), $scope.passphrase )
             item.content = CryptoService.encrypt(CryptoService.decrypt(item.content), $scope.passphrase )
