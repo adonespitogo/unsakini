@@ -11,5 +11,6 @@ window.App.directive 'logout', [
 
         modal.result.then ->
           $.jStorage.deleteKey 'auth_token'
+          $.jStorage.deleteKey 'passphrase'
           window.location.assign('/')
 ]
