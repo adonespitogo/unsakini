@@ -1,66 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" ng-app="unsakini">
 <head>
+  <base href="/app">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Unsakini</title>
+  <!-- STYLES -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <script src="/js/application.js"></script>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <!-- SCRIPTS -->
+  <link rel="stylesheet" href="/css/application.css"/>
+  <script type="text/javascript" src="/js/application.js"></script>
+
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 </head>
-<body>
-  <header class="navbar navbar-default navbar-fixed-top navbar-inner" ng-controller="HeaderCtrl as HeaderCtrl">
-      <div class="container">
-          <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand visible-xs" href="#">Unsakini</a>
-          </div>
-          <nav class="hidden-xs">
-              <ul class="nav navbar-nav">
-                  <a href="#top" role="button" class="navbar-brand">
-                      Unsakini
-                  </a>
-                  <li><a href="" ng-click="HeaderCtrl.resetPassphrase()">Edit Passphrase</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                    <a href="" logout>
-                      Logout
-                    </a>
-                  </li>
-              </ul>
-          </nav>
-          <nav class="visible-xs collapse" uib-collapse="!isCollapsed" style="height: 0px;">
-              <ul class="nav navbar-nav">
-                  <li><a href="#getting_started" ng-click="isCollapsed = !isCollapsed">Getting started</a></li>
-                  <li><a href="#directives_small" ng-click="isCollapsed = !isCollapsed">Directives</a></li>
-              </ul>
-          </nav>
-      </div>
-  </header>
-
-  <div ui-view style="padding-top: 70px;"></div>
-  <script type="text/javascript">
-      var token = $.jStorage.get('auth_token')
-      if(!token)
-        window.location.assign('/')
-      else {
-        $.get('/auth/verify?token='+token)
-        .done(function () {
-          angular.bootstrap(document, ['unsakini'])
-        })
-        .fail(function () {
-          window.location.assign('/')
-        })
-      }
-
-  </script>
+<body ui-view>
 </body>
 </html>

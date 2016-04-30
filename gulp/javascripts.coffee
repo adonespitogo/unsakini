@@ -20,11 +20,21 @@ vendor_js_files = [
   "./bower_components/jStorage/jstorage.js"
   "./bower_components/cryptojslib/rollups/aes.js"
   "./bower_components/angular/angular.js"
+  "./bower_components/angular-cookies/angular-cookies.js"
   "./bower_components/angular-sanitize/angular-sanitize.js"
   "./bower_components/angular-ui-router/release/angular-ui-router.js"
   "./bower_components/angular-http-auth/src/http-auth-interceptor.js"
   "./bower_components/angular-bootstrap/ui-bootstrap.js"
   "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
+
+  #RDash Admin template
+  "./web/js/libs/rdash.js"
+  "./web/js/libs/loading.js"
+  "./web/js/libs/widget.js"
+  "./web/js/libs/widget-body.js"
+  "./web/js/libs/widget-header.js"
+  "./web/js/libs/widget-footer.js"
+  "./web/js/libs/rdash-master-ctrl.js"
 ]
 
 app_tmp_js_files = [

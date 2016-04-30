@@ -2,13 +2,15 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       {{list.name | decrypt}}
+      <a href="" class="menu-icon fa fa-pencil" edit-list="list"></a>
+      <a href="" class="menu-icon fa fa-trash" delete-list="list"></a>
     </div>
     <div class="panel-body">
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="item in list.items">
           <a href="" item-content="item">{{item.title | decrypt | limitTo: 50}}</a>
           <a href="" delete-item="item" class="padd-right">
-            <i class="fa fa-times" style="float: right;"></i>
+            <i class="fa fa-trash" style="float: right;"></i>
           </a>
           <a ui-sref="list.edit_item({list_id: list.id, item_id: item.id})">
             <i class="fa fa-pencil" style="float: right; margin-right: 10px"></i>

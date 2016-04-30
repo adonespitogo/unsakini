@@ -4,13 +4,13 @@ App.config [
   '$urlRouterProvider'
   ($stateProvider, $urlRouterProvider) ->
 
-    $urlRouterProvider.otherwise '/list'
+    $urlRouterProvider.otherwise '/dashboard'
 
     $stateProvider
     .state 'list',
-      url: '/list'
-      templateUrl: 'list/index.html'
-      controller: 'ListCtrl as ListCtrl'
+      url: '/dashboard'
+      templateUrl: 'home.html'
+      # controller: 'ListCtrl as ListCtrl'
 
     .state 'list.new',
       url: '/new'
