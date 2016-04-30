@@ -11,7 +11,7 @@ window.App.controller 'PassphrasePopupCtrl', [
     @submit = ->
       old_key = $.jStorage.get 'passphrase'
 
-      if !update_db
+      if !$scope.update_db
         $.jStorage.set 'passphrase', $scope.passphrase
         window.location.reload()
       else
