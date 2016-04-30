@@ -48,7 +48,7 @@ window.App.factory 'PassphraseService', [
         modalOpts.backdrop = 'static'
         modalOpts.keyboard = false
 
-      $uibModal.open(modalOpts)
+      console.log $uibModal.open(modalOpts)
 
     getKey: ->
       $.jStorage.get 'passphrase'

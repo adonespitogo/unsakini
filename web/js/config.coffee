@@ -3,12 +3,16 @@ window.App.run([
   '$http'
   'LoginPop'
   'PassphraseService'
-  ($rootScope, $http, LoginPop, PassphraseService) ->
+  '$timeout'
+  ($rootScope, $http, LoginPop, PassphraseService, $timeout) ->
 
     $rootScope.$on 'event:auth-loginRequired', (e) ->
       LoginPop.open()
 
-    PassphraseService.open()
+    $timeout ->
+      console.log 'PassphraseService open !!!'
+      PassphraseService.open()
+    , 500
 
 
 ])
