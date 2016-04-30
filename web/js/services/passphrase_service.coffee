@@ -37,11 +37,6 @@ window.App.controller 'PassphrasePopupCtrl', [
 window.App.factory 'PassphraseService', [
   '$uibModal'
   ($uibModal) ->
-    init: ->
-      key = $.jStorage.get 'passphrase', null
-
-      if !key
-        @open()
 
     open: ->
       modalOpts =
