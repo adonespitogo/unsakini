@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <h3>List Groups</h3>
+      <h3>Lists</h3>
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="list in lists">
           <a ui-sref="list.items({id: list.id})">{{list.name | decrypt | limitTo: 30}}</a>
