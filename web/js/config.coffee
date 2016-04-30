@@ -8,7 +8,7 @@ window.App.run([
     $rootScope.$on 'event:auth-loginRequired', (e) ->
       LoginPop.open()
 
-    PassphraseService.init()
+    PassphraseService.open()
 
 
 ])
