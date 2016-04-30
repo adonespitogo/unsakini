@@ -6,7 +6,7 @@
     <div class="panel-body">
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="item in list.items">
-          <a href="" item-content="item">{{item.title | decrypt}}</a>
+          <a href="" item-content="item">{{item.title | decrypt | limitTo: 50}}</a>
           <a href="" delete-item="item" class="padd-right">
             <i class="fa fa-times" style="float: right;"></i>
           </a>

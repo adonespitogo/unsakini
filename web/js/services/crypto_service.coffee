@@ -1,6 +1,7 @@
 window.App.factory 'CryptoService', [
   'PassphraseService'
-  (PassphraseService) ->
+  '$filter'
+  (PassphraseService, $filter) ->
 
     encrypt: (string, key) ->
       key = key || PassphraseService.getKey()
@@ -10,8 +11,13 @@ window.App.factory 'CryptoService', [
 
     decrypt: (encryptedAESString, key) ->
       key = key || PassphraseService.getKey()
-      return encryptedAESString if !encryptedAESString or !key
-      decrypted = CryptoJS.AES.decrypt(encryptedAESString, key)
-      decrypted.toString(CryptoJS.enc.Utf8)
+      if !encryptedAESString or !key
+        return encryptedAESString
+      else
+        decrypted = CryptoJS.AES.decrypt(encryptedAESString, key)
+        try
+          return decrypted.toString(CryptoJS.enc.Utf8)
+        catch e
+          return encryptedAESString
 
 ]

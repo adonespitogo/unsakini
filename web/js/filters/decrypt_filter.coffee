@@ -5,6 +5,6 @@ window.App.filter 'decrypt', [
     (input) ->
       return input if !input
       text = CryptoService.decrypt(input)
-      return (if !text then input else text)
+      text = (if !text then input else text)
 
 ]

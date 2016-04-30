@@ -4,7 +4,7 @@
       <h3>List Groups</h3>
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="list in lists">
-          <a ui-sref="list.items({id: list.id})">{{list.name | decrypt}}</a>
+          <a ui-sref="list.items({id: list.id})">{{list.name | decrypt | limitTo: 30}}</a>
           <a href="" delete-list="list"><i class="fa fa-times" style="float: right;"></i></a>
           <a href="" edit-list="list"><i class="fa fa-pencil" style="float: right; margin-right: 10px;"></i></a>
         </li>
