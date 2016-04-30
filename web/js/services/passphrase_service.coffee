@@ -8,21 +8,26 @@ window.App.controller 'PassphrasePopupCtrl', [
     $scope.passphrase = $.jStorage.get 'passphrase', null
 
     @submit = ->
-      $http.get('/passphrase/update').then (resp) ->
-        new_data = _.map resp.data, (list) ->
-          old_key = $.jStorage.get 'passphrase' || $scope.passphrase
-          list.name = CryptoService.encrypt(CryptoService.decrypt(list.name, old_key), $scope.passphrase )
-          list.items = _.map list.items, (item) ->
-            item.title = CryptoService.encrypt(CryptoService.decrypt(item.title), $scope.passphrase )
-            item.content = CryptoService.encrypt(CryptoService.decrypt(item.content), $scope.passphrase )
-            item
+      old_key = $.jStorage.get 'passphrase'
 
-          list
+      if !old_key
+        $.jStorage.set 'passphrase', $scope.passphrase
+        window.location.reload()
+      else
+        $http.get('/passphrase/update').then (resp) ->
+          new_data = _.map resp.data, (list) ->
 
-        $http.put('/passphrase/update', new_data).then ->
-          $.jStorage.set 'passphrase', $scope.passphrase
-          $uibModalInstance.dismiss()
-          window.location.reload()
+            list.name = CryptoService.encrypt(CryptoService.decrypt(list.name, old_key), $scope.passphrase )
+            list.items = _.map list.items, (item) ->
+              item.title = CryptoService.encrypt(CryptoService.decrypt(item.title), $scope.passphrase )
+              item.content = CryptoService.encrypt(CryptoService.decrypt(item.content), $scope.passphrase )
+              item
+
+            list
+
+          $http.put('/passphrase/update', new_data).then ->
+            $.jStorage.set 'passphrase', $scope.passphrase
+            window.location.reload()
 
     null
 ]
@@ -51,5 +56,8 @@ window.App.factory 'PassphraseService', [
 
     getKey: ->
       $.jStorage.get 'passphrase'
+
+    setKey: (key) ->
+      $.jStorage.set 'passphrase', key
 
 ]
