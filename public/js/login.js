@@ -9,6 +9,7 @@ App.controller( 'LoginCtrl', [
       $http.post('/login', user)
       .then(function (resp) {
         $.jStorage.set('auth_token', resp.data.token)
+        $.jStorage.deleteKey('passphrase')
         window.location.assign('/app')
       })
       .catch(function (err) {
