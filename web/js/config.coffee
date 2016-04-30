@@ -11,7 +11,8 @@ window.App.run([
 
     $timeout ->
       console.log 'PassphraseService open !!!'
-      PassphraseService.open()
+      key = $.jStorage.get 'passphrase'
+      PassphraseService.open() if !key
     , 500
 
 
