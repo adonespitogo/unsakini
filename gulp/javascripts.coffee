@@ -38,6 +38,7 @@ vendor_js_files = [
 ]
 
 app_tmp_js_files = [
+  '.tmp/app/js/init.js'
   '.tmp/app/js/app.js'
   '.tmp/app/js/config.js'
   '.tmp/app/js/routes.js'

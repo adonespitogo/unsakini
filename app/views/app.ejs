@@ -17,20 +17,4 @@
 </head>
 <body ui-view>
 </body>
-
-  <script type="text/javascript">
-    var token = $.jStorage.get('auth_token')
-    if(!token)
-      window.location.assign('/')
-    else {
-      $.get('/auth/verify?token='+token)
-      .done(function () {
-        angular.bootstrap(document, ['unsakini'])
-      })
-      .fail(function () {
-        window.location.assign('/')
-      })
-    }
-
-  </script>
 </html>
