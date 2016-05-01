@@ -6,6 +6,7 @@ templateCache = require('gulp-angular-templatecache')
 uglify = require('gulp-uglify')
 strip_debug = require('gulp-strip-debug')
 helpers = require('./helpers')
+htmlmin = require('gulp-htmlmin')
 
 renameJS = (path) ->
   path.basename = path.basename.replace('.js.coffee', '');
@@ -63,11 +64,15 @@ gulp.task 'app:coffee', ['clean:tmp'], ->
 
 
 gulp.task 'templates', ['clean:tmp'], ->
-  gulp.src('web/views/**/*.html')
-      .pipe(templateCache({
-        standalone:true
-      }))
-      .pipe(gulp.dest('.tmp/app/js'))
+  stream = gulp.src('web/views/**/*.html')
+
+  if process.env.NODE_ENV is 'production'
+    stream.pipe(htmlmin({collapseWhitespace: true}))
+
+  stream.pipe(templateCache({
+    standalone:true
+  }))
+  .pipe(gulp.dest('.tmp/app/js'))
 
 gulp.task 'js:concat', ['app:coffee', 'templates'], ->
   files = vendor_js_files.concat(app_tmp_js_files)
