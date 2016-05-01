@@ -19,7 +19,7 @@ window.App.controller('ListCtrl', [
       ListService.fetch()
       .then (resp) ->
         $scope.lists = resp.data
-        if $scope.lists.length > 0 && $state.current.name is 'list'
+        if $scope.lists.length > 0 && $state.current.name is 'dashboard'
           $state.go('dashboard.list_items', {id: $scope.lists[0].id})
 
       .catch (err) ->
