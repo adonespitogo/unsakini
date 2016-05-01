@@ -29,6 +29,7 @@ vendor_js_files = [
   "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
   "./bower_components/angular-toastr/dist/angular-toastr.js"
   "./bower_components/angular-toastr/dist/angular-toastr.tpls.js"
+  "./bower_components/angular-breadcrumb/dist/angular-breadcrumb.js"
 
   #RDash Admin template
   "./web/js/libs/rdash.js"

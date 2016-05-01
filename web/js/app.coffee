@@ -8,5 +8,6 @@ window.App = angular.module('unsakini', [
   'RDash'
   'ngAnimate'
   'toastr'
+  'ncy-angular-breadcrumb'
 ])
 
