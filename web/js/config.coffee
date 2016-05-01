@@ -4,7 +4,8 @@ window.App.run([
   'LoginPop'
   'PassphraseService'
   '$timeout'
-  ($rootScope, $http, LoginPop, PassphraseService, $timeout) ->
+  'UserService'
+  ($rootScope, $http, LoginPop, PassphraseService, $timeout, UserService) ->
 
     $rootScope.$on 'event:auth-loginRequired', (e) ->
       LoginPop.open()
@@ -13,6 +14,9 @@ window.App.run([
       key = $.jStorage.get 'passphrase'
       PassphraseService.open() if !key
     , 500
+
+    UserService.get().then (resp) ->
+      $rootScope.current_user = resp.data
 
 
 ]);

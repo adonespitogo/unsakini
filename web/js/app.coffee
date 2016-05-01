@@ -6,5 +6,7 @@ window.App = angular.module('unsakini', [
   'ui.bootstrap'
   'ngSanitize'
   'RDash'
+  'ngAnimate'
+  'toastr'
 ])
 

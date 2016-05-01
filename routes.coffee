@@ -10,7 +10,6 @@ module.exports = (app) ->
   app.get '/app', controllers.public_controller.app
   app.get '/auth/verify', controllers.auth_controller.verify
   app.post '/login', controllers.auth_controller.index
-  app.post '/users', controllers.user_controller.create
 
   app.get '/lists',
           Auth,
@@ -64,3 +63,15 @@ module.exports = (app) ->
   app.put '/passphrase/update',
           Auth,
           controllers.passphrase_controller.update
+
+
+  app.post '/users',
+          controllers.user_controller.create
+
+  app.put '/user',
+          Auth,
+          controllers.user_controller.update
+
+  app.get '/user',
+          Auth,
+          controllers.user_controller.get

@@ -32,4 +32,18 @@ App.config [
       templateUrl: 'item/edit.html'
       controller: 'EditItemCtrl as EditItemCtrl'
 
+    .state 'list.profile',
+      url: '/profile'
+      templateUrl: 'profile.html'
+      controller: 'ProfileCtrl as ProfileCtrl'
+
+    .state 'settings',
+      url: '/settings'
+      templateUrl: 'settings/index.html'
+
+    .state 'settings.profile',
+      url: '/profile'
+      templateUrl: 'settings/profile.html'
+      controller: 'ProfileCtrl as ProfileCtrl'
+
 ]

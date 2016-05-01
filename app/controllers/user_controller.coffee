@@ -1,5 +1,13 @@
-User = require('../models/index').User
+models = require('../models')
+User = models.User
 jwToken = require('../services/jsonwebtoken')
+
+exports.get = (req, res, next) ->
+  User.findById(req.user.id).then (db_user) ->
+    if !db_user
+      res.sendStatus 404
+    else
+      res.json db_user
 
 exports.create = (req, res, next) ->
   if !req.body.password
@@ -23,3 +31,34 @@ exports.create = (req, res, next) ->
       next()
   ).catch (err) ->
     next err
+
+exports.update = (req, res, next) ->
+
+  updateUser = (db_user) ->
+    db_user.setDataValue 'name', req.body.name
+    db_user.setDataValue 'email', req.body.email
+    db_user.save()
+    .then ->
+      return res.json(db_user)
+    .catch (err) ->
+      return res.status(500).json err
+
+  models.User.findById(req.user.id).then((db_user) ->
+    db_user.comparePassword req.body.old_password, (err, match) ->
+      if !match
+        return res.status(403).json [{message: 'Invalid password.'}]
+      if !!err
+        return res.sendStatus(403).json [{message: 'Invalid password.'}]
+
+      if !!req.body.new_password and (req.body.new_password is req.body.confirm_password)
+        db_user.setPassword(req.body.new_password)
+        .then (db_user) ->
+          updateUser(db_user)
+        .catch (err) ->
+          res.status(500).json err
+      else
+        updateUser(db_user)
+
+
+  ).catch (err) ->
+    res.status(403).json(err)
