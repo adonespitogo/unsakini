@@ -9,7 +9,7 @@ if(process.env.NODE_ENV is 'production')
 app.set('view engine', 'ejs')
 app.set('views', "#{__dirname}/app/views")
 app.use(express.static('./public'))
-if(!process.env.NODE_ENV isnt 'production')
+if(process.env.NODE_ENV isnt 'production')
   app.disable('view cache')
 
 app.use(bodyParser.json())
