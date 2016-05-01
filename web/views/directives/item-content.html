@@ -1,4 +1,4 @@
-<div class="modal-content">
+<div class="modal-content item-content-container">
   <div class="modal-header text-center">
     <div class="modal-title">
       <strong>{{title}}</strong>
@@ -8,10 +8,14 @@
 
     <uib-tabset active="active">
       <uib-tab index="0" heading="View as Plain Text" active="true">
-        <pre>{{plain_text}}</pre>
+        <div class="plain-text-container">
+          <pre>{{plain_text}}</pre>
+        </div>
       </uib-tab>
       <uib-tab index="1" heading="View as Markdown">
-        <div ng-bind-html="markdown"></div>
+        <div class="markdown-container">
+          <div ng-bind-html="markdown"></div>
+        </div>
       </uib-tab>
     </uib-tabset>
 
