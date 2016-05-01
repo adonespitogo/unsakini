@@ -2,7 +2,8 @@ window.App.directive 'deleteItem', [
   'ItemService'
   '$uibModal'
   '$state'
-  (ItemService, $uibModal, $state) ->
+  'toastr'
+  (ItemService, $uibModal, $state, toastr) ->
 
     restrict: 'AE'
     scope:
@@ -18,5 +19,5 @@ window.App.directive 'deleteItem', [
         .then ->
           ItemService.delete($scope.item.id)
           .then ->
-            $state.go('list.items', {id: $scope.item.list_id}, {reload:true})
+            toastr.success 'Item deleted successfully.'
 ]

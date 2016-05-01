@@ -5,8 +5,13 @@ window.App.controller 'ShowListCtrl', [
   '$stateParams'
   ($scope, ListService, ItemService, $stateParams) ->
 
-    ListService.get($stateParams.id)
-    .then (resp) ->
-      $scope.list = resp.data
+    fetchListItems =  ->
+      ListService.get($stateParams.id)
+      .then (resp) ->
+        $scope.list = resp.data
+
+    fetchListItems()
+
+    $scope.$on 'item:deleted', fetchListItems
 
 ]

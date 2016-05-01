@@ -1,7 +1,8 @@
 window.App.factory 'ItemService', [
   '$http'
   'CryptoService'
-  ($http, CryptoService) ->
+  '$rootScope'
+  ($http, CryptoService, $rootScope) ->
 
     create: (item) ->
       item.title = CryptoService.encrypt(item.title)
@@ -19,6 +20,9 @@ window.App.factory 'ItemService', [
       $http.put "/items/#{item.id}", new_item
 
     delete: (id) ->
-      $http.delete "/items/#{id}"
+      promise = $http.delete "/items/#{id}"
+      promise.then ->
+        $rootScope.$broadcast 'item:deleted'
+      promise
 
 ]

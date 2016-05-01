@@ -4,7 +4,8 @@ window.App.controller 'EditItemCtrl', [
   '$stateParams'
   '$state'
   'CryptoService'
-  ($scope, ItemService, $stateParams, $state, CryptoService) ->
+  'toastr'
+  ($scope, ItemService, $stateParams, $state, CryptoService, toastr) ->
 
     ItemService.get($stateParams.item_id)
     .then (resp) ->
@@ -16,6 +17,7 @@ window.App.controller 'EditItemCtrl', [
       ItemService.update(item)
       .then (resp) ->
         $state.go('list.items', {id: $stateParams.list_id})
+        toastr.success 'Item updated successfully.'
       .catch (err) ->
         console.log err
 
