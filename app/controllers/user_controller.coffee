@@ -46,9 +46,9 @@ exports.update = (req, res, next) ->
   models.User.findById(req.user.id).then((db_user) ->
     db_user.comparePassword req.body.old_password, (err, match) ->
       if !match
-        return res.status(403).json [{message: 'Invalid password.'}]
+        return res.status(422).json [{message: 'Invalid password.'}]
       if !!err
-        return res.sendStatus(403).json [{message: 'Invalid password.'}]
+        return res.sendStatus(422).json [{message: 'Invalid password.'}]
 
       if !!req.body.new_password and (req.body.new_password is req.body.confirm_password)
         db_user.setPassword(req.body.new_password)
@@ -61,4 +61,4 @@ exports.update = (req, res, next) ->
 
 
   ).catch (err) ->
-    res.status(403).json(err)
+    res.status(500).json(err)
