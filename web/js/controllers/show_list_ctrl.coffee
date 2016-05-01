@@ -13,5 +13,6 @@ window.App.controller 'ShowListCtrl', [
     fetchListItems()
 
     $scope.$on 'item:deleted', fetchListItems
+    $scope.$on 'item:added', fetchListItems
 
 ]

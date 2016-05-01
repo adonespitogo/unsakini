@@ -19,5 +19,5 @@ window.App.directive 'deleteItem', [
         .then ->
           ItemService.delete($scope.item.id)
           .then ->
-            toastr.success 'Item deleted successfully.'
+            toastr.success 'Item deleted.'
 ]

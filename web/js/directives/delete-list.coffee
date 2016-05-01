@@ -2,7 +2,8 @@ window.App.directive 'deleteList', [
   'ListService'
   '$uibModal'
   '$state'
-  (ListService, $uibModal, $state) ->
+  'toastr'
+  (ListService, $uibModal, $state, toastr) ->
 
     restrict: 'AE'
     scope:
@@ -17,5 +18,6 @@ window.App.directive 'deleteList', [
           ListService.delete($scope.list.id)
           .then ->
             $state.go('list')
+            toastr.success 'List deleted.'
 
 ]

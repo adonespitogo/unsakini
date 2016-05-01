@@ -17,7 +17,7 @@ window.App.controller 'EditItemCtrl', [
       ItemService.update(item)
       .then (resp) ->
         $state.go('list.items', {id: $stateParams.list_id})
-        toastr.success 'Item updated successfully.'
+        toastr.success 'Item updated.'
       .catch (err) ->
         console.log err
 

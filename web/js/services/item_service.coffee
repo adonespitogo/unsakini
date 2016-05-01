@@ -7,7 +7,10 @@ window.App.factory 'ItemService', [
     create: (item) ->
       item.title = CryptoService.encrypt(item.title)
       item.content = CryptoService.encrypt(item.content)
-      $http.post '/items', item
+      promise = $http.post '/items', item
+      promise.then ->
+        $rootScope.$broadcast 'item:added'
+      promise
 
     get: (id) ->
       $http.get "/items/#{id}"

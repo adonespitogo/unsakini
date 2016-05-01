@@ -3,7 +3,8 @@ window.App.controller 'NewListCtrl', [
   'ListService'
   '$state'
   'CryptoService'
-  ($scope, ListService, $state, CryptoService) ->
+  'toastr'
+  ($scope, ListService, $state, CryptoService, toastr) ->
 
     $scope.list = {}
 
@@ -11,6 +12,7 @@ window.App.controller 'NewListCtrl', [
       ListService.create(list)
       .then (resp) ->
         $state.go('list.items', {id: resp.data.id})
+        toastr.success 'List created.'
       .catch (resp) ->
         console.log resp
 

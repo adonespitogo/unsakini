@@ -5,14 +5,16 @@ App.controller 'NewItemCtrl', [
   'ItemService'
   '$stateParams'
   '$state'
-  ($scope, ItemService, $stateParams, $state) ->
+  'toastr'
+  ($scope, ItemService, $stateParams, $state, toastr) ->
 
     $scope.item = {list_id: $stateParams.id}
 
     @create = (item) ->
       ItemService.create(item)
       .then (resp) ->
-        $state.go('list.items', {id: $stateParams.id})
+        toastr.success 'Item added.'
+        $state.go('list.items', {id: item.list_id})
       .catch (err) ->
         console.log err
 
