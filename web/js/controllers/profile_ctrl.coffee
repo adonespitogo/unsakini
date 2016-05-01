@@ -12,7 +12,7 @@ window.App.controller 'ProfileCtrl', [
       UserService.update($scope.user)
       .then (resp) ->
         $rootScope.current_user = resp.data
-        $scope.user.old_password = angular.copy($scope.user.new_password) if $scope.user.new_password
+        delete $scope.user.old_password
         delete $scope.user.new_password
         delete $scope.user.confirm_password
         toastr.success 'Profile updated successfully.'
