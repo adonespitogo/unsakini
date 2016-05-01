@@ -2,8 +2,12 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       {{list.name | decrypt}}
-      <a href="" class="menu-icon fa fa-pencil" edit-list="list"></a>
-      <a href="" class="menu-icon fa fa-trash" delete-list="list"></a>
+      <a href="" delete-list="list" class="padd-right">
+        <i class="fa fa-trash" style="float: right;"></i>
+      </a>
+      <a href="" edit-list="list">
+        <i class="fa fa-pencil" style="float: right; margin-right: 10px"></i>
+      </a>
     </div>
     <div class="panel-body">
       <ul class="list-group">
