@@ -17,7 +17,7 @@ window.App.directive 'deleteList', [
         modal.result.then ->
           ListService.delete($scope.list.id)
           .then ->
-            $state.go('list')
+            $state.go('dashboard')
             toastr.success 'List deleted.'
 
 ]

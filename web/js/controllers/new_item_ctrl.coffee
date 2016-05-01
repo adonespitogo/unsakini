@@ -14,7 +14,7 @@ App.controller 'NewItemCtrl', [
       ItemService.create(item)
       .then (resp) ->
         toastr.success 'Item added.'
-        $state.go('list.items', {id: item.list_id})
+        $state.go('dashboard.list_items', {id: item.list_id})
       .catch (err) ->
         console.log err
 

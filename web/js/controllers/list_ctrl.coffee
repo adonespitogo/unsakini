@@ -20,7 +20,7 @@ window.App.controller('ListCtrl', [
       .then (resp) ->
         $scope.lists = resp.data
         if $scope.lists.length > 0 && $state.current.name is 'list'
-          $state.go('list.items', {id: $scope.lists[0].id})
+          $state.go('dashboard.list_items', {id: $scope.lists[0].id})
 
       .catch (err) ->
         console.log err

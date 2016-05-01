@@ -16,7 +16,7 @@
           <a href="" delete-item="item" class="padd-right">
             <i class="fa fa-trash"></i>
           </a>
-          <a ui-sref="list.edit_item({list_id: list.id, item_id: item.id})">
+          <a ui-sref="dashboard.edit_item({list_id: list.id, item_id: item.id})">
             <i class="fa fa-pencil"></i>
           </a>
         </li>
@@ -24,7 +24,7 @@
           <i>No items yet.</i>
         </li>
       </ul>
-      <a ui-sref="list.new_item({id: list.id})" class="btn btn-primary">Add Item</a>
+      <a ui-sref="dashboard.new_item({id: list.id})" class="btn btn-primary">Add Item</a>
     </div>
   </div>
 </div>
