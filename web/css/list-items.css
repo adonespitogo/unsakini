@@ -1,0 +1,8 @@
+.list-items-page .panel i.fa {
+  float: right;
+  margin-right: 10px;
+}
+
+.list-items-page .panel .panel-heading i.fa {
+  color: #fff;
+}

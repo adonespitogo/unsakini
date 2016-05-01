@@ -1,12 +1,12 @@
-<div>
+<div class="list-items-page">
   <div class="panel panel-primary">
     <div class="panel-heading">
       {{list.name | decrypt}}
       <a href="" delete-list="list" class="padd-right">
-        <i class="fa fa-trash" style="float: right;"></i>
+        <i class="fa fa-trash"></i>
       </a>
       <a href="" edit-list="list">
-        <i class="fa fa-pencil" style="float: right; margin-right: 10px"></i>
+        <i class="fa fa-pencil"></i>
       </a>
     </div>
     <div class="panel-body">
@@ -14,10 +14,10 @@
         <li class="list-group-item" ng-repeat="item in list.items">
           <a href="" item-content="item">{{item.title | decrypt | limitTo: 50}}</a>
           <a href="" delete-item="item" class="padd-right">
-            <i class="fa fa-trash" style="float: right;"></i>
+            <i class="fa fa-trash"></i>
           </a>
           <a ui-sref="list.edit_item({list_id: list.id, item_id: item.id})">
-            <i class="fa fa-pencil" style="float: right; margin-right: 10px"></i>
+            <i class="fa fa-pencil"></i>
           </a>
         </li>
         <li class="list-group-item" ng-if="list.items.length === 0">
