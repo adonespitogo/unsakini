@@ -26,6 +26,7 @@
     "del": "^2.2.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
+    "express-force-domain": "0.0.6",
     "express-jwt": "^3.3.0",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
