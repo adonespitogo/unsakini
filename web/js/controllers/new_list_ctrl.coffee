@@ -10,7 +10,7 @@ window.App.controller 'NewListCtrl', [
     @create = (list) ->
       ListService.create(list)
       .then (resp) ->
-        $state.go('list.items', {id: resp.data.id}, {reload: true})
+        $state.go('list.items', {id: resp.data.id})
       .catch (resp) ->
         console.log resp
 
