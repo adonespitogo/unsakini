@@ -12,6 +12,9 @@ window.App.controller('ListCtrl', [
     $scope.$on 'list:updated', (e, list) ->
       updateLists()
 
+    $scope.$on 'list:deleted', (e, list) ->
+      updateLists()
+
     updateLists = ->
       ListService.fetch()
       .then (resp) ->

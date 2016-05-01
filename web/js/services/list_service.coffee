@@ -27,6 +27,9 @@ window.App.factory 'ListService', [
       return promise
 
     delete: (id) ->
-      $http.delete "/lists/#{id}"
+      promise = $http.delete "/lists/#{id}"
+      promise.then (resp) ->
+        $rootScope.$broadcast 'list:deleted'
+      return promise
 
 ]
