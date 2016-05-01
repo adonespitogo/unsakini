@@ -1,22 +1,17 @@
 <div ng-controller="MasterCtrl" id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
 
   <!-- Sidebar -->
-  <div id="sidebar-wrapper" ng-controller="ListCtrl as ListCtrl">
+  <div id="sidebar-wrapper">
     <ul class="sidebar">
       <li class="sidebar-main">
         <a ui-sref="list">
           Unsakini
         </a>
       </li>
-      <li class="sidebar-title"><span>LISTS</span></li>
-      <li class="sidebar-list" ng-repeat="list in lists">
-        <a ui-sref="dashboard.list_items({id: list.id})">
-          {{ list.name | decrypt | limitTo: 20 }}
-        </a>
-      </li>
+      <li class="sidebar-title"><span>Settings</span></li>
       <li class="sidebar-list">
-        <a ui-sref="dashboard.new_list">
-          + New List
+        <a ui-sref="dashboard">
+          Dashboard
         </a>
       </li>
     </ul>
