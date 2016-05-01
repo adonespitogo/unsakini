@@ -1,6 +1,7 @@
 gulp = require('gulp')
 concat = require('gulp-concat')
 cssnano = require('gulp-cssnano')
+sass = require('gulp-sass')
 
 vendor_css_files = [
   "bower_components/bootstrap/dist/css/bootstrap.css"
@@ -12,9 +13,20 @@ app_css_files = [
   'web/css/**/*.css'
 ]
 
-css_files = vendor_css_files.concat(app_css_files)
+app_sass_files = [
+  'web/css/**/*.scss'
+]
 
-gulp.task 'css:concat', ['clean:tmp'], ->
+gulp.task 'app:sass', ['clean:tmp'], ->
+  gulp.src(app_sass_files)
+      .pipe(sass())
+      .pipe(gulp.dest('.tmp/app/css'))
+
+
+css_files = vendor_css_files.concat(app_css_files)
+css_files = css_files.concat('.tmp/app/css/**/*.css')
+
+gulp.task 'css:concat', ['app:sass'], ->
   gulp.src(css_files)
       .pipe(concat('application.css'))
       .pipe(gulp.dest('.tmp/app/css/concat'))
