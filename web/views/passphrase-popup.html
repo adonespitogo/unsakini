@@ -1,12 +1,12 @@
 <div class="modal-content">
   <div class="modal-header">
-    <h4 class="modal-title">Enter your passphrase key</h4>
+    <h4 class="modal-title">Enter Your Passphrase</h4>
   </div>
   <div class="modal-body">
 
     <p>
-      Passphrase serves as a key to encrypt your data before sending to the server and to
-      decrypt encrypted data from the server. <strong>You will not be able to read your data if you loose this key.</strong> We only store your passphrase key in your browser's local storage and not in the server and never accessible by us.
+      Passphrase is a private key used to encrypt your data before sending to the server and to
+      decrypt encrypted data from the server. <strong>You will not be able to read your data if you loose this key.</strong> This private key is stored in your browser's local storage and never accessible by us.
     </p>
     <hr>
     <form>
@@ -23,7 +23,7 @@
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" ng-model="update_db"> Re-encrypt database entries using this new passphrase? <i>Make sure you have your current passphrase set correctly before updating! <b>Do not check this if you're unsure to avoid corrupting your data.</b></i>
+          <input type="checkbox" ng-model="update_db"> Re-encrypt database entries using this new passphrase? <i>Make sure you have your current passphrase set correctly.<b> Do not check this if you're unsure to avoid corrupting your data.</b></i>
         </label>
       </div>
       <button class="btn btn-primary" type="submit" ng-click="PassphrasePopupCtrl.submit()" ng-disabled="confirm_passphrase !== passphrase">Set My Passphrase</button>
