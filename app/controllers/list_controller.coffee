@@ -7,6 +7,9 @@ exports.index = (req, res, next) ->
   List.findAll({
     where:
       user_id: req.user.id
+    include: [
+      {model: Item}
+    ]
   })
   .then (result) ->
     res.send result
