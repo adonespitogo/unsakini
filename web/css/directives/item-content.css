@@ -1,0 +1,4 @@
+.item-content-container .plain-text-container,
+.item-content-container .markdown-container {
+  padding-top: 15px;
+}
