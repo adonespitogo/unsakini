@@ -54,4 +54,11 @@ App.config [
       ncyBreadcrumb:
         label: 'Profile'
 
+    .state 'settings.passphrase',
+      url: '/passphrase'
+      templateUrl: 'settings/passphrase.html'
+      controller: 'SettingsPassphraseCtrl as SettingsPassphraseCtrl'
+      ncyBreadcrumb:
+        label: 'Edit Passphrase'
+
 ]

@@ -6,9 +6,8 @@ app.factory 'Auth', [
   ($http, $window) ->
 
     logout: ->
-      $http.post('/logout').then ->
-        $.jStorage.deleteKey 'auth_token'
-
+      $.jStorage.deleteKey 'auth_token'
+      $.jStorage.deleteKey 'passphrase'
 ]
 
 app.factory 'AuthToken', [

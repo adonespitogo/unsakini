@@ -1,6 +1,7 @@
 window.App.directive 'logout', [
   '$uibModal'
-  ($uibModal) ->
+  'Auth'
+  ($uibModal, Auth) ->
     restrict: 'AE'
     link: ($scope, elem) ->
       elem.click ->
@@ -10,7 +11,6 @@ window.App.directive 'logout', [
           scope: $scope
 
         modal.result.then ->
-          $.jStorage.deleteKey 'auth_token'
-          $.jStorage.deleteKey 'passphrase'
+          Auth.logout()
           window.location.assign('/')
 ]
