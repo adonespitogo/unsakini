@@ -3,8 +3,8 @@ window.App.filter 'decrypt', [
   (CryptoService) ->
 
     (input) ->
-      console.log input
       return input if !input
-      CryptoService.decrypt(input)
+      text = CryptoService.decrypt(input)
+      text = (if !text then input else text)
 
 ]

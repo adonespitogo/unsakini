@@ -1,7 +1,7 @@
 <div class="list-items-page">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      {{ list.name | decrypt | limitTo: 5}}
+      {{list.name | decrypt}}
       <a href="" delete-list="list" class="padd-right">
         <i class="fa fa-trash"></i>
       </a>
@@ -10,7 +10,6 @@
       </a>
     </div>
     <div class="panel-body">
-      {{list}}
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="item in list.items">
           <a href="" item-content="item">{{item.title | decrypt | limitTo: 50}}</a>

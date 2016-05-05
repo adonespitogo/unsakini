@@ -8,8 +8,8 @@ window.App.factory 'ItemService', [
       item.title = CryptoService.encrypt(item.title)
       item.content = CryptoService.encrypt(item.content)
       promise = $http.post '/items', item
-      promise.then (resp) ->
-        $rootScope.$broadcast 'item:added', resp.data
+      promise.then ->
+        $rootScope.$broadcast 'item:added'
       promise
 
     get: (id) ->
