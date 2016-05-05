@@ -4,7 +4,7 @@ bodyParser = require('body-parser')
 routes = require('./routes')
 
 if(process.env.NODE_ENV is 'production')
-  app.use( require('express-force-domain')('http://www.unsakini.com') )
+  app.use( require('express-force-domain')('https://www.unsakini.com') )
 
 app.set('view engine', 'ejs')
 app.set('views', "#{__dirname}/app/views")
