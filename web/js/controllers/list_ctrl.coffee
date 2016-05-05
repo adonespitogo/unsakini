@@ -15,6 +15,9 @@ window.App.controller('ListCtrl', [
     $scope.$on 'list:deleted', (e, list) ->
       updateLists()
 
+    $scope.$on 'passphrase:updated', (e) ->
+      $scope.lists = angular.copy($scope.lists)
+
     updateLists = ->
       ListService.fetch()
       .then (resp) ->

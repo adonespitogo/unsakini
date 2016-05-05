@@ -3,17 +3,22 @@ window.App.controller 'PassphrasePopupCtrl', [
   '$uibModalInstance'
   '$http'
   'CryptoService'
-  ($scope, $uibModalInstance, $http, CryptoService) ->
+  '$rootScope'
+  ($scope, $uibModalInstance, $http, CryptoService, $rootScope) ->
 
     $scope.passphrase = $.jStorage.get 'passphrase', null
     $scope.update_db = false
+
+    setPassphrase = ->
+      $.jStorage.set 'passphrase', $scope.passphrase
+      $rootScope.$broadcast 'passphrase:updated'
+      $uibModalInstance.close()
 
     @submit = ->
       old_key = $.jStorage.get 'passphrase'
 
       if !$scope.update_db
-        $.jStorage.set 'passphrase', $scope.passphrase
-        window.location.reload()
+        setPassphrase()
       else
         $http.get('/passphrase/update').then (resp) ->
           new_data = _.map resp.data, (list) ->
@@ -27,8 +32,7 @@ window.App.controller 'PassphrasePopupCtrl', [
             list
 
           $http.put('/passphrase/update', new_data).then ->
-            $.jStorage.set 'passphrase', $scope.passphrase
-            window.location.reload()
+            setPassphrase()
 
     null
 ]

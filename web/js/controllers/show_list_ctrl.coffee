@@ -3,7 +3,8 @@ window.App.controller 'ShowListCtrl', [
   'ListService'
   'ItemService'
   '$stateParams'
-  ($scope, ListService, ItemService, $stateParams) ->
+  'CryptoService'
+  ($scope, ListService, ItemService, $stateParams, CryptoService) ->
 
     fetchListItems =  ->
       ListService.get($stateParams.id)
@@ -14,5 +15,8 @@ window.App.controller 'ShowListCtrl', [
 
     $scope.$on 'item:deleted', fetchListItems
     $scope.$on 'item:added', fetchListItems
+    $scope.$on 'passphrase:updated', (e) ->
+      $scope.list = angular.copy($scope.list)
+      # $scope.list.name = CryptoService.decrypt($scope.list.name)
 
 ]
