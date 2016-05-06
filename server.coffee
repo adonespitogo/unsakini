@@ -6,7 +6,7 @@ forceSSL = require('express-force-ssl')
 forceDomain = require('express-force-domain')
 
 if(process.env.NODE_ENV is 'production')
-  app.use( forceDomain('https://www.unsakini.com') )
+  app.use( forceDomain('http://www.unsakini.com') )
   app.use(forceSSL)
 
 app.set('view engine', 'ejs')
