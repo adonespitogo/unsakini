@@ -2,9 +2,12 @@ express = require('express')
 app = express()
 bodyParser = require('body-parser')
 routes = require('./routes')
+forceSSL = require('express-force-ssl')
+forceDomain = require('express-force-domain')
 
 if(process.env.NODE_ENV is 'production')
-  app.use( require('express-force-domain')('https://www.unsakini.com') )
+  app.use( forceDomain('https://www.unsakini.com') )
+  app.use(forceSSL)
 
 app.set('view engine', 'ejs')
 app.set('views', "#{__dirname}/app/views")
