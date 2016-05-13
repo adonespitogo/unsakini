@@ -17,10 +17,8 @@ App.controller( 'LoginCtrl', [
       })
       .catch(function (err) {
         $scope.error = err.data
-      })
-      .finally(function () {
         $scope.logging_in = false;
-      });
+      })
     }
 
 
