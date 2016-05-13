@@ -5,7 +5,10 @@ App.controller( 'LoginCtrl', [
   '$http',
   function ($scope, $http) {
 
+    $scope.logging_in = false;
+
     $scope.login = function (user) {
+      $scope.logging_in = true;
       $http.post('/login', user)
       .then(function (resp) {
         $.jStorage.set('auth_token', resp.data.token)
@@ -15,6 +18,9 @@ App.controller( 'LoginCtrl', [
       .catch(function (err) {
         $scope.error = err.data
       })
+      .finally(function () {
+        $scope.logging_in = false;
+      });
     }
 
 
