@@ -12,8 +12,8 @@ gulp.task 'build', ['clean:tmp', 'js:concat', 'uglify', 'app:css'], ->
 
 gulp.task 'default', ['build'], ->
   files_to_delete = ['.tmp/**/*']
-  if process.env.NODE_ENV is 'production'
-    files_to_delete.push('bower_components/**/*')
+#  if process.env.NODE_ENV is 'production'
+#    files_to_delete.push('bower_components/**/*')
   del(files_to_delete)
 
 gulp.task 'watch', ->
