@@ -9,5 +9,6 @@ window.App = angular.module('unsakini', [
   'ngAnimate'
   'toastr'
   'ncy-angular-breadcrumb'
+  'ui.gravatar'
 ])
 

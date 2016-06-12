@@ -28,6 +28,7 @@
     "angular-cookies": "^1.5.5",
     "angular-toastr": "^1.7.0",
     "angular-animate": "^1.5.5",
-    "angular-breadcrumb": "^0.4.1"
+    "angular-breadcrumb": "^0.4.1",
+    "angular-gravatar": "^0.4.2"
   }
 }
