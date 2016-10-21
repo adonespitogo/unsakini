@@ -3,12 +3,14 @@ del = require('del')
 watch = require('gulp-watch')
 batch = require('gulp-batch')
 
-gulp.task 'clean:tmp', ->
-  del(['.tmp/**/*'])
+gulp.task 'clean:tmp', (done) ->
+  del(['.tmp/**/*']).then (paths) ->
+    console.log 'Deleted tmp files'
+    done()
+  return null
 
-gulp.task 'build', ['clean:tmp', 'js:concat', 'uglify', 'app:css'], ->
-  gulp.src('.tmp/app/js/uglify/**/*')
-      .pipe(gulp.dest('public/js'))
+gulp.task 'build', ['clean:tmp', 'app:css', 'typescript:build'], (cb) ->
+  cb()
 
 gulp.task 'default', ['build'], ->
   files_to_delete = ['.tmp/**/*']

@@ -4,9 +4,8 @@ cssnano = require('gulp-cssnano')
 sass = require('gulp-sass')
 
 vendor_css_files = [
-  "bower_components/bootstrap/dist/css/bootstrap.css"
-  "bower_components/bootstrap/dist/css/bootstrap-theme.css"
-  "bower_components/angular-toastr/dist/angular-toastr.css"
+  "node_modules/bootstrap/dist/css/bootstrap.css"
+  "node_modules/bootstrap/dist/css/bootstrap-theme.css"
 ]
 
 app_css_files = [

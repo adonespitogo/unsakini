@@ -1,20 +1,24 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <base href="/app">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Unsakini</title>
-  <!-- STYLES -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-  <!-- SCRIPTS -->
-  <link rel="stylesheet" href="/css/application.css"/>
-  <script type="text/javascript" src="/js/application.js"></script>
-
-  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-</head>
-<body ui-view>
-</body>
+<html>
+  <head>
+    <title>Angular QuickStart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+    <script src="/js/app/libs/core-js/client/shim.min.js"></script>
+    <script src="/js/app/libs/zone.js/dist/zone.js"></script>
+    <script src="/js/app/libs/reflect-metadata/Reflect.js"></script>
+    <script src="/js/app/libs/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="/js/app/systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+  <!-- 3. Display the application -->
+  <body>
+    <my-app>Loading...</my-app>
+  </body>
 </html>
