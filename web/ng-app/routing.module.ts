@@ -9,7 +9,7 @@ import {DashboardComponent} from "./components/dashboard.component";
     RouterModule.forRoot([
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard'}},
-    ])
+    ], {useHash: true})
   ],
   exports: [
     RouterModule
