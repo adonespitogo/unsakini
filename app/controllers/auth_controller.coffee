@@ -7,12 +7,12 @@ module.exports =
     password = req.body['password']
     if !email or !password
       res.status( 401).send err: 'Email and password required'
-      return next()
+      return
     Users.findOne(where: email: email).then((user) ->
       user.comparePassword password, (err, match) ->
         if !match
           res.status(401).send 'Invalid password'
-          return next()
+          return
         if err
           return next(err)
         res.send

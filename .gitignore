@@ -1,6 +1,7 @@
 /node_modules
 /bower_components
 /typings/
+/public/landing.js
 /public/js/app
 /public/css/application.css
 /.tmp

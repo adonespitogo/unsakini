@@ -8,7 +8,7 @@ module.exports = (app) ->
   app.get '/', controllers.public_controller.index
   app.get '/login', controllers.public_controller.login
   app.get '/app', controllers.public_controller.app
-  app.get '/auth/verify', controllers.auth_controller.verify
+  app.get '/auth/verify', Auth, controllers.auth_controller.verify
   app.post '/login', controllers.auth_controller.index
 
   app.get '/lists',

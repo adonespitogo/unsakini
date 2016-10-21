@@ -6,6 +6,15 @@ import { AppModule } from './app.module';
 
 declare var $:any;
 
-const platform = platformBrowserDynamic();
-platform.bootstrapModule(AppModule);
+$(document).ready(function () {
+  var token = $.jStorage.get('auth_token');
+  $.get('/auth/verify?token=' + token)
+    .done(function () {
+      const platform = platformBrowserDynamic();
+      platform.bootstrapModule(AppModule);
+    })
+    .fail(function (err) {
+      window.location.assign('/login');
+    });
+});
 
