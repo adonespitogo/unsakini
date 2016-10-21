@@ -9,7 +9,7 @@ gulp.task 'clean:tmp', (done) ->
     done()
   return null
 
-gulp.task 'build', ['clean:tmp', 'app:css', 'typescript:build'], (cb) ->
+gulp.task 'build', ['clean:tmp', 'app:css', 'typescript:build', 'vendor'], (cb) ->
   cb()
 
 gulp.task 'default', ['build'], ->

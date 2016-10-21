@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app.module';
 
-console.log('hello world!');
+declare var $:any;
 
 const platform = platformBrowserDynamic();
 platform.bootstrapModule(AppModule);
