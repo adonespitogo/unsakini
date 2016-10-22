@@ -8,7 +8,7 @@ landing_files = [
   'web/js/**/*.js'
 ]
 
-gulp.task 'landing:js', ->
+gulp.task 'landing:js', ['clean'], ->
   gulp.src(landing_files)
       .pipe(concat('landing.js'))
       .pipe(gulp.dest('public/js/'))

@@ -16,7 +16,7 @@ landing_sass_files = [
   'web/css/**/*.scss'
 ]
 
-gulp.task 'app:sass', ['clean:tmp'], ->
+gulp.task 'landing:sass', ['clean'], ->
   gulp.src(landing_sass_files)
       .pipe(sass())
       .pipe(gulp.dest('.tmp/landing/sass'))
@@ -25,7 +25,7 @@ gulp.task 'app:sass', ['clean:tmp'], ->
 css_files = vendor_css_files.concat(landing_css_files)
 css_files = css_files.concat('.tmp/landing/sass/**/*.css')
 
-gulp.task 'landing:css', ['app:sass'], ->
+gulp.task 'landing:css', ['landing:sass', 'clean'], ->
   stream = gulp.src(css_files)
       .pipe(concat('landing.css'))
 

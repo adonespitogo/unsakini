@@ -6,7 +6,8 @@ import {ListService} from "../../services/list.service";
   templateUrl: '/views/components/dashboard/dashboard.component.html',
   providers: [
     ListService
-  ]
+  ],
+  styleUrls: ['../css/components/dashboard/dashboard.component.css']
 })
 
 export class DashboardComponent {

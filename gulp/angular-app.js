@@ -22,7 +22,7 @@ gulp.task('tslint', () => {
 /**
  * Compile TypeScript sources and create sourcemaps in public directory.
  */
-gulp.task("compile", ["tslint"], () => {
+gulp.task("compile", ["tslint", "clean"], () => {
   let tsResult = gulp.src("web/ng-app/**/*.ts")
     .pipe(sourcemaps.init())
     .pipe(tsProject());
@@ -30,31 +30,27 @@ gulp.task("compile", ["tslint"], () => {
     .pipe(sourcemaps.write(".", {
       sourceRoot: '/web'
     }))
-    .pipe(gulp.dest(".tmp/app/js"));
+    .pipe(gulp.dest("public/js/app"));
 });
 
 /**
  * Copy all required libraries into public directory.
  */
-gulp.task("libs", () => {
+gulp.task("libs", ["clean"], () => {
   return gulp.src([
-      'core-js/client/shim.min.js',
-      'systemjs/dist/system-polyfills.js',
-      'systemjs/dist/system.src.js',
-      'reflect-metadata/Reflect.js',
       'rxjs/**/*.js',
       'zone.js/dist/**',
       '@angular/**/bundles/**',
     ], {
       cwd: "node_modules/**"
     }) /* Glob required here. */
-    .pipe(gulp.dest(".tmp/app/js/libs"));
+    .pipe(gulp.dest("public/js/app/libs"));
 });
 
 /**
  * public the views to pulic dir.
  */
-gulp.task("ng:views", ['compile', 'libs'], () => {
+gulp.task("ng:views", ['compile', 'libs', "clean"], () => {
   return gulp.src([
       'web/ng-app/**/*.html'
     ])
@@ -64,7 +60,7 @@ gulp.task("ng:views", ['compile', 'libs'], () => {
 /**
  * public the component styles to pulic dir.
  */
-gulp.task("ng:styles", ['compile', 'libs'], () => {
+gulp.task("ng:styles", ['compile', 'libs', "clean"], () => {
   return gulp.src([
       'web/ng-app/**/*.css'
     ])
@@ -76,7 +72,6 @@ gulp.task("ng:styles", ['compile', 'libs'], () => {
  */
 gulp.task("typescript:build", ['compile', 'libs', 'ng:views', 'ng:styles'], () => {
   return gulp.src([
-      '.tmp/app/js/**',
       'web/ng-app/systemjs.config.js'
     ])
     .pipe(gulp.dest('public/js/app'))
