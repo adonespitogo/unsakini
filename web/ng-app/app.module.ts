@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, RequestOptions } from '@angular/http';
 import { AuthRequestOptions } from './services/auth.request.options';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { AppRoutingModule } from './routing.module';
-import { DashboardComponent } from './components/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   imports: [

@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
-import {ListModel} from "../models/list.model";
-import {ListService} from "../services/list.service";
+import {ListModel} from "../../models/list.model";
+import {ListService} from "../../services/list.service";
 
 @Component({
-  templateUrl: '/views/dashboard.component.html',
+  templateUrl: '/views/components/dashboard/dashboard.component.html',
   providers: [
     ListService
   ]

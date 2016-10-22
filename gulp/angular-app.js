@@ -56,15 +56,25 @@ gulp.task("libs", () => {
  */
 gulp.task("ng:views", ['compile', 'libs'], () => {
   return gulp.src([
-      'web/**/*.html'
+      'web/ng-app/**/*.html'
     ])
-    .pipe(gulp.dest('public/'))
+    .pipe(gulp.dest('public/views'))
+});
+
+/**
+ * public the component styles to pulic dir.
+ */
+gulp.task("ng:styles", ['compile', 'libs'], () => {
+  return gulp.src([
+      'web/ng-app/**/*.css'
+    ])
+    .pipe(gulp.dest('public/css'))
 });
 
 /**
  * public the project.
  */
-gulp.task("typescript:build", ['compile', 'libs', 'ng:views'], () => {
+gulp.task("typescript:build", ['compile', 'libs', 'ng:views', 'ng:styles'], () => {
   return gulp.src([
       '.tmp/app/js/**',
       'web/ng-app/systemjs.config.js'
