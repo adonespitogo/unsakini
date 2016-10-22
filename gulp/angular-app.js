@@ -3,8 +3,8 @@
 var gulp = require("gulp");
 var del = require("del");
 var tsc = require("gulp-typescript");
-var sourcemaps = require('gulp-sourcemaps');
 var tsProject = tsc.createProject("tsconfig.json");
+var sourcemaps = require('gulp-sourcemaps');
 var tslint = require('gulp-tslint');
 var swallowError = require('./helpers').swallowError
 
@@ -25,7 +25,7 @@ gulp.task('tslint', () => {
 gulp.task("compile", ["tslint"], () => {
   let tsResult = gulp.src("web/ng-app/**/*.ts")
     .pipe(sourcemaps.init())
-    .pipe(tsc(tsProject));
+    .pipe(tsProject());
   return tsResult.js
     .pipe(sourcemaps.write(".", {
       sourceRoot: '/web'
