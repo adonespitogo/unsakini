@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
-import {ListModel} from "../../models/list.model";
-import {ListService} from "../../services/list.service";
+import {ListModel} from "../models/list.model";
+import {ListService} from "../services/list.service";
 
 @Component({
-  templateUrl: '/views/components/dashboard/dashboard.component.html',
+  templateUrl: '/views/dashboard/views/dashboard.html',
   providers: [
     ListService
   ],
-  styleUrls: ['../css/components/dashboard/dashboard.component.css']
+  styleUrls: ['../css/dashboard/styles/dashboard.css']
 })
 
 export class DashboardComponent {
