@@ -9,11 +9,11 @@ vendor_css_files = [
 ]
 
 landing_css_files = [
-  'web/css/**/*.css'
+  'web/css/landing/**/*.css'
 ]
 
 landing_sass_files = [
-  'web/css/**/*.scss'
+  'web/css/landing/**/*.scss'
 ]
 
 gulp.task 'landing:sass', ['clean'], ->
@@ -31,6 +31,5 @@ gulp.task 'landing:css', ['landing:sass', 'clean'], ->
 
   if process.env.NODE_ENV is 'production'
     stream.pipe(cssnano())
-      .pipe(gulp.dest('.tmp/landing/css/concat'))
 
   return stream.pipe(gulp.dest('public/css'))

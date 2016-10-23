@@ -7,6 +7,9 @@ var tsProject = tsc.createProject("tsconfig.json");
 var sourcemaps = require('gulp-sourcemaps');
 var tslint = require('gulp-tslint');
 var swallowError = require('./helpers').swallowError
+var htmlmin = require('gulp-htmlmin');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 
 /**
  * Lint all custom TypeScript files.
@@ -20,9 +23,9 @@ gulp.task('tslint', () => {
 });
 
 /**
- * Compile TypeScript sources and create sourcemaps in public directory.
+ * typescript:transpile TypeScript sources and create sourcemaps in public directory.
  */
-gulp.task("compile", ["tslint", "clean"], () => {
+gulp.task("typescript:transpile", ["tslint", "clean"], () => {
   let tsResult = gulp.src("web/ng-app/**/*.ts")
     .pipe(sourcemaps.init())
     .pipe(tsProject());
@@ -36,10 +39,10 @@ gulp.task("compile", ["tslint", "clean"], () => {
 /**
  * Copy all required libraries into public directory.
  */
-gulp.task("libs", ["clean"], () => {
+gulp.task("ng:libs", ["clean"], () => {
   return gulp.src([
       'rxjs/**/*.js',
-      'zone.js/dist/**',
+      // 'zone.js/dist/**',
       '@angular/**/bundles/**',
     ], {
       cwd: "node_modules/**"
@@ -50,17 +53,22 @@ gulp.task("libs", ["clean"], () => {
 /**
  * public the views to pulic dir.
  */
-gulp.task("ng:views", ['compile', 'libs', "clean"], () => {
+gulp.task("ng:views", ['typescript:transpile', 'ng:libs', "clean"], () => {
   return gulp.src([
       'web/ng-app/**/*.html'
     ])
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      removeComments: true,
+      caseSensitive: true
+    }))
     .pipe(gulp.dest('public/views'))
 });
 
 /**
  * public the component styles to pulic dir.
  */
-gulp.task("ng:styles", ['compile', 'libs', "clean"], () => {
+gulp.task("ng:styles", ['typescript:transpile', 'ng:libs', "clean"], () => {
   return gulp.src([
       'web/ng-app/**/*.css'
     ])
@@ -70,9 +78,7 @@ gulp.task("ng:styles", ['compile', 'libs', "clean"], () => {
 /**
  * public the project.
  */
-gulp.task("typescript:build", ['compile', 'libs', 'ng:views', 'ng:styles'], () => {
-  return gulp.src([
-      'web/ng-app/systemjs.config.js'
-    ])
-    .pipe(gulp.dest('public/js/app'))
+gulp.task("ng:typescript", ['typescript:transpile', 'ng:libs', 'ng:views', 'ng:styles'], () => {
 });
+
+

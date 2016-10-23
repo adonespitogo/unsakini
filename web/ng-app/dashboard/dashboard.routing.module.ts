@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardHomeComponent } from './dashboard-home.component';
+import { DashboardListItemsComponent } from './dashboard-list-items.component';
+import { DashboardItemComponent } from './dashboard-item.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,14 @@ import { DashboardHomeComponent } from './dashboard-home.component';
           {
             path: '',
             component: DashboardHomeComponent
+          },
+          {
+            path: 'lists/:id',
+            component: DashboardListItemsComponent
+          },
+          {
+            path: 'items/:id',
+            component: DashboardItemComponent
           }
         ]
       }

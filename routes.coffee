@@ -5,7 +5,7 @@ AC = mdw.access_control
 
 module.exports = (app) ->
 
-  app.get '/', controllers.public_controller.index
+  app.get '/', controllers.public_controller.app
   app.get '/login', controllers.public_controller.login
   app.get '/app', controllers.public_controller.app
   app.get '/auth/verify', Auth, controllers.auth_controller.verify

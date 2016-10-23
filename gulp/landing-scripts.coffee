@@ -9,8 +9,12 @@ landing_files = [
 ]
 
 gulp.task 'landing:js', ['clean'], ->
-  gulp.src(landing_files)
-      .pipe(concat('landing.js'))
-      .pipe(gulp.dest('public/js/'))
+  stream = gulp.src(landing_files)
+                .pipe(concat('landing.js'))
+
+  if process.env.NODE_ENV is 'production'
+    stream.pipe(uglify())
+
+  stream.pipe(gulp.dest('public/js'))
 
 
