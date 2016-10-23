@@ -1,19 +1,31 @@
-import {Component} from "@angular/core";
-import {ListService} from '../services/list.service';
-import {ListModel} from '../models/list.model';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ListModel }    from '../models/list.model';
+import { ListService }    from '../services/list.service';
 
 @Component({
-  templateUrl: '/views/dashboard/views/dashboard-new-list.html',
-  // styleUrls: ['../css/dashboard/styles/dashboard-list-items.css']
+  selector: 'list-form',
+  templateUrl: 'views/dashboard/views/dashboard-new-list.html'
 })
-
 export class DashboardNewListComponent {
-
-  public list: ListModel;
+  submitted = false;
+  list: ListModel;
 
   constructor (
-    private listService: ListService
-  ) {
+    private listSerive: ListService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
     this.list = new ListModel();
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.listSerive.createList(this.list).subscribe(
+      (list) => {
+        this.router.navigate(['/dashboard/lists', list.id]);
+      }
+    );
   }
 }

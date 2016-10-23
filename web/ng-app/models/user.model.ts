@@ -2,25 +2,23 @@ import {CryptoService} from '../services/crypto.service';
 // import {Serializable} from '../models/serializable.model';
 import {ListModel} from './list.model';
 
-interface IItemJSON {
+interface IUserJson {
   id: number;
-  title: string;
-  content: string;
+  name: string;
+  email: string;
   created_at: string;
   updated_at: string;
-  list: any;
 }
 
-export class ItemModel implements IItemJSON {
+export class UserModel implements IUserJson {
 
   public id: number;
-  public title: string;
-  public content: string;
+  public name: string;
+  public email: string;
   public created_at: string;
   public updated_at: string;
-  public list: any;
 
-  constructor (public rawJson?: IItemJSON) {
+  constructor (public rawJson?: IUserJson) {
     if (rawJson) {
       this.deserialize();
     }
@@ -28,11 +26,10 @@ export class ItemModel implements IItemJSON {
 
   deserialize () {
     this.id = this.rawJson.id;
-    this.title = CryptoService.decrypt(this.rawJson.title);
-    this.content = CryptoService.decrypt(this.rawJson.content);
+    this.name = this.rawJson.name;
+    this.email = this.rawJson.email;
     this.created_at = this.rawJson.created_at;
     this.updated_at = this.rawJson.updated_at;
-    this.list = this.rawJson.list;
   }
 
   serialize () {

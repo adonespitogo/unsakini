@@ -1,5 +1,6 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule }   from '@angular/forms';
 
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -15,6 +16,7 @@ import { DirectivesModule } from '../directives/directives.module';
     CommonModule,
     DashboardRoutingModule,
     DirectivesModule,
+    FormsModule,
   ],
   declarations: [
     DashboardComponent,
@@ -23,6 +25,10 @@ import { DirectivesModule } from '../directives/directives.module';
     DashboardItemComponent,
     DashboardNewListComponent,
   ],
+  exports: [
+    CommonModule,
+    FormsModule
+  ]
 })
 
 export class DashboardModule { }

@@ -6,6 +6,7 @@ import { AuthRequestOptions } from '../services/auth.request.options';
 import { AppComponent } from '../approot/approot.component';
 import { AppRoutingModule } from './approot.routing.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { DashboardModule } from '../dashboard/dashboard.module';
     AppComponent
   ],
   providers: [
-    {provide: RequestOptions, useClass: AuthRequestOptions}
+    {provide: RequestOptions, useClass: AuthRequestOptions},
+    {provide: UserService, useClass: UserService}
   ],
   bootstrap: [ AppComponent ]
 })

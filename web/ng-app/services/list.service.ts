@@ -38,4 +38,13 @@ export class ListService {
       }
     );
   }
+
+  createList (list: ListModel) {
+    var listJson = list.serialize();
+    return this.http.post('/lists', listJson).map(
+      (res) => {
+        return new ListModel(res.json());
+      }
+    );
+  }
 }
