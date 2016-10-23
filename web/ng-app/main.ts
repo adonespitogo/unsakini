@@ -6,13 +6,13 @@ import { AppModule } from './approot/approot.module';
 
 //PRODUCTION_MODE_PLACEHOLDER
 
+const platform = platformBrowserDynamic();
 declare var $:any;
 
 $(document).ready(function () {
   var token = $.jStorage.get('auth_token');
   $.get('/auth/verify?token=' + token)
     .done(function () {
-      const platform = platformBrowserDynamic();
       platform.bootstrapModule(AppModule);
     })
     .fail(function (err) {

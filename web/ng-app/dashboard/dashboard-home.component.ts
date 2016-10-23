@@ -5,8 +5,4 @@ import {Component} from "@angular/core";
   styleUrls: ['css/dashboard/styles/dashboard-home.css']
 })
 
-export class DashboardHomeComponent {
-  constructor () {
-    console.log('test dashboard');
-  }
-}
+export class DashboardHomeComponent { }

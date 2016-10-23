@@ -1,9 +1,13 @@
 import { NgModule }      from '@angular/core';
-import { MarkedDirective } from './marked.directive';
+import { MarkedTextDirective } from './marked-text.directive';
 
 @NgModule({
+  imports: [],
   declarations: [
-    MarkedDirective
+    MarkedTextDirective
+  ],
+  exports: [
+    MarkedTextDirective
   ]
 })
 

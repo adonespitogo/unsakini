@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import {ListService} from '../services/list.service';
 import {ListModel} from '../models/list.model';
 
@@ -13,9 +13,8 @@ export class DashboardListItemsComponent {
   public list: ListModel;
 
   constructor (
-    private route: ActivatedRoute,
-    private router: Router,
-    private listService: ListService
+    private listService: ListService,
+    private route: ActivatedRoute
   ) {
     this.list = new ListModel({id: 0, name:'', items: []});
   }

@@ -42,7 +42,6 @@ gulp.task("typescript:transpile", ["tslint", "clean"], () => {
 gulp.task("ng:libs", ["clean"], () => {
   return gulp.src([
       'rxjs/**/*.js',
-      // 'zone.js/dist/**',
       '@angular/**/bundles/**',
     ], {
       cwd: "node_modules/**"

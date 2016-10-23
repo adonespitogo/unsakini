@@ -9,8 +9,15 @@ gulp.task 'clean', (done) ->
     done()
   return null
 
-gulp.task 'build', ['clean', 'ng:typescript', 'landing:js', 'landing:css', 'app:scripts', 'app:styles'], (cb) ->
-  cb()
+gulp.task 'build', [
+  'clean'
+  'ng:typescript'
+  'landing:js'
+  'landing:css'
+  'app:scripts'
+  'app:styles'
+  'copy:fonts'
+  ], (cb) -> cb()
 
 gulp.task 'default', ['build'], ->
 

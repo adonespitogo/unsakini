@@ -5,9 +5,7 @@ import { AuthRequestOptions } from '../services/auth.request.options';
 
 import { AppComponent } from '../approot/approot.component';
 import { AppRoutingModule } from './approot.routing.module';
-
 import { DashboardModule } from '../dashboard/dashboard.module';
-import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   imports: [
@@ -15,7 +13,6 @@ import { DirectivesModule } from '../directives/directives.module';
     HttpModule,
     AppRoutingModule,
     DashboardModule,
-    DirectivesModule
   ],
   declarations: [
     AppComponent

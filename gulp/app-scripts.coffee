@@ -7,12 +7,12 @@ app_vendor_files = [
   './node_modules/jquery/dist/jquery.js'
   './node_modules/jstorage/jstorage.js'
   './node_modules/crypto-js/crypto-js.js'
+  './node_modules/marked/lib/marked.js'
   # angular libs
   './node_modules/core-js/client/shim.min.js'
   './node_modules/systemjs/dist/system-polyfills.js'
   './node_modules/systemjs/dist/system.src.js'
   './node_modules/reflect-metadata/Reflect.js'
-  './node_modules/marked/lib/marked.js'
   './node_modules/zone.js/dist/zone.js'
   './web/js/app/systemjs.config.js'
   './web/js/app/systemjs.bootstrap.js'

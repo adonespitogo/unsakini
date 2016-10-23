@@ -5,7 +5,7 @@ uglify = require('gulp-uglify')
 landing_files = [
   './node_modules/jquery/dist/jquery.js'
   './node_modules/jstorage/jstorage.js'
-  'web/js/**/*.js'
+  'web/js/landing/**/*.js'
 ]
 
 gulp.task 'landing:js', ['clean'], ->

@@ -3,7 +3,17 @@ concat = require('gulp-concat')
 cssnano = require('gulp-cssnano')
 sass = require('gulp-sass')
 
-vendor_css_files = [
+# sass_files = [
+#   "node_modules/font-awesome/**/font-awesome.scss"
+# ]
+
+# gulp.task 'app:sass', ["clean"], ->
+#   gulp.src(sass_files)
+#   .pipe(sass())
+#   .pipe(gulp.dest('.tmp/css/app/scss'))
+
+css_files = [
+  "node_modules/font-awesome/css/font-awesome.css"
   "node_modules/bootstrap/dist/css/bootstrap.css"
   "node_modules/bootstrap/dist/css/bootstrap-theme.css"
   "web/css/app/dashboard.css"
@@ -11,7 +21,7 @@ vendor_css_files = [
 ]
 
 gulp.task 'app:styles', ["clean"], ->
-  stream = gulp.src(vendor_css_files)
+  stream = gulp.src(css_files)
       .pipe(concat('application.css'))
 
   if process.env.NODE_ENV is 'production'
