@@ -15,28 +15,61 @@ export class ListModel implements IListJson {
   public name: string;
   public items: Array<ItemModel>;
 
-  constructor (private rawJson?: IListJson) {
+  constructor (rawJson?: IListJson) {
     if (rawJson) {
-      this.deserialize();
+      this.id = rawJson.id || 0;
+      this.name = rawJson.name || '';
+      this.items = rawJson.items || [];
+    } else {
+      this.id = 0;
+      this.name = '';
+      this.items = [];
     }
+
+    this.deserialize();
   }
 
   deserialize () {
-    this.id = this.rawJson.id;
-    this.name = CryptoService.decrypt(this.rawJson.name);
-    if (this.rawJson.items) {
+    this.id = this.id;
+    this.name = CryptoService.decrypt(this.name);
+    if (this.items) {
       this.items = [];
-      for (var i = this.rawJson.items.length - 1; i >= 0; i--) {
-        var itemJson = this.rawJson.items[i];
+      for (var i = this.items.length - 1; i >= 0; i--) {
+        var itemJson = this.items[i];
         this.items[i] = new ItemModel(itemJson);
       }
     }
+    return this;
   }
 
   serialize () {
-    this.name = CryptoService.encrypt(this.name);
-    delete this.items;
-    return JSON.parse(JSON.stringify(this));
+    return {
+      id: this.id,
+      name: CryptoService.encrypt(this.name),
+      items: this.items
+    };
+  }
+
+  copy () {
+    return new ListModel({
+      id: this.id,
+      name: this.name,
+      items: this.items
+    });
+  }
+
+  applyValuesTo (list: ListModel) {
+    list.id = this.id;
+    list.name = this.name;
+    list.items = this.items;
+  }
+
+  toJSON () {
+    return {
+      id: this.id,
+      name: this.name,
+      items: this.items
+    };
   }
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ListModel }    from '../models/list.model';
 import { ListService }    from '../services/list.service';
 
@@ -13,7 +13,8 @@ export class DashboardNewListComponent {
 
   constructor (
     private listSerive: ListService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -22,7 +23,8 @@ export class DashboardNewListComponent {
 
   onSubmit() {
     this.submitted = true;
-    this.listSerive.createList(this.list).subscribe(
+    var l = new ListModel(this.list.serialize());
+    this.listSerive.createList(l).subscribe(
       (list) => {
         this.router.navigate(['/dashboard/lists', list.id]);
       }

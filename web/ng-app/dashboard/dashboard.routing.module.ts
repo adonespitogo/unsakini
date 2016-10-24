@@ -7,6 +7,7 @@ import { DashboardHomeComponent } from './dashboard-home.component';
 import { DashboardListItemsComponent } from './dashboard-list-items.component';
 import { DashboardItemComponent } from './dashboard-item.component';
 import { DashboardNewListComponent } from './dashboard-new-list.component';
+import { DashboardEditListComponent } from './dashboard-edit-list.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,10 @@ import { DashboardNewListComponent } from './dashboard-new-list.component';
           {
             path: 'new-list',
             component: DashboardNewListComponent
+          },
+          {
+            path: 'lists/:id/edit',
+            component: DashboardEditListComponent
           },
           {
             path: 'items/:id',

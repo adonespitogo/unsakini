@@ -7,6 +7,8 @@ import { AppComponent } from '../approot/approot.component';
 import { AppRoutingModule } from './approot.routing.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { UserService } from '../services/user.service';
+import { ListService } from '../services/list.service';
+import { ItemService } from '../services/item.service';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { UserService } from '../services/user.service';
   ],
   providers: [
     {provide: RequestOptions, useClass: AuthRequestOptions},
-    {provide: UserService, useClass: UserService}
+    UserService,
+    ListService,
+    ItemService
   ],
   bootstrap: [ AppComponent ]
 })

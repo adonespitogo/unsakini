@@ -1,10 +1,9 @@
 /// <reference path="../../typings/index.d.ts" />
 
+//PRODUCTION_MODE_PLACEHOLDER
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import {enableProdMode} from '@angular/core';
 import { AppModule } from './approot/approot.module';
 
-//PRODUCTION_MODE_PLACEHOLDER
 
 const platform = platformBrowserDynamic();
 declare var $:any;

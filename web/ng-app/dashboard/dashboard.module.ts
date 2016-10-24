@@ -8,6 +8,7 @@ import { DashboardHomeComponent } from './dashboard-home.component';
 import { DashboardListItemsComponent } from './dashboard-list-items.component';
 import { DashboardItemComponent } from './dashboard-item.component';
 import { DashboardNewListComponent } from './dashboard-new-list.component';
+import { DashboardEditListComponent } from './dashboard-edit-list.component';
 import { DirectivesModule } from '../directives/directives.module';
 
 
@@ -24,6 +25,7 @@ import { DirectivesModule } from '../directives/directives.module';
     DashboardListItemsComponent,
     DashboardItemComponent,
     DashboardNewListComponent,
+    DashboardEditListComponent,
   ],
   exports: [
     CommonModule,

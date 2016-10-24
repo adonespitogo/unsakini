@@ -1,7 +1,20 @@
 <h1>{{list.name}}</h1>
+<a [routerLink]="['/dashboard/lists', list.id, 'edit']">Edit</a> | 
+<a (click)="doDeleteList(list)">Delete</a>
+<hr>
 <ul class="list-group">
   <li class="list-group-item" *ngFor="let item of list.items">
-    <a  [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
+    <div class="row">
+      <div class="col-xs-10">
+        <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
+      </div>
+      <div class="col-xs-1">
+        <a href="#">Edit</a>
+      </div>
+      <div class="col-xs-1">
+        <a href="#">Delete</a>
+      </div>
+    </div>
   </li>
   <li class="list-group-item" *ngIf="list.items.length === 0">
     No items yet!

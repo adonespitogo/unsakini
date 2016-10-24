@@ -1,6 +1,6 @@
 
 
-import {Component} from "@angular/core";
+import {Component, OnInit, OnChanges, SimpleChange} from "@angular/core";
 import { Router } from '@angular/router';
 import {ListService} from "../services/list.service";
 import {ListModel} from "../models/list.model";
@@ -13,9 +13,7 @@ import {ListModel} from "../models/list.model";
   styleUrls: ['css/dashboard/styles/dashboard.css']
 })
 
-export class DashboardComponent {
-
-  lists: Array<ListModel>;
+export class DashboardComponent implements OnInit, OnChanges {
 
   constructor (
     private listService: ListService,
@@ -23,12 +21,15 @@ export class DashboardComponent {
   ) {}
 
   ngOnInit () {
-    this.lists = [];
-    this.listService.getLists().subscribe(
-      (data) => {
-        this.lists = data;
-      }
-    );
+    this.listService.getLists().subscribe();
+  }
+
+  getLists () {
+    return ListService.lists;
+  }
+
+  ngOnChanges (changes: {[propertyName: string]: SimpleChange}) {
+    console.log(changes);
   }
 
 }

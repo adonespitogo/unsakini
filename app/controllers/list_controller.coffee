@@ -53,6 +53,7 @@ exports.update = (req, res, next) ->
   })
   .then (db_list) ->
     res.send
+      id: req.params.id
       name: req.body.name
   .catch (err) ->
     res.status(422).send(err)
