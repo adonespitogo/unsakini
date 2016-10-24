@@ -1,7 +1,7 @@
 
 ### Getting Started
 
- - npm install -g bower gulp sequelize sequelize-cli
+ - npm install -g bower gulp sequelize sequelize-cli typscript typings
  - npm install
 
 ### Build

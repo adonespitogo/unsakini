@@ -60,14 +60,13 @@ export class ListService {
   updateList (list: ListModel) {
     return this.http.put(`/lists/${list.id}`, list.serialize()).map(
       (res) => {
-        var newList = new ListModel(res.json());
         for (var i = ListService.lists.length - 1; i >= 0; i--) {
           if (ListService.lists[i].id === list.id) {
             ListService.lists[i] = list;
             break;
           }
         }
-        return newList;
+        return list.copy();
       }
     )
     .catch(this.removeFromListsErrorCB(this, list));
