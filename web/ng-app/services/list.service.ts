@@ -82,9 +82,7 @@ export class ListService {
       var newLists = [];
       for (var i = ListService.lists.length - 1; i >= 0; i--) {
         if (ListService.lists[i].id === list.id) {
-          setTimeout(function () {
-            ListService.lists.splice(i, 1);
-          }, 0);
+          ListService.lists.splice(i, 1);
           break;
         }
       }

@@ -11,7 +11,6 @@ import {Observable}             from 'rxjs/Rx';
 export class DashboardEditListComponent implements OnDestroy, OnInit {
   submitted = false;
   list: ListModel;
-  origList: ListModel;
 
   constructor (
     private listService: ListService,
@@ -27,8 +26,7 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
      .catch(this.handleNoListError(this))
      .subscribe(
        (list) => {
-         this.list = list;
-         this.origList = list.copy();
+         this.list = list.copy();
        }
      );
     });
@@ -45,7 +43,12 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
 
   ngOnDestroy () {
     if (!this.submitted) {
-      this.list.name = this.origList.name;
+      for (var i = ListService.lists.length - 1; i >= 0; i--) {
+        if (ListService.lists[i].id === this.list.id) {
+          this.list = ListService.lists[i];
+          break;
+        }
+      }
     }
   }
 

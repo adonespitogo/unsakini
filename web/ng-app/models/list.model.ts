@@ -51,11 +51,11 @@ export class ListModel implements IListJson {
   }
 
   copy () {
-    return new ListModel({
-      id: this.id,
-      name: this.name,
-      items: this.items
-    });
+    var list = new ListModel();
+    list.id = this.id;
+    list.name = this.name;
+    list.items = this.items;
+    return list;
   }
 
   applyValuesTo (list: ListModel) {
