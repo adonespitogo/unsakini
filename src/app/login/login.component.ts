@@ -36,9 +36,7 @@ export class LoginComponent {
       (json) => {
         this.success = "Login successful. Redirecting...";
         window.localStorage.setItem("auth_token", json.token);
-        setTimeout( () => {
-          this.router.navigate(['/dashboard']);
-        }, 1000);
+        this.router.navigate(['/dashboard']);
         this.toaster.pop('success', 'Login successful.');
       }
     );

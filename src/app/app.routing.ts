@@ -10,7 +10,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 
 import { CanActivateDashboard } from './services/can-activate-dashboard.service';
 import { CanActivateLogin } from './services/can-activate-login.route.guard';
-import { CanLeaveLogin } from './services/can-leave-login.route.guard';
+// import { CanLeaveLogin } from './services/can-leave-login.route.guard';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { CanLeaveLogin } from './services/can-leave-login.route.guard';
           path: 'login',
           component: LoginComponent,
           canActivate: ['CanActivateLogin'],
-          canDeactivate: ['CanLeaveLogin'],
+          // canDeactivate: ['CanLeaveLogin'],
         },
         {
           path: 'register',
@@ -52,9 +52,9 @@ import { CanLeaveLogin } from './services/can-leave-login.route.guard';
     {
       provide: 'CanActivateLogin', useClass: CanActivateLogin
     },
-    {
-      provide: 'CanLeaveLogin', useClass: CanLeaveLogin
-    }
+    // {
+    //   provide: 'CanLeaveLogin', useClass: CanLeaveLogin
+    // }
   ]
 })
 export class AppRoutingModule {}
