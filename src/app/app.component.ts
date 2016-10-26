@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 // import {ToasterService} from "angular2-toaster/angular2-toaster";
 
 @Component({
@@ -9,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'UNSAKINI';
+
+  IsConstructor(
+    private router: Router
+  ) {
+    this.router.navigate('/dashboard');
+  }
 }
