@@ -85,15 +85,15 @@ export class ItemModel {
   }
 
   copy () {
-    let list = this.getList() || new ListModel();
+    let _list = this.getList() || new ListModel();
     let item = new ItemModel();
     item.id = this.id;
     item.title = this.title;
     item.content = this.content;
     item.created_at = this.created_at;
     item.updated_at = this.updated_at;
-    item.list = list;
-    item.list_id = list.id;
+    item.list = _list;
+    item.list_id = _list.id;
     return item;
   }
 

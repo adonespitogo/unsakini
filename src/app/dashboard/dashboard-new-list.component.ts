@@ -4,7 +4,7 @@ import { ListModel }    from '../models/list.model';
 import { ListService }    from '../services/list.service';
 
 @Component({
-  selector: 'list-form',
+  // selector: 'list-form',
   templateUrl: './views/dashboard-new-list.html'
 })
 export class DashboardNewListComponent {

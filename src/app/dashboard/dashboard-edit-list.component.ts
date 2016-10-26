@@ -6,7 +6,7 @@ import {Observable}             from 'rxjs/Rx';
 import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  selector: 'list-form',
+  // selector: 'list-form',
   templateUrl: './views/dashboard-edit-list.html'
 })
 export class DashboardEditListComponent implements OnDestroy, OnInit {
@@ -26,15 +26,15 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
     this.route.params.forEach((params: Params) => {
      let id = +params['id']; // (+) converts string 'id' to a number
      this.list.id = id;
-     var list = ListService.getCachedList(id);
+     let list = ListService.getCachedList(id);
      if (list) {
        this.list = list.copy();
      } else {
        this.listService.getList(id)
        .catch(this.handleNoListError(this))
        .subscribe(
-         (list) => {
-           this.list = list.copy();
+         (listResp) => {
+           this.list = listResp.copy();
          }
        );
      }
@@ -53,7 +53,7 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
 
   ngOnDestroy () {
     if (!this.submitted) {
-      for (var i = ListService.lists.length - 1; i >= 0; i--) {
+      for (let i = ListService.lists.length - 1; i >= 0; i--) {
         if (ListService.lists[i].id === this.list.id) {
           this.list = ListService.lists[i];
           break;

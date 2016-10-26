@@ -1,7 +1,7 @@
 import { NgModule }      from '@angular/core';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, RequestOptions, ResponseOptions, Response } from '@angular/http';
+import { HttpModule, RequestOptions, ResponseOptions } from '@angular/http';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {ToasterModule} from 'angular2-toaster/angular2-toaster';
 import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
@@ -10,7 +10,7 @@ import { AuthRequestOptions } from './services/auth.request.options';
 import { AuthResponseOptions } from './services/auth.response.options';
 
 import { AppComponent } from './app.component';
-import { NotFoundComponent } from './not.found.component';
+// import { NotFoundComponent } from './not.found.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SettingsModule } from './settings/settings.module';
@@ -38,7 +38,7 @@ declare var $: any;
   ],
   declarations: [
     AppComponent,
-    NotFoundComponent,
+    // NotFoundComponent,
   ],
   providers: [
     {provide: RequestOptions, useClass: AuthRequestOptions},

@@ -2,11 +2,11 @@
 import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
 // import { CanActivateDashboard } from '../services/can-activate-dashboard.service';
-import { SettingsComponent } from './settings/settings.component';
+// import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { NotFoundComponent } from './not.found.component';
-import {DashboardComponent} from "./dashboard/dashboard.component";
+// import { NotFoundComponent } from './not.found.component';
+// import {DashboardComponent} from "./dashboard/dashboard.component";
 
 import { CanActivateDashboard } from './services/can-activate-dashboard.service';
 import { CanActivateLogin } from './services/can-activate-login.route.guard';

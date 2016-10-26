@@ -8,7 +8,7 @@ import {Observable}             from 'rxjs/Rx';
 import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  selector: 'list-form',
+  // selector: 'list-form',
   templateUrl: './views/dashboard-add-item.html'
 })
 export class DashboardAddItemComponent implements OnDestroy, OnInit {
@@ -59,7 +59,7 @@ export class DashboardAddItemComponent implements OnDestroy, OnInit {
 
   ngOnDestroy () {
     if (!this.submitted) {
-      for (var i = ListService.lists.length - 1; i >= 0; i--) {
+      for (let i = ListService.lists.length - 1; i >= 0; i--) {
         if (ListService.lists[i].id === this.list.id) {
           this.list = ListService.lists[i];
           break;

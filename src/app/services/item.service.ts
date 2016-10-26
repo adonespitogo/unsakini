@@ -16,12 +16,12 @@ export class ItemService {
   constructor (private http: Http) { }
 
   static getCachedItem (id: number) {
-    var lists = ListService.lists || [];
-    for (var i = lists.length - 1; i >= 0; i--) {
-      var list = lists[i];
-      for (var i = list.items.length - 1; i >= 0; i--) {
-        if (list.items[i].id === id) {
-          return list.items[i];
+    let _lists = ListService.lists || [];
+    for (let i = _lists.length - 1; i >= 0; i--) {
+      let list = _lists[i];
+      for (let x = list.items.length - 1; x >= 0; x--) {
+        if (list.items[x].id === id) {
+          return list.items[x];
         }
       }
     }
@@ -31,8 +31,8 @@ export class ItemService {
   getItem (id: number) {
     return this.http.get(`/items/${id}`).map(
       (res) => {
-        var itemJson = res.json();
-        var item = new ItemModel(itemJson);
+        let itemJson = res.json();
+        let item = new ItemModel(itemJson);
         return item;
       }
     );
@@ -41,8 +41,8 @@ export class ItemService {
   createItem (item) {
     return this.http.post('/items', item.serialize()).map(
       (res) => {
-        var createdItem = new ItemModel(res.json());
-        var list = ListService.getCachedList(createdItem.list_id);
+        let createdItem = new ItemModel(res.json());
+        let list = ListService.getCachedList(createdItem.list_id);
         list.items.push(createdItem);
         return createdItem;
       }
@@ -52,8 +52,8 @@ export class ItemService {
   updateItem (item) {
     return this.http.put(`/items/${item.id}`, item.serialize()).map(
       (res) => {
-        var list = ListService.getCachedList(item.list_id);
-        for (var i = list.items.length - 1; i >= 0; i--) {
+        let list = ListService.getCachedList(item.list_id);
+        for (let i = list.items.length - 1; i >= 0; i--) {
           if (list.items[i].id === item.id) {
             list.items[i] = item;
             break;
@@ -67,8 +67,8 @@ export class ItemService {
   deleteItem (item) {
     return this.http.delete(`/items/${item.id}`).map(
       () => {
-        var list = ListService.getCachedList(item.list_id);
-        for (var i = list.items.length - 1; i >= 0; i--) {
+        let list = ListService.getCachedList(item.list_id);
+        for (let i = list.items.length - 1; i >= 0; i--) {
           if (list.items[i].id === item.id) {
             list.items.splice(i, 1);
             break;
