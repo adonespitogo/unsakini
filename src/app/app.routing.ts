@@ -5,9 +5,12 @@ import { RouterModule } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { NotFoundComponent } from './not.found.component';
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 import { CanActivateDashboard } from './services/can-activate-dashboard.service';
 import { CanActivateLogin } from './services/can-activate-login.route.guard';
+import { CanLeaveLogin } from './services/can-leave-login.route.guard';
 
 
 @NgModule({
@@ -17,18 +20,25 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
         {
           path: '',
           redirectTo: 'dashboard',
-          pathMatch: 'full',
-          canActivate: ['CanActivateDashboard']
+          // component: DashboardComponent,
+          canActivate: ['CanActivateDashboard'],
+          pathMatch: 'full'
         },
         {
           path: 'login',
           component: LoginComponent,
-          canActivate: ['CanActivateLogin']
+          canActivate: ['CanActivateLogin'],
+          canDeactivate: ['CanLeaveLogin'],
         },
         {
           path: 'register',
           component: RegisterComponent
-        }
+        },
+        // {
+        //   path: '**',
+        //   component: NotFoundComponent,
+        //   pathMatch: 'full'
+        // }
       ]
     )
   ],
@@ -41,6 +51,9 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
     },
     {
       provide: 'CanActivateLogin', useClass: CanActivateLogin
+    },
+    {
+      provide: 'CanLeaveLogin', useClass: CanLeaveLogin
     }
   ]
 })

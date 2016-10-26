@@ -21,9 +21,8 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild {
   }
 
   private isLoggedIn () {
-    console.log('is logged in');
-    let login = !!localStorage.getItem('auth_token');
-    if (!login) {
+    let token = localStorage.getItem('auth_token');
+    if (!token) {
       this.router.navigate(['/login']);
       this.toaster.pop('error', "Session expired! Please log in again.");
       return false;

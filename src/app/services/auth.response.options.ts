@@ -35,12 +35,15 @@ export class AuthResponseOptions extends BaseResponseOptions {
    * ```
    */
   merge(options?: ResponseOptionsArgs): ResponseOptions {
+    // console.log(window.location.href);
+    // console.log(!window.location.href.indexOf("login"));
+    // console.log(!window.location.href.indexOf("register"));
     if (options) {
       if (options.status) {
         if (options.status === 401 || options.status === 403) {
-          if (!window.location.href.indexOf("login") && !window.location.href.indexOf("register")) {
-            alert('Session expired! Please login again.');
-            window.location.assign('/login');
+          if (window.location.href.indexOf("login") === -1 || window.location.href.indexOf("register") === -1) {
+            // window.location.assign('/login');
+            // alert('Session expired! Please login again.');
           }
         }
       }

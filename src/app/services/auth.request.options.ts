@@ -1,13 +1,17 @@
 
-import {BaseRequestOptions} from '@angular/http';
+import {BaseRequestOptions, RequestOptions, ResponseType, Headers, RequestOptionsArgs} from '@angular/http';
 declare var localStorage:any;
-
-// import * as $ from "jquery";
 
 export class AuthRequestOptions extends BaseRequestOptions {
     constructor() {
+        let token = localStorage.getItem("auth_token");
         super();
-        var token = localStorage.getItem("auth_token");
-        this.headers.append('Authorization', `Bearer ${token}`);
+        this.headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    merge(options?: RequestOptionsArgs) : RequestOptions {
+      var token = localStorage.getItem("auth_token");
+      this.headers.set('Authorization', `Bearer ${token}`);
+      return super.merge(options);
     }
 }

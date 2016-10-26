@@ -25,5 +25,5 @@ module.exports =
       next()
     return
   verify: (req, res, next) ->
-    res.sendStatus 200
+    res.status( 202).send()
     next()

@@ -15,7 +15,7 @@ export class AppComponent {
   ) {
   }
 
-  onNgInit() {
-    this.router.navigate(['/dashboard']);
-  }
+  // onNgInit() {
+  //   this.router.navigate(['/dashboard']);
+  // }
 }

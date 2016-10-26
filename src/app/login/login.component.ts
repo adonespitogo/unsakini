@@ -27,7 +27,6 @@ export class LoginComponent {
     this.creds = {email: '', password: ''};
   }
 
-
   doLogin (e) {
      e.stopPropagation();
     this.error = null;
@@ -36,9 +35,11 @@ export class LoginComponent {
     .subscribe(
       (json) => {
         this.success = "Login successful. Redirecting...";
-        localStorage.setItem("auth_token", json.token);
+        window.localStorage.setItem("auth_token", json.token);
+        setTimeout( () => {
           this.router.navigate(['/dashboard']);
-          this.toaster.pop('success', 'Login successful.');
+        }, 1000);
+        this.toaster.pop('success', 'Login successful.');
       }
     );
     return false;

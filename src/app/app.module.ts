@@ -10,6 +10,7 @@ import { AuthRequestOptions } from './services/auth.request.options';
 import { AuthResponseOptions } from './services/auth.response.options';
 
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './not.found.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SettingsModule } from './settings/settings.module';
@@ -36,11 +37,10 @@ declare var $: any;
     RegisterModule,
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent,
   ],
   providers: [
-    // CanActivateDashboard,
-    // {provide: Response, useClass: AuthResponse},
     {provide: RequestOptions, useClass: AuthRequestOptions},
     {provide: ResponseOptions, useClass: AuthResponseOptions},
     ToasterService,
