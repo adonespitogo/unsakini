@@ -1,5 +1,6 @@
 <div *ngIf="!!item">
   <h1>{{item.title}}</h1>
-  <a [routerLink]="['/items', item.id, 'edit']">Edit</a>
+  <a [routerLink]="['items', item.id, 'edit']">Edit</a>
+  <hr>
   <div markedText [text]="item.content"></div>
 </div>
