@@ -39,7 +39,10 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
         //   component: NotFoundComponent,
         //   pathMatch: 'full'
         // }
-      ]
+      ],
+      {
+        useHash: true
+      }
     )
   ],
   exports: [
