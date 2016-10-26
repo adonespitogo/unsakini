@@ -26,11 +26,16 @@ export class DashboardItemComponent {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
      let id = +params['id']; // (+) converts string 'id' to a number
-     this.itemService.getItem(id).subscribe(
-       (item) => {
-         this.item = item;
-       }
-     );
+     let cItem = ItemService.getCachedItem(id);
+     if (cItem) {
+       this.item = cItem.copy();
+     } else {
+       this.itemService.getItem(id).subscribe(
+         (item) => {
+           this.item = item;
+         }
+       );
+     }
     });
   }
 }
