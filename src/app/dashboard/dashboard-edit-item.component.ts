@@ -8,7 +8,8 @@ import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
   // selector: 'list-form',
-  templateUrl: './views/dashboard-edit-item.html'
+  templateUrl: './views/dashboard-edit-item.html',
+  styleUrls: ['./styles/dashboard-edit-item.scss']
 })
 export class DashboardEditItemComponent implements OnInit {
 
