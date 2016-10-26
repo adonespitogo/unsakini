@@ -4,10 +4,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es7", "dom"],
-    "mapRoot": "./",
+    "mapRoot": "",
     "module": "es7",
     "moduleResolution": "node",
-    "outDir": "../public",
+    "outDir": "../dist/out-src",
     "sourceMap": true,
     "target": "es7",
     "typeRoots": [
