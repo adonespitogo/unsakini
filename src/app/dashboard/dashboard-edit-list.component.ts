@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params }   from '@angular/router';
 import { ListModel }            from '../models/list.model';
 import { ListService }          from '../services/list.service';
 import {Observable}             from 'rxjs/Rx';
+import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
   selector: 'list-form',
@@ -15,7 +16,8 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
   constructor (
     private listService: ListService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toaster: ToasterService
   ) {
     this.list = new ListModel();
   }
@@ -44,6 +46,7 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
     this.listService.updateList(this.list).subscribe(
       (list) => {
         this.router.navigate(['/dashboard/lists', list.id]);
+        this.toaster.pop('success', 'List updated.');
       }
     );
   }

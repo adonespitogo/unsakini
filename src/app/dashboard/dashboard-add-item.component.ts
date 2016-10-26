@@ -5,6 +5,7 @@ import { ListService }          from '../services/list.service';
 import { ItemService }          from '../services/item.service';
 import { ItemModel }          from '../models/item.model';
 import {Observable}             from 'rxjs/Rx';
+import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
   selector: 'list-form',
@@ -20,7 +21,8 @@ export class DashboardAddItemComponent implements OnDestroy, OnInit {
     private itemService: ItemService,
     private listService: ListService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toaster: ToasterService
   ) {
     this.item = new ItemModel();
     this.list = new ListModel();
@@ -50,6 +52,7 @@ export class DashboardAddItemComponent implements OnDestroy, OnInit {
     this.itemService.createItem(this.item).subscribe(
       (item) => {
         this.router.navigate(['/dashboard/items', item.id]);
+        this.toaster.pop('success', 'Item added.');
       }
     );
   }
