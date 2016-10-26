@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {CryptoService} from "../../services/crypto.service";
-import {ToasterService} from "angular2-toaster/angular2-toaster";
+import {Component} from '@angular/core';
+import {CryptoService} from '../../services/crypto.service';
+import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  templateUrl: "./settings.main.html"
+  templateUrl: './settings.main.html'
 })
 
 export class SettingsMainComponent {

@@ -1,7 +1,6 @@
 
-import {Component} from "@angular/core";
-import {Response} from "@angular/http";
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {IAuthUser, RegisterService} from './register.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -38,7 +37,7 @@ export class RegisterComponent {
     .catch(this.submitFailHandler(this))
     .subscribe(
       (json) => {
-        this.success = "Registration successful.";
+        this.success = 'Registration successful.';
       }
     );
     return false;
@@ -46,13 +45,12 @@ export class RegisterComponent {
 
   private submitFailHandler (self: RegisterComponent) {
     return (res: any) => {
-      var err = res.json()
-      console.log(err);
-      var msg = [];
-      for (var i = 0; i < err.length; ++i) {
+      let err = res.json();
+      let msg = [];
+      for (let i = 0; i < err.length; ++i) {
         msg.push(err[i].message);
       }
-      self.error = msg.join(',') || "Cannot process your input.";
+      self.error = msg.join(',') || 'Cannot process your input.';
       return Observable.throw(err);
     };
   }

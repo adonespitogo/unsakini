@@ -5,16 +5,27 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-declare var _:any;
+declare let _: any;
 
-import {ListModel} from "../models/list.model";
-import {ItemModel} from "../models/item.model";
+import {ListModel} from '../models/list.model';
 
 @Injectable()
 
 export class ListService {
 
   static lists: Array<ListModel>;
+
+  static getCachedList (id: number) {
+    if (!ListService.lists) {
+      return null;
+    }
+    for (let i = ListService.lists.length - 1; i >= 0; i--) {
+      if (ListService.lists[i].id === id) {
+        return ListService.lists[i];
+      }
+    }
+    return null;
+  }
 
   constructor (private http: Http) {}
 
@@ -23,7 +34,7 @@ export class ListService {
       (res) => {
         ListService.lists = [];
         let lists = res.json();
-        for (var i = lists.length - 1; i >= 0; i--) {
+        for (let i = lists.length - 1; i >= 0; i--) {
           ListService.lists[i] = new ListModel(lists[i]);
         }
         return ListService.lists;
@@ -34,8 +45,8 @@ export class ListService {
   getList (id: number) {
     return this.http.get(`/lists/${id}`).map(
       (res) => {
-        var list = new ListModel(res.json());
-        for (var i = ListService.lists.length - 1; i >= 0; i--) {
+        let list = new ListModel(res.json());
+        for (let i = ListService.lists.length - 1; i >= 0; i--) {
           if (ListService.lists[i].id === list.id) {
             ListService.lists[i] = list;
             break;
@@ -47,18 +58,6 @@ export class ListService {
     .catch(this.handleError);
   }
 
-  static getCachedList (id: number) {
-    if (!ListService.lists) {
-      return null;
-    }
-    for (var i = ListService.lists.length - 1; i >= 0; i--) {
-      if (ListService.lists[i].id === id) {
-        return ListService.lists[i];
-      }
-    }
-    return null;
-  }
-
   getCachedList (id: number) {
     return ListService.getCachedList(id);
   }
@@ -66,7 +65,7 @@ export class ListService {
   createList (list: ListModel) {
     return this.http.post('/lists', list.serialize()).map(
       (res) => {
-        var newList = new ListModel(res.json());
+        let newList = new ListModel(res.json());
         ListService.lists.push(newList);
         return newList;
       }
@@ -76,7 +75,7 @@ export class ListService {
   updateList (list: ListModel) {
     return this.http.put(`/lists/${list.id}`, list.serialize()).map(
       (res) => {
-        for (var i = ListService.lists.length - 1; i >= 0; i--) {
+        for (let i = ListService.lists.length - 1; i >= 0; i--) {
           if (ListService.lists[i].id === list.id) {
             ListService.lists[i] = list;
             break;
@@ -94,8 +93,7 @@ export class ListService {
 
   private _removeFromLists (list) {
     return (res) => {
-      var newLists = [];
-      for (var i = ListService.lists.length - 1; i >= 0; i--) {
+      for (let i = ListService.lists.length - 1; i >= 0; i--) {
         if (ListService.lists[i].id === list.id) {
           ListService.lists.splice(i, 1);
           break;

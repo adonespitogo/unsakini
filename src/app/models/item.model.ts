@@ -47,15 +47,15 @@ export class ItemModel {
   }
 
   serialize () {
-    var l_id:number;
-    var list = this.getList();
+    let l_id: number;
+    let list = this.getList();
     if (list) {
       l_id = list.id;
     } else {
       throw `Item ${this.title} has no associated list!`;
     }
     return {
-      id:this.id,
+      id: this.id,
       title: CryptoService.encrypt(this.title),
       content: CryptoService.encrypt(this.content),
       created_at: this.created_at,
@@ -72,8 +72,8 @@ export class ItemModel {
     if (this.list) {
       return this.list;
     } else if (this.list_id) {
-      var lists = ListService.lists || [];
-      for (var i = lists.length - 1; i >= 0; i--) {
+      let lists = ListService.lists || [];
+      for (let i = lists.length - 1; i >= 0; i--) {
         if (lists[i].id === this.list_id) {
           return lists[i];
         }

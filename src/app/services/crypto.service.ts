@@ -1,11 +1,11 @@
 
-import * as CryptoJS from "crypto-js";
-declare var localSto:any;
+import * as CryptoJS from 'crypto-js';
+declare let localSto: any;
 
 export class CryptoService {
 
-  static getKey():string {
-    var key = localStorage.getItem('crypto_key');
+  static getKey(): string {
+    let key = localStorage.getItem('crypto_key');
     if (key) {
       return key.toString();
     } else {
@@ -13,13 +13,13 @@ export class CryptoService {
     }
   }
 
-  static setKey (k):void {
-    // $.jStorage.set("crypto_key", k);
+  static setKey (k): void {
+    // $.jStorage.set('crypto_key', k);
     localStorage.setItem('crypto_key', k);
   }
 
   static decrypt (msg: string) {
-    var key = CryptoService.getKey();
+    let key = CryptoService.getKey();
     let bytes: any;
     try {
       bytes = CryptoJS.AES.decrypt(msg, key);
@@ -28,12 +28,12 @@ export class CryptoService {
     if (bytes) {
       return bytes.toString(CryptoJS.enc.Utf8);
     } else {
-      return "UNPARSABLE";
+      return 'UNPARSABLE';
     }
   }
 
   static encrypt (msg: string) {
-    var key = CryptoService.getKey();
+    let key = CryptoService.getKey();
     // if (!msg || !key) {
     //   return '';
     // }

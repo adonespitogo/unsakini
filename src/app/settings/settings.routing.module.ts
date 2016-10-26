@@ -1,8 +1,8 @@
-import {NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {SettingsComponent} from "./settings.component";
-import {SettingsMainComponent} from "./main/settings.main.component";
+import {SettingsComponent} from './settings.component';
+import {SettingsMainComponent} from './main/settings.main.component';
 
 @NgModule({
   imports: [

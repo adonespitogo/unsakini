@@ -1,7 +1,5 @@
 import {CryptoService} from '../services/crypto.service';
-// import {Serializable} from '../models/serializable.model';
 import {ItemModel} from '../models/item.model';
-import {UserService} from '../services/user.service';
 
 interface IListJson {
   id: number;
@@ -33,8 +31,8 @@ export class ListModel implements IListJson {
     this.id = this.id;
     this.name = CryptoService.decrypt(this.name);
     if (this.items) {
-      for (var i = this.items.length - 1; i >= 0; i--) {
-        var itemJson = this.items[i];
+      for (let i = this.items.length - 1; i >= 0; i--) {
+        let itemJson = this.items[i];
         this.items[i] = new ItemModel(itemJson);
       }
     }
@@ -42,8 +40,8 @@ export class ListModel implements IListJson {
   }
 
   serialize () {
-    var items = [];
-    for (var i = this.items.length - 1; i >= 0; i--) {
+    let items = [];
+    for (let i = this.items.length - 1; i >= 0; i--) {
       items[i] = this.items[i].serialize();
     }
     return {
@@ -54,10 +52,10 @@ export class ListModel implements IListJson {
   }
 
   copy () {
-    var list = new ListModel();
+    let list = new ListModel();
     list.id = this.id;
     list.name = this.name;
-    for (var i = this.items.length - 1; i >= 0; i--) {
+    for ( let i = this.items.length - 1; i >= 0; i-- ) {
       list.items[i] = this.items[i].copy();
     }
     return list;

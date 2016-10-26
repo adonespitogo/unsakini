@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {UserModel} from "../models/user.model";
+import {UserModel} from '../models/user.model';
 
 @Injectable()
 
@@ -20,7 +20,7 @@ export class UserService {
   getUser () {
     return this.http.get('/user').map(
       (res) => {
-        var user = new UserModel(res.json());
+        let user = new UserModel(res.json());
         UserService.currentUser = user;
         console.log(user);
         return user;

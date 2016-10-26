@@ -1,6 +1,5 @@
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
-import {Observable} from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -10,15 +9,10 @@ export interface ICredentials {
 }
 
 export interface IAuthUser {
-  id: number,
-  name: string,
-  email: string
+  id: number;
+  name: string;
+  email: string;
 }
-
-// export interface ILoginResponse {
-//   token: string,
-//   user:<IAuthUser>
-// }
 
 @Injectable()
 export class LoginService {

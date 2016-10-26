@@ -2,5 +2,5 @@
   <h1>{{item.title}}</h1>
   <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
   <hr>
-  <div markedText [text]="item.content"></div>
+  <div appMarkedText [text]="item.content"></div>
 </div>

@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs/Rx";
-import {CryptoService} from "./crypto.service";
-import {Http} from "@angular/http";
-// import {AuthResponseOptions} from "./auth.response.options";
+import {Injectable} from '@angular/core';
+import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs/Rx';
+// import {CryptoService} from './crypto.service';
+import {Http} from '@angular/http';
+// import {AuthResponseOptions} from './auth.response.options';
 
 @Injectable()
 export class CanActivateLogin implements CanActivate {
@@ -18,7 +18,7 @@ export class CanActivateLogin implements CanActivate {
     if (token) {
       let ret = this.http.get(`/auth/verify?token=${token}`).map((res) => {
         console.log(res);
-        let notLoggedIn:boolean = (res.status !== 202);
+        let notLoggedIn: boolean = (res.status !== 202);
         if (!notLoggedIn) {
           console.log('navigating to dashboard');
           this.router.navigate(['dashboard']);

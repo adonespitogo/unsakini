@@ -1,6 +1,3 @@
-import {CryptoService} from '../services/crypto.service';
-// import {Serializable} from '../models/serializable.model';
-import {ListModel} from './list.model';
 
 interface IUserJson {
   id: number;
