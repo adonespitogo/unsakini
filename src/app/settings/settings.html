@@ -1,40 +1,20 @@
-<!-- <div class="row">
-  <div class="col-sm-3 col-md-2 sidebar">
-    <p class="lead">
-      <strong>My Lists</strong>
-    </p>
-    <ul class="nav nav-sidebar">
-      <li routerLinkActive="active">
-        <a [routerLink]="['/settings']">Settings</a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <breadcrumb></breadcrumb>
-    <router-outlet></router-outlet>
-  </div>
-</div> -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <button (click)="isCollapsed = !isCollapsed" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['/dashboard']">{{title}}</a>
+      <a class="navbar-brand" [routerLink]="['/dashboard']">UNSAKINI</a>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
+    <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
       <ul class="nav navbar-nav navbar-right">
         <li routerLinkActive="active"><a [routerLink]="['/dashboard']">Dashboard</a></li>
         <li routerLinkActive="active"><a [routerLink]="['/settings']">Settings</a></li>
-        <!-- <li><a href="#">Profile</a></li> -->
         <li><a logout>Logout</a></li>
       </ul>
-      <!--       <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search...">
-      </form> -->
     </div>
   </div>
 </nav>
@@ -44,11 +24,11 @@
       <p class="lead">
         <strong>Settings</strong>
       </p>
-<!--       <ul class="nav nav-sidebar">
+      <ul class="nav nav-sidebar">
         <li routerLinkActive="active">
-          <a [routerLink]="['/settings']">Settings</a>
+          <a [routerLink]="['/dashboard']">Go back to dashboard</a>
         </li>
-      </ul> -->
+      </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <breadcrumb></breadcrumb>

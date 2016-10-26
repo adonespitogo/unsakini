@@ -5,4 +5,8 @@ import {Component} from "@angular/core";
   templateUrl: './settings.html'
 })
 
-export class SettingsComponent {}
+
+export class SettingsComponent {
+public isCollapsed: boolean = true;
+
+}

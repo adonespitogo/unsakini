@@ -20,25 +20,14 @@ export class DashboardComponent {
     private toaster: ToasterService
   ) {}
 
+  public isCollapsed:boolean = true;
+
   ngOnInit () {
     this.listService.getLists().subscribe();
   }
 
   getLists () {
     return ListService.lists;
-  }
-
-
-  // bootstrap collapse nav
-
-  public isCollapsed:boolean = false;
-
-  public collapsed(event:any):void {
-    // console.log(event);
-  }
-
-  public expanded(event:any):void {
-    // console.log(event);
   }
 
 }
