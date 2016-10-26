@@ -8,7 +8,7 @@
       required
       [(ngModel)]="item.title" name="title" #title="ngModel">
   </div>
-  <div [hidden]="title.valid || title.pristine" 
+  <div [hidden]="title.valid || title.pristine"
              class="alert alert-danger">
           Title is required
         </div>
@@ -16,14 +16,14 @@
 
   <div class="form-group">
     <label for="content">Item Content:</label>
-    <textarea name="content" class="form-control" id="content" placeholder="Content"
+    <textarea rows="10" name="content" class="form-control" id="content" placeholder="Content"
       required
       [(ngModel)]="item.content"
       name="content"
       #content="ngModel">
     </textarea>
   </div>
-  <div [hidden]="content.valid || content.pristine" 
+  <div [hidden]="content.valid || content.pristine"
              class="alert alert-danger">
           Content is required
         </div>
