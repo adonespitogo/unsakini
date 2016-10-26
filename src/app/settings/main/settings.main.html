@@ -1,0 +1,14 @@
+<h1>Set Your Crypto Key</h1>
+<form #cryptoKeyForm="ngForm">
+  <div class="form-group">
+    <label for="key">Key:</label>
+    <input type="password" class="form-control"
+      required
+      [(ngModel)]="key" name="keyInput" #keyInput="ngModel">
+  </div>
+  <div [hidden]="keyInput.valid || keyInput.pristine" 
+             class="alert alert-danger">
+          Key is required
+        </div>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid">Submit</button>
+</form>

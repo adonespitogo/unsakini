@@ -1,0 +1,30 @@
+<h1>{{list.name}}</h1>
+<h3>Add item</h3>
+<form #itemForm="ngForm">
+  <div class="form-group">
+    <label for="title">Item Title:</label>
+    <input type="text" class="form-control" id="title" placeholder="Title"
+      required
+      [(ngModel)]="item.title" name="title" #title="ngModel">
+  </div>
+  <div [hidden]="title.valid || title.pristine" 
+             class="alert alert-danger">
+          Title is required
+        </div>
+
+
+  <div class="form-group">
+    <label for="content">Item Content:</label>
+    <textarea name="content" class="form-control" id="content" placeholder="Content"
+      required
+      [(ngModel)]="item.content"
+      name="content"
+      #content="ngModel">
+    </textarea>
+  </div>
+  <div [hidden]="content.valid || content.pristine" 
+             class="alert alert-danger">
+          Content is required
+        </div>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!itemForm.form.valid">Submit</button>
+</form>

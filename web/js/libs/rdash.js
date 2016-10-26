@@ -1,1 +1,0 @@
-(function(){angular.module('RDash', ['ngCookies'])})();

@@ -1,0 +1,12 @@
+<h1>Dashboard Home</h1>
+
+<h2>My Lists</h2>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let list of getLists()" routerLinkActive="active">
+    <a [routerLink]="['lists', list.id]">
+      {{list.name}}
+      <span class="badge">{{list.items.length}}</span>
+    </a>
+  </li>
+</ul>

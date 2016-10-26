@@ -10,12 +10,17 @@ exports.get = (req, res, next) ->
       res.json db_user
 
 exports.create = (req, res, next) ->
+  if !req.body.email
+    res.send 422, [message: 'Email is required']
   if !req.body.password
-    res.send 401, 'Password is required!'
-    return next()
-  if req.body.password != req.body.confirm_password
-    res.send 401, err: 'Password doesn\'t match.'
-    return next()
+    res.send 422, [message: 'Password is required']
+    return
+  if req.body.password?.lenth < 6
+    res.send 422, [message: 'Password must be at least 6 characters']
+    return
+  if req.body.password != req.body.password_confirmation
+    res.send 422, [message: 'Passwords didn\'t match.']
+    return
   user = User.build(req.body)
   user.setPassword(req.body.password).then((user) ->
     user.save()
@@ -41,14 +46,14 @@ exports.update = (req, res, next) ->
     .then ->
       return res.json(db_user)
     .catch (err) ->
-      return res.status(500).json err
+      return res.status(500).send err
 
   models.User.findById(req.user.id).then((db_user) ->
     db_user.comparePassword req.body.old_password, (err, match) ->
       if !match
-        return res.status(403).json [{message: 'Invalid password.'}]
+        return res.status(422).send [{message: 'Invalid password.'}]
       if !!err
-        return res.sendStatus(403).json [{message: 'Invalid password.'}]
+        return res.status(422).send [{message: 'Invalid password.'}]
 
       if !!req.body.new_password and (req.body.new_password is req.body.confirm_password)
         db_user.setPassword(req.body.new_password)
@@ -61,4 +66,4 @@ exports.update = (req, res, next) ->
 
 
   ).catch (err) ->
-    res.status(403).json(err)
+    res.status(500).json(err)

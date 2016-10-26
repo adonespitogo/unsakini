@@ -1,0 +1,25 @@
+<h1>{{getList().name}}</h1>
+<a [routerLink]="['/dashboard/lists', getList().id, 'edit']">Edit</a> | 
+<a (click)="doDeleteList(list)">Delete</a>
+<hr>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of getList().items">
+    <div class="row">
+      <div class="col-xs-10">
+        <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
+      </div>
+      <div class="col-xs-1">
+        <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
+      </div>
+      <div class="col-xs-1">
+        <a (click)="doDeleteItem(item)">Delete</a>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item" *ngIf="getList().items.length === 0">
+    No items yet! <a [routerLink]="['/dashboard/lists', getList().id, 'add-item']">Add Item</a>
+  </li>
+</ul>
+
+
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', getList().id, 'add-item']">Add Item</a>

@@ -7,12 +7,12 @@ module.exports =
     password = req.body['password']
     if !email or !password
       res.status( 401).send err: 'Email and password required'
-      return next()
+      return
     Users.findOne(where: email: email).then((user) ->
       user.comparePassword password, (err, match) ->
         if !match
-          res.status(401).send 'Invalid password'
-          return next()
+          res.status(401).send err: 'Invalid password'
+          return
         if err
           return next(err)
         res.send
@@ -21,7 +21,7 @@ module.exports =
         next()
       return
     ).catch (err) ->
-      res.status(403).send 'User with email ' + email + ' does not exist'
+      res.status(403).send err: 'User with email ' + email + ' does not exist'
       next()
     return
   verify: (req, res, next) ->
