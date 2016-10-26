@@ -10,15 +10,15 @@ if(process.env.NODE_ENV is 'production')
   app.use(forceSSL.HTTPS({ trustProtoHeader: true }))
 
 app.set('view engine', 'ejs')
-app.set('views', "#{__dirname}/app/views")
+app.set('views', "#{__dirname}/api/views")
 app.use(express.static('./dist/out-src'))
 if(process.env.NODE_ENV isnt 'production')
   app.disable('view cache')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(require('./app/middlewares/jwt'))
-models = require('./app/models')
+app.use(require('./api/middlewares/jwt'))
+models = require('./api/models')
 
 routes(app)
 

@@ -1,5 +1,5 @@
-controllers = require('require-dir')('./app/controllers/')
-mdw = require('require-dir')('./app/middlewares')
+controllers = require('require-dir')('./api/controllers/')
+mdw = require('require-dir')('./api/middlewares')
 Auth = mdw.auth
 AC = mdw.access_control
 
