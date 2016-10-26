@@ -28,14 +28,6 @@ export class DashboardComponent {
     return ListService.lists;
   }
 
-  doLogout () {
-    if(confirm("Logout?")) {
-      localStorage.removeItem('auth_token');
-      this.toaster.pop('success', 'Logged Out');
-      this.router.navigate(['/login']);
-    }
-  }
-
 
   // bootstrap collapse nav
 

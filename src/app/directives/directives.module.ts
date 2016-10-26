@@ -1,13 +1,24 @@
 import { NgModule }      from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MarkedTextDirective } from './marked-text.directive';
+import { LogoutDirective } from './logout.directive';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 
 @NgModule({
-  imports: [],
+  imports: [
+    RouterModule,
+    ToasterModule,
+  ],
   declarations: [
-    MarkedTextDirective
+    MarkedTextDirective,
+    LogoutDirective,
   ],
   exports: [
-    MarkedTextDirective
+    MarkedTextDirective,
+    LogoutDirective,
+    ToasterModule,
+    RouterModule
   ]
 })
 
