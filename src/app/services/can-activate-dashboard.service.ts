@@ -21,6 +21,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild {
   }
 
   private isLoggedIn () {
+    console.log('is logged in');
     let login = !!localStorage.getItem('auth_token');
     if (!login) {
       this.router.navigate(['/login']);

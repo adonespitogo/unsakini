@@ -36,4 +36,17 @@ export class DashboardComponent {
     }
   }
 
+
+  // bootstrap collapse nav
+
+  public isCollapsed:boolean = false;
+
+  public collapsed(event:any):void {
+    console.log(event);
+  }
+
+  public expanded(event:any):void {
+    console.log(event);
+  }
+
 }
