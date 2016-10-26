@@ -7,7 +7,7 @@ import { ListService }    from '../services/list.service';
   // selector: 'list-form',
   templateUrl: './views/dashboard-new-list.html'
 })
-export class DashboardNewListComponent {
+export class DashboardNewListComponent implements OnInit {
   submitted = false;
   list: ListModel;
 
@@ -23,7 +23,7 @@ export class DashboardNewListComponent {
 
   onSubmit() {
     this.submitted = true;
-    var l = new ListModel(this.list.serialize());
+    let l = new ListModel(this.list.serialize());
     this.listSerive.createList(l).subscribe(
       (list) => {
         this.router.navigate(['/dashboard/lists', list.id]);

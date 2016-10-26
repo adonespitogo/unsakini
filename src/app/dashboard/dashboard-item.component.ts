@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {ItemService} from '../services/item.service';
 import {ItemModel} from '../models/item.model';
@@ -11,7 +11,7 @@ import {ItemModel} from '../models/item.model';
   // styleUrls: ['../css/dashboard/styles/dashboard-list-items.css']
 })
 
-export class DashboardItemComponent {
+export class DashboardItemComponent implements OnInit {
 
   public item: ItemModel;
 

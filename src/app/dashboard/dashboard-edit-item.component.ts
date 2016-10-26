@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy }    from '@angular/core';
+import { Component, OnInit }    from '@angular/core';
 import { Router, ActivatedRoute, Params }   from '@angular/router';
-import { ListModel }            from '../models/list.model';
 import { ListService }          from '../services/list.service';
 import { ItemService }          from '../services/item.service';
 import { ItemModel }          from '../models/item.model';
@@ -11,10 +10,9 @@ import {ToasterService}             from 'angular2-toaster/angular2-toaster';
   // selector: 'list-form',
   templateUrl: './views/dashboard-edit-item.html'
 })
-export class DashboardEditItemComponent implements OnDestroy, OnInit {
+export class DashboardEditItemComponent implements OnInit {
 
   submitted = false;
-  list: ListModel;
   item: ItemModel;
 
   constructor (
@@ -25,7 +23,6 @@ export class DashboardEditItemComponent implements OnDestroy, OnInit {
     private toaster: ToasterService
   ) {
     this.item = new ItemModel();
-    this.list = new ListModel();
   }
 
   ngOnInit() {
@@ -36,7 +33,7 @@ export class DashboardEditItemComponent implements OnDestroy, OnInit {
        this.item = chachedItem.copy();
      } else {
        this.itemService.getItem(id)
-       .catch(this.handleNoListError(this))
+       .catch(this.noItemError(this))
        .subscribe(
          (item) => {
            this.item = item;
@@ -48,7 +45,6 @@ export class DashboardEditItemComponent implements OnDestroy, OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.item.list = this.list;
     this.itemService.updateItem(this.item).subscribe(
       (item) => {
         this.router.navigate(['/dashboard/items', item.id]);
@@ -57,15 +53,9 @@ export class DashboardEditItemComponent implements OnDestroy, OnInit {
     );
   }
 
-  ngOnDestroy () {
-    if (!this.submitted) {
-      this.list = ListService.getCachedList(this.list.id);
-    }
-  }
-
-  private handleNoListError (self: DashboardEditItemComponent) {
+  private noItemError (self: DashboardEditItemComponent) {
     return (err: any, cauth: any) => {
-      return Observable.throw(`List with id ${self.list.id} was not found on the server.`);
+      return Observable.throw(`Item with id ${self.item.id} was not found on the server.`);
     };
   }
 }

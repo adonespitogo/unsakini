@@ -61,11 +61,5 @@ import { CanActivateDashboard } from '../services/can-activate-dashboard.service
       useClass: CanActivateDashboard
     }
   ]
-  // providers: [{
-  //   provide: 'CanActivateDashboard', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  //       console.log('guard called !!');
-  //     }
-  //   }
-  // ]
 })
 export class DashboardRoutingModule { }

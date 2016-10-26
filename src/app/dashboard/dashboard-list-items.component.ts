@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {ListService} from '../services/list.service';
 import {ItemService} from '../services/item.service';
@@ -24,7 +24,7 @@ export class DashboardListItemsComponent implements OnInit {
   }
 
   getList () {
-    var list = this.listService.getCachedList(this.list.id);
+    let list = this.listService.getCachedList(this.list.id);
     if (list) {
       return list;
     } else {
@@ -62,7 +62,7 @@ export class DashboardListItemsComponent implements OnInit {
   }
 
   doDeleteItem (item) {
-    if (window.confirm(`Are you sure you want to delete item "${item.title}"?`)) {
+    if (window.confirm(`Are you sure you want to delete item '${item.title}'?`)) {
       this.itemService.deleteItem(item).subscribe();
     }
   }
@@ -77,9 +77,9 @@ export class DashboardListItemsComponent implements OnInit {
       }
     } else {
       this.listService.getLists().subscribe(
-        (lists) => {
-          if (lists.length > 0) {
-            this.router.navigate(['/dashboard/lists', lists[0].id]);
+        (listRes) => {
+          if (listRes.length > 0) {
+            this.router.navigate(['/dashboard/lists', listRes[0].id]);
           } else {
             this.router.navigate(['/dashboard']);
           }
