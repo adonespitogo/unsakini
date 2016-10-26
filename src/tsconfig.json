@@ -7,7 +7,7 @@
     "mapRoot": "./",
     "module": "es7",
     "moduleResolution": "node",
-    "outDir": "../dist/out-tsc",
+    "outDir": "../public",
     "sourceMap": true,
     "target": "es7",
     "typeRoots": [

@@ -42,6 +42,7 @@ export class AuthResponseOptions extends BaseResponseOptions {
       if (options.status) {
         if (options.status === 401 || options.status === 403) {
           if (window.location.href.indexOf("login") === -1 || window.location.href.indexOf("register") === -1) {
+
             // window.location.assign('/login');
             // alert('Session expired! Please login again.');
           }
