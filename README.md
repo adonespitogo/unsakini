@@ -6,7 +6,7 @@
 
 **Note:** Make sure to create a dev database setup (mysql) with db name `unsakini`, `username=root` and `password=null` in your localhost.
 
-### Development
+### Frontend development
 ```
 $ng serve
 ```
@@ -17,7 +17,7 @@ Angular CLI will open a window with live reload.
 $ ng build
 ```
 
-### Run
+### Run the api server
 ```
 $ node index.js
 ```
