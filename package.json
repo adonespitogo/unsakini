@@ -59,6 +59,19 @@
     "@types/node": "^6.0.42",
     "angular-cli": "1.0.0-beta.18",
     "codelyzer": "1.0.0-beta.1",
+    "ts-node": "1.2.1",
+    "tslint": "3.13.0",
+    "typescript": "~2.0.3"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^3.1.32",
+    "@types/jasmine": "^2.2.30",
+    "@types/jquery": "^2.0.33",
+    "@types/jstorage": "^0.3.28",
+    "@types/marked": "0.0.28",
+    "@types/node": "^6.0.42",
+    "angular-cli": "1.0.0-beta.18",
+    "codelyzer": "1.0.0-beta.1",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
@@ -70,8 +83,6 @@
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
     "typescript": "~2.0.3"
-  },
-  "devDependencies": {
   },
   "description": "This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.",
   "main": "karma.conf.js",
