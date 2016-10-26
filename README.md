@@ -33,4 +33,4 @@ $ ng build
 Browse to [http://localhost:3000](http://localhost:3000)
 
 
-Angular app sources are under the `./src/app` directory, while the api sources are under the `./app` directory.
+Angular app sources are under the `./src/app` directory, while the api sources are under the `./api` directory.
