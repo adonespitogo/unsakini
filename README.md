@@ -21,12 +21,11 @@ $ npm install
 
 ### Development
 
-
-### Run server
+Run server
 ```
 $ node index.js
 ```
-### Build the angular app
+Build the Angular2 app
 ```
 $ ng build
 ```
