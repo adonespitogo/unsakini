@@ -2,6 +2,8 @@ import { Injectable }     from '@angular/core';
 import { Http } from '@angular/http';
 
 // import {Observable} from 'rxjs/Rx';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,19 +14,25 @@ import {UserModel} from '../models/user.model';
 export class UserService {
 
   static currentUser: UserModel;
+  public currentUser$: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
 
-  constructor (private http: Http) {
-    this.getUser();
-  }
+  constructor (private http: Http) { }
 
-  getUser () {
+  getCurrentUser (cached?: boolean) {
+    if (cached && UserService.currentUser) {
+      this.currentUser$.next(UserService.currentUser);
+      return Observable.of(UserService.currentUser);
+    }
     return this.http.get('/user').map(
       (res) => {
-        let user = new UserModel(res.json());
-        UserService.currentUser = user;
-        console.log(user);
-        return user;
+        if (res) {
+          UserService.currentUser = new UserModel(res.json());
+          this.currentUser$.next(UserService.currentUser);
+          return UserService.currentUser;
+        }
+        return new UserModel();
       }
     );
   }
+
 }

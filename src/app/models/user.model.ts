@@ -9,11 +9,11 @@ interface IUserJson {
 
 export class UserModel implements IUserJson {
 
-  public id: number;
-  public name: string;
+  public id: number = 0;
+  public name: string = '';
   public email: string;
-  public created_at: string;
-  public updated_at: string;
+  public created_at: string = '';
+  public updated_at: string = '';
 
   constructor (public rawJson?: IUserJson) {
     if (rawJson) {
@@ -27,10 +27,6 @@ export class UserModel implements IUserJson {
     this.email = this.rawJson.email;
     this.created_at = this.rawJson.created_at;
     this.updated_at = this.rawJson.updated_at;
-  }
-
-  serialize () {
-    return JSON.parse(JSON.stringify(this));
   }
 
 }
