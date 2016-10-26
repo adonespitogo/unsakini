@@ -1,17 +1,16 @@
 <h1>Dashboard Home</h1>
 <h2>My Lists</h2>
-<ul class="list-group">
+<ul class="list-group" *ngIf="getLists()">
   <li class="list-group-item" *ngFor="let list of getLists()" routerLinkActive="active">
     <a [routerLink]="['lists', list.id]">
       {{list.name}}
       <span class="badge">{{list.items.length}}</span>
     </a>
   </li>
-  <li class="list-group-item" *ngIf="list.items.length === 0">
-    <a [routerLink]="['lists', list.id]">
-      <a [routerLink]="['new-list']">
-        <span class="fa fa-plus"></span>Create a List
-      </a>
+  <li class="list-group-item" *ngIf="getLists().length === 0">
+    No lists yet.
+    <a [routerLink]="['new-list']">
+      <span class="fa fa-plus"></span> Create a List
     </a>
   </li>
 </ul>
