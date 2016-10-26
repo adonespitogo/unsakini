@@ -13,6 +13,9 @@ export class AppComponent {
   constructor(
     private router: Router
   ) {
-    this.router.navigate('/dashboard');
+  }
+
+  onNgInit() {
+    this.router.navigate(['/dashboard']);
   }
 }
