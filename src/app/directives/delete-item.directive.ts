@@ -12,11 +12,11 @@ export class DeleteItemDirective {
 
   @Input() item: ItemModel;
 
+  @Output() onItemDeleted = new EventEmitter<boolean>();
+
   @HostListener('click') onClick () {
     this.doDelete();
   }
-
-  @Output() onItemDeleted = new EventEmitter<boolean>();
 
   constructor (
     private el: ElementRef,
@@ -31,7 +31,7 @@ export class DeleteItemDirective {
       this.itemService.deleteItem(this.item).subscribe(() => {
         this.toaster.pop('success', `Item ${this.item.title} has been deleted.`);
         this.onItemDeleted.emit(true);
-      })
+      });
     }
   }
 }
