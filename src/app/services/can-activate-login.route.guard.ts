@@ -16,11 +16,11 @@ export class CanActivateLogin implements CanActivate {
   ): Observable<boolean>|boolean {
     let token = localStorage.getItem('auth_token');
     if (token) {
-      let ret = this.http.get(`/auth/verify?token=${token}`).map((res) => {
+      return this.http.get(`/auth/verify?token=${token}`).map((res) => {
         console.log(res);
         let notLoggedIn: boolean = (res.status !== 202);
         if (!notLoggedIn) {
-          console.log('navigating to dashboard');
+          // console.log('navigating to dashboard');
           this.router.navigate(['dashboard']);
         }
         return notLoggedIn;
@@ -30,11 +30,11 @@ export class CanActivateLogin implements CanActivate {
       .catch((res) => {
         return Observable.of(true);
       });
-      ret.subscribe((res) => {
-        console.log('subscriptions');
-        console.log(res);
-      });
-      return ret;
+      // ret.subscribe((res) => {
+      //   console.log('subscriptions');
+      //   console.log(res);
+      // });
+      // return ret;
       // .subscribe( (bol) => console.log(bol));
       // obs.subscribe((res) => {
       //   this.router.navigate(['/dashboard']);

@@ -11,7 +11,18 @@ export class AuthResponseOptions extends BaseResponseOptions {
       if (options.status) {
         if (options.status === 401 || options.status === 403) {
           if (window.location.href.indexOf('login') === -1 || window.location.href.indexOf('register') === -1) {
-            console.log('Logged out');
+            localStorage.removeItem('auth_key');
+            let allowedPaths = ["login", "registration"];
+            let allowed = false;
+            for (let i = 0; i < allowedPaths.length; i ++) {
+              if (location.href.indexOf(allowedPaths[i]) > -1) {
+                allowed = true;
+                break;
+              }
+            }
+            if (!allowed) {
+              location.assign('/login');
+            }
           }
         }
       }
