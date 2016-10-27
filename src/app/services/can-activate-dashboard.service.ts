@@ -3,12 +3,25 @@ import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanAct
 import {Observable} from 'rxjs/Rx';
 import {CryptoService} from './crypto.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
-// import {AuthResponseOptions} from './auth.response.options';
+import {AuthResponseOptions} from './auth.response.options';
 
 @Injectable()
 export class CanActivateDashboard implements CanActivate, CanActivateChild {
 
-  constructor (private router: Router, private toaster: ToasterService) {}
+  private loggedin = true;
+
+  constructor (private router: Router, private toaster: ToasterService) {
+
+    AuthResponseOptions.auth$.subscribe((authed) => {
+      if (!authed) {
+        if (this.loggedin) {
+          this.router.navigate(['/login']);
+          this.toaster.pop('error', 'Session expired! Please log in again.');
+        }
+      }
+      this.loggedin = authed;
+    });
+  }
 
   private checkCryptoKey (): boolean {
     let key = CryptoService.getKey();
@@ -21,8 +34,9 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild {
   }
 
   private isLoggedIn () {
+
     let token = localStorage.getItem('auth_token');
-    if (!token) {
+    if (!token || !this.loggedin) {
       this.router.navigate(['/login']);
       this.toaster.pop('error', 'Session expired! Please log in again.');
       return false;
