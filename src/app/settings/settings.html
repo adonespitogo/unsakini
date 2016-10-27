@@ -1,21 +1,26 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button (click)="isCollapsed = !isCollapsed" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <!-- <button (click)="isCollapsed = !isCollapsed" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
-    </button>
+    </button> -->
       <a class="navbar-brand" (click)="sidebarOpen = !sidebarOpen">
         <span class="fa fa-bars"></span>
       </a>
     </div>
-    <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
+    <div class="hidden-xs navbar-header navbar-right">
+      <p class="navbar-text">
+        Welcome, <span appCurrentUser></span>
+      </p>
+    </div>
+    <!-- <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
       <ul class="nav navbar-nav navbar-right">
         <li><a appLogout>Logout</a></li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </nav>
 <div class="container-fluid">
@@ -29,10 +34,22 @@
         Welcome, <span appCurrentUser></span>
       </li>
       <li routerLinkActive="active">
-        <a (click)="sidebarOpen = false" [routerLink]="['/dashboard']">Dashboard</a>
+        <a (click)="sidebarOpen = false" [routerLink]="['/dashboard']">
+          <span class="fa fa-list"></span>
+          Dashboard
+        </a>
       </li>
       <li routerLinkActive="active">
-        <a (click)="sidebarOpen = false" [routerLink]="['/settings']">Settings</a>
+        <a (click)="sidebarOpen = false" [routerLink]="['/settings']">
+          <span class="fa fa-gears"></span>
+          Settings
+        </a>
+      </li>
+      <li>
+        <a appLogout>
+          <span class="fa fa-power-off"></span>
+          Logout
+        </a>
       </li>
     </ul>
   </ng2-sidebar>
