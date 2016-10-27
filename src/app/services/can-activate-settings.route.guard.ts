@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-import {Observable, Subscription} from 'rxjs/Rx';
-import {CryptoService} from './crypto.service';
+import {Observable} from 'rxjs/Rx';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Injectable()
