@@ -38,7 +38,7 @@ Angular app sources are under the `./src/app` directory, while the api sources a
 If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before being sent. Likewise, the data is being decrypted in the client side using the same key you supplied. The key is stored in your browser's localStorage and is never sent to the server. Therefore, only you can be able to read your data.
 
 The encryption and decryption process happens inside `src/app/services/crypto.service.ts`.
-```
+```typescript
 
 import * as CryptoJS from 'crypto-js';
 
