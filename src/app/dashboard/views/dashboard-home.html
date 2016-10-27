@@ -1,16 +1,26 @@
-<h1>Dashboard Home</h1>
-<h2>My Lists</h2>
-<ul class="list-group" *ngIf="getLists()">
-  <li class="list-group-item" *ngFor="let list of getLists()" routerLinkActive="active">
-    <a [routerLink]="['lists', list.id]">
+<h1>Dashboard</h1>
+<hr />
+<h3>My Lists</h3>
+<div class="list-group" *ngIf="getLists()">
+  <a class="list-group-item" *ngFor="let list of getLists()" [routerLink]="['lists', list.id]" routerLinkActive="active">
+
+    <span class="badge">{{list.items.length}}</span>
+    <h4 class="list-group-item-heading">
       {{list.name}}
-      <span class="badge">{{list.items.length}}</span>
-    </a>
-  </li>
-  <li class="list-group-item" *ngIf="getLists().length === 0">
+    </h4>
+
+    <p class="list-group-item-text">
+      <a [routerLink]="['/dashboard/lists', list.id, 'edit']">Edit</a> | Delete
+    </p>
+
+
+
+  </a>
+  <a class="list-group-item" *ngIf="getLists().length === 0">
     No lists yet.
-    <a [routerLink]="['new-list']">
-      <span class="fa fa-plus"></span> Create a List
-    </a>
-  </li>
-</ul>
+  </a>
+</div>
+
+<a class="btn btn-primary" [routerLink]="['new-list']">
+  <span class="fa fa-plus"></span> Add New List
+</a>
