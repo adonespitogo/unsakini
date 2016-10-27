@@ -22,17 +22,18 @@ export class UserService {
     if (cached && UserService.currentUser) {
       this.currentUser$.next(UserService.currentUser);
       return Observable.of(UserService.currentUser);
-    }
-    return this.http.get('/user').map(
-      (res) => {
-        if (res) {
-          UserService.currentUser = new UserModel(res.json());
-          this.currentUser$.next(UserService.currentUser);
-          return UserService.currentUser;
+    } else {
+      return this.http.get('/user').map(
+        (res) => {
+          if (res) {
+            UserService.currentUser = new UserModel(res.json());
+            this.currentUser$.next(UserService.currentUser);
+            return UserService.currentUser;
+          }
+          return new UserModel();
         }
-        return new UserModel();
-      }
-    );
+      );
+    }
   }
 
 }

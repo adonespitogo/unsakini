@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Renderer, AfterViewInit} from '@angular/core';
-// import { SubjectBehavior } from 'rxjs/Rx';
+import { Directive, ElementRef, Renderer, AfterViewInit, OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
 import { UserService } from '../services/user.service';
 // import { UserModel } from '../models/user.model';
 
@@ -7,7 +7,9 @@ import { UserService } from '../services/user.service';
   selector: '[appCurrentUser]'
 })
 
-export class CurrentUserDirective implements AfterViewInit {
+export class CurrentUserDirective implements AfterViewInit, OnDestroy {
+
+  private subscription: Subscription;
 
   constructor (
     private el: ElementRef,
@@ -16,10 +18,14 @@ export class CurrentUserDirective implements AfterViewInit {
   ) { }
 
   ngAfterViewInit () {
-    this.userService.getCurrentUser(true).subscribe();
+    this.subscription = this.userService.getCurrentUser(true).subscribe();
     this.userService.currentUser$.subscribe((user) => {
       this.renderer.setElementProperty(this.el.nativeElement, 'innerHTML', `${user.name}`);
     });
+  }
+
+  ngOnDestroy () {
+    this.subscription.unsubscribe();
   }
 
 }

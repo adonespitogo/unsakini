@@ -1,20 +1,22 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild} from '@angular/router';
-import {Observable} from 'rxjs/Rx';
+import {Observable, Subscription} from 'rxjs/Rx';
 import {CryptoService} from './crypto.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {AuthResponseOptions} from './auth.response.options';
 
 @Injectable()
-export class CanActivateDashboard implements CanActivate, CanActivateChild {
+export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDestroy {
 
   private loggedin = true;
+  private authSubs: Subscription;
 
   constructor (private router: Router, private toaster: ToasterService) {
 
-    AuthResponseOptions.auth$.subscribe((authed) => {
+    this.authSubs = AuthResponseOptions.auth$.subscribe((authed) => {
       if (!authed) {
         if (this.loggedin) {
+          localStorage.removeItem('auth_token');
           this.router.navigate(['/login']);
           this.toaster.pop('error', 'Session expired! Please log in again.');
         }
@@ -66,6 +68,10 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild {
     } else {
       return false;
     }
+  }
+
+  ngOnDestroy () {
+    this.authSubs.unsubscribe();
   }
 
 }
