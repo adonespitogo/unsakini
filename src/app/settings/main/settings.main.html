@@ -1,12 +1,13 @@
-<h1>Set Your Crypto Key</h1>
+<h1>Security Settings</h1>
+<hr />
 <form #cryptoKeyForm="ngForm">
   <div class="form-group">
-    <label for="key">Key:</label>
+    <label for="key">Set your encryption key</label>
     <input type="password" class="form-control"
       required
       [(ngModel)]="key" name="keyInput" #keyInput="ngModel">
   </div>
-  <div [hidden]="keyInput.valid || keyInput.pristine" 
+  <div [hidden]="keyInput.valid || keyInput.pristine"
              class="alert alert-danger">
           Key is required
         </div>
