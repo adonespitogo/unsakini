@@ -1,49 +1,57 @@
 <div class="container">
-  <h1>Register</h1>
-  <hr>
-  <p>
-    Already have an account? <a [routerLink]="['/login']">Login</a>
-  </p>
-  <form #regForm="ngForm" (ngSubmit)="doSubmit($event); false">
-    <div *ngIf="error" class="alert alert-danger">
-      {{error}}
-    </div>
-    <div *ngIf="success" class="alert alert-success">
-      <p>{{success}}</p>
-      <a [routerLink]="['/login']">You can login now.</a>
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" class="form-control" id="email" placeholder="Email" required [(ngModel)]="user.email" name="email" #email="ngModel">
-    </div>
-    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-      Email is required
-    </div>
-    <div class="form-group">
-      <label for="name">name</label>
-      <input type="text" class="form-control" id="name" placeholder="name" required [(ngModel)]="user.name" name="name" #name="ngModel">
-    </div>
-    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-      name is required
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Password" required [(ngModel)]="user.password" name="password" #password="ngModel">
-      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-        Password is required
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Confirm Password</label>
-      <input type="password" class="form-control" id="password_confirmation" placeholder="password_confirmation" required [(ngModel)]="user.password_confirmation" name="password_confirmation" #password_confirmation="ngModel">
-      <div [hidden]="password_confirmation.valid || password_confirmation.pristine" class="alert alert-danger">
-        Password confirmation is required
-      </div>
-    </div>
-    <div class="form-group" style="margin-top: 20px;">
-      <button type="submit" class="btn btn-primary" [disabled]="!regForm.form.valid">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+
+
+        <h1>Register</h1>
+        <hr>
+        <p>
+          Already have an account? <a [routerLink]="['/login']">Login</a>
+        </p>
+        <form #regForm="ngForm" (ngSubmit)="doSubmit($event); false">
+          <div *ngIf="error" class="alert alert-danger">
+            {{error}}
+          </div>
+          <div *ngIf="success" class="alert alert-success">
+            <p>{{success}}</p>
+            <a [routerLink]="['/login']">You can login now.</a>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Email" required [(ngModel)]="user.email" name="email" #email="ngModel">
+          </div>
+          <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+            Email is required
+          </div>
+          <div class="form-group">
+            <label for="name">name</label>
+            <input type="text" class="form-control" id="name" placeholder="name" required [(ngModel)]="user.name" name="name" #name="ngModel">
+          </div>
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            name is required
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" required [(ngModel)]="user.password" name="password" #password="ngModel">
+            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+              Password is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" id="password_confirmation" placeholder="password_confirmation" required [(ngModel)]="user.password_confirmation" name="password_confirmation" #password_confirmation="ngModel">
+            <div [hidden]="password_confirmation.valid || password_confirmation.pristine" class="alert alert-danger">
+              Password confirmation is required
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary" [disabled]="!regForm.form.valid">
         Login
       </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
 </div>
