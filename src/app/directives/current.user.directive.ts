@@ -18,7 +18,7 @@ export class CurrentUserDirective implements AfterViewInit {
   ngAfterViewInit () {
     this.userService.getCurrentUser(true).subscribe();
     this.userService.currentUser$.subscribe((user) => {
-      this.renderer.setElementProperty(this.el.nativeElement, 'innerHTML', `Welcome ${user.name}.`);
+      this.renderer.setElementProperty(this.el.nativeElement, 'innerHTML', `${user.name}`);
     });
   }
 

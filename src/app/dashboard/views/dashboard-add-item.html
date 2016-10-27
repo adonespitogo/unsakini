@@ -1,3 +1,10 @@
+<a [routerLink]="['/dashboard']">Lists</a>
+>
+<a [routerLink]="['/dashboard/lists', list.id]">{{list.name}}</a>
+>
+<a>Add Item</a>
+
+
 <h1>{{list.name}}</h1>
 <h3>Add item</h3>
 <form #itemForm="ngForm">
@@ -7,7 +14,7 @@
       required
       [(ngModel)]="item.title" name="title" #title="ngModel">
   </div>
-  <div [hidden]="title.valid || title.pristine" 
+  <div [hidden]="title.valid || title.pristine"
              class="alert alert-danger">
           Title is required
         </div>
@@ -22,7 +29,7 @@
       #content="ngModel">
     </textarea>
   </div>
-  <div [hidden]="content.valid || content.pristine" 
+  <div [hidden]="content.valid || content.pristine"
              class="alert alert-danger">
           Content is required
         </div>

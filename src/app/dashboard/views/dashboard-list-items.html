@@ -1,3 +1,5 @@
+<a [routerLink]="['/dashboard']">Lists</a> > <a>{{getList().name}}</a>
+
 <h1>{{getList().name}}</h1>
 <a [routerLink]="['/dashboard/lists', getList().id, 'edit']">Edit</a> |
 <a (click)="doDeleteList(list)">Delete</a>
@@ -25,4 +27,7 @@
 </ul>
 
 
-<a class="btn btn-primary" [routerLink]="['/dashboard/lists', getList().id, 'add-item']">Add Item</a>
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', getList().id, 'add-item']">
+  <span class="fa fa-plus"></span>
+  Add Item
+</a>

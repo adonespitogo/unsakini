@@ -14,8 +14,6 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
         <ul class="nav navbar-nav navbar-right">
-          <li routerLinkActive="active"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-          <li routerLinkActive="active"><a [routerLink]="['/settings']">Settings</a></li>
           <li><a appLogout>Logout</a></li>
         </ul>
       </div>
@@ -31,21 +29,22 @@
 
       <ul class="nav nav-pills nav-stacked">
         <li class="divider">
-          My Lists
+          Welcome, <span appCurrentUser></span>
         </li>
-        <li *ngFor="let list of getLists()" routerLinkActive="active">
-          <a [routerLink]="['lists', list.id]" (click)="sidebarOpen = false">{{list.name}}</a>
-        </li>
-        <li>
-          <a [routerLink]="['new-list']" (click)="sidebarOpen = !sidebarOpen">
-            <i class="fa fa-plus"></i> New List
-          </a>
-        </li>
+          <li routerLinkActive="active">
+            <a (click)="sidebarOpen = false" [routerLink]="['/dashboard']">Dashboard</a>
+          </li>
+          <li routerLinkActive="active">
+            <a (click)="sidebarOpen = false" [routerLink]="['/settings']">Settings</a>
+          </li>
       </ul>
     </ng2-sidebar>
 
 
     <div class="container main-container">
+      <p class="lead text-right">
+        Welcome, <strong appCurrentUser></strong>!
+      </p>
       <router-outlet></router-outlet>
     </div>
 
