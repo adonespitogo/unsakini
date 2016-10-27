@@ -10,6 +10,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
 
   private loggedin = true;
   private authSubs: Subscription;
+  private cryptosubs: Subscription;
 
   constructor (private router: Router, private toaster: ToasterService) {
 
@@ -22,6 +23,18 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
         }
       }
       this.loggedin = authed;
+    });
+
+    this.cryptosubs = CryptoService.validkey$.subscribe((valid: boolean) => {
+      if (!valid && this._canActivate()) {
+        this.router.navigate(['/settings']);
+        toaster.pop(
+          'error',
+          'Cryptographic Problem',
+          `You might have entered the wrong private key.
+          We are having a problem with decryption and encryption of your data.`
+        );
+      }
     });
   }
 
@@ -72,6 +85,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
 
   ngOnDestroy () {
     this.authSubs.unsubscribe();
+    this.cryptosubs.unsubscribe();
   }
 
 }
