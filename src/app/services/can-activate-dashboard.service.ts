@@ -30,7 +30,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
         this.router.navigate(['/settings']);
         toaster.pop(
           'error',
-          'Cryptographic Problem',
+          'Cryptographic Problem Encountered',
           `You might have entered the wrong private key.
           We are having a problem with decryption and encryption of your data.`
         );
