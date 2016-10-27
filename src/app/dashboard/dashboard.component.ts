@@ -8,12 +8,13 @@ import {ToasterService} from 'angular2-toaster/angular2-toaster';
   // providers: [
   //   ListService
   // ],
-  styleUrls: ['./styles/dashboard.css']
+  styleUrls: ['./styles/dashboard.scss']
 })
 
 export class DashboardComponent implements OnInit {
 
   public isCollapsed: boolean = true;
+  public sidebarOpen: boolean = false;
 
   constructor (
     private listService: ListService,
