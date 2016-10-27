@@ -29,14 +29,16 @@ export class SettingsMainComponent {
   }
 
   deleteKey() {
-    localStorage.removeItem('auth_token');
-    this.router.navigate(['/login']);
-    this.toaster.pop(
-      'success',
-      'Private Key Deleted',
-      `Your private key has been deleted from this browser.
-      You were automatically logged out since you can't access your data without your key.`
-    );
-    CryptoService.removeKey();
+    if (confirm(`Are you sure? Don't forget to make a copy of your key in case you forget it.`)) {
+      localStorage.removeItem('auth_token');
+      this.router.navigate(['/login']);
+      this.toaster.pop(
+        'success',
+        'Private Key Deleted',
+        `Your private key has been deleted from this browser.
+        You were automatically logged out since you can't access your data without your key.`
+      );
+      CryptoService.removeKey();
+    }
   }
 }
