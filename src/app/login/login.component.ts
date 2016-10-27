@@ -2,7 +2,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {ICredentials, LoginService} from './login.service';
-import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -20,8 +19,7 @@ export class LoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private router: Router,
-    private toaster: ToasterService
+    private router: Router
   ) {
     this.creds = {email: '', password: ''};
   }
@@ -36,7 +34,6 @@ export class LoginComponent {
         this.success = 'Login successful. Redirecting...';
         window.localStorage.setItem('auth_token', json.token);
         this.router.navigate(['/dashboard']);
-        this.toaster.pop('success', 'Login successful.');
       }
     );
     return false;

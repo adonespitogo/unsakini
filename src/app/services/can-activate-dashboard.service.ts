@@ -18,30 +18,40 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
         if (this.loggedin) {
           localStorage.removeItem('auth_token');
           this.router.navigate(['/login']);
-          this.toaster.pop('error', 'Session expired! Please log in again.');
+          this.toaster.pop('error', 'Your session has expired. Please login again.');
         }
       }
       this.loggedin = authed;
     });
   }
 
-  private checkCryptoKey (): boolean {
+  private hasCryptoKey (): boolean {
     let key = CryptoService.getKey();
-    if (!key) {
-      this.router.navigate(['/settings']);
-      this.toaster.pop('error', 'Please set your encryption key.');
-      return false;
-    }
-    return true;
+    return !!key;
   }
 
   private isLoggedIn () {
 
     let token = localStorage.getItem('auth_token');
     if (!token || !this.loggedin) {
-      this.router.navigate(['/login']);
-      this.toaster.pop('error', 'Session expired! Please log in again.');
       return false;
+    }
+    return true;
+  }
+
+  private _canActivate() {
+    if (!this.isLoggedIn() ) {
+      this.router.navigate(['/login']);
+      this.toaster.pop('error', 'Session expired');
+      localStorage.removeItem('auth_token');
+      this.loggedin = false;
+      return false;
+    } else {
+      if (!this.hasCryptoKey()) {
+        this.router.navigate(['/settings']);
+        this.toaster.pop('error', 'Set your private key first.');
+        return false;
+      }
     }
     return true;
   }
@@ -50,24 +60,14 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|boolean {
-    if (this.isLoggedIn ()) {
-      return this.checkCryptoKey();
-    } else {
-      return false;
-    }
-
-    // return !!CryptoService.getKey();
+    return this._canActivate();
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|boolean {
-    if (this.isLoggedIn ()) {
-      return this.checkCryptoKey();
-    } else {
-      return false;
-    }
+    return this._canActivate();
   }
 
   ngOnDestroy () {
