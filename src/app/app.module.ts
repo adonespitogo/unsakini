@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, RequestOptions, ResponseOptions } from '@angular/http';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {ToasterModule} from 'angular2-toaster/angular2-toaster';
-import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
+// import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
 
 import { AuthRequestOptions } from './services/auth.request.options';
 import { AuthResponseOptions } from './services/auth.response.options';
@@ -32,7 +32,7 @@ declare var $: any;
     AppRoutingModule,
     DashboardModule,
     SettingsModule,
-    Ng2BreadcrumbModule,
+    // Ng2BreadcrumbModule,
     LoginModule,
     RegisterModule,
   ],
@@ -47,12 +47,12 @@ declare var $: any;
     UserService,
     ListService,
     ItemService,
-    BreadcrumbService,
+    // BreadcrumbService,
   ],
   bootstrap: [ AppComponent ],
   exports: [
     ToasterModule,
-    Ng2BreadcrumbModule
+    // Ng2BreadcrumbModule
   ]
 })
 

@@ -1,7 +1,7 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
-import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
+// import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { DashboardRoutingModule } from './dashboard.routing.module';
@@ -23,7 +23,7 @@ import { DirectivesModule } from '../directives/directives.module';
     DashboardRoutingModule,
     DirectivesModule,
     FormsModule,
-    Ng2BreadcrumbModule,
+    // Ng2BreadcrumbModule,
     CollapseModule,
   ],
   declarations: [
@@ -37,7 +37,7 @@ import { DirectivesModule } from '../directives/directives.module';
     DashboardEditItemComponent,
   ],
   providers: [
-    BreadcrumbService,
+    // BreadcrumbService,
     // CanActivateDashboard
   ],
   exports: [

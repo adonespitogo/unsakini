@@ -1,7 +1,8 @@
 <h1>{{getList().name}}</h1>
-<a [routerLink]="['/dashboard/lists', getList().id, 'edit']">Edit</a> | 
+<a [routerLink]="['/dashboard/lists', getList().id, 'edit']">Edit</a> |
 <a (click)="doDeleteList(list)">Delete</a>
 <hr>
+<strong>Items</strong>
 <ul class="list-group">
   <li class="list-group-item" *ngFor="let item of getList().items">
     <div class="row">
