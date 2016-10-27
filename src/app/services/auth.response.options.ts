@@ -12,7 +12,7 @@ export class AuthResponseOptions extends BaseResponseOptions {
         if (options.status === 401 || options.status === 403) {
           if (window.location.href.indexOf('login') === -1 || window.location.href.indexOf('register') === -1) {
             localStorage.removeItem('auth_key');
-            let allowedPaths = ["login", "register"];
+            let allowedPaths = ['login', 'register'];
             let allowed = false;
             for (let i = 0; i < allowedPaths.length; i ++) {
               if (location.href.indexOf(allowedPaths[i]) > -1) {

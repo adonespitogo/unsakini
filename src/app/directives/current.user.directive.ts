@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Renderer, AfterViewInit} from '@angular/core';
 // import { SubjectBehavior } from 'rxjs/Rx';
 import { UserService } from '../services/user.service';
-import { UserModel } from '../models/user.model';
+// import { UserModel } from '../models/user.model';
 
 @Directive({
   selector: '[appCurrentUser]'
