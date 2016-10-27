@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
-// import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
+import { SidebarModule } from 'ng2-sidebar';
 import {SettingsRoutingModule} from './settings.routing.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import {DirectivesModule} from '../directives/directives.module';
@@ -15,7 +15,7 @@ import {SettingsMainComponent} from './main/settings.main.component';
     HttpModule,
     FormsModule,
     SettingsRoutingModule,
-    // Ng2BreadcrumbModule,
+    SidebarModule,
     CollapseModule,
     DirectivesModule,
   ],

@@ -1,45 +1,53 @@
 <div class="dashboard-component">
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button (click)="isCollapsed = !isCollapsed" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button (click)="isCollapsed = !isCollapsed" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['/dashboard']">UNSAKINI</a>
+        <a class="navbar-brand" (click)="sidebarOpen = !sidebarOpen">
+          <span class="fa fa-bars"></span>
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
+        <ul class="nav navbar-nav navbar-right">
+          <li routerLinkActive="active"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+          <li routerLinkActive="active"><a [routerLink]="['/settings']">Settings</a></li>
+          <li><a appLogout>Logout</a></li>
+        </ul>
+      </div>
     </div>
-    <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
-      <ul class="nav navbar-nav navbar-right">
-        <li routerLinkActive="active"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-        <li routerLinkActive="active"><a [routerLink]="['/settings']">Settings</a></li>
-        <li><a appLogout>Logout</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <p class="lead">
-        <strong>My Lists</strong>
-      </p>
-      <ul class="nav nav-sidebar">
+  </nav>
+  <div class="container-fluid">
+
+    <ng2-sidebar [(open)]="sidebarOpen" closeOnClickOutside="true" defaultStyles="true">
+
+      <div class="sidebar-heading">
+        UNSAKINI
+      </div>
+
+      <ul class="nav nav-pills nav-stacked">
+        <li class="divider">
+          My Lists
+        </li>
         <li *ngFor="let list of getLists()" routerLinkActive="active">
-          <a [routerLink]="['lists', list.id]">{{list.name}}</a>
+          <a [routerLink]="['lists', list.id]" (click)="sidebarOpen = false">{{list.name}}</a>
         </li>
         <li>
-          <a [routerLink]="['new-list']">
+          <a [routerLink]="['new-list']" (click)="sidebarOpen = !sidebarOpen">
             <i class="fa fa-plus"></i> New List
           </a>
         </li>
       </ul>
-    </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <h3 appCurrentUser class="text-right"></h3>
+    </ng2-sidebar>
+
+
+    <div class="main-container">
       <router-outlet></router-outlet>
     </div>
+
   </div>
-</div>
 </div>

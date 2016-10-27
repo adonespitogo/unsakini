@@ -7,6 +7,7 @@ import {Component} from '@angular/core';
 
 
 export class SettingsComponent {
-public isCollapsed: boolean = true;
+  public isCollapsed: boolean = true;
+  public sidebarOpen: boolean = false;
 
 }
