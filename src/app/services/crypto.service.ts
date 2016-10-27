@@ -1,6 +1,5 @@
 
 import * as CryptoJS from 'crypto-js';
-declare let localSto: any;
 
 export class CryptoService {
 
