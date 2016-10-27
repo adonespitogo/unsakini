@@ -79,4 +79,5 @@ module.exports = (app) ->
   app.get /(\/js|\/web|\/css|\/views|\/fonts)\/*/, (req, res, next) ->
     res.status(404).send()
 
-  app.get '*', controllers.public_controller.app
+  app.get '*', (req, res) ->
+    res.sendFile 'index.html', {root: './dist'}

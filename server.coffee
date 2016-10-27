@@ -11,7 +11,7 @@ if(process.env.NODE_ENV is 'production')
 
 app.set('view engine', 'ejs')
 app.set('views', "#{__dirname}/api/views")
-app.use(express.static('./dist/out-src'))
+app.use(express.static('./dist'))
 if(process.env.NODE_ENV isnt 'production')
   app.disable('view cache')
 
