@@ -62,7 +62,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
     } else {
       if (!this.hasCryptoKey()) {
         this.router.navigate(['/settings']);
-        this.toaster.pop('error', 'Set your private key first.');
+        this.toaster.pop('error', 'Private Key Unset', `Please set your private key first so to be able to access your data.`);
         return false;
       }
     }
