@@ -27,7 +27,7 @@ export class DeleteItemDirective {
   ) {}
 
   doDelete () {
-    if (confirm('Are you sure you want to logout?')) {
+    if (confirm(`Are you sure you want to delete ${this.item.title}?`)) {
       this.itemService.deleteItem(this.item).subscribe(() => {
         this.toaster.pop('success', `Item ${this.item.title} has been deleted.`);
         this.onItemDeleted.emit(true);

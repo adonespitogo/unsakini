@@ -2,23 +2,25 @@
 <hr />
 <h3>My Lists</h3>
 <div class="list-group" *ngIf="getLists()">
-  <a class="list-group-item" *ngFor="let list of getLists()" [routerLink]="['lists', list.id]" routerLinkActive="active">
+  <div class="list-group-item" *ngFor="let list of getLists()" routerLinkActive="active">
 
     <span class="badge">{{list.items.length}}</span>
     <h4 class="list-group-item-heading">
-      {{list.name}}
+      <a  [routerLink]="['lists', list.id]">
+        {{list.name}}
+      </a>
     </h4>
 
     <p class="list-group-item-text">
-      <a [routerLink]="['/dashboard/lists', list.id, 'edit']">Edit</a> | Delete
+      <a [routerLink]="['/dashboard/lists', list.id, 'edit']">Edit</a> | <a appDeleteList [list]="list">Delete</a>
     </p>
 
 
 
-  </a>
-  <a class="list-group-item" *ngIf="getLists().length === 0">
+  </div>
+  <div class="list-group-item" *ngIf="getLists().length === 0">
     No lists yet.
-  </a>
+  </div>
 </div>
 
 <a class="btn btn-primary" [routerLink]="['new-list']">
