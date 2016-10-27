@@ -1,5 +1,8 @@
 <div class="edit-item">
-
+  <a [routerLink]="['/dashboard/lists', item.list_id]">{{item.list.name}}</a>
+  >
+  <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
+  
   <h1>{{item.title}}</h1>
   <h3>Edit</h3>
   <form #itemForm="ngForm">

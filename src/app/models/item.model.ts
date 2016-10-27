@@ -9,17 +9,18 @@ interface IItemJSON {
   created_at: string;
   updated_at: string;
   list_id: number;
+  list: any;
 }
 
 export class ItemModel {
 
-  public id: number;
-  public title: string;
-  public content: string;
-  public created_at: string;
-  public updated_at: string;
+  public id: number = 0;
+  public title: string = '';
+  public content: string = '';
+  public created_at: string = '';
+  public updated_at: string = '';
   public list: ListModel;
-  public list_id: number;
+  public list_id: number = 0;
 
   constructor (public rawJson?: IItemJSON) {
     if (rawJson) {
@@ -29,13 +30,7 @@ export class ItemModel {
       this.created_at = rawJson.created_at || '';
       this.updated_at = rawJson.updated_at || '';
       this.list_id = rawJson.list_id || 0;
-    } else {
-      this.id = 0;
-      this.title = '';
-      this.content = '';
-      this.created_at = '';
-      this.updated_at = '';
-      this.list_id = 0;
+      this.list = new ListModel(rawJson.list) || new ListModel();
     }
     this.deserialize();
   }

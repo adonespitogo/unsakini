@@ -2,12 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {ItemService} from '../services/item.service';
 import {ItemModel} from '../models/item.model';
+import {ListModel} from '../models/list.model';
 
 @Component({
-  templateUrl: './views/dashboard-item.html',
-  providers: [
-    ItemService
-  ]
+  templateUrl: './views/dashboard-item.html'
   // styleUrls: ['../css/dashboard/styles/dashboard-list-items.css']
 })
 
@@ -21,6 +19,13 @@ export class DashboardItemComponent implements OnInit {
     private itemService: ItemService
   ) {
     this.item = new ItemModel();
+    this.item.list = new ListModel();
+  }
+
+  onItemDeleted (deleted: boolean) {
+    if (deleted) {
+      this.router.navigate(['/dashboard/lists', this.item.list_id]);
+    }
   }
 
   ngOnInit() {

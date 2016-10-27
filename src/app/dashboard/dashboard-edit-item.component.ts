@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params }   from '@angular/router';
 import { ListService }          from '../services/list.service';
 import { ItemService }          from '../services/item.service';
 import { ItemModel }          from '../models/item.model';
+import { ListModel }          from '../models/list.model';
 import {Observable}             from 'rxjs/Rx';
 import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
@@ -24,6 +25,7 @@ export class DashboardEditItemComponent implements OnInit {
     private toaster: ToasterService
   ) {
     this.item = new ItemModel();
+    this.item.list = new ListModel();
   }
 
   ngOnInit() {

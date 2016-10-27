@@ -61,11 +61,11 @@ export class DashboardListItemsComponent implements OnInit {
     }
   }
 
-  doDeleteItem (item) {
-    if (window.confirm(`Are you sure you want to delete item '${item.title}'?`)) {
-      this.itemService.deleteItem(item).subscribe();
-    }
-  }
+  // doDeleteItem (item) {
+  //   if (window.confirm(`Are you sure you want to delete item '${item.title}'?`)) {
+  //     this.itemService.deleteItem(item).subscribe();
+  //   }
+  // }
 
   private redirectTo () {
     let lists = ListService.lists;

@@ -19,7 +19,9 @@ export class ItemService {
       let list = _lists[i];
       for (let x = list.items.length - 1; x >= 0; x--) {
         if (list.items[x].id === id) {
-          return list.items[x];
+          let item = list.items[x];
+          item.list = list;
+          return item;
         }
       }
     }

@@ -3,13 +3,37 @@
 <form #listForm="ngForm">
   <div class="form-group">
     <label for="name">Rename list:</label>
-    <input type="text" class="form-control" id="name" placeholder="List Name"
-      required
-      [(ngModel)]="list.name" name="name" #name="ngModel">
+    <input type="text" class="form-control" id="name" placeholder="List Name" required [(ngModel)]="list.name" name="name" #name="ngModel">
   </div>
-  <div [hidden]="name.valid || name.pristine" 
-             class="alert alert-danger">
-          Name is required
-        </div>
+  <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+    Name is required
+  </div>
   <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!listForm.form.valid">Submit</button>
 </form>
+
+<hr />
+
+<p class="lead">
+  <strong>Items</strong>
+</p>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of list.items">
+    <div class="row">
+      <div class="col-xs-10">
+        <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
+      </div>
+      <div class="col-xs-1">
+        <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
+      </div>
+      <div class="col-xs-1">
+        <a appDeleteItem [item]="item">Delete</a>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item" *ngIf="list.items.length === 0">
+    No items yet! <a [routerLink]="['/dashboard/lists', list.id, 'add-item']">Add Item</a>
+  </li>
+</ul>
+
+
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', list.id, 'add-item']">Add Item</a>
