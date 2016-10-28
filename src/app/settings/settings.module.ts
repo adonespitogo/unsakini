@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
-import { SidebarModule } from 'ng2-sidebar';
 import {SettingsRoutingModule} from './settings.routing.module';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { ClipboardModule }  from 'angular2-clipboard';
@@ -17,7 +16,6 @@ import {SettingsMainComponent} from './main/settings.main.component';
     FormsModule,
     CommonModule,
     SettingsRoutingModule,
-    SidebarModule,
     CollapseModule,
     DirectivesModule,
     ClipboardModule,

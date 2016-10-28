@@ -1,9 +1,7 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
-// import {Ng2BreadcrumbModule, BreadcrumbService} from 'ng2-breadcrumb/ng2-breadcrumb';
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { SidebarModule } from 'ng2-sidebar';
 
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -26,7 +24,6 @@ import { DirectivesModule } from '../directives/directives.module';
     FormsModule,
     // Ng2BreadcrumbModule,
     CollapseModule,
-    SidebarModule,
   ],
   declarations: [
     DashboardComponent,
