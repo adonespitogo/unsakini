@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {UserModel} from '../models/user.model';
+// import {CryptoService} from './crypto.service';
 
 @Injectable()
 
@@ -27,6 +28,7 @@ export class UserService {
         (res) => {
           if (res) {
             UserService.currentUser = new UserModel(res.json());
+            // CryptoService.setKeyName(`user_${UserService.currentUser.id}_crypto_key`);
             this.currentUser$.next(UserService.currentUser);
             return UserService.currentUser;
           }

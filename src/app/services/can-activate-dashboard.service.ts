@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild} from '@angular/router';
 import {Observable, Subscription} from 'rxjs/Rx';
-import {CryptoService} from './crypto.service';
+import {CryptoService, ICryptoObservable} from './crypto.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {AuthResponseOptions} from './auth.response.options';
 
@@ -25,14 +25,13 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
       this.loggedin = authed;
     });
 
-    this.cryptosubs = CryptoService.validkey$.subscribe((valid: boolean) => {
-      if (!valid && this._canActivate()) {
+    this.cryptosubs = CryptoService.validkey$.subscribe((val: ICryptoObservable) => {
+      if (!val.status && this._canActivate()) {
         this.router.navigate(['/settings']);
         toaster.pop(
           'error',
           'Cryptographic Problem Encountered',
-          `You might have entered the wrong private key.
-          We are having a problem with decryption and encryption of your data.`
+          `You might have entered the wrong private key. Error message: ${val.message}`
         );
       }
     });

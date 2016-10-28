@@ -2,6 +2,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {ICredentials, LoginService} from './login.service';
+import {CryptoService} from '../services/crypto.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -32,6 +33,7 @@ export class LoginComponent {
     .subscribe(
       (json) => {
         this.success = 'Login successful. Redirecting...';
+        CryptoService.setKeyName(json.user);
         window.localStorage.setItem('auth_token', json.token);
         this.router.navigate(['/dashboard']);
       }
