@@ -1,5 +1,7 @@
 mailer = require('express-mailer')
-config = require('./mailer.config')
+config = {}
+if process.env.NODE_ENV isnt 'production'
+  config = require('./mailer.config')
 
 module.exports = (app) ->
 
