@@ -37,7 +37,10 @@ export class RegisterComponent {
     .catch(this.submitFailHandler(this))
     .subscribe(
       (json) => {
-        this.success = 'Registration successful.';
+        this.success = `Registration successful.
+          A confirmation email has been sent to your email ${this.user.email}.
+          Please check your spam folder if you can't see it in your inbox.
+        `;
       }
     );
     return false;
