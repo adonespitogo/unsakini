@@ -27,7 +27,7 @@ export class CryptoService {
 
   static encrypt (msg: string) {
     if (!msg) {
-      return "";
+      return '';
     }
     let err = '[encryption error]';
     let key = CryptoService.getKey();
@@ -48,7 +48,7 @@ export class CryptoService {
 
   static decrypt (msg: string) {
     if (!msg) {
-      return "";
+      return '';
     }
     let err = '[decryption error]';
     let transitmessage = msg;
