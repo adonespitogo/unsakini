@@ -9,33 +9,44 @@ exports.get = (req, res, next) ->
     else
       res.json db_user
 
-exports.create = (req, res, next) ->
-  if !req.body.email
-    res.send 422, [message: 'Email is required']
-  if !req.body.password
-    res.send 422, [message: 'Password is required']
-    return
-  if req.body.password?.lenth < 6
-    res.send 422, [message: 'Password must be at least 6 characters']
-    return
-  if req.body.password != req.body.password_confirmation
-    res.send 422, [message: 'Passwords didn\'t match.']
-    return
-  user = User.build(req.body)
-  user.setPassword(req.body.password).then((user) ->
-    user.save()
-    .then (user) ->
-      # If user created successfuly we return user and token as response
-      res.send 200,
-        user: user
-        token: jwToken.issue(id: user.id)
-      next()
-    .catch (err) ->
-      err = err.errors or err
-      res.send 422, err
-      next()
-  ).catch (err) ->
-    next err
+exports.create = (app) ->
+  (req, res, next) ->
+    if !req.body.email
+      res.send 422, [message: 'Email is required']
+    if !req.body.password
+      res.send 422, [message: 'Password is required']
+      return
+    if req.body.password?.lenth < 6
+      res.send 422, [message: 'Password must be at least 6 characters']
+      return
+    if req.body.password != req.body.password_confirmation
+      res.send 422, [message: 'Passwords didn\'t match.']
+      return
+    user = User.build(req.body)
+    user.setPassword(req.body.password).then((user) ->
+      user.save()
+      .then (user) ->
+        # If user created successfuly we return user and token as response
+        app.mailer.send 'mails/confirm-account', {
+          # to: user.email
+          to: 'adonesp@live.com'
+          subject: 'Confirm Your Account'
+          user: user
+        },
+        (err, message) ->
+          if (err)
+            console.log err
+            res.status(500).send([message: message])
+            return
+          res.send
+            user: user
+          next()
+      .catch (err) ->
+        err = err.errors or err
+        res.send 422, err
+        next()
+    ).catch (err) ->
+      next err
 
 exports.update = (req, res, next) ->
 
@@ -44,7 +55,7 @@ exports.update = (req, res, next) ->
     db_user.setDataValue 'email', req.body.email
     db_user.save()
     .then ->
-      return res.json(db_user)
+      return res.send(db_user)
     .catch (err) ->
       return res.status(500).send err
 

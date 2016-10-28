@@ -66,7 +66,7 @@ module.exports = (app) ->
 
 
   app.post '/users',
-          controllers.user_controller.create
+          controllers.user_controller.create(app)
 
   app.put '/user',
           Auth,
