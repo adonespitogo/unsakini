@@ -1,12 +1,15 @@
-<h1>Security Settings</h1>
-<hr />
-<div class="alert alert-danger">
-  New cryptography algorythm has been implemented, base on
+
+<div class="alert alert-danger" *ngIf="!hideAlert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideAlert = true"><span aria-hidden="true">&times;</span></button>
+  As of October 28 2016, new cryptography algorythm has been implemented, base on
   <a href="http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct">this discussion on SO</a>.
   In the new cryptography algorythm, we prepended the data with HmacSHA256 encryption. This is to be able to tell if the passphrase used in decryption
   is the same as the one used during encryption. If you get <code>Cryptographic Problem Encountered</code> errors, this is because of the new algorythm.
   To get your old data, go to deployed <a (click)="goToOldSource()">old source of www.unsakini.com</a>.
 </div>
+
+<h1>Security Settings</h1>
+<hr />
 <form #cryptoKeyForm="ngForm">
   <div class="form-group">
     <label for="key">Set your private key</label>

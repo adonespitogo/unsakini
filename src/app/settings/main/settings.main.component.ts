@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class SettingsMainComponent {
   public key;
   public showKey: boolean = false;
+  public hideAlert: boolean = false;
 
   constructor (private toaster: ToasterService, private router: Router) {
     this.key = CryptoService.getKey();
