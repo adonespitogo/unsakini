@@ -1,6 +1,7 @@
 import { Directive, Input, ElementRef, Renderer, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
+import {AuthService} from '../services/auth.service';
 
 @Directive({
   selector: '[appLogout]'
@@ -23,7 +24,8 @@ export class LogoutDirective {
 
   doLogout () {
     if (confirm('Are you sure you want to logout?')) {
-      localStorage.removeItem('auth_token');
+      AuthService.setAuthToken('');
+      AuthService.setAuthenticated(false);
       this.router.navigate(['/login']);
       this.toaster.pop('warning', 'You are now logged out.');
     }

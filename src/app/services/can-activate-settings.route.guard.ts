@@ -2,15 +2,18 @@ import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class CanActivateSettings implements CanActivate {
 
-  constructor (private router: Router, private toaster: ToasterService) {
-  }
+  constructor (
+    private router: Router,
+    private toaster: ToasterService
+   ) {}
 
-  private _canActivate() {
-    return !!localStorage.getItem('auth_token');
+  private _canActivate(): boolean {
+    return !!AuthService.getAuthToken();
   }
 
   canActivate(

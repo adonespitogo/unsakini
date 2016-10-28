@@ -3,9 +3,8 @@ import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanAct
 import {Observable, Subscription} from 'rxjs/Rx';
 import {CryptoService, ICryptoObservable} from './crypto.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
-import {AuthResponseOptions} from './auth.response.options';
+import {AuthService} from './auth.service';
 import {UserService} from './user.service';
-// import {UserModel} from '../models/user.model';
 
 @Injectable()
 export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDestroy {
@@ -16,10 +15,9 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
 
   constructor (private router: Router, private toaster: ToasterService, private userService: UserService) {
 
-    this.authSubs = AuthResponseOptions.auth$.subscribe((authed) => {
+    this.authSubs = AuthService.authenticated$.subscribe((authed: boolean) => {
       if (!authed) {
         if (this.loggedin) {
-          localStorage.removeItem('auth_token');
           this.router.navigate(['/login']);
           this.toaster.pop('error', 'Your session has expired. Please login again.');
         }
@@ -49,7 +47,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
 
   private isLoggedIn () {
 
-    let token = localStorage.getItem('auth_token');
+    let token = AuthService.getAuthToken();
     if (!token || !this.loggedin) {
       return false;
     }
@@ -62,7 +60,6 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
       if (!this.isLoggedIn() ) {
         this.router.navigate(['/login']);
         this.toaster.pop('error', 'Session expired');
-        localStorage.removeItem('auth_token');
         this.loggedin = false;
         return false;
       } else {

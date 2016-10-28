@@ -1,13 +1,13 @@
 import { Injectable }     from '@angular/core';
 import { Http } from '@angular/http';
 
-// import {Observable} from 'rxjs/Rx';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {UserModel} from '../models/user.model';
+import {AuthService} from './auth.service';
 import {CryptoService} from './crypto.service';
 
 @Injectable()
@@ -35,9 +35,10 @@ export class UserService {
         ).subscribe((json) => {
           CryptoService.setKeyName(json);
           UserService.currentUser = new UserModel(json);
-          this.currentUser$.next(UserService.currentUser);
+          AuthService.setAuthenticated(true);
           observable.next(UserService.currentUser);
           observable.complete();
+          this.currentUser$.next(UserService.currentUser);
           this.fetchingCurrentUserObservable = null;
           return UserService.currentUser;
         });

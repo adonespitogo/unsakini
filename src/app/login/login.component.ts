@@ -6,10 +6,12 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import {AuthService} from '../services/auth.service';
 
 @Component({
   templateUrl: './login.html'
 })
+
 export class LoginComponent {
 
   creds: ICredentials;
@@ -31,7 +33,9 @@ export class LoginComponent {
     .subscribe(
       (json) => {
         this.success = 'Login successful. Redirecting...';
-        window.localStorage.setItem('auth_token', json.token);
+        AuthService.setStorageKey(json.user);
+        AuthService.setAuthToken(json.token);
+        AuthService.setAuthenticated(true);
         this.router.navigate(['/dashboard']);
       }
     );

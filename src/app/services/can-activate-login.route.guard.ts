@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Http} from '@angular/http';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class CanActivateLogin implements CanActivate {
@@ -12,7 +13,7 @@ export class CanActivateLogin implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|boolean {
-    let token = localStorage.getItem('auth_token');
+    let token = AuthService.getAuthToken();
     if (token) {
       return this.http.get(`/auth/verify?token=${token}`).map((res) => {
         let notLoggedIn: boolean = (res.status !== 202);

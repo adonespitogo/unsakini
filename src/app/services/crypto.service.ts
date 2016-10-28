@@ -76,7 +76,7 @@ export class CryptoService {
     if (!correctpassphrase) {
       CryptoService.validkey$.next({
         status: false,
-        message: `Private key does not match the original key footprint. Your key might be encorrect.`
+        message: `Private key does not match the original key footprint.`
       });
       return err;
     }
