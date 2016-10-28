@@ -43,27 +43,37 @@ The encryption and decryption process happens inside [./src/app/services/crypto.
 import * as CryptoJS from 'crypto-js';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+export interface ICryptoObservable {
+  status: boolean;
+  message: string;
+}
+
 export class CryptoService {
 
-  // algo based on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
+  static validkey$: BehaviorSubject<ICryptoObservable> =
+    new BehaviorSubject<ICryptoObservable>({status: true, message: ''});
 
-  static validkey$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private static keyName: string;
 
-  static getKey(): string {
-    let key = localStorage.getItem('crypto_key');
-    if (key) {
-      return key.toString();
-    } else {
-      return '';
-    }
+  static setKeyName (user) {
+    CryptoService.keyName = window.btoa(`user_${user.id}_crypto_key`);
   }
 
   static setKey (k): void {
-    localStorage.setItem('crypto_key', k);
+    localStorage.setItem(CryptoService.keyName, window.btoa(k));
+  }
+
+  static getKey(): string {
+    let key = localStorage.getItem(CryptoService.keyName);
+    if (key == null) {
+      return '';
+    } else {
+      return window.atob(key);
+    }
   }
 
   static removeKey () {
-    localStorage.removeItem('crypto_key');
+    localStorage.removeItem(CryptoService.keyName);
   }
 
   static encrypt (msg: string) {
@@ -76,10 +86,11 @@ export class CryptoService {
     let encrypted: any;
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key);
-      CryptoService.validkey$.next(true);
+      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
       console.log(e);
-      CryptoService.validkey$.next(false);
+      console.log(e);
+      CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
     encrypted = encrypted ? encrypted.toString() : '';
@@ -94,27 +105,39 @@ export class CryptoService {
     let err = '[decryption error]';
     let transitmessage = msg;
     let passphrase = CryptoService.getKey();
+    if (!passphrase) {
+      CryptoService.validkey$.next({
+        status: false,
+        message: 'Unable to locate your private key.'
+      });
+      return '';
+    }
     let transithmac = transitmessage.substring(0, 64);
     let transitencrypted = transitmessage.substring(64);
     let decryptedhmac = CryptoJS.HmacSHA256(transitencrypted, CryptoJS.SHA256(passphrase)).toString();
     let correctpassphrase: boolean = (transithmac === decryptedhmac);
     if (!correctpassphrase) {
-      CryptoService.validkey$.next(false);
+      CryptoService.validkey$.next({
+        status: false,
+        message: `Private key does not match the original key footprint. Your key might be encorrect.`
+      });
       return err;
     }
     let decrypted: any;
     try {
       decrypted = CryptoJS.AES.decrypt(transitencrypted, passphrase).toString(CryptoJS.enc.Utf8);
-      CryptoService.validkey$.next(true);
+      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
-      CryptoService.validkey$.next(false);
+      console.log(e);
+      CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
     try {
       decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-      CryptoService.validkey$.next(true);
+      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
-      CryptoService.validkey$.next(false);
+      console.log(e);
+      CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
     return decrypted;
@@ -122,5 +145,6 @@ export class CryptoService {
   }
 
 }
+
 
 ```

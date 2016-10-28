@@ -2,14 +2,12 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {ICredentials, LoginService} from './login.service';
-// import {CryptoService} from '../services/crypto.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 
 @Component({
-  // selector: 'login-app',
   templateUrl: './login.html'
 })
 export class LoginComponent {
@@ -33,7 +31,6 @@ export class LoginComponent {
     .subscribe(
       (json) => {
         this.success = 'Login successful. Redirecting...';
-        // CryptoService.setKeyName(json.user);
         window.localStorage.setItem('auth_token', json.token);
         this.router.navigate(['/dashboard']);
       }
@@ -43,7 +40,6 @@ export class LoginComponent {
 
   private loginFailedHandler (self: LoginComponent) {
     return (err: any) => {
-      console.log(err);
       self.error = err.json().err || 'Invalid email and password combination.';
       return Observable.throw(err);
     };
