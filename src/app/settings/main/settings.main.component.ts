@@ -25,11 +25,11 @@ export class SettingsMainComponent {
     );
   }
 
-  goToOldSource () {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('crypto_key');
-    window.location.assign('https://unsakini-old-algo.herokuapp.com');
-  }
+  // goToOldSource () {
+  //   localStorage.removeItem('auth_token');
+  //   localStorage.removeItem('crypto_key');
+  //   window.location.assign('https://unsakini-old-algo.herokuapp.com');
+  // }
 
   copied () {
     this.toaster.pop('success', 'Private Key Copied', 'Paste your private key somewhere else in case you forget it.');
