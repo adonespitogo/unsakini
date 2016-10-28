@@ -1,8 +1,6 @@
 
 import * as CryptoJS from 'crypto-js';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-// import {UserService} from './user.service';
-// import {UserModel} from '../models/user.model';
 
 export interface ICryptoObservable {
   status: boolean;
@@ -11,15 +9,9 @@ export interface ICryptoObservable {
 
 export class CryptoService {
 
-  // algo based on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
-
-  // constructor (private userService: UserService) {
-  //   console.log(this.userService);
-  // }
-
   static validkey$: BehaviorSubject<ICryptoObservable> =
-    // new BehaviorSubject<ICryptoObservable>({status: false, message: 'Uninitialized private key name.'});
     new BehaviorSubject<ICryptoObservable>({status: true, message: ''});
+
   private static keyName: string;
 
   static setKeyName (user) {
@@ -74,7 +66,10 @@ export class CryptoService {
     let transitmessage = msg;
     let passphrase = CryptoService.getKey();
     if (!passphrase) {
-      CryptoService.validkey$.next({status: false, message: 'Unable to locate your private key. Empty CryptoService.keyName'});
+      CryptoService.validkey$.next({
+        status: false,
+        message: 'Unable to locate your private key.'
+      });
       return '';
     }
     let transithmac = transitmessage.substring(0, 64);
@@ -82,7 +77,10 @@ export class CryptoService {
     let decryptedhmac = CryptoJS.HmacSHA256(transitencrypted, CryptoJS.SHA256(passphrase)).toString();
     let correctpassphrase: boolean = (transithmac === decryptedhmac);
     if (!correctpassphrase) {
-      CryptoService.validkey$.next({status: false, message: `Incorrect passphrase used in decryptiion.`});
+      CryptoService.validkey$.next({
+        status: false,
+        message: `Private key does not match the original key footprint. Your key might be encorrect.`
+      });
       return err;
     }
     let decrypted: any;
