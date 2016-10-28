@@ -9,6 +9,7 @@ import {DirectivesModule} from '../directives/directives.module';
 
 import {SettingsComponent} from './settings.component';
 import {SettingsMainComponent} from './main/settings.main.component';
+import {AccountSettingsComponent} from './account/account.component';
 
 @NgModule({
   imports: [
@@ -22,13 +23,14 @@ import {SettingsMainComponent} from './main/settings.main.component';
   ],
   declarations: [
     SettingsComponent,
-    SettingsMainComponent
+    SettingsMainComponent,
+    AccountSettingsComponent
   ],
   exports: [
     CommonModule,
     HttpModule,
     FormsModule,
-    // Ng2BreadcrumbModule,
+    AccountSettingsComponent,
     SettingsRoutingModule
   ],
   providers: [
