@@ -1,14 +1,9 @@
-
 <div class="alert alert-danger" *ngIf="!hideAlert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideAlert = true"><span aria-hidden="true">&times;</span></button>
   As of October 28 2016, new cryptography algorythm has been implemented, base on
-  <a href="http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct">this discussion on SO</a>.
-  In the new cryptography algorythm, we prepended the data with HmacSHA256 encryption. This is to be able to tell if the passphrase used in decryption
-  is the same as the one used during encryption. If you get <code>Cryptographic Problem Encountered</code> errors, this is because of the new algorythm.
-  To get your old data, go to deployed <a href="https://unsakini-old-algo.herokuapp.com">old source of www.unsakini.com</a>. Until then, you can't access your dashboard until we delete your data.
+  <a href="http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct">this discussion on SO</a>. In the new cryptography algorythm, we prepended the data with HmacSHA256 encryption. This is to be able to tell if the passphrase used in decryption is the same as the one used during encryption. If you get <code>Cryptographic Problem Encountered</code> errors, this is because of the new algorythm. To get your old data, go to deployed <a href="https://unsakini-old-algo.herokuapp.com">old source of www.unsakini.com</a>. Until then, you can't access your dashboard until we delete your data.
   <a href="mailto:pitogo.adones@gmail.com">Email me</a> so I can delete your old data and you can access your dashboard. Just add your <a href="https://unsakini-old-algo.herokuapp.com">old data</a> back.
 </div>
-
 <h1>Security Settings</h1>
 <hr />
 <form #cryptoKeyForm="ngForm">
@@ -34,21 +29,25 @@
 <p>
   If you decide to delete your key from this browser, you will also be <strong>LOGGED OUT</strong> automatically since you can't access your data without your private key.
 </p>
-<a class="btn btn-default" (click)="showKey = !showKey">
-  <span *ngIf="!showKey">Show My Private Key</span>
-  <span *ngIf="showKey">Hide My Private Key</span>
-</a>
-<a class="btn btn-danger" (click)="deleteKey()">
-  Delete My Private Key
-</a>
-
 <div *ngIf="showKey">
-  <hr>
-  Click the button to copy your private key and paste it somewhere else in case you forget it.
+  <hr />
+  <p>
+    Click the button to copy your private key and paste it somewhere else in case you forget it.
+  </p>
   <div class="input-group">
     <input type="text" class="form-control" [(ngModel)]="key" placeholder="{{key}}" #inputTarget>
     <span class="input-group-btn">
       <button class="btn btn-default" type="button" [ngIIclipboard]="inputTarget" (click)="copied()">copy</button>
     </span>
   </div>
+</div>
+<hr>
+<div class="btn-group" role="group" aria-label="">
+  <a class="btn btn-default" (click)="showKey = !showKey">
+    <span *ngIf="!showKey">Show My Private Key</span>
+    <span *ngIf="showKey">Hide My Private Key</span>
+  </a>
+  <a class="btn btn-danger" (click)="deleteKey()">
+    Delete My Private Key
+  </a>
 </div>
