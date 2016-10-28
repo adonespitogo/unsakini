@@ -28,7 +28,6 @@ export class CryptoService {
   }
 
   static setKey (k): void {
-    k = window.btoa(k);
     localStorage.setItem(CryptoService.keyName, window.btoa(k));
   }
 
