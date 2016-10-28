@@ -33,7 +33,7 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
           toaster.pop(
             'error',
             'Cryptographic Problem Encountered',
-            `You might have entered the wrong private key. Error message: ${val.message}`
+            `You might have entered the wrong private key. ${val.message}`
           );
         }
       });
@@ -65,7 +65,11 @@ export class CanActivateDashboard implements CanActivate, CanActivateChild, OnDe
       } else {
         if (!this.hasCryptoKey()) {
           this.router.navigate(['/settings']);
-          this.toaster.pop('error', 'Private Key Unset', `Please set your private key first so to be able to access your data.`);
+          this.toaster.pop(
+            'error',
+            'Private Key Unset',
+            `Please set your private key first to be able to access your data.`
+          );
           return false;
         }
       }
