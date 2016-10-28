@@ -90,3 +90,26 @@ exports.update = (req, res, next) ->
 
   ).catch (err) ->
     res.status(500).send(err)
+
+exports.confirmAccount = (req, res, next) ->
+  AcctConf.findOne({
+    where:
+      token: req.params.token
+  })
+  .then (acct_conf) ->
+    if (acct_conf)
+      User.update({
+        confirmed: true
+      },{
+        where:
+          id: acct_conf.user_id
+      })
+      .then (db_users) ->
+        res.render 'account-confirmed-success'
+      .catch (err) ->
+        res.status(500).send err
+    else
+      res.render 'account-confirmed-failed'
+
+  .catch ->
+    res.render 'account-confirmed-failed'
