@@ -1,6 +1,14 @@
-<a [routerLink]="['/dashboard']">Lists</a> > <a>{{getList().name}}</a>
-
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li>
+    {{getList().name}}
+  </li>
+  <li class="active">Items</li>
+</ol>
 <h1>{{getList().name}}</h1>
+<hr>
 <a [routerLink]="['/dashboard/lists', getList().id, 'edit']">Edit</a> |
 <a (click)="doDeleteList(list)">Delete</a>
 <hr>
@@ -9,19 +17,13 @@
 </p>
 <div class="list-group">
   <div class="list-group-item" *ngFor="let item of getList().items">
-
-
     <h4 class="list-group-item-header">
       <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
     </h4>
     <p class="list-group-item-text">
-      <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
-      |
+      <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a> |
       <a appDeleteItem [item]="item">Delete</a>
     </p>
-
-
-
     <!-- <div class="row">
       <div class="col-xs-10">
         <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
@@ -33,15 +35,11 @@
         <a appDeleteItem [item]="item">Delete</a>
       </div>
     </div> -->
-
   </div>
   <div class="list-group-item" *ngIf="getList().items.length === 0">
     No items yet!
   </div>
 </div>
-
-
 <a class="btn btn-primary" [routerLink]="['/dashboard/lists', getList().id, 'add-item']">
-  <span class="fa fa-plus"></span>
-  Add Item
+  <span class="fa fa-plus"></span> Add Item
 </a>

@@ -1,6 +1,10 @@
-<a [routerLink]="['/dashboard']">Lists</a>
->
-<a>New List</a>
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li class="active">New List</li>
+</ol>
+
 
 <h1>Create New List</h1>
 <form #listForm="ngForm">

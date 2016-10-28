@@ -1,11 +1,22 @@
-<a [routerLink]="['/dashboard']">Lists</a>
->
-<a [routerLink]="['/dashboard/lists', list.id]">{{list.name}}</a>
->
-<a>Add Item</a>
+
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li>
+    <a [routerLink]="['/dashboard/lists', list.id]">{{list.name}}</a>
+  </li>
+  <li class="active">
+    Add Item
+  </li>
+</ol>
+
+
 
 
 <h1>{{list.name}}</h1>
+<hr>
+
 <h3>Add item</h3>
 <form #itemForm="ngForm">
   <div class="form-group">

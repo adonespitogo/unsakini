@@ -1,11 +1,14 @@
-
-<a [routerLink]="['/dashboard']">Lists</a>
->
-<a [routerLink]="['/dashboard/lists', item.list_id]">{{item.list.name}}</a>
->
-<a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
-
-
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li>
+    <a [routerLink]="['/dashboard/lists', item.list_id]">{{item.list.name}}</a>
+  </li>
+  <li class="active">
+    {{item.title}}
+  </li>
+</ol>
 <div>
   <h1>{{item.title}}</h1>
   <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a> | <a appDeleteItem [item]="item" (onItemDeleted)="onItemDeleted($event)">Delete</a>

@@ -1,7 +1,16 @@
 
-<a [routerLink]="['/dashboard']">Lists</a>
->
-<a>{{list.name}}</a>
+
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li>
+    <a [routerLink]="['/dashboard/lists', list.id]">{{list.name}}</a>
+  </li>
+  <li class="active">Edit</li>
+</ol>
+
+
 
 <h1>{{list.name}}</h1>
 <h3>Edit</h3>
