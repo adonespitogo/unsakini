@@ -33,7 +33,6 @@ export class LoginComponent {
     .subscribe(
       (json) => {
         this.success = 'Login successful. Redirecting...';
-        AuthService.setStorageKey(json.user);
         AuthService.setAuthToken(json.token);
         AuthService.setAuthenticated(true);
         this.router.navigate(['/dashboard']);

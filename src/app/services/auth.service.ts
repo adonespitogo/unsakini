@@ -1,15 +1,13 @@
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+import {environment} from '../../environments/environment';
+
 export class AuthService {
 
-  private static storageKey: string;
+  private static storageKey: string = window.btoa(environment.production? 'production' : 'dev');
     private static authenticated: boolean;
-  public static authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  public static setStorageKey ({id}): void {
-    AuthService.storageKey = window.btoa(`user_${id}_auth_key`);
-  }
+  public static authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   public static setAuthToken (token: string) {
     localStorage.setItem(AuthService.storageKey, window.btoa(token));
@@ -17,6 +15,9 @@ export class AuthService {
 
   public static getAuthToken (): string {
     let token: string = localStorage.getItem(AuthService.storageKey);
+    if (token == null) {
+      return '';
+    }
     return window.atob(token);
   }
 
