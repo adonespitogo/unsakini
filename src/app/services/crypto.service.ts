@@ -19,17 +19,17 @@ export class CryptoService {
   }
 
   static getKey(): string {
-    console.log(CryptoService.keyName);
     let key = localStorage.getItem(CryptoService.keyName);
     if (key) {
-      return key.toString();
+      return window.atob(key.toString());
     } else {
       return '';
     }
   }
 
   static setKey (k): void {
-    localStorage.setItem(CryptoService.keyName, k);
+    k = window.btoa(k);
+    localStorage.setItem(CryptoService.keyName, window.btoa(k));
   }
 
   static removeKey () {

@@ -1,5 +1,5 @@
-###UNSAKINI
-
+UNSAKINI
+-----------
 
 **Unsakini** ("what is this") in Cebuano language is a web app that encrypts data in the client-side and sends encrypted data to the server. This way, only you can access your data so it stays safe from everyone else, even when the server gets compromised.
 
