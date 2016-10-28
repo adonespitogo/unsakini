@@ -88,8 +88,6 @@ export class CryptoService {
       encrypted = CryptoJS.AES.encrypt(msg, key);
       CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
-      console.log(e);
-      console.log(e);
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
@@ -128,7 +126,6 @@ export class CryptoService {
       decrypted = CryptoJS.AES.decrypt(transitencrypted, passphrase).toString(CryptoJS.enc.Utf8);
       CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
-      console.log(e);
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
@@ -136,7 +133,6 @@ export class CryptoService {
       decrypted = decrypted.toString(CryptoJS.enc.Utf8);
       CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
-      console.log(e);
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
