@@ -1,3 +1,7 @@
+<a [routerLink]="['/dashboard']">Lists</a>
+>
+<a>New List</a>
+
 <h1>Create New List</h1>
 <form #listForm="ngForm">
   <div class="form-group">
@@ -6,7 +10,7 @@
       required
       [(ngModel)]="list.name" name="name" #name="ngModel">
   </div>
-  <div [hidden]="name.valid || name.pristine" 
+  <div [hidden]="name.valid || name.pristine"
              class="alert alert-danger">
           Name is required
         </div>
