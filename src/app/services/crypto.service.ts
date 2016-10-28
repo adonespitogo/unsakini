@@ -20,6 +20,7 @@ export class CryptoService {
 
   static setKey (k): void {
     localStorage.setItem(CryptoService.keyName, window.btoa(k));
+    CryptoService.validkey$.next({status: true, message: ''});
   }
 
   static getKey(): string {
@@ -45,7 +46,6 @@ export class CryptoService {
     let encrypted: any;
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key);
-      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
@@ -83,14 +83,12 @@ export class CryptoService {
     let decrypted: any;
     try {
       decrypted = CryptoJS.AES.decrypt(transitencrypted, passphrase).toString(CryptoJS.enc.Utf8);
-      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
     try {
       decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
