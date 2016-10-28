@@ -66,7 +66,7 @@ module.exports = (app) ->
 
 
   app.post '/users',
-          controllers.user_controller.create
+          controllers.user_controller.create(app)
 
   app.put '/user',
           Auth,
@@ -75,6 +75,7 @@ module.exports = (app) ->
   app.get '/user',
           Auth,
           controllers.user_controller.get
+  app.get '/user/confirm/:token', controllers.user_controller.confirmAccount
 
   app.get /(\/js|\/web|\/css|\/views|\/fonts)\/*/, (req, res, next) ->
     res.status(404).send()

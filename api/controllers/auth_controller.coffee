@@ -15,6 +15,9 @@ module.exports =
           return
         if err
           return next(err)
+        if (!user.confirmed)
+          res.status(401).send err: "Your account needs confirmation. The confirmation link was sent to #{user.email}."
+          return
         res.send
           user: user
           token: jwToken.issue(id: user.id)

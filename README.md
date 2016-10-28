@@ -13,7 +13,7 @@ The source code is opensourced so you can review it and deploy it on your own se
 -------------------------
 ### Getting Started
 ```
-$ npm install -g gulp sequelize sequelize-cli typescript typings coffee-script angular-cli
+$ npm install -g gulp sequelize sequelize-cli typescript typings coffee-script angular-cli mysql
 $ npm install
 ```
 

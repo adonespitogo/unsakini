@@ -15,6 +15,9 @@ User = sequelize.define('user', {
     notEmpty: true
     get: ->
       null
+  confirmed:
+    type: Sequelize.BOOLEAN
+    defaultValue: false
   salt:
     type: Sequelize.STRING
     notEmpty: true

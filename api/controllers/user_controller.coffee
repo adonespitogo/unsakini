@@ -1,6 +1,10 @@
-models = require('../models')
-User = models.User
 jwToken = require('../services/jsonwebtoken')
+globals = require('../config/globals')
+models = require('../models')
+crypto = require('crypto')
+
+User = models.User
+AcctConf = models.AccountConfirmation
 
 exports.get = (req, res, next) ->
   User.findById(req.user.id).then (db_user) ->
@@ -9,33 +13,52 @@ exports.get = (req, res, next) ->
     else
       res.json db_user
 
-exports.create = (req, res, next) ->
-  if !req.body.email
-    res.send 422, [message: 'Email is required']
-  if !req.body.password
-    res.send 422, [message: 'Password is required']
-    return
-  if req.body.password?.lenth < 6
-    res.send 422, [message: 'Password must be at least 6 characters']
-    return
-  if req.body.password != req.body.password_confirmation
-    res.send 422, [message: 'Passwords didn\'t match.']
-    return
-  user = User.build(req.body)
-  user.setPassword(req.body.password).then((user) ->
-    user.save()
-    .then (user) ->
-      # If user created successfuly we return user and token as response
-      res.send 200,
-        user: user
-        token: jwToken.issue(id: user.id)
-      next()
-    .catch (err) ->
-      err = err.errors or err
-      res.send 422, err
-      next()
-  ).catch (err) ->
-    next err
+exports.create = (app) ->
+  (req, res, next) ->
+    if !req.body.email
+      res.send 422, [message: 'Email is required']
+    if !req.body.password
+      res.send 422, [message: 'Password is required']
+      return
+    if req.body.password?.lenth < 6
+      res.send 422, [message: 'Password must be at least 6 characters']
+      return
+    if req.body.password != req.body.password_confirmation
+      res.send 422, [message: 'Passwords didn\'t match.']
+      return
+    user = User.build(req.body)
+    user.setPassword(req.body.password).then((user) ->
+      user.save()
+      .then (user) ->
+        # create confirmation token
+        AcctConf.create({
+          user_id: user.id
+          token: crypto.createHash('md5').update("#{user.email}#{user.id}").digest('hex')
+        }).then (acct_token) ->
+          console.log(acct_token.token)
+          app.mailer.send 'mails/confirm-account', {
+            # to: user.email
+            to: if process.env.NODE_ENV is 'production' then user.email else 'adonesp@live.com'
+            subject: 'Confirm Your Account'
+            user: user
+            token: acct_token.token
+            globals: globals
+          },
+          (err, message) ->
+            if (err)
+              res.status(500).send([message: message])
+              return
+            # If user created successfuly we return user and token as response
+            res.send user: user
+            next()
+
+      .catch (err) ->
+        console.log err
+        err = err.errors or err
+        res.send 422, err
+        next()
+    ).catch (err) ->
+      next err
 
 exports.update = (req, res, next) ->
 
@@ -44,7 +67,7 @@ exports.update = (req, res, next) ->
     db_user.setDataValue 'email', req.body.email
     db_user.save()
     .then ->
-      return res.json(db_user)
+      return res.send(db_user)
     .catch (err) ->
       return res.status(500).send err
 
@@ -66,4 +89,27 @@ exports.update = (req, res, next) ->
 
 
   ).catch (err) ->
-    res.status(500).json(err)
+    res.status(500).send(err)
+
+exports.confirmAccount = (req, res, next) ->
+  AcctConf.findOne({
+    where:
+      token: req.params.token
+  })
+  .then (acct_conf) ->
+    if (acct_conf)
+      User.update({
+        confirmed: true
+      },{
+        where:
+          id: acct_conf.user_id
+      })
+      .then (db_users) ->
+        res.render 'account-confirmed-success'
+      .catch (err) ->
+        res.status(500).send err
+    else
+      res.render 'account-confirmed-failed'
+
+  .catch ->
+    res.render 'account-confirmed-failed'
