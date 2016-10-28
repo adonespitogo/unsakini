@@ -4,6 +4,8 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 export class CryptoService {
 
+  // algo based on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
+
   static validkey$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   static getKey(): string {
@@ -23,38 +25,53 @@ export class CryptoService {
     localStorage.removeItem('crypto_key');
   }
 
-  static decrypt (msg: string) {
+  static encrypt (msg: string) {
+    let err = '[encryption error]';
     let key = CryptoService.getKey();
-    let bytes: any;
-    let str: string;
+    let passphrase = key;
+    let encrypted: any;
     try {
-      bytes = CryptoJS.AES.decrypt(msg, key);
+      encrypted = CryptoJS.AES.encrypt(msg, key);
       CryptoService.validkey$.next(true);
     } catch (e) {
       console.log(e);
       CryptoService.validkey$.next(false);
+      return err;
     }
-    try {
-      str = bytes.toString(CryptoJS.enc.Utf8);
-      CryptoService.validkey$.next(true);
-    } catch (e) {
-      console.log(e);
-      CryptoService.validkey$.next(false);
-    }
-    return str;
+    encrypted = encrypted ? encrypted.toString() : '';
+    let hmac = CryptoJS.HmacSHA256(encrypted, CryptoJS.SHA256(passphrase)).toString();
+    return hmac + encrypted;
   }
 
-  static encrypt (msg: string) {
-    let key = CryptoService.getKey();
-    let ciphertext: any;
-    try {
-     ciphertext = CryptoJS.AES.encrypt(msg, key);
-     CryptoService.validkey$.next(true);
-    } catch (e) {
-      console.log(e);
+  static decrypt (msg: string) {
+    let err = '[decryption error]';
+    let transitmessage = msg;
+    let passphrase = CryptoService.getKey();
+    let transithmac = transitmessage.substring(0, 64);
+    let transitencrypted = transitmessage.substring(64);
+    let decryptedhmac = CryptoJS.HmacSHA256(transitencrypted, CryptoJS.SHA256(passphrase)).toString();
+    let correctpassphrase: boolean = (transithmac === decryptedhmac);
+    if (!correctpassphrase) {
       CryptoService.validkey$.next(false);
+      return err;
     }
-    return ciphertext ? ciphertext.toString() : null;
+    let decrypted: any;
+    try {
+      decrypted = CryptoJS.AES.decrypt(transitencrypted, passphrase).toString(CryptoJS.enc.Utf8);
+      CryptoService.validkey$.next(true);
+    } catch (e) {
+      CryptoService.validkey$.next(false);
+      return err;
+    }
+    try {
+      decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+      CryptoService.validkey$.next(true);
+    } catch (e) {
+      CryptoService.validkey$.next(false);
+      return err;
+    }
+    return decrypted;
+
   }
 
 }
