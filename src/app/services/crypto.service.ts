@@ -18,7 +18,8 @@ export class CryptoService {
   // }
 
   static validkey$: BehaviorSubject<ICryptoObservable> =
-    new BehaviorSubject<ICryptoObservable>({status: false, message: 'Uninitialized private key name.'});
+    // new BehaviorSubject<ICryptoObservable>({status: false, message: 'Uninitialized private key name.'});
+    new BehaviorSubject<ICryptoObservable>({status: true, message: ''});
   private static keyName: string;
 
   static setKeyName (user) {
@@ -26,6 +27,7 @@ export class CryptoService {
   }
 
   static getKey(): string {
+    console.log(CryptoService.keyName);
     let key = localStorage.getItem(CryptoService.keyName);
     if (key) {
       return key.toString();
@@ -54,6 +56,7 @@ export class CryptoService {
       encrypted = CryptoJS.AES.encrypt(msg, key);
       CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
+      console.log(e);
       console.log(e);
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
@@ -87,6 +90,7 @@ export class CryptoService {
       decrypted = CryptoJS.AES.decrypt(transitencrypted, passphrase).toString(CryptoJS.enc.Utf8);
       CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
+      console.log(e);
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
@@ -94,6 +98,7 @@ export class CryptoService {
       decrypted = decrypted.toString(CryptoJS.enc.Utf8);
       CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
+      console.log(e);
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
     }
