@@ -18,17 +18,17 @@ export class CryptoService {
     CryptoService.keyName = window.btoa(`user_${user.id}_crypto_key`);
   }
 
-  static getKey(): string {
-    let key = localStorage.getItem(CryptoService.keyName);
-    if (key) {
-      return window.atob(key.toString());
-    } else {
-      return '';
-    }
-  }
-
   static setKey (k): void {
     localStorage.setItem(CryptoService.keyName, window.btoa(k));
+  }
+
+  static getKey(): string {
+    let key = localStorage.getItem(CryptoService.keyName);
+    if (key == null) {
+      return '';
+    } else {
+      return window.atob(key);
+    }
   }
 
   static removeKey () {
