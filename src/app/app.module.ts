@@ -20,6 +20,8 @@ import { RegisterModule } from './register/register.module';
 import { UserService } from './services/user.service';
 import { ListService } from './services/list.service';
 import { ItemService } from './services/item.service';
+import { AuthService } from './services/auth.service';
+import { CryptoService } from './services/crypto.service';
 
 declare var $: any;
 
@@ -47,6 +49,8 @@ declare var $: any;
     UserService,
     ListService,
     ItemService,
+    AuthService,
+    CryptoService,
     // BreadcrumbService,
   ],
   bootstrap: [ AppComponent ],

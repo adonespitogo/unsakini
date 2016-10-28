@@ -12,14 +12,32 @@
     <span class="help-block">
       Your private key is used to encrypt and decrypt your data. <strong>Make a copy of it somewhere and don't lose it, else your data will be inaccessible.</strong>
     </span>
-    <input type="password" class="form-control" required [(ngModel)]="key" name="keyInput" #keyInput="ngModel">
+    <input type="text" class="form-control" [ngModel]="getKey()" name="keyVal" [hidden]="!showKey">
+    <input type="password" class="form-control" required [(ngModel)]="key" name="keyInput" #keyInput="ngModel"
+    [hidden]="showKey">
   </div>
   <div [hidden]="keyInput.valid || keyInput.pristine" class="alert alert-danger">
-    Key is required
+    Key is required.
   </div>
-  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid">
-    Set My Private Key
-  </button>
+  <div class="form-group">
+    <label for="key">Confirm your private key</label>
+    <span class="help-block">
+      Make sure you typed your key correctly. Once your private key is set. It will be the basis for the encryption and decryption of all your data. Make sure you don't lose it.
+    </span>
+    <input type="{{showKey? 'text': 'password'}}" class="form-control" required [(ngModel)]="keyConfirm" name="keyConfirmInput" #keyConfirmInput="ngModel">
+  </div>
+  <div [hidden]="key === keyConfirm || !keyConfirm || cryptoKeyForm.form.pristine" class="alert alert-danger">
+    Keys do not match.
+  </div>
+  <div class="btn-group" role="group">
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid || key !== keyConfirm">
+      Set My Private Key
+    </button>
+    <a class="btn btn-default" (click)="showKey = !showKey">
+      <span *ngIf="!showKey">Show My Private Key</span>
+      <span *ngIf="showKey">Hide My Private Key</span>
+    </a>
+  </div>
 </form>
 <hr />
 <h2>Delete Private Key</h2>
@@ -29,7 +47,7 @@
 <p>
   If you decide to delete your key from this browser, you will also be <strong>LOGGED OUT</strong> automatically since you can't access your data without your private key.
 </p>
-<div *ngIf="showKey">
+<!-- <div *ngIf="showKey">
   <hr />
   <p>
     Click the button to copy your private key and paste it somewhere else in case you forget it.
@@ -40,14 +58,14 @@
       <button class="btn btn-default" type="button" [ngIIclipboard]="inputTarget" (click)="copied()">copy</button>
     </span>
   </div>
-</div>
+</div> -->
 <hr>
 <div class="btn-group" role="group" aria-label="">
-  <a class="btn btn-default" (click)="showKey = !showKey">
+  <button class="btn btn-danger" (click)="deleteKey()">
+    Delete My Private Key
+  </button>
+  <button class="btn btn-default" (click)="showKey = !showKey">
     <span *ngIf="!showKey">Show My Private Key</span>
     <span *ngIf="showKey">Hide My Private Key</span>
-  </a>
-  <a class="btn btn-danger" (click)="deleteKey()">
-    Delete My Private Key
-  </a>
+  </button>
 </div>

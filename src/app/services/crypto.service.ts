@@ -1,4 +1,4 @@
-
+import {Injectable} from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -7,6 +7,8 @@ export interface ICryptoObservable {
   message: string;
 }
 
+@Injectable()
+
 export class CryptoService {
 
   static validkey$: BehaviorSubject<ICryptoObservable> =
@@ -14,8 +16,8 @@ export class CryptoService {
 
   private static keyName: string;
 
-  static setKeyName (user) {
-    CryptoService.keyName = window.btoa(`user_${user.id}_crypto_key`);
+  static setKeyName ({id}) {
+    CryptoService.keyName = window.btoa(`user_${id}_day_${(new Date()).getDay()}`);
   }
 
   static setKey (k): void {

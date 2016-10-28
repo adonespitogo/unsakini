@@ -9,12 +9,17 @@ import {AuthService} from '../../services/auth.service';
 })
 
 export class SettingsMainComponent {
-  public key;
+  public key: string = '';
+  public keyConfirm: string = '';
   public showKey: boolean = false;
   public hideAlert: boolean = false;
 
   constructor (private toaster: ToasterService, private router: Router) {
-    this.key = CryptoService.getKey();
+
+  }
+
+  getKey () {
+    return CryptoService.getKey();
   }
 
   onSubmit () {
