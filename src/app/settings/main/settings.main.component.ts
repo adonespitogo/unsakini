@@ -12,6 +12,7 @@ export class SettingsMainComponent {
   public key: string = '';
   public keyConfirm: string = '';
   public showKey: boolean = false;
+  public showKeyOnDelete: boolean = false;
   public hideAlert: boolean = false;
 
   constructor (private toaster: ToasterService, private router: Router) {

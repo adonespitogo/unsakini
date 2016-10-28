@@ -6,66 +6,74 @@
 </div>
 <h1>Security Settings</h1>
 <hr />
-<form #cryptoKeyForm="ngForm">
-  <div class="form-group">
-    <label for="key">Set your private key</label>
-    <span class="help-block">
-      Your private key is used to encrypt and decrypt your data. <strong>Make a copy of it somewhere and don't lose it, else your data will be inaccessible.</strong>
-    </span>
-    <input type="text" class="form-control" [ngModel]="getKey()" name="keyVal" [hidden]="!showKey">
-    <input type="password" class="form-control" required [(ngModel)]="key" name="keyInput" #keyInput="ngModel"
-    [hidden]="showKey">
+<div class="row">
+  <div class="col-md-6">
+    <h3>Set your private key</h3>
+    <form #cryptoKeyForm="ngForm">
+      <div class="form-group">
+        <label for="key">Private Key</label>
+        <span class="help-block">
+          Your private key is used to encrypt and decrypt your data. <strong>Make a copy of it somewhere and don't lose it, else your data will be inaccessible.</strong>
+        </span>
+        <div class="input-group">
+          <input type="text" class="form-control" [ngModel]="getKey()" name="keyVal" [hidden]="!showKey">
+          <input type="password" class="form-control" required [(ngModel)]="key" name="keyInput" #keyInput="ngModel" [hidden]="showKey">
+          <span class="input-group-btn">
+                <button class="btn btn-default" type="button" *ngIf="showKey" (click)="showKey = false">Hide</button>
+                <button class="btn btn-default" type="button" *ngIf="!showKey" (click)="showKey = true">Show</button>
+              </span>
+        </div>
+      </div>
+      <div [hidden]="keyInput.valid || keyInput.pristine" class="alert alert-danger">
+        Key is required.
+      </div>
+      <div class="form-group">
+        <label for="key">Confirm your private key</label>
+        <span class="help-block">
+          Make sure you typed your key correctly. Once your private key is set. It will be the basis for the encryption and decryption of all your data. Make sure you don't lose it.
+        </span>
+        <div class="input-group">
+          <input type="{{showKey? 'text': 'password'}}" class="form-control" required [(ngModel)]="keyConfirm" name="keyConfirmInput" #keyConfirmInput="ngModel">
+          <span class="input-group-btn">
+                <button class="btn btn-default" type="button" *ngIf="showKey" (click)="showKey = false">Hide</button>
+                <button class="btn btn-default" type="button" *ngIf="!showKey" (click)="showKey = true">Show</button>
+              </span>
+        </div>
+      </div>
+      <div [hidden]="key === keyConfirm || !keyConfirm || cryptoKeyForm.form.pristine" class="alert alert-danger">
+        Keys do not match.
+      </div>
+      <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid || key !== keyConfirm">
+        Set My Private Key
+      </button>
+    </form>
   </div>
-  <div [hidden]="keyInput.valid || keyInput.pristine" class="alert alert-danger">
-    Key is required.
-  </div>
-  <div class="form-group">
-    <label for="key">Confirm your private key</label>
-    <span class="help-block">
-      Make sure you typed your key correctly. Once your private key is set. It will be the basis for the encryption and decryption of all your data. Make sure you don't lose it.
-    </span>
-    <input type="{{showKey? 'text': 'password'}}" class="form-control" required [(ngModel)]="keyConfirm" name="keyConfirmInput" #keyConfirmInput="ngModel">
-  </div>
-  <div [hidden]="key === keyConfirm || !keyConfirm || cryptoKeyForm.form.pristine" class="alert alert-danger">
-    Keys do not match.
-  </div>
-  <div class="btn-group" role="group">
-    <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid || key !== keyConfirm">
-      Set My Private Key
+  <div class="col-md-6">
+    <h3>Delete Private Key</h3>
+    <p>
+      Deleting your private key from this browser will make sure no one can obtain your key while you're away. We will ask for it once you log in back.
+    </p>
+    <p>
+      If you decide to delete your key from this browser, you will also be <strong>LOGGED OUT</strong> automatically since you can't access your data without your private key. <a (click)="showKeyOnDelete = true">Show Key</a>
+    </p>
+    <div *ngIf="showKeyOnDelete">
+      <hr />
+      <p>
+        Click the button to copy your private key and paste it somewhere else in case you forget it.
+      </p>
+      <div class="input-group">
+        <input type="text" class="form-control" value="{{getKey()}}" placeholder="{{getKey()}}" #inputTarget>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" [ngIIclipboard]="inputTarget" (click)="copied()">copy</button>
+        </span>
+      </div>
+      <p class="help-block">
+        <a (click)="showKeyOnDelete = false">Hide Key</a>
+      </p>
+    </div>
+    <hr>
+    <button class="btn btn-danger" (click)="deleteKey()">
+      Delete My Private Key
     </button>
-    <a class="btn btn-default" (click)="showKey = !showKey">
-      <span *ngIf="!showKey">Show My Private Key</span>
-      <span *ngIf="showKey">Hide My Private Key</span>
-    </a>
   </div>
-</form>
-<hr />
-<h2>Delete Private Key</h2>
-<p>
-  Deleting your private key from this browser will make sure no one can obtain your key while you're away. We will ask for it once you log in back.
-</p>
-<p>
-  If you decide to delete your key from this browser, you will also be <strong>LOGGED OUT</strong> automatically since you can't access your data without your private key.
-</p>
-<!-- <div *ngIf="showKey">
-  <hr />
-  <p>
-    Click the button to copy your private key and paste it somewhere else in case you forget it.
-  </p>
-  <div class="input-group">
-    <input type="text" class="form-control" [(ngModel)]="key" placeholder="{{key}}" #inputTarget>
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button" [ngIIclipboard]="inputTarget" (click)="copied()">copy</button>
-    </span>
-  </div>
-</div> -->
-<hr>
-<div class="btn-group" role="group" aria-label="">
-  <button class="btn btn-danger" (click)="deleteKey()">
-    Delete My Private Key
-  </button>
-  <button class="btn btn-default" (click)="showKey = !showKey">
-    <span *ngIf="!showKey">Show My Private Key</span>
-    <span *ngIf="showKey">Hide My Private Key</span>
-  </button>
 </div>
