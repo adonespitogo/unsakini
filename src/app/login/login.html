@@ -26,8 +26,9 @@
           Password is required
         </div>
         <div class="form-group" style="margin-top: 20px;">
-          <button (click)="doLogin($event)" type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
-            Sign In
+          <button (click)="doLogin($event)" type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid || submitting">
+            <span *ngIf="!submitting">Sign In</span>
+            <span *ngIf="submitting">Signing in...</span>
           </button>
         </div>
       </form>

@@ -17,6 +17,7 @@ export class LoginComponent {
   creds: ICredentials;
   error: string;
   success: string;
+  submitting: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -26,6 +27,7 @@ export class LoginComponent {
   }
 
   doLogin (e) {
+    this.submitting = true;
      e.stopPropagation();
     this.error = null;
     this.loginService.login(this.creds)
@@ -36,6 +38,7 @@ export class LoginComponent {
         AuthService.setAuthToken(json.token);
         AuthService.setAuthenticated(true);
         this.router.navigate(['/dashboard']);
+        this.submitting = false;
       }
     );
     return false;
@@ -43,6 +46,7 @@ export class LoginComponent {
 
   private loginFailedHandler (self: LoginComponent) {
     return (err: any) => {
+      self.submitting = false;
       self.success = '';
       self.error = err.json().err || 'Invalid email and password combination.';
       return Observable.throw(err);

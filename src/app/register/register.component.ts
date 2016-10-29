@@ -15,6 +15,7 @@ export class RegisterComponent {
   user: IAuthUser;
   error: string;
   success: string;
+  submitting: boolean = false;
 
   constructor(
     private registerService: RegisterService,
@@ -30,17 +31,24 @@ export class RegisterComponent {
 
 
   doSubmit (e) {
-    console.log(e);
+    this.submitting = true;
     e.stopPropagation();
     this.error = null;
     this.registerService.submit(this.user)
     .catch(this.submitFailHandler(this))
     .subscribe(
       (json) => {
+        this.submitting = false;
         this.success = `Registration successful.
           A confirmation email has been sent to your email ${this.user.email}.
           Please check your spam folder if you can't see it in your inbox.
         `;
+        this.user = {
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
+        };
       }
     );
     return false;
@@ -54,6 +62,7 @@ export class RegisterComponent {
         msg.push(err[i].message);
       }
       self.error = msg.join(',') || 'Cannot process your input.';
+      self.submitting = false;
       return Observable.throw(err);
     };
   }
