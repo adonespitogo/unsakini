@@ -43,12 +43,6 @@ export class RegisterComponent {
           A confirmation email has been sent to your email ${this.user.email}.
           Please check your spam folder if you can't see it in your inbox.
         `;
-        this.user = {
-          name: '',
-          email: '',
-          password: '',
-          password_confirmation: ''
-        };
       }
     );
     return false;
