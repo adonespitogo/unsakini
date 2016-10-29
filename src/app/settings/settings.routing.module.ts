@@ -12,10 +12,11 @@ import {AccountSettingsComponent} from './account/account.component';
       {
         path: 'settings',
         component: SettingsComponent,
+        canActivateChild: ['DashboardRouteGuard'],
         canActivate: ['SettingsRouteGuard'],
         children: [
           {
-            path: '',
+            path: 'security',
             component: SettingsMainComponent
           },
           {

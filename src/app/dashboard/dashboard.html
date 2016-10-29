@@ -17,15 +17,15 @@
       </p>
       <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a [routerLink]="['/dashboard']">Dashboard</a>
-          </li>
-          <li>
-            <a [routerLink]="['/settings/account']">Account</a>
-          </li>
-          <li>
-            <a [routerLink]="['/settings']">Security</a>
-          </li>
+            <li routerLinkActive="active">
+              <a [routerLink]="['/dashboard']">Dashboard</a>
+            </li>
+            <li routerLinkActive="active">
+              <a [routerLink]="['/settings/account']">Account</a>
+            </li>
+            <li routerLinkActive="active">
+              <a [routerLink]="['/settings/security']">Security</a>
+            </li>
           <li>
             <a appLogout>
               Logout

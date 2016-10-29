@@ -75,7 +75,7 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
     return this.userService.getCurrentUser(true).map((user) => {
       if (!this.isLoggedIn() ) {
         this.router.navigate(['/login']);
-        this.toaster.pop('error', 'Session expired');
+        this.toaster.pop('error', 'Logged out', 'Session expired.');
         this.loggedin = false;
         return false;
       } else {

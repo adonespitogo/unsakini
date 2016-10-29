@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {Router, CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {AuthService} from '../services/auth.service';
 
 @Injectable()
-export class SettingsRouteGuard implements CanActivate {
+export class SettingsRouteGuard implements CanActivate, CanActivateChild{
 
   constructor (
     private router: Router,
@@ -26,6 +26,13 @@ export class SettingsRouteGuard implements CanActivate {
       return false;
     }
     return true;
+  }
+
+  canActivateChild (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean>|boolean {
+    return this.canActivate(route, state);
   }
 
 }

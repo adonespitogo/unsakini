@@ -34,9 +34,9 @@ export class AccountSettingsComponent {
     .catch(this.updateUserFailed(this))
     .subscribe((user: UserModel) => {
       this.toaster.pop('success', 'Account Updated', 'Your profile has been updated successfully.');
-      this.account.confirm_password = '';
-      this.account.new_password = '';
-      this.account.old_password = '';
+      // this.account.confirm_password = '';
+      // this.account.new_password = '';
+      // this.account.old_password = '';
     });
   }
 

@@ -52,6 +52,7 @@ export class UserService {
     return this.http.put('/user', user).map((res) => {
       console.log(res);
       UserService.currentUser = new UserModel(res.json());
+      this.currentUser$.next(UserService.currentUser);
       return UserService.currentUser;
     });
   }
