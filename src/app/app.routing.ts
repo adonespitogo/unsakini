@@ -15,7 +15,6 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
         {
           path: '',
           redirectTo: 'dashboard',
-          // component: DashboardComponent,
           canActivate: ['DashboardRouteGuard'],
           pathMatch: 'full'
         },
@@ -23,7 +22,6 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
           path: 'login',
           component: LoginComponent,
           canActivate: ['CanActivateLogin'],
-          // canDeactivate: ['CanLeaveLogin'],
         },
         {
           path: 'register',
@@ -41,10 +39,7 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
     },
     {
       provide: 'CanActivateLogin', useClass: CanActivateLogin
-    },
-    // {
-    //   provide: 'CanLeaveLogin', useClass: CanLeaveLogin
-    // }
+    }
   ]
 })
 export class AppRoutingModule {}
