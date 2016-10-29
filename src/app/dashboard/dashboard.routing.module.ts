@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardHomeComponent } from './home/dashboard-home.component';
 import { DashboardListItemsComponent } from './list-items/dashboard-list-items.component';
-import { DashboardItemComponent } from './dashboard-item.component';
+import { DashboardItemComponent } from './item/dashboard-item.component';
 import { DashboardNewListComponent } from './new-list/dashboard-new-list.component';
-import { DashboardEditListComponent } from './dashboard-edit-list.component';
-import { DashboardAddItemComponent } from './dashboard-add-item.component';
-import { DashboardEditItemComponent } from './dashboard-edit-item.component';
+import { DashboardEditListComponent } from './edit-list/dashboard-edit-list.component';
+import { DashboardAddItemComponent } from './add-item/dashboard-add-item.component';
+import { DashboardEditItemComponent } from './edit-item/dashboard-edit-item.component';
 import { DashboardRouteGuard } from './dashboard.route.guard';
 
 @NgModule({

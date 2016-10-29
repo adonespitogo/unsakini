@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy }    from '@angular/core';
 import { Router, ActivatedRoute, Params }   from '@angular/router';
-import { ListModel }            from '../models/list.model';
-import { ListService }          from '../services/list.service';
+import { ListModel }            from '../../models/list.model';
+import { ListService }          from '../../services/list.service';
 import {Observable}             from 'rxjs/Rx';
 import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  // selector: 'list-form',
-  templateUrl: './views/dashboard-edit-list.html'
+  templateUrl: './dashboard-edit-list.html'
 })
 export class DashboardEditListComponent implements OnDestroy, OnInit {
   submitted = false;

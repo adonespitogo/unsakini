@@ -1,15 +1,14 @@
 import { Component, OnInit, OnDestroy }    from '@angular/core';
 import { Router, ActivatedRoute, Params }   from '@angular/router';
-import { ListModel }            from '../models/list.model';
-import { ListService }          from '../services/list.service';
-import { ItemService }          from '../services/item.service';
-import { ItemModel }          from '../models/item.model';
+import { ListModel }            from '../../models/list.model';
+import { ListService }          from '../../services/list.service';
+import { ItemService }          from '../../services/item.service';
+import { ItemModel }          from '../../models/item.model';
 import {Observable}             from 'rxjs/Rx';
 import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  // selector: 'list-form',
-  templateUrl: './views/dashboard-add-item.html'
+  templateUrl: './dashboard-add-item.html'
 })
 export class DashboardAddItemComponent implements OnDestroy, OnInit {
 

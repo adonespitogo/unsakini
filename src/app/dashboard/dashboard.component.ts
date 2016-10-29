@@ -4,8 +4,8 @@ import {ListService} from '../services/list.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  templateUrl: './views/dashboard.html',
-  styleUrls: ['./styles/dashboard.scss']
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.scss']
 })
 
 export class DashboardComponent implements OnInit {
