@@ -1,0 +1,21 @@
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li>
+    <a [routerLink]="['/dashboard/lists', item.list_id]">{{item.list.name}}</a>
+  </li>
+  <li class="active">
+    {{item.title}}
+  </li>
+</ol>
+<div>
+  <h1 class="page-title">{{item.title}}
+  <div class="btn btn-group pull-right">
+    <a class="btn btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
+    <a class="btn btn-danger" appDeleteItem [item]="item" (onItemDeleted)="onItemDeleted($event)">Delete</a>
+  </div>
+  </h1>
+  <hr>
+  <div appMarkedText [text]="item.content"></div>
+</div>

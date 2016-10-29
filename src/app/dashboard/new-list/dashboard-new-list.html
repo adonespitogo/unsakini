@@ -1,0 +1,23 @@
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li class="active">New List</li>
+</ol>
+
+
+<h1>Create New List</h1>
+<hr>
+<form #listForm="ngForm">
+  <div class="form-group">
+    <label for="name">Name of the new list</label>
+    <input type="text" class="form-control" id="name" placeholder="List Name"
+      required
+      [(ngModel)]="list.name" name="name" #name="ngModel">
+  </div>
+  <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!listForm.form.valid">Submit</button>
+</form>

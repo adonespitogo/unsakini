@@ -1,0 +1,95 @@
+
+
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="['/dashboard']">Dashboard</a>
+  </li>
+  <li>
+    <a [routerLink]="['/dashboard/lists', list.id]">{{list.name}}</a>
+  </li>
+  <li class="active">Edit</li>
+</ol>
+
+
+
+<h1>
+  {{list.name}}
+  <a class="btn btn-danger pull-right" appDeleteList [list]="list" (onDelete)="onListDeleted()"> Delete </a>
+</h1>
+<hr>
+<form #listForm="ngForm">
+  <div class="form-group">
+    <label for="name">Rename list</label>
+    <input type="text" class="form-control" id="name" placeholder="List Name" required [(ngModel)]="list.name" name="name" #name="ngModel">
+  </div>
+  <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+    Name is required
+  </div>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!listForm.form.valid">Rename</button>
+</form>
+
+<hr />
+
+
+<h3>Items</h3>
+<div class="panel panel-default"  *ngFor="let item of list.items">
+  <div class="panel-heading clearfix" style="padding-top: 7.5px;">
+    <h1 class="panel-title pull-left"><a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a></h1>
+    <div class="btn-group btn-group-xs pull-right">
+      <a class="btn btn-xs btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']"> edit</a>
+      <a class="btn btn-xs btn-danger" appDeleteItem [item]="item"> delete</a>
+    </div>
+  </div>
+  <div class="panel-body" appMarkedText [text]="item.content">
+  </div>
+</div>
+
+<div class="well" *ngIf="list.items.length === 0">
+  No items yet.
+</div>
+
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', list.id, 'add-item']">
+  <span class="fa fa-plus"></span>
+  Add Item
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<p class="lead">
+  <strong>Items</strong>
+</p>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of list.items">
+    <div class="row">
+      <div class="col-xs-10">
+        <a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a>
+      </div>
+      <div class="col-xs-1">
+        <a [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
+      </div>
+      <div class="col-xs-1">
+        <a appDeleteItem [item]="item">Delete</a>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item" *ngIf="list.items.length === 0">
+    No items yet! <a [routerLink]="['/dashboard/lists', list.id, 'add-item']">Add Item</a>
+  </li>
+</ul>
+
+
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', list.id, 'add-item']">Add Item</a>
+ -->

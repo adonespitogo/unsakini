@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardHomeComponent } from './home/dashboard-home.component';
 import { DashboardListItemsComponent } from './list-items/dashboard-list-items.component';
 import { DashboardItemComponent } from './dashboard-item.component';
-import { DashboardNewListComponent } from './dashboard-new-list.component';
+import { DashboardNewListComponent } from './new-list/dashboard-new-list.component';
 import { DashboardEditListComponent } from './dashboard-edit-list.component';
 import { DashboardAddItemComponent } from './dashboard-add-item.component';
 import { DashboardEditItemComponent } from './dashboard-edit-item.component';
