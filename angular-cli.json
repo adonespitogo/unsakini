@@ -23,7 +23,8 @@
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "assets/css/ie10-viewport-bug-workaround.css",
-        "assets/css/global.scss"
+        "assets/css/global.scss",
+        "assets/css/sticky-footer.css"
       ],
       "environments": {
         "source": "environments/environment.ts",
