@@ -67,7 +67,7 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
           this.router.navigate(['/settings']);
           this.toaster.pop(
             'error',
-            'Private Key Unset',
+            'Set Private Key',
             `Please set your private key first to be able to access your data.`
           );
           return false;

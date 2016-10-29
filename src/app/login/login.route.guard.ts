@@ -16,11 +16,11 @@ export class LoginRouteGuard implements CanActivate {
     let token = AuthService.getAuthToken();
     if (token) {
       return this.http.get(`/auth/verify?token=${token}`).map((res) => {
-        let notLoggedIn: boolean = (res.status !== 202);
-        if (!notLoggedIn) {
+        let isLoggedIn: boolean = res.ok;
+        if (isLoggedIn) {
           this.router.navigate(['dashboard']);
         }
-        return notLoggedIn;
+        return !isLoggedIn;
       })
       .catch((res) => {
         return Observable.of(true);
