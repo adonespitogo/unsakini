@@ -13,7 +13,7 @@ import { DashboardEditListComponent } from './dashboard-edit-list.component';
 import { DashboardAddItemComponent } from './dashboard-add-item.component';
 import { DashboardEditItemComponent } from './dashboard-edit-item.component';
 import { DirectivesModule } from '../directives/directives.module';
-// import { CanActivateDashboard } from '../services/can-activate-dashboard.service';
+import { DashboardRouteGuard } from './dashboard.route.guard';
 
 
 @NgModule({
@@ -22,7 +22,6 @@ import { DirectivesModule } from '../directives/directives.module';
     DashboardRoutingModule,
     DirectivesModule,
     FormsModule,
-    // Ng2BreadcrumbModule,
     CollapseModule,
   ],
   declarations: [
@@ -36,8 +35,7 @@ import { DirectivesModule } from '../directives/directives.module';
     DashboardEditItemComponent,
   ],
   providers: [
-    // BreadcrumbService,
-    // CanActivateDashboard
+    DashboardRouteGuard,
   ],
   exports: [
     CommonModule,

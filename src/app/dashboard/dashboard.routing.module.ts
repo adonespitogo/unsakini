@@ -10,7 +10,7 @@ import { DashboardNewListComponent } from './dashboard-new-list.component';
 import { DashboardEditListComponent } from './dashboard-edit-list.component';
 import { DashboardAddItemComponent } from './dashboard-add-item.component';
 import { DashboardEditItemComponent } from './dashboard-edit-item.component';
-import { CanActivateDashboard } from '../services/can-activate-dashboard.service';
+import { DashboardRouteGuard } from './dashboard.route.guard';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { CanActivateDashboard } from '../services/can-activate-dashboard.service
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivateChild: ['CanActivateDashboard'],
+        canActivateChild: ['DashboardRouteGuard'],
         children: [
           {
             path: '',
@@ -57,8 +57,8 @@ import { CanActivateDashboard } from '../services/can-activate-dashboard.service
   ],
   providers: [
     {
-      provide: 'CanActivateDashboard',
-      useClass: CanActivateDashboard
+      provide: 'DashboardRouteGuard',
+      useClass: DashboardRouteGuard
     }
   ]
 })
