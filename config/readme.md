@@ -1,2 +1,2 @@
-This is config file is for sequelize-cli
+This config file is for sequelize-cli
 ------------------------
