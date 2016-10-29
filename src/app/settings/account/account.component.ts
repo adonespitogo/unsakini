@@ -23,9 +23,9 @@ export class AccountSettingsComponent {
     private userService: UserService,
     private toaster: ToasterService
   ) {
-    this.account= new AccountModel(new UserModel());
+    this.account = new AccountModel(new UserModel());
     userService.getCurrentUser(true).subscribe((user: UserModel) => {
-      this.account= new AccountModel(user);
+      this.account = new AccountModel(user);
     });
   }
 
@@ -48,7 +48,7 @@ export class AccountSettingsComponent {
   private updateUserFailed(self: AccountSettingsComponent) {
     return (res) => {
       let errors = res.json();
-      for (var i = errors.length - 1; i >= 0; i--) {
+      for (let i = errors.length - 1; i >= 0; i--) {
         self.toaster.pop('error', errors[i].message);
       }
       return Observable.throw(res);
