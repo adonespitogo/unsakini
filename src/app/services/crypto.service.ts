@@ -37,7 +37,7 @@ export class CryptoService {
   static removeKey () {
     localStorage.removeItem(CryptoService.keyName);
   }
-  
+
 // base on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
   static encrypt (msg: string) {
     if (!msg) {

@@ -2,6 +2,7 @@ import { Injectable }     from '@angular/core';
 import { Http } from '@angular/http';
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -45,6 +46,14 @@ export class UserService {
       });
       return this.fetchingCurrentUserObservable;
     }
+  }
+
+  updateUser (user) {
+    return this.http.put('/user', user).map((res) => {
+      console.log(res);
+      UserService.currentUser = new UserModel(res.json());
+      return UserService.currentUser;
+    });
   }
 
 }
