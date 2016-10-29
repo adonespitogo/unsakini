@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 import { DashboardRouteGuard } from './dashboard/dashboard.route.guard';
-import { CanActivateLogin } from './services/can-activate-login.route.guard';
+import { LoginRouteGuard } from './login/login.route.guard';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
         {
           path: 'login',
           component: LoginComponent,
-          canActivate: ['CanActivateLogin'],
+          canActivate: ['LoginRouteGuard'],
         },
         {
           path: 'register',
@@ -38,7 +38,7 @@ import { CanActivateLogin } from './services/can-activate-login.route.guard';
       provide: 'DashboardRouteGuard', useClass: DashboardRouteGuard
     },
     {
-      provide: 'CanActivateLogin', useClass: CanActivateLogin
+      provide: 'LoginRouteGuard', useClass: LoginRouteGuard
     }
   ]
 })
