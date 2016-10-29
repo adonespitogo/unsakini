@@ -27,7 +27,7 @@ export class DashboardNewListComponent implements OnInit {
     let l = new ListModel(this.list.serialize());
     this.listSerive.createList(l).subscribe(
       (list) => {
-        this.toaster.pop('success', 'List Created')
+        this.toaster.pop('success', 'List Created');
         this.router.navigate(['/dashboard/lists', list.id]);
       }
     );
