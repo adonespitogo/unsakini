@@ -149,4 +149,4 @@ export class CryptoService {
 [Adones Pitogo](http://adonespitogo.com)
 
 ### License
-Released under the terms of MIT License.
+Released under the terms of [MIT](https://opensource.org/licenses/MIT) License.
