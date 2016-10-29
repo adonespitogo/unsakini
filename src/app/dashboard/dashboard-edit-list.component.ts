@@ -51,6 +51,10 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
     );
   }
 
+  onListDeleted () {
+    this.router.navigate(['/dashboard']);
+  }
+
   ngOnDestroy () {
     if (!this.submitted) {
       for (let i = ListService.lists.length - 1; i >= 0; i--) {

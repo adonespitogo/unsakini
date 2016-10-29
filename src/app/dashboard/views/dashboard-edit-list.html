@@ -14,7 +14,7 @@
 
 <h1>
   {{list.name}}
-  <a class="btn btn-danger pull-right" appDeleteList [list]="list"> Delete </a>
+  <a class="btn btn-danger pull-right" appDeleteList [list]="list" (onDelete)="onListDeleted()"> Delete </a>
 </h1>
 <hr>
 <form #listForm="ngForm">
