@@ -41,7 +41,7 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
 
       this._canActivate().subscribe((canNavigate: boolean) => {
         if (!val.status && canNavigate) {
-          this.router.navigate(['/settings']);
+          this.router.navigate(['/settings/security']);
           toaster.pop(
             'error',
             'Cryptographic Problem Encountered',
@@ -70,7 +70,7 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
         return false;
       } else {
         if (!this.hasCryptoKey()) {
-          this.router.navigate(['/settings']);
+          this.router.navigate(['/settings/security']);
           this.toaster.pop(
             'error',
             'Set Private Key',
