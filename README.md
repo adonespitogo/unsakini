@@ -70,7 +70,6 @@ export class CryptoService {
     let encrypted: any;
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key);
-      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
