@@ -1,8 +1,11 @@
-<div class="container">
+<div class="container home-forms">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1>Create Account</h1>
+      <h1 class="text-center">Unsakini</h1>
       <hr>
+      <p class="lead text-center">
+        Create Account
+      </p>
       <form #regForm="ngForm" (ngSubmit)="doSubmit($event); false">
         <div *ngIf="error" class="alert alert-danger">
           {{error}}
@@ -40,16 +43,14 @@
         </div>
         <div class="form-group" style="margin-top: 20px;">
           <button type="submit" class="btn btn-primary" [disabled]="!regForm.form.valid">
-        Login
-      </button>
+            Create Account
+          </button>
         </div>
       </form>
-
       <hr>
       <p>
         Already have an account? <a [routerLink]="['/login']">Login</a>
       </p>
-
     </div>
   </div>
 </div>
