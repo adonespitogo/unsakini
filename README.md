@@ -50,45 +50,16 @@ Browse to [http://localhost:3000](http://localhost:3000)
 If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before being sent. Likewise, the data is being decrypted in the client side using the same key you supplied. The key is stored in your browser's localStorage and is never sent to the server. Therefore, only you can be able to read your data.
 
 The encryption and decryption process happens inside [./src/app/services/crypto.service.ts](./src/app/services/crypto.service.ts).
+
+An exerpt of `crypto.service.ts`'s encryption and decryption methods:
 ```typescript
 
 import * as CryptoJS from 'crypto-js';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
-export interface ICryptoObservable {
-  status: boolean;
-  message: string;
-}
-
 export class CryptoService {
-
-  static validkey$: BehaviorSubject<ICryptoObservable> =
-    new BehaviorSubject<ICryptoObservable>({status: true, message: ''});
-
-  private static keyName: string;
-
-  static setKeyName (user) {
-    CryptoService.keyName = window.btoa(`user_${user.id}_crypto_key`);
-  }
-
-  static setKey (k): void {
-    localStorage.setItem(CryptoService.keyName, window.btoa(k));
-  }
-
-  static getKey(): string {
-    let key = localStorage.getItem(CryptoService.keyName);
-    if (key == null) {
-      return '';
-    } else {
-      return window.atob(key);
-    }
-  }
-
-  static removeKey () {
-    localStorage.removeItem(CryptoService.keyName);
-  }
-
-  // base on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
+  
+  // ENCRYPTION METHOD
   static encrypt (msg: string) {
     if (!msg) {
       return '';
@@ -99,7 +70,6 @@ export class CryptoService {
     let encrypted: any;
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key);
-      CryptoService.validkey$.next({status: true, message: ''});
     } catch (e) {
       CryptoService.validkey$.next({status: false, message: e.toString()});
       return err;
@@ -109,7 +79,7 @@ export class CryptoService {
     return hmac + encrypted;
   }
   
-  // base on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
+  //DECRYPTION METHOD
   static decrypt (msg: string) {
     if (!msg) {
       return '';
@@ -151,13 +121,12 @@ export class CryptoService {
       return err;
     }
     return decrypted;
-
   }
 
 }
-
-
 ```
+
+**To security experts: Please let me know if you know of a more secure way of encrypting data. This is by far the most effective method base on my research.**
 
 ### Author
 [Adones Pitogo](http://adonespitogo.com)
