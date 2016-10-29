@@ -9,11 +9,11 @@ exports.is_list_owner = (req, res, next) ->
     })
     .then (db_list) ->
       if !db_list
-        return res.status(404).send()
+        return res.status(403).send 'NOT_LIST_OWNER'
       else
         return next()
     .catch (err) ->
-      res.status(404).send()
+      res.status(403).send 'NOT_LIST_OWNER'
 
 exports.is_item_owner = (req, res, next) ->
     models.Item.findOne({
@@ -31,9 +31,9 @@ exports.is_item_owner = (req, res, next) ->
     })
     .then (db_item) ->
       if !db_item
-        return res.status(404).send()
+        return res.status(403).send 'NOT_ITEM_OWNER'
       else
         return next()
     .catch (err) ->
-      res.status(404).send()
+      res.status(403).send 'NOT_ITEM_OWNER'
 

@@ -16,7 +16,7 @@ module.exports =
         if err
           return next(err)
         if (!user.confirmed)
-          res.status(401).send err: "Your account needs confirmation. The confirmation link was sent to #{user.email}."
+          res.status(401).send err: "Your account needs confirmation. Please click the confirmation link sent to your email #{user.email}."
           return
         res.send
           user: user

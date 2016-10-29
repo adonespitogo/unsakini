@@ -25,7 +25,7 @@ export class LogoutDirective {
   doLogout () {
     if (confirm('Are you sure you want to logout?')) {
       AuthService.setAuthToken('');
-      AuthService.setAuthenticated(false);
+      AuthService.setAuthenticated({status: false, message: 'LOGGED_OUT'});
       this.router.navigate(['/login']);
       this.toaster.pop('warning', 'You are now logged out.');
     }

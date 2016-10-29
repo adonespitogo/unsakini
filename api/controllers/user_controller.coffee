@@ -35,10 +35,9 @@ exports.create = (app) ->
           user_id: user.id
           token: crypto.createHash('md5').update("#{user.email}#{user.id}").digest('hex')
         }).then (acct_token) ->
-          console.log(acct_token.token)
           app.mailer.send 'mails/confirm-account', {
             # to: user.email
-            to: if process.env.NODE_ENV is 'production' then user.email else 'adonesp@live.com'
+            to: if process.env.NODE_ENV is 'production' then user.email else 'no-reply@unsakini.com'
             subject: 'Confirm Your Account'
             user: user
             token: acct_token.token
@@ -74,11 +73,16 @@ exports.update = (req, res, next) ->
   models.User.findById(req.user.id).then((db_user) ->
     db_user.comparePassword req.body.old_password, (err, match) ->
       if !match
-        return res.status(422).send [{message: 'Invalid password'}]
+        return res.status(422).send [{message: 'Current password is invalid'}]
       if !!err
-        return res.status(422).send [{message: 'Invalid password'}]
+        return res.status(422).send [{message: 'Current password is invalid'}]
 
-      if !!req.body.new_password and (req.body.new_password is req.body.confirm_password)
+      if !!req.body.new_password
+        # lets validate new password
+        if (req.body.new_password isnt req.body.confirm_password)
+          return res.status(422).send [message: 'Confirm password did not match password']
+        if (req.body.new_password.length < 6)
+          return res.status(422).send [message: 'Password must be at least 6 characters']
         db_user.setPassword(req.body.new_password)
         .then (db_user) ->
           updateUser(db_user)
@@ -105,7 +109,14 @@ exports.confirmAccount = (req, res, next) ->
           id: acct_conf.user_id
       })
       .then (db_users) ->
-        res.render 'account-confirmed-success'
+        AcctConf.destroy({
+          where:
+            user_id: acct_conf.user_id
+        })
+        .then ->
+          res.render 'account-confirmed-success'
+        .catch (err) ->
+          res.status(500).send err
       .catch (err) ->
         res.status(500).send err
     else

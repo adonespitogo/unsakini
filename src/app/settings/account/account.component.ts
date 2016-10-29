@@ -34,12 +34,15 @@ export class AccountSettingsComponent {
     .catch(this.updateUserFailed(this))
     .subscribe((user: UserModel) => {
       this.toaster.pop('success', 'Account Updated', 'Your profile has been updated successfully.');
+      this.account.confirm_password = '';
+      this.account.new_password = '';
+      this.account.old_password = '';
     });
   }
 
-  isFormValid () {
+  passwordsValid () {
     let acct = this.account;
-    if (!!acct.new_password) {
+    if (acct.new_password.length > 0) {
       return acct.new_password === acct.confirm_password;
     }
     return true;
@@ -49,7 +52,7 @@ export class AccountSettingsComponent {
     return (res) => {
       let errors = res.json();
       for (let i = errors.length - 1; i >= 0; i--) {
-        self.toaster.pop('error', errors[i].message);
+        self.toaster.pop('error', `Update Failed`, errors[i].message);
       }
       return Observable.throw(res);
     };

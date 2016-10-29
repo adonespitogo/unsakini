@@ -3,7 +3,7 @@ import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanAct
 import {Observable, Subscription} from 'rxjs/Rx';
 import {CryptoService, ICryptoObservable} from '../services/crypto.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
-import {AuthService} from '../services/auth.service';
+import {AuthService, IAuthMessage} from '../services/auth.service';
 import {UserService} from '../services/user.service';
 
 @Injectable()
@@ -12,15 +12,31 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
   private loggedin = true;
   private authSubs: Subscription;
   private cryptosubs: Subscription;
+  private error: string = '';
 
   constructor (private router: Router, private toaster: ToasterService, private userService: UserService) {
 
-    this.authSubs = AuthService.authenticated$.subscribe((authed: boolean) => {
+    this.authSubs = AuthService.authenticated$.subscribe((res: IAuthMessage) => {
+      let authed: boolean = res.status;
       if (!authed) {
         if (this.loggedin) {
+          switch (res.message) {
+            case 'UNAUTHORIZED':
+              this.error = 'Session expired. Please login again.';
+              break;
+            case 'NEEDS_CONFIRMATION':
+              this.error = `Your account needs confirmation.
+                            Check your email for the confirmation link.`;
+              break;
+
+            default:
+              break;
+          }
+          this.toaster.pop('error', 'Logged out', this.error);
           this.router.navigate(['/login']);
-          this.toaster.pop('error', 'Your session has expired. Please login again.');
         }
+      } else {
+        this.error = '';
       }
       this.loggedin = authed;
     });

@@ -36,7 +36,7 @@ export class UserService {
         ).subscribe((json) => {
           CryptoService.setKeyName(json);
           UserService.currentUser = new UserModel(json);
-          AuthService.setAuthenticated(true);
+          AuthService.setAuthenticated({status: true, message: 'USER_IS_AUTHENTICATED'});
           observable.next(UserService.currentUser);
           observable.complete();
           this.currentUser$.next(UserService.currentUser);

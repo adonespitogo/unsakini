@@ -13,7 +13,10 @@ export class AuthResponseOptions extends BaseResponseOptions {
         if (options.status === 401 || options.status === 403) {
           allowed = false;
           if (window.location.href.indexOf('login') === -1 || window.location.href.indexOf('register') === -1) {
-            let allowedPaths = ['login', 'register'];
+            let allowedPaths = [
+              'register',
+              'login'
+            ];
             for (let i = 0; i < allowedPaths.length; i ++) {
               if (location.href.indexOf(allowedPaths[i]) > -1) {
                 allowed = true;
@@ -26,7 +29,7 @@ export class AuthResponseOptions extends BaseResponseOptions {
       }
     }
     // update auth service status
-    AuthService.setAuthenticated(allowed);
+    AuthService.setAuthenticated({status: allowed, message: options.body.toString()});
     return super.merge(options);
   }
 }

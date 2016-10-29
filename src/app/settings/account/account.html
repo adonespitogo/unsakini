@@ -33,27 +33,24 @@
     <label for="password">
       New Password
     </label>
-    <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="account.password" name="password" #password="ngModel">
+    <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="account.new_password" name="new_password" #new_password="ngModel">
     <span class="help-block">
       <i>(Optional)</i>
     </span>
-  </div>
-  <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-    Password is required
   </div>
   <div class="form-group">
     <label for="password">
       Confirm New Password
     </label>
-    <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" [(ngModel)]="account.confirm_password" name="confirm_password" #confirm_password="ngModel">
+    <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" [(ngModel)]="account.confirm_password" name="confirmPassword" #confirmPassword="ngModel">
     <span class="help-block">
       <i>(Optional)</i>
     </span>
   </div>
-  <div [hidden]="(password !== '') || confirm_password.pristine" class="alert alert-danger">
+  <div [hidden]="(account.confirm_password.length > 0 || !account.new_password) || confirmPassword.pristine" class="alert alert-danger">
     Confirm password required
   </div>
-  <div *ngIf="account.password !== account.confirm_password" [hidden]="confirm_password.pristine" class="alert alert-danger">
+  <div [hidden]="(account.confirm_password === account.new_password || !new_password) || confirmPassword.pristine" class="alert alert-danger">
     Passwords don't match
   </div>
   <div class="form-group">
@@ -65,5 +62,8 @@
       <i>(Required)</i>
     </span>
   </div>
-  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!isFormValid() || !accountForm.form.valid">Submit</button>
+  <div [hidden]="old_password.valid || old_password.pristine" class="alert alert-danger">
+    Current password is required
+  </div>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!passwordsValid() || !accountForm.form.valid">Submit</button>
 </form>
