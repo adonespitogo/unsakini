@@ -3,7 +3,7 @@ import {RouterModule} from '@angular/router';
 
 import {SettingsComponent} from './settings.component';
 import {SettingsMainComponent} from './main/settings.main.component';
-import {CanActivateSettings} from '../services/can-activate-settings.route.guard';
+import {SettingsRouteGuard} from './settings.route.guard';
 import {AccountSettingsComponent} from './account/account.component';
 
 @NgModule({
@@ -12,7 +12,7 @@ import {AccountSettingsComponent} from './account/account.component';
       {
         path: 'settings',
         component: SettingsComponent,
-        canActivate: ['canActivateSettings'],
+        canActivate: ['SettingsRouteGuard'],
         children: [
           {
             path: '',
@@ -28,8 +28,8 @@ import {AccountSettingsComponent} from './account/account.component';
   ],
   providers: [
     {
-      provide: 'canActivateSettings',
-      useClass: CanActivateSettings
+      provide: 'SettingsRouteGuard',
+      useClass: SettingsRouteGuard
     }
   ],
   exports: [

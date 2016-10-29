@@ -9,7 +9,6 @@ import { AuthRequestOptions } from './services/auth.request.options';
 import { AuthResponseOptions } from './services/auth.response.options';
 
 import { AppComponent } from './app.component';
-// import { NotFoundComponent } from './not.found.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SettingsModule } from './settings/settings.module';
@@ -33,13 +32,11 @@ declare var $: any;
     AppRoutingModule,
     DashboardModule,
     SettingsModule,
-    // Ng2BreadcrumbModule,
     LoginModule,
     RegisterModule,
   ],
   declarations: [
     AppComponent,
-    // NotFoundComponent,
   ],
   providers: [
     {provide: RequestOptions, useClass: AuthRequestOptions},
@@ -50,12 +47,10 @@ declare var $: any;
     ItemService,
     AuthService,
     CryptoService,
-    // BreadcrumbService,
   ],
   bootstrap: [ AppComponent ],
   exports: [
     ToasterModule,
-    // Ng2BreadcrumbModule
   ]
 })
 
