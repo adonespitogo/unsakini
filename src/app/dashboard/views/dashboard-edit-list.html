@@ -30,6 +30,44 @@
 
 <hr />
 
+
+<h3>Items</h3>
+<div class="panel panel-default"  *ngFor="let item of list.items">
+  <div class="panel-heading clearfix" style="padding-top: 7.5px;">
+    <h1 class="panel-title pull-left"><a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a></h1>
+    <div class="btn-group btn-group-xs pull-right">
+      <a class="btn btn-xs btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']"> edit</a>
+      <a class="btn btn-xs btn-danger" appDeleteItem [item]="item"> delete</a>
+    </div>
+  </div>
+  <div class="panel-body" appMarkedText [text]="item.content">
+  </div>
+</div>
+
+<div class="well" *ngIf="list.items.length === 0">
+  No items yet.
+</div>
+
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', list.id, 'add-item']">
+  <span class="fa fa-plus"></span>
+  Add Item
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
 <p class="lead">
   <strong>Items</strong>
 </p>
@@ -54,3 +92,4 @@
 
 
 <a class="btn btn-primary" [routerLink]="['/dashboard/lists', list.id, 'add-item']">Add Item</a>
+ -->
