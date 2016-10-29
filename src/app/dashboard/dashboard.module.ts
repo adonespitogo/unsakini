@@ -6,7 +6,7 @@ import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardHomeComponent } from './home/dashboard-home.component';
-import { DashboardListItemsComponent } from './dashboard-list-items.component';
+import { DashboardListItemsComponent } from './list-items/dashboard-list-items.component';
 import { DashboardItemComponent } from './dashboard-item.component';
 import { DashboardNewListComponent } from './dashboard-new-list.component';
 import { DashboardEditListComponent } from './dashboard-edit-list.component';

@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {ListService} from '../services/list.service';
-import {ItemService} from '../services/item.service';
-import {ListModel} from '../models/list.model';
+import {ListService} from '../../services/list.service';
+import {ItemService} from '../../services/item.service';
+import {ListModel} from '../../models/list.model';
 import {Observable} from 'rxjs/Rx';
-import {ToasterService}             from 'angular2-toaster/angular2-toaster';
+import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  templateUrl: './views/dashboard-list-items.html',
+  templateUrl: './dashboard-list-items.html',
 })
 
 export class DashboardListItemsComponent implements OnInit {
