@@ -5,9 +5,6 @@ import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Component({
   templateUrl: './views/dashboard.html',
-  // providers: [
-  //   ListService
-  // ],
   styleUrls: ['./styles/dashboard.scss']
 })
 

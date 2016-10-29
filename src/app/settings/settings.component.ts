@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 
 
 @Component({
-  templateUrl: './settings.html'
+  templateUrl: './settings.html',
+  styleUrls: ['./settings.component.scss']
 })
 
 
