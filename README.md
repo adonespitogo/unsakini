@@ -58,7 +58,8 @@ import * as CryptoJS from 'crypto-js';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 export class CryptoService {
-  ...
+  
+  // ENCRYPTION METHOD
   static encrypt (msg: string) {
     if (!msg) {
       return '';
@@ -78,7 +79,8 @@ export class CryptoService {
     let hmac = CryptoJS.HmacSHA256(encrypted, CryptoJS.SHA256(passphrase)).toString();
     return hmac + encrypted;
   }
-
+  
+  //DECRYPTION METHOD
   static decrypt (msg: string) {
     if (!msg) {
       return '';
@@ -120,7 +122,6 @@ export class CryptoService {
       return err;
     }
     return decrypted;
-
   }
 
 }
