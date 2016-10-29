@@ -31,8 +31,20 @@ $ ng build
 ```
 Browse to [http://localhost:3000](http://localhost:3000)
 
-
-Angular app sources are under the `./src/app` directory, while the api sources are under the `./api` directory.
+### Directory Structure
+ - `./api` - API sources (controllers, models, and other express middlewares)
+ - `./src` - Angular 2 app sources
+ - `./migrations` - Contains DB migration files (sequelize-cli)
+ - `./config` - Contians sequelize-cli config for migrations. Don't confuse it with `./api/config` which contains config files specific to the express app
+ 
+### Technologies
+ - Server
+  - [Express](http://expressjs.com/) node.js framework for building the API
+  - [Sequelize](http://docs.sequelizejs.com/en/v3/) as ORM
+  - [Sequelize CLI](http://docs.sequelizejs.com/en/v3/docs/migrations/) for database migrations
+ - Frontend
+  - [Angular 2](https://angular.io/) framework for the front-end
+  - [Angular CLI](https://cli.angular.io/) in developing the Angular app
 
 ### Encryption and decryption process
 If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before being sent. Likewise, the data is being decrypted in the client side using the same key you supplied. The key is stored in your browser's localStorage and is never sent to the server. Therefore, only you can be able to read your data.
