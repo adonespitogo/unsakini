@@ -43,6 +43,7 @@ export class LoginComponent {
 
   private loginFailedHandler (self: LoginComponent) {
     return (err: any) => {
+      self.success = '';
       self.error = err.json().err || 'Invalid email and password combination.';
       return Observable.throw(err);
     };

@@ -20,7 +20,7 @@ exports.create = (app) ->
     if !req.body.password
       res.send 422, [message: 'Password is required']
       return
-    if req.body.password?.lenth < 6
+    if req.body.password.length < 6
       res.send 422, [message: 'Password must be at least 6 characters']
       return
     if req.body.password != req.body.password_confirmation
