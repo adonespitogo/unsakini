@@ -144,3 +144,9 @@ export class CryptoService {
 
 
 ```
+
+### Author
+[Adones Pitogo](http://adonespitogo.com)
+
+### License
+Released under the terms of MIT License.
