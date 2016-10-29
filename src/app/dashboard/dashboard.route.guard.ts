@@ -9,7 +9,6 @@ import {UserService} from '../services/user.service';
 @Injectable()
 export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDestroy {
 
-  private loggedin = true;
   private authSubs: Subscription;
   private cryptosubs: Subscription;
   private error: string = '';
@@ -19,26 +18,23 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
     this.authSubs = AuthService.authenticated$.subscribe((res: IAuthMessage) => {
       let authed: boolean = res.status;
       if (!authed) {
-        if (this.loggedin) {
-          switch (res.message) {
-            case 'UNAUTHORIZED':
-              this.error = 'Session expired. Please login again.';
-              break;
-            case 'NEEDS_CONFIRMATION':
-              this.error = `Your account needs confirmation.
-                            Check your email for the confirmation link.`;
-              break;
+        switch (res.message) {
+          case 'UNAUTHORIZED':
+            this.error = 'Session expired. Please login again.';
+            break;
+          case 'NEEDS_CONFIRMATION':
+            this.error = `Your account needs confirmation.
+                          Check your email for the confirmation link.`;
+            break;
 
-            default:
-              break;
-          }
-          this.toaster.pop('error', 'Logged out', this.error);
-          this.router.navigate(['/login']);
+          default:
+            break;
         }
+        this.toaster.pop('error', 'Logged out', this.error);
+        this.router.navigate(['/login']);
       } else {
         this.error = '';
       }
-      this.loggedin = authed;
     });
 
     this.cryptosubs = CryptoService.validkey$.subscribe((val: ICryptoObservable) => {
@@ -61,22 +57,16 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
     return !!key;
   }
 
-  private isLoggedIn () {
-
-    let token = AuthService.getAuthToken();
-    if (!token || !this.loggedin) {
-      return false;
-    }
-    return true;
+  private hasAuthToken () {
+    return !!AuthService.getAuthToken();
   }
 
   private _canActivate() {
 
     return this.userService.getCurrentUser(true).map((user) => {
-      if (!this.isLoggedIn() ) {
+      if (!this.hasAuthToken() ) {
         this.router.navigate(['/login']);
         this.toaster.pop('error', 'Logged out', 'Session expired.');
-        this.loggedin = false;
         return false;
       } else {
         if (!this.hasCryptoKey()) {

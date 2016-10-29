@@ -5,7 +5,7 @@ import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {AuthService} from '../services/auth.service';
 
 @Injectable()
-export class SettingsRouteGuard implements CanActivate, CanActivateChild{
+export class SettingsRouteGuard implements CanActivate, CanActivateChild {
 
   constructor (
     private router: Router,
