@@ -12,17 +12,20 @@
 
 
 
-<h1>{{list.name}}</h1>
-<h3>Edit</h3>
+<h1>
+  {{list.name}}
+  <a class="btn btn-danger pull-right" appDeleteList [list]="list"> Delete </a>
+</h1>
+<hr>
 <form #listForm="ngForm">
   <div class="form-group">
-    <label for="name">Rename list:</label>
+    <label for="name">Rename list</label>
     <input type="text" class="form-control" id="name" placeholder="List Name" required [(ngModel)]="list.name" name="name" #name="ngModel">
   </div>
   <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
     Name is required
   </div>
-  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!listForm.form.valid">Submit</button>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!listForm.form.valid">Rename</button>
 </form>
 
 <hr />

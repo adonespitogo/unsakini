@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListModel }    from '../models/list.model';
 import { ListService }    from '../services/list.service';
+import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  // selector: 'list-form',
   templateUrl: './views/dashboard-new-list.html'
 })
 export class DashboardNewListComponent implements OnInit {
@@ -14,7 +14,8 @@ export class DashboardNewListComponent implements OnInit {
   constructor (
     private listSerive: ListService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toaster: ToasterService
   ) { }
 
   ngOnInit() {
@@ -26,6 +27,7 @@ export class DashboardNewListComponent implements OnInit {
     let l = new ListModel(this.list.serialize());
     this.listSerive.createList(l).subscribe(
       (list) => {
+        this.toaster.pop('success', 'List Created')
         this.router.navigate(['/dashboard/lists', list.id]);
       }
     );

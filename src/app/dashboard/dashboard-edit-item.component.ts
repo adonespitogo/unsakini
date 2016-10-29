@@ -56,6 +56,10 @@ export class DashboardEditItemComponent implements OnInit {
     );
   }
 
+  itemDeleted() {
+    this.router.navigate(['/dashboard/lists', this.item.list_id]);
+  }
+
   private noItemError (self: DashboardEditItemComponent) {
     return (err: any, cauth: any) => {
       return Observable.throw(`Item with id ${self.item.id} was not found on the server.`);

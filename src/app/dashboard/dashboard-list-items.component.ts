@@ -4,10 +4,10 @@ import {ListService} from '../services/list.service';
 import {ItemService} from '../services/item.service';
 import {ListModel} from '../models/list.model';
 import {Observable} from 'rxjs/Rx';
+import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 
 @Component({
   templateUrl: './views/dashboard-list-items.html',
-  // styleUrls: ['../css/dashboard/styles/dashboard-list-items.css']
 })
 
 export class DashboardListItemsComponent implements OnInit {
@@ -18,7 +18,8 @@ export class DashboardListItemsComponent implements OnInit {
     private itemService: ItemService,
     private listService: ListService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toaster: ToasterService
   ) {
     this.list = new ListModel();
   }
@@ -55,34 +56,8 @@ export class DashboardListItemsComponent implements OnInit {
     if (window.confirm('Are you sure?')) {
       this.listService.deleteList(list).subscribe(
         () => {
-          this.redirectTo();
-        }
-      );
-    }
-  }
-
-  // doDeleteItem (item) {
-  //   if (window.confirm(`Are you sure you want to delete item '${item.title}'?`)) {
-  //     this.itemService.deleteItem(item).subscribe();
-  //   }
-  // }
-
-  private redirectTo () {
-    let lists = ListService.lists;
-    if (lists) {
-      if (lists.length > 0) {
-        this.router.navigate(['/dashboard/lists', lists[0].id]);
-      } else {
-        this.router.navigate(['/dashboard']);
-      }
-    } else {
-      this.listService.getLists().subscribe(
-        (listRes) => {
-          if (listRes.length > 0) {
-            this.router.navigate(['/dashboard/lists', listRes[0].id]);
-          } else {
-            this.router.navigate(['/dashboard']);
-          }
+          this.router.navigate(['/dashboard']);
+          this.toaster.pop('success', 'List deleted');
         }
       );
     }
@@ -90,7 +65,8 @@ export class DashboardListItemsComponent implements OnInit {
 
   private handleNoListError (self: DashboardListItemsComponent) {
     return (err: any, cauth: any) => {
-      self.redirectTo();
+      self.router.navigate(['/dashboard']);
+      self.toaster.pop('warning', 'No such list');
       return Observable.throw(`List with id ${self.list.id} was not found on the server.`);
     };
   }
