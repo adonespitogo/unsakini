@@ -1,16 +1,11 @@
 
 import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
-// import { DashboardRouteGuard } from '../services/can-activate-dashboard.service';
-// import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-// import { NotFoundComponent } from './not.found.component';
-// import {DashboardComponent} from "./dashboard/dashboard.component";
 
 import { DashboardRouteGuard } from './dashboard/dashboard.route.guard';
 import { CanActivateLogin } from './services/can-activate-login.route.guard';
-// import { CanLeaveLogin } from './services/can-leave-login.route.guard';
 
 
 @NgModule({
