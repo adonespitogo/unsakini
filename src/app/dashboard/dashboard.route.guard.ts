@@ -22,7 +22,10 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild {
     return true;
   }
 
-  private _canActivate() {
+  private _canActivate(): Observable<boolean>|boolean {
+    if (!this.hasAuthToken()) {
+      return false;
+    }
     return this.userService.getCurrentUser(true).map((user) => {
       if (!this.hasAuthToken()) {
         this.router.navigate(['/login']);
