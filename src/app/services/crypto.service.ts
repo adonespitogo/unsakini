@@ -15,7 +15,7 @@ export class CryptoService {
   static validkey$: BehaviorSubject<ICryptoObservable> =
     new BehaviorSubject<ICryptoObservable>({status: true, message: ''});
 
-  private static keyName: string;
+  public static keyName: string;
 
   static setKeyName ({id}) {
     CryptoService.keyName = window.btoa(`user_${id}_day_${(new Date()).getDay()}`);

@@ -28,14 +28,16 @@ export class UserService {
       this.fetchingCurrentUserObservable = new Observable<UserModel>((observable) => {
         this.http.get('/user').map(
           (res) => {
+          if (!CryptoService.keyName) {
+            CryptoService.setKeyName(res.json());
+          }
+          UserService.currentUser = new UserModel(res.json());
+          this.currentUser$.next(UserService.currentUser);
             return res.json();
           }
         ).subscribe((json) => {
-          CryptoService.setKeyName(json);
-          UserService.currentUser = new UserModel(json);
           observable.next(UserService.currentUser);
           observable.complete();
-          this.currentUser$.next(UserService.currentUser);
           this.fetchingCurrentUserObservable = null;
           return UserService.currentUser;
         });
