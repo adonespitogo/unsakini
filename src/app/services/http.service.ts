@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Rx';
 import {AuthService} from './auth.service';
 
 @Injectable()
+
 export class HttpService extends Http {
 
   constructor (backend: XHRBackend, options: RequestOptions) {

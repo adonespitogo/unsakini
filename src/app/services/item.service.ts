@@ -1,13 +1,10 @@
 import { Injectable }     from '@angular/core';
-import { Http } from '@angular/http';
-
-// import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {ListService} from '../services/list.service';
+import {ListService} from './list.service';
 import {ItemModel} from '../models/item.model';
-// import {ListModel} from '../models/list.model';
+import {HttpService} from './http.service';
 
 @Injectable()
 
@@ -28,7 +25,7 @@ export class ItemService {
     return null;
   }
 
-  constructor (private http: Http) { }
+  constructor (private http: HttpService) { }
 
   getItem (id: number) {
     return this.http.get(`/items/${id}`).map(

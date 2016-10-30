@@ -1,13 +1,10 @@
 import { Injectable }     from '@angular/core';
-import { Http } from '@angular/http';
-
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-declare let _: any;
-
 import {ListModel} from '../models/list.model';
+import {HttpService} from './http.service';
 
 @Injectable()
 
@@ -27,7 +24,7 @@ export class ListService {
     return null;
   }
 
-  constructor (private http: Http) {}
+  constructor (private http: HttpService) {}
 
   getLists () {
     return this.http.get('/lists').map(

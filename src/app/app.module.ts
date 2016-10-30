@@ -1,7 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, RequestOptions, Http, XHRBackend } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {ToasterModule} from 'angular2-toaster/angular2-toaster';
 
@@ -45,7 +45,7 @@ declare var $: any;
     AuthService,
     CryptoService,
     {
-      provide: Http,
+      provide: HttpService,
       useFactory: (backend: XHRBackend, options: RequestOptions) => {
         return new HttpService(backend, options);
       },

@@ -1,6 +1,4 @@
 import { Injectable }     from '@angular/core';
-import { Http } from '@angular/http';
-
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -8,6 +6,7 @@ import 'rxjs/add/operator/catch';
 
 import {UserModel} from '../models/user.model';
 import {CryptoService} from './crypto.service';
+import {HttpService} from './http.service';
 
 @Injectable()
 
@@ -17,7 +16,7 @@ export class UserService {
   public currentUser$: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
   private fetchingCurrentUserObservable: any;
 
-  constructor (private http: Http) { }
+  constructor (private http: HttpService) { }
 
   getCurrentUser (cached?: boolean): Observable<UserModel> {
     if (cached && UserService.currentUser) {
