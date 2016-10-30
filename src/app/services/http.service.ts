@@ -15,9 +15,7 @@ export class HttpService extends Http {
 
   request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
     if (typeof url === 'string') {
-      if (options) {
-        options.headers.set('Authorization', `Bearer ${AuthService.getAuthToken()}`);
-      } else {
+      if (!options) {
         options = {headers: new Headers()};
       }
       options.headers.set('Authorization', `Bearer ${AuthService.getAuthToken()}`);
