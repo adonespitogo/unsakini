@@ -19,11 +19,17 @@ export class CryptoService {
 
   static setKeyName ({id}) {
     CryptoService.keyName = window.btoa(`user_${id}_day_${(new Date()).getDay()}`);
+    if (!CryptoService.valid) {
+      CryptoService.validkey$.next({status: true, message: 'Key set'});
+    }
+    CryptoService.valid = true;
   }
 
   static setKey (k): void {
     localStorage.setItem(CryptoService.keyName, window.btoa(k));
-    CryptoService.validkey$.next({status: true, message: 'Key set'});
+    if (!CryptoService.valid) {
+      CryptoService.validkey$.next({status: true, message: 'Key set'});
+    }
     CryptoService.valid = true;
   }
 
