@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
 import {SettingsComponent} from './settings.component';
-import {SettingsMainComponent} from './main/settings.main.component';
+import {SecuritySettingsComponent} from './security/settings.security.component';
 import {SettingsRouteGuard} from './settings.route.guard';
-import {AccountSettingsComponent} from './account/account.component';
+import {AccountSettingsComponent} from './account/settings.account.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import {AccountSettingsComponent} from './account/account.component';
         children: [
           {
             path: 'security',
-            component: SettingsMainComponent
+            component: SecuritySettingsComponent
           },
           {
             path: 'account',

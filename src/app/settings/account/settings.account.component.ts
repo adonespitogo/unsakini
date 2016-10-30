@@ -11,7 +11,7 @@ import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 
 @Component({
-  templateUrl: './account.html'
+  templateUrl: './settings.account.html'
 })
 
 export class AccountSettingsComponent {

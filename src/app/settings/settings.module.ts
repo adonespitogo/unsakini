@@ -8,8 +8,8 @@ import { ClipboardModule }  from 'angular2-clipboard';
 import {DirectivesModule} from '../directives/directives.module';
 
 import {SettingsComponent} from './settings.component';
-import {SettingsMainComponent} from './main/settings.main.component';
-import {AccountSettingsComponent} from './account/account.component';
+import {SecuritySettingsComponent} from './security/settings.security.component';
+import {AccountSettingsComponent} from './account/settings.account.component';
 
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import {AccountSettingsComponent} from './account/account.component';
   ],
   declarations: [
     SettingsComponent,
-    SettingsMainComponent,
+    SecuritySettingsComponent,
     AccountSettingsComponent
   ],
   exports: [
