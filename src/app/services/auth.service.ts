@@ -1,11 +1,12 @@
 
 import {Injectable} from '@angular/core';
+import {Response, ResponseOptions} from '@angular/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {environment} from '../../environments/environment';
 
 export interface IAuthMessage {
   status: boolean;
-  message: string;
+  message: Response|string;
 }
 
 @Injectable()

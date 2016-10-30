@@ -11,6 +11,7 @@ export interface ICryptoObservable {
 
 export class CryptoService {
 
+  static valid: boolean;
   static validkey$: BehaviorSubject<ICryptoObservable> =
     new BehaviorSubject<ICryptoObservable>({status: true, message: ''});
 
@@ -22,7 +23,8 @@ export class CryptoService {
 
   static setKey (k): void {
     localStorage.setItem(CryptoService.keyName, window.btoa(k));
-    CryptoService.validkey$.next({status: true, message: ''});
+    CryptoService.validkey$.next({status: true, message: 'Key set'});
+    CryptoService.valid = true;
   }
 
   static getKey(): string {
@@ -50,7 +52,10 @@ export class CryptoService {
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key);
     } catch (e) {
-      CryptoService.validkey$.next({status: false, message: e.toString()});
+      if (CryptoService.valid) {
+        CryptoService.validkey$.next({status: false, message: e.toString()});
+      }
+      CryptoService.valid = false;
       return err;
     }
     encrypted = encrypted ? encrypted.toString() : '';
@@ -66,35 +71,45 @@ export class CryptoService {
     let err = '[decryption error]';
     let transitmessage = msg;
     let passphrase = CryptoService.getKey();
-    if (!passphrase) {
+    if (!passphrase && CryptoService.valid) {
       CryptoService.validkey$.next({
         status: false,
         message: 'Unable to locate your private key.'
       });
-      return '';
+      CryptoService.valid = false;
+      return '[private key is not set]';
     }
     let transithmac = transitmessage.substring(0, 64);
     let transitencrypted = transitmessage.substring(64);
     let decryptedhmac = CryptoJS.HmacSHA256(transitencrypted, CryptoJS.SHA256(passphrase)).toString();
     let correctpassphrase: boolean = (transithmac === decryptedhmac);
     if (!correctpassphrase) {
-      CryptoService.validkey$.next({
-        status: false,
-        message: `Private key does not match the original key footprint.`
-      });
-      return err;
+      if (CryptoService.valid) {
+        CryptoService.validkey$.next({
+          status: false,
+          message: `Private key does not match the original key footprint.`
+        });
+      }
+      CryptoService.valid = false;
+      return '[incorrect key]';
     }
     let decrypted: any;
     try {
       decrypted = CryptoJS.AES.decrypt(transitencrypted, passphrase).toString(CryptoJS.enc.Utf8);
     } catch (e) {
-      CryptoService.validkey$.next({status: false, message: e.toString()});
+      if (CryptoService.valid) {
+        CryptoService.validkey$.next({status: false, message: e.toString()});
+      }
+      CryptoService.valid = false;
       return err;
     }
     try {
       decrypted = decrypted.toString(CryptoJS.enc.Utf8);
     } catch (e) {
-      CryptoService.validkey$.next({status: false, message: e.toString()});
+      if (CryptoService.valid) {
+        CryptoService.validkey$.next({status: false, message: e.toString()});
+      }
+      CryptoService.valid = false;
       return err;
     }
     return decrypted;

@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild} from '@angular/router';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {CryptoService, ICryptoObservable} from '../services/crypto.service';
@@ -7,80 +7,63 @@ import {AuthService, IAuthMessage} from '../services/auth.service';
 import {UserService} from '../services/user.service';
 
 @Injectable()
-export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDestroy {
+export class DashboardRouteGuard implements CanActivate, CanActivateChild {
 
-  private authSubs: Subscription;
   private cryptosubs: Subscription;
   private error: string = '';
 
-  constructor (private router: Router, private toaster: ToasterService, private userService: UserService) {
-
-    this.authSubs = AuthService.authenticated$.subscribe((res: IAuthMessage) => {
-      let authed: boolean = res.status;
-      if (!authed) {
-        switch (res.message) {
-          case 'UNAUTHORIZED':
-            this.error = 'Session expired. Please login again.';
-            break;
-          case 'NEEDS_CONFIRMATION':
-            this.error = `Your account needs confirmation.
-                          Check your email for the confirmation link.`;
-            break;
-
-          default:
-            break;
-        }
-        this.toaster.pop('error', 'Logged out', this.error);
-        this.router.navigate(['/login']);
-      } else {
-        this.error = '';
-      }
-    });
-
-    this.cryptosubs = CryptoService.validkey$.subscribe((val: ICryptoObservable) => {
-
-      this._canActivate().subscribe((canNavigate: boolean) => {
-        if (!val.status && canNavigate) {
-          this.router.navigate(['/settings/security']);
-          toaster.pop(
-            'error',
-            'Cryptographic Problem Encountered',
-            `You might have entered the wrong private key. ${val.message}`
-          );
-        }
-      });
-    });
-  }
+  constructor (private router: Router, private toaster: ToasterService, private userService: UserService) { }
 
   private hasCryptoKey (): boolean {
-    let key = CryptoService.getKey();
-    return !!key;
+    return !!CryptoService.getKey();
   }
 
   private hasAuthToken () {
-    return !!AuthService.getAuthToken();
+    if (!AuthService.getAuthToken()) {
+      return false;
+    }
+    return true;
   }
 
   private _canActivate() {
 
-    return this.userService.getCurrentUser(true).map((user) => {
-      if (!this.hasAuthToken() ) {
-        this.router.navigate(['/login']);
-        this.toaster.pop('error', 'Logged out', 'Session expired.');
-        return false;
-      } else {
-        if (!this.hasCryptoKey()) {
-          this.router.navigate(['/settings/security']);
-          this.toaster.pop(
-            'error',
-            'Set Private Key',
-            `Please set your private key first to be able to access your data.`
-          );
-          return false;
-        }
-      }
-      return true;
-    });
+    // return true;
+
+    if (!this.hasAuthToken()) {
+      this.router.navigate(['/login']);
+      this.toaster.pop('error', 'Athentication Error', 'Session expired.');
+      return false;
+    }
+    if (!this.hasCryptoKey() || !CryptoService.valid) {
+      this.router.navigate(['/settings/security']);
+      this.toaster.pop(
+        'error',
+        'Set Private Key',
+        `Please set your private key first to be able to access your data.`
+      );
+      return false;
+    }
+    return true;
+
+    // return this.hasAuthToken() && this.hasCryptoKey();
+    // return this.userService.getCurrentUser(true).map((user) => {
+    //   if (!this.hasAuthToken() ) {
+    //     this.router.navigate(['/login']);
+    //     this.toaster.pop('error', 'Athentication Error', 'Session expired.');
+    //     return false;
+    //   } else {
+    //     if (!this.hasCryptoKey()) {
+    //       this.router.navigate(['/settings/security']);
+    //       this.toaster.pop(
+    //         'error',
+    //         'Set Private Key',
+    //         `Please set your private key first to be able to access your data.`
+    //       );
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // });
   }
 
   canActivate(
@@ -95,11 +78,6 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild, OnDes
     state: RouterStateSnapshot
   ): Observable<boolean>|boolean {
     return this._canActivate();
-  }
-
-  ngOnDestroy () {
-    this.authSubs.unsubscribe();
-    this.cryptosubs.unsubscribe();
   }
 
 }

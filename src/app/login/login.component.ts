@@ -36,7 +36,6 @@ export class LoginComponent {
       (json) => {
         this.success = 'Login successful. Redirecting...';
         AuthService.setAuthToken(json.token);
-        AuthService.setAuthenticated({status: true, message: 'LOGGED_IN'});
         this.router.navigate(['/dashboard']);
         this.submitting = false;
       }
