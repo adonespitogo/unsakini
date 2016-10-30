@@ -2,13 +2,11 @@ import { Injectable }     from '@angular/core';
 import { Http } from '@angular/http';
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {UserModel} from '../models/user.model';
-import {AuthService} from './auth.service';
 import {CryptoService} from './crypto.service';
 
 @Injectable()

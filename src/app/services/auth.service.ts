@@ -1,6 +1,6 @@
 
 import {Injectable} from '@angular/core';
-import {Response, ResponseOptions} from '@angular/http';
+import {Response} from '@angular/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {environment} from '../../environments/environment';
 

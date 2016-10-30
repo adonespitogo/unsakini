@@ -37,7 +37,7 @@ export class HttpService extends Http {
         AuthService.authenticated$.next({status: false, message: res});
       }
       return Observable.throw(res);
-    }
+    };
   }
 
 }
