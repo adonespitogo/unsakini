@@ -24,14 +24,11 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild {
 
   private _canActivate(): Observable<boolean>|boolean {
     if (!this.hasAuthToken()) {
+      this.router.navigate(['/login']);
+      this.toaster.pop('error', 'Athentication Error', 'Session expired. Please sign in.');
       return false;
     }
     return this.userService.getCurrentUser(true).map((user) => {
-      if (!this.hasAuthToken()) {
-        this.router.navigate(['/login']);
-        this.toaster.pop('error', 'Athentication Error', 'Session expired.');
-        return false;
-      }
       if (!this.hasCryptoKey() || !CryptoService.valid) {
         this.router.navigate(['/settings/security']);
         this.toaster.pop(
