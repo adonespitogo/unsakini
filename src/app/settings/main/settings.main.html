@@ -25,8 +25,8 @@
           Your private key is used to encrypt and decrypt your data. <strong>Make a copy of it somewhere and don't lose it, else your data will be inaccessible.</strong>
         </span>
         <div class="input-group">
-          <input type="text" class="form-control" [ngModel]="getKey()" name="keyVal" [hidden]="!showKey">
-          <input type="password" class="form-control" required [(ngModel)]="key" name="keyInput" #keyInput="ngModel" [hidden]="showKey">
+          <!-- <input type="text" class="form-control" [ngModel]="getKey()" name="keyVal" [hidden]="!showKey"> -->
+          <input type="{{showKey ? 'text' : 'password'}}" class="form-control" required [(ngModel)]="key" name="keyInput" #keyInput="ngModel">
           <span class="input-group-btn">
                 <button class="btn btn-default" type="button" *ngIf="showKey" (click)="showKey = false">Hide</button>
                 <button class="btn btn-default" type="button" *ngIf="!showKey" (click)="showKey = true">Show</button>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CryptoService} from '../../services/crypto.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {Router} from '@angular/router';
@@ -8,19 +8,17 @@ import {AuthService} from '../../services/auth.service';
   templateUrl: './settings.main.html'
 })
 
-export class SettingsMainComponent {
+export class SettingsMainComponent implements OnInit {
   public key: string = '';
   public keyConfirm: string = '';
   public showKey: boolean = false;
   public showKeyOnDelete: boolean = false;
   public hideAlert: boolean = false;
 
-  constructor (private toaster: ToasterService, private router: Router) {
+  constructor (private toaster: ToasterService, private router: Router) {}
 
-  }
-
-  getKey () {
-    return CryptoService.getKey();
+  ngOnInit () {
+    this.key = CryptoService.getKey();
   }
 
   onSubmit () {
