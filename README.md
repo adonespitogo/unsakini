@@ -59,11 +59,11 @@ The encryption and decryption process happens inside [./src/app/services/crypto.
 
  - `DATABASE_URL` - In the form of `mysql://db_username:db_password@example.com/database_name`
  - `JWT_SECRET` - jwt secret for issuing authentication token
- - `MAILER_FROM` - express-mailer `from` option
- - `MAILER_HOST` - express-mailer `host` option
- - `MAILER_PORT` - express-mailer `port` option
- - `MAILER_USER` - express-mailer `auth.user` option
- - `MAILER_PASS` - express-mailer `auth.pass` option
+ - `MAILER_FROM` - [express-mail](https://github.com/sorich87/express-mail) `from` option
+ - `MAILER_HOST` - [express-mail](https://github.com/sorich87/express-mail) `host` option
+ - `MAILER_PORT` - [express-mail](https://github.com/sorich87/express-mail) `port` option
+ - `MAILER_USER` - [express-mail](https://github.com/sorich87/express-mail) `auth.user` option
+ - `MAILER_PASS` - [express-mail](https://github.com/sorich87/express-mail) `auth.pass` option
  - `CRYPTO_PASSPHRASE` - Passphrase used for encrypting the data in the server-side
  - `CRYPTO_IV` - Initializatoin Vector used for encrypting the data in the server-side
 
