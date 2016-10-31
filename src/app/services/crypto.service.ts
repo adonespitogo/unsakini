@@ -18,7 +18,9 @@ export class CryptoService {
   public static keyName: string;
 
   static setKeyName ({id}) {
-    CryptoService.keyName = window.btoa(`user_${id}_day_${(new Date()).getDay()}`);
+    let d = new Date();
+    let keyNameWords: string = CryptoJS.enc.Utf8.parse(`${id}_${d.getDate()}`);
+    CryptoService.keyName = CryptoJS.enc.Base64.stringify(keyNameWords);
     if (!CryptoService.valid) {
       CryptoService.validkey$.next({status: true, message: 'Key set'});
     }
@@ -26,7 +28,10 @@ export class CryptoService {
   }
 
   static setKey (k): void {
-    localStorage.setItem(CryptoService.keyName, window.btoa(k));
+    let d = new Date();
+    let padding = d.getDate();
+    let key = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(`${padding}_${k}`));
+    localStorage.setItem(CryptoService.keyName, key);
     if (!CryptoService.valid) {
       CryptoService.validkey$.next({status: true, message: 'Key set'});
     }
@@ -38,7 +43,9 @@ export class CryptoService {
     if (key == null) {
       return '';
     } else {
-      return window.atob(key);
+      let d = new Date();
+      let padding = d.getDate();
+      return CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(key)).replace(`${padding}_`, '');
     }
   }
 
