@@ -40,6 +40,6 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
 
-    return queryInterface.dropTable('items');
+    return queryInterface.dropTable('account_confirmations');
   }
 };

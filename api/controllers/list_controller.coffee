@@ -26,6 +26,7 @@ exports.create = (req, res, next) ->
   .then (db_list) ->
     res.send db_list
   .catch (err) ->
+    console.log err
     res.status(422).send(err)
 
 exports.show = (req, res, next) ->
@@ -50,6 +51,7 @@ exports.update = (req, res, next) ->
 
     where:
       id: req.params.id
+    individualHooks: true
   })
   .then (db_list) ->
     res.send

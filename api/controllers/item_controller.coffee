@@ -44,9 +44,10 @@ exports.update = (req, res, next) ->
   }, {
     where:
       id: req.params.id
+    individualHooks: true
   })
-  .then (db_item) ->
-    res.send db_item
+  .then (result) ->
+    res.send result
   .catch (err) ->
     res.status(422).send(err)
 

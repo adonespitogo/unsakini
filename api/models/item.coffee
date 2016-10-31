@@ -1,5 +1,7 @@
 Sequelize = require('sequelize')
 sequelize = require('../config/sequelize')
+CryptoJS = require('crypto-js')
+cryptoConfig = require('../config/crypto')
 
 tableConfig =
   # // add the timestamp attributes (updatedAt, createdAt)
@@ -14,6 +16,17 @@ tableConfig =
   # custom table name
   tableName: 'items'
 
+  instanceMethods:
+    toJSON: ->
+      val = @get(plain: true)
+      list = null
+      if @list
+        list = @list.toJSON()
+      val.title = CryptoJS.AES.decrypt(val.title, cryptoConfig.passphrase, {iv: cryptoConfig.iv}).toString(CryptoJS.enc.Utf8)
+      val.content = CryptoJS.AES.decrypt(val.content, cryptoConfig.passphrase, {iv: cryptoConfig.iv}).toString(CryptoJS.enc.Utf8)
+      val.list = list
+      val
+
 Item = sequelize.define('item', {
   title:
     type: Sequelize.STRING
@@ -23,6 +36,13 @@ Item = sequelize.define('item', {
     type: Sequelize.INTEGER
 }, tableConfig)
 
-# Item.sync(force: false)
+encrypt = (item, options, cb) ->
+  item.title = CryptoJS.AES.encrypt(item.title, cryptoConfig.passphrase, {iv: cryptoConfig.iv}).toString()
+  item.content = CryptoJS.AES.encrypt(item.content, cryptoConfig.passphrase, {iv: cryptoConfig.iv}).toString()
+  cb(null, options)
+
+Item.hook 'beforeCreate', encrypt
+Item.hook 'beforeUpdate', encrypt
+Item.hook 'beforeSave', encrypt
 
 module.exports = Item
