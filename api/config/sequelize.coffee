@@ -4,10 +4,10 @@ sequelize = null
 
 if (process.env.NODE_ENV is 'production')
   db_url = databaseConfig.production.use_env_variable
-  if (db_url)
+  if (process.env[db_url])
     sequelize = new Sequelize(process.env[db_url])
   else
-    sequelize = configureSequelize('production')
+    throw new Error "Environment variable #{db_url} is null!"
 
 else
   env = process.env.NODE_ENV || 'development'

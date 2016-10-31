@@ -1,6 +1,12 @@
 appconfig = require('../../config/application')
 envConfig = appconfig[process.env.NODE_ENV || 'development']
+config = {}
 
-module.exports = {
-  base_url: envConfig['base_url'] or 'http://localhost:3000'
-}
+if (typeof envConfig['base_url']) is 'string'
+  config['base_url'] = envConfig['base_url']
+if (typeof envConfig['base_url']) is 'object'
+  config['base_url'] = process.env[envConfig['base_url']['use_env_variable']]
+  if !config.base_url
+    throw new Error "Environment variable #{envConfig['base_url']['use_env_variable']} is null!"
+
+module.exports = config

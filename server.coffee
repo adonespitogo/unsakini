@@ -5,11 +5,11 @@ routes = require('./routes')
 forceSSL = require('express-sslify')
 forceDomain = require('express-force-domain')
 mailer = require('./api/config/express-mail')
-appconfig = require('./config/application')
+appconfig = require('./api/config/globals')
 env = process.env.NODE_ENV || 'development'
 
-if (appconfig[env]['base_url'].indexOf('https') > -1)
-  app.use( forceDomain(appconfig[env]['base_url']) )
+if (appconfig['base_url'].indexOf('https') > -1)
+  app.use( forceDomain(appconfig['base_url']) )
   app.use(forceSSL.HTTPS({ trustProtoHeader: true }))
 
 app.set('view engine', 'ejs')
