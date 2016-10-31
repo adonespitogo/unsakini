@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {AuthService} from '../services/auth.service';
+import {CryptoService} from '../services/crypto.service';
 
 @Component({
   templateUrl: './login.html'
@@ -36,6 +37,7 @@ export class LoginComponent {
       (json) => {
         this.success = 'Login successful. Redirecting...';
         AuthService.setAuthToken(json.token);
+        CryptoService.setKeyName(json.user);
         this.router.navigate(['/dashboard']);
         this.submitting = false;
       }
