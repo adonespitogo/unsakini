@@ -55,6 +55,18 @@ The encryption and decryption process happens inside [./src/app/services/crypto.
 
 **To security experts: Please let me know if you know of a more secure way of encrypting data. This is by far the most effective method base on my research.**
 
+### Production Config Vars
+
+`DATABASE_URL` - In the form of `mysql://db_username:db_password@example.com/database_name`
+`JWT_SECRET` - jwt secret for issuing authentication token
+`MAILER_FROM` - express-mailer `from` option
+`MAILER_HOST` - express-mailer `host` option
+`MAILER_PORT` - express-mailer `port` option
+`MAILER_USER` - express-mailer `auth.user` option
+`MAILER_PASS` - express-mailer `auth.pass` option
+`CRYPTO_PASSPHRASE` - Passphrase used for encrypting the data in the server-side
+`CRYPTO_IV` - Initializatoin Vector used for encrypting the data in the server-side
+
 ### Author
 [Adones Pitogo](http://adonespitogo.com)
 
