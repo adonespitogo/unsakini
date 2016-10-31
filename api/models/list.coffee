@@ -1,7 +1,6 @@
 Sequelize = require('sequelize')
 sequelize = require('../config/sequelize')
-CryptoJS = require('crypto-js')
-cryptoConfig = require('../config/crypto')
+crypto = require('../services/crypto')
 
 
 modelConfig =
@@ -24,7 +23,7 @@ modelConfig =
         for item in @items
           items.push(item.toJSON())
       val = @get(plain: true)
-      val.name = CryptoJS.AES.decrypt(val.name, cryptoConfig.passphrase, {iv: cryptoConfig.iv}).toString(CryptoJS.enc.Utf8)
+      val.name = crypto.decrypt(val.name)
       val.items = items
       val
 
@@ -36,7 +35,7 @@ List = sequelize.define('list', {
 }, modelConfig)
 
 encrypt = (list, options, cb) ->
-  list.name = CryptoJS.AES.encrypt(list.name, cryptoConfig.passphrase, {iv: cryptoConfig.iv}).toString()
+  list.name = crypto.encrypt(list.name)
   cb(null, options)
 
 List.hook 'beforeCreate', encrypt

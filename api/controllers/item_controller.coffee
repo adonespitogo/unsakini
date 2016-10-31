@@ -49,6 +49,7 @@ exports.update = (req, res, next) ->
   .then (result) ->
     res.send result
   .catch (err) ->
+    console.log err
     res.status(422).send(err)
 
 exports.destroy = (req, res, next) ->

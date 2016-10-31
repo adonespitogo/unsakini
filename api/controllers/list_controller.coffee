@@ -15,8 +15,7 @@ exports.index = (req, res, next) ->
     res.send result
     next()
   .catch (err) ->
-    res.send err
-    next()
+    res.status(500).send err
 
 exports.create = (req, res, next) ->
   List.create({
@@ -26,7 +25,6 @@ exports.create = (req, res, next) ->
   .then (db_list) ->
     res.send db_list
   .catch (err) ->
-    console.log err
     res.status(422).send(err)
 
 exports.show = (req, res, next) ->
@@ -41,7 +39,6 @@ exports.show = (req, res, next) ->
   .then (db_list) ->
     res.send db_list
   .catch (err) ->
-    console.log err
     res.status(500).send(err)
 
 exports.update = (req, res, next) ->

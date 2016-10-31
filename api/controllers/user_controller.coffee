@@ -16,15 +16,16 @@ exports.get = (req, res, next) ->
 exports.create = (app) ->
   (req, res, next) ->
     if !req.body.email
-      res.send 422, [message: 'Email is required']
+      res.status(422).send [message: 'Email is required']
+      return
     if !req.body.password
-      res.send 422, [message: 'Password is required']
+      res.status(422).send [message: 'Password is required']
       return
     if req.body.password.length < 6
-      res.send 422, [message: 'Password must be at least 6 characters']
+      res.status(422).send [message: 'Password must be at least 6 characters']
       return
     if req.body.password != req.body.password_confirmation
-      res.send 422, [message: 'Passwords didn\'t match.']
+      res.status(422).send [message: 'Passwords didn\'t match.']
       return
     user = User.build(req.body)
     user.setPassword(req.body.password).then((user) ->
@@ -63,8 +64,7 @@ exports.create = (app) ->
 
       .catch (err) ->
         err = err.errors or err
-        res.send 422, err
-        next()
+        res.status(422).send err
     ).catch (err) ->
       next err
 
