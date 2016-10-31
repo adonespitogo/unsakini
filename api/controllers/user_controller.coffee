@@ -33,8 +33,9 @@ exports.create = (app) ->
         # create confirmation token
         AcctConf.create({
           user_id: user.id
-          token: crypto.createHash('md5').update("#{user.email}#{user.id}").digest('hex')
-        }).then (acct_token) ->
+          token: crypto.createHmac('sha1', req.body.password).update("#{user.id}#{user.email}#{Math.random()}").digest('hex')
+        })
+        .then (acct_token) ->
           app.mailer.send 'mails/confirm-account', {
             # to: user.email
             to: if process.env.NODE_ENV is 'production' then user.email else 'no-reply@unsakini.com'
@@ -45,14 +46,22 @@ exports.create = (app) ->
           },
           (err, message) ->
             if (err)
-              res.status(500).send([message: message])
-              return
-            # If user created successfuly we return user and token as response
-            res.send user: user
-            next()
+              user.destroy()
+              .then ->
+                res.status(422).send([message: message])
+
+              .catch (err) ->
+                res.status(422).send(err)
+            else
+              # If user created successfuly we return user and token as response
+              res.send user: user
+              next()
+        .catch (err) ->
+          user.destroy()
+          .then ->
+            return res.status(422).send (err)
 
       .catch (err) ->
-        console.log err
         err = err.errors or err
         res.send 422, err
         next()
@@ -87,7 +96,7 @@ exports.update = (req, res, next) ->
         .then (db_user) ->
           updateUser(db_user)
         .catch (err) ->
-          res.status(500).json err
+          res.status(500).send err
       else
         updateUser(db_user)
 

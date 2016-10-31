@@ -20,7 +20,8 @@ export class CryptoService {
   static setKeyName ({id}) {
     let d = new Date();
     let keyNameWords: string = CryptoJS.enc.Utf8.parse(`${id}_${d.getDate()}`);
-    CryptoService.keyName = CryptoJS.enc.Base64.stringify(keyNameWords);
+    let hash = CryptoJS.SHA256(keyNameWords);
+    CryptoService.keyName = hash;
     if (!CryptoService.valid) {
       CryptoService.validkey$.next({status: true, message: 'Key set'});
     }
