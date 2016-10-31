@@ -1,0 +1,9 @@
+{
+  "from": "pitogo.adones@gmail.com",
+  "host": "smtp.gmail.com",
+  "secureConnection": true,
+  "port": 465,
+  "transportMethod": "SMTP",
+  "user": "pitogo.adones@gmail.com",
+  "pass": ""
+}

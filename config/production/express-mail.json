@@ -1,0 +1,23 @@
+{
+  "from": {
+    "use_env_variable": "MAILER_FROM"
+  },
+  "host": {
+    "use_env_variable": "MAILER_HOST"
+  },
+  "secureConnection": {
+    "use_env_variable": "MAILER_SECURE_CONNECTION"
+  },
+  "port": {
+    "use_env_variable": "MAILER_PORT"
+  },
+  "transportMethod": {
+    "use_env_variable": "MAILER_TRANSPORT_METHOD"
+  },
+  "user": {
+    "use_env_variable": "MAILER_USER"
+  },
+  "pass": {
+    "use_env_variable": "MAILER_PASS"
+  }
+}

@@ -35,4 +35,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-PRODUCTION_TEST.sh
+run.sh
+/config/development/*.json
+/config/test/*.json

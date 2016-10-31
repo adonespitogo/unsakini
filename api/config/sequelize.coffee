@@ -1,17 +1,17 @@
-databaseConfig = require('../../config/database.json')
+env = process.env.NODE_ENV || 'development'
+databaseConfig = require("../../config/#{env}/database.json")
 Sequelize = require('sequelize')
 sequelize = null
 
-if (process.env.NODE_ENV is 'production')
-  db_url = databaseConfig.production.use_env_variable
-  if (process.env[db_url])
-    sequelize = new Sequelize(process.env[db_url])
+dbConfig = databaseConfig[env]
+dbEnvName = dbConfig.use_env_variable
+if (typeof dbEnvName is 'string')
+  if (typeof process.env[dbEnvName] is 'string')
+    sequelize = new Sequelize(process.env[dbEnvName])
   else
-    throw new Error "Environment variable #{db_url} is null!"
+    throw new Error "Environment variable #{dbEnvName} is null!"
 
 else
-  env = process.env.NODE_ENV || 'development'
-  dbConfig = databaseConfig[env]
   sequelize = new Sequelize dbConfig.database, dbConfig.username, dbConfig.password,
                 host: dbConfig.host
                 dialect: dbConfig.dialect

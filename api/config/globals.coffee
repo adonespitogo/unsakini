@@ -1,5 +1,5 @@
-appconfig = require('../../config/application')
-envConfig = appconfig[process.env.NODE_ENV || 'development']
+env = process.env.NODE_ENV || 'development'
+envConfig = require("../../config/#{env}/application")
 config = {}
 
 if (typeof envConfig['base_url']) is 'string'

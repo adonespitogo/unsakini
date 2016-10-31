@@ -1,0 +1,5 @@
+{
+  "base_url": {
+    "use_env_variable": "BASE_URL"
+  }
+}

@@ -1,10 +1,8 @@
 
 mailer = require('express-mailer')
-
-config = {}
-
 env = process.env.NODE_ENV || 'development'
-envConfig = require('../../config/express-mail')[env];
+envConfig = require("../../config/#{env}/express-mail");
+config = {}
 
 getConfigVal = (field) ->
   val = envConfig[field]

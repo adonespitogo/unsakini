@@ -5,4 +5,4 @@ then
   NODE_ENV="development"
 fi
 
-sequelize db:migrate --config ./config/$NODE_ENV/database.json
+sequelize migration:create --config ./config/$NODE_ENV/database.json

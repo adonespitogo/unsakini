@@ -12,30 +12,44 @@ The source code is opensourced so you can review it and deploy it on your own se
 
 -------------------------
 ### Getting Started
+Configure your local development environment first. Rename the `config/development/*.json.sample` to `config/development/*.json` and modify accordingly.
+
+There are four configuration files for each environment namely:
+ - `application.json` - Configuration for the application like base url
+ - `database.json` - Database configuration
+ - `express-mail.json` - Configuration for the [express-mail](https://github.com/sorich87/express-mail) plugin
+ - `security.json` - Configuration for the server AES passphrase, AES Inivialization Vector (IV) and Json Web Token (JWT) secret
+
+You can also use environment variables in the configuration files. Instead of passing a string as a value, pass an object with a key `use_env_variable`. Ex:
+
+config/production/application.json
+```json
+{
+  "base_url": {
+    "use_env_variable": "BASE_URL"
+  }
+}
+```
+
+The production configuration already uses environment variables namely:
+
+- `DATABASE_URL` - In the form of `mysql://db_username:db_password@example.com/database_name`
+- `JWT_SECRET` - jwt secret for issuing authentication token
+- `MAILER_FROM` - [express-mail](https://github.com/sorich87/express-mail) `from` option (ex: pitogo.adones@gmail.com)
+- `MAILER_HOST` - [express-mail](https://github.com/sorich87/express-mail) `host` option (ex: smtp.gmail.com)
+- `MAILER_SECURE_CONNECTION` - [express-mail](https://github.com/sorich87/express-mail) `secureConnection` (boolean)
+- `MAILER_PORT` - [express-mail](https://github.com/sorich87/express-mail) `port` option (ex: 465)
+- `MAILER_USER` - [express-mail](https://github.com/sorich87/express-mail) `auth.user` option (ex: pitogo.adones@gmail.com)
+- `MAILER_PASS` - [express-mail](https://github.com/sorich87/express-mail) `auth.pass` option (password)
+- `CRYPTO_PASSPHRASE` - Passphrase used for encrypting the data in the server-side (string)
+- `CRYPTO_IV` - Initializatoin Vector used for encrypting the data in the server-side (string)
+
+Then install the needed packages:
 ```
 $ npm install -g gulp sequelize sequelize-cli typescript typings coffee-script angular-cli
 $ npm install
 ```
 
-### Configuration
-Configuration options can be found in `./config` directory. There are four configuration files namely:
- - `application.json` - Configuration for the application like base url
- - `database.json` - Database configuration
- - `security.json` - Configuration for the server AES passphrase, AES Inivialization Vector (IV) and Json Web Token (JWT) secret
- - `express-mail.json` - Configuration for the [express-mail](https://github.com/sorich87/express-mail) plugin
- -  You can use environment variables in the configuration files. The production configuration already uses environment variables namely:1
-     - `DATABASE_URL` - In the form of `mysql://db_username:db_password@example.com/database_name`
-     - `JWT_SECRET` - jwt secret for issuing authentication token
-     - `MAILER_FROM` - [express-mail](https://github.com/sorich87/express-mail) `from` option (ex: pitogo.adones@gmail.com)
-     - `MAILER_HOST` - [express-mail](https://github.com/sorich87/express-mail) `host` option (ex: smtp.gmail.com)
-     - `MAILER_SECURE_CONNECTION` - [express-mail](https://github.com/sorich87/express-mail) `secureConnection` (boolean)
-     - `MAILER_PORT` - [express-mail](https://github.com/sorich87/express-mail) `port` option (ex: 465)
-     - `MAILER_USER` - [express-mail](https://github.com/sorich87/express-mail) `auth.user` option (ex: pitogo.adones@gmail.com)
-     - `MAILER_PASS` - [express-mail](https://github.com/sorich87/express-mail) `auth.pass` option (password)
-     - `CRYPTO_PASSPHRASE` - Passphrase used for encrypting the data in the server-side (string)
-     - `CRYPTO_IV` - Initializatoin Vector used for encrypting the data in the server-side (string)
-
-### Development
 Build the Angular2 app
 ```
 $ ng build
@@ -43,15 +57,16 @@ $ ng build
 
 Run the express server
 ```
-$ node index.js
+$ npm start
 ```
 Browse to [http://localhost:3000](http://localhost:3000)
 
+### Development
 Directory Structure
  - `./api` - Containes express app source
  - `./src` - Contains Angular 2 app source
- - `./migrations` - Contains DB migration files (sequelize-cli)
  - `./config` - Contains configuration files
+ - `./migrations` - Contains Sequelize CLI migration files
 
 Tests are not implemented yet since the app is still in architecture design process. Tests will be added after the architecture design is finalized and that codes will not be prone to massive changes.
 
@@ -63,6 +78,23 @@ Tests are not implemented yet since the app is still in architecture design proc
 - Frontend
     - [Angular 2](https://angular.io/)
     - [Angular CLI](https://cli.angular.io/)
+
+### Database Migration
+ - To create a migration file using Sequelize CLI, run
+    ```
+    $ sequelize migration:create --config ./config/development/database.json
+    ```
+ - To run the migrations,
+    ```
+    $ sequelize db:migrate --config ./config/development/database.json
+    ```
+ - To undo the migrations,
+    ```
+    $ sequelize db:migrate:undo --config ./config/development/database.json
+    ```
+Alternatively, I created bash script files `db-migrate.sh` and `migration-create.sh` to make the command shorter. You'll just have to run `./db-migrate.sh` to run the new migration files and `./migration-create.sh` to create new migration files.
+
+Check out the [Sequelize CLI](http://docs.sequelizejs.com/en/latest/docs/migrations/) migrations docs on how to create migrations.
 
 ### Encryption and Decryption Process
 If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before being sent. The data is being decrypted in the client side using the same key you supplied. The key is stored in your browser's localStorage and is never sent to the server. Therefore, only you can be able to access your data.
