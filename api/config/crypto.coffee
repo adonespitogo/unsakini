@@ -6,8 +6,6 @@ delete security.jwt
 
 config = helper(security)
 
-console.log config
-
 module.exports = {
   passphrase: config.passphrase || ''
   iv: config.iv || ''

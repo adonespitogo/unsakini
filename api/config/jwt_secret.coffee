@@ -4,8 +4,6 @@ helper = require('./helper')
 
 secret = helper({jwt: config}).jwt
 
-console.log "jwt: #{secret}"
-
 if typeof config['use_env_variable'] is 'string'
   secret = process.env[config['use_env_variable']]
   if !secret
