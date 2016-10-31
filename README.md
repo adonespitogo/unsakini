@@ -31,6 +31,13 @@ config/production/application.json
 }
 ```
 
+Instead of:
+```json
+{
+  "base_url": "https://www.unsakini.com"
+}
+```
+
 The production configuration already uses environment variables namely:
 
 - `DATABASE_URL` - In the form of `mysql://db_username:db_password@example.com/database_name`
