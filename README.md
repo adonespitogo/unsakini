@@ -23,7 +23,7 @@ Configuration options can be found in `./config` directory. There are four confi
  - `database.json` - Database configuration
  - `security.json` - Configuration for the server AES passphrase, AES Inivialization Vector (IV) and Json Web Token (JWT) secret
  - `express-mail.json` - Configuration for the [express-mail](https://github.com/sorich87/express-mail) plugin
- -  You can use environment variables in the configuration files. The production configuration already uses environment variables namely:1
+ -  You can use environment variables in the configuration files. The production configuration already uses environment variables namely:
      - `DATABASE_URL` - In the form of `mysql://db_username:db_password@example.com/database_name`
      - `JWT_SECRET` - jwt secret for issuing authentication token
      - `MAILER_FROM` - [express-mail](https://github.com/sorich87/express-mail) `from` option (ex: pitogo.adones@gmail.com)
