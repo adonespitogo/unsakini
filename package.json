@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "postinstall": "sequelize db:migrate; ng lint; ng build --prod",
+    "postinstall": "./db-migrate.sh; ng lint; ng build --prod",
     "start": "node index.js",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",

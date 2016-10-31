@@ -1,0 +1,39 @@
+{
+  "development": {
+    "from": "pitogo.adones@gmail.com",
+    "host": "smtp.gmail.com",
+    "secureConnection": true,
+    "port": 465,
+    "transportMethod": "SMTP",
+    "user": "pitogo.adones@gmail.com",
+    "pass": ""
+  },
+  "test": {
+    "from": "pitogo.adones@gmail.com",
+    "host": "smtp.gmail.com",
+    "secureConnection": true,
+    "port": 465,
+    "transportMethod": "SMTP",
+    "user": "pitogo.adones@gmail.com",
+    "pass": ""
+  },
+  "production": {
+    "from": "pitogo.adones@gmail.com",
+    "host": {
+      "use_env_variable": "MAILER_HOST"
+    },
+    "secureConnection": {
+      "use_env_variable": "MAILER_SECURE_CONNECTION"
+    },
+    "port": {
+      "use_env_variable": "MAILER_PORT"
+    },
+    "transportMethod": "SMTP",
+    "user": "pitogo.adones@gmail.com",
+    "pass": {
+      "use_env_variable": "MAILER_AUTH_PASSWORD"
+    }
+  }
+
+
+}

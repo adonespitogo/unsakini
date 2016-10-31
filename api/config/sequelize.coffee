@@ -1,15 +1,20 @@
+databaseConfig = require('../../config/database.json')
 Sequelize = require('sequelize')
 sequelize = null
 
-if (process.env.DATABASE_URL)
-  sequelize = new Sequelize(process.env.DATABASE_URL)
+if (process.env.NODE_ENV is 'production')
+  db_url = databaseConfig.production.use_env_variable
+  if (db_url)
+    sequelize = new Sequelize(process.env[db_url])
+  else
+    sequelize = configureSequelize('production')
+
 else
-  sequelize = new Sequelize 'unsakini', 'root', '',
-    host: '127.0.0.1'
-    dialect: 'mysql'
-    pool:
-      max: 5
-      min: 0
-      idle: 10000
+  env = process.env.NODE_ENV || 'development'
+  dbConfig = databaseConfig[env]
+  sequelize = new Sequelize dbConfig.database, dbConfig.username, dbConfig.password,
+                host: dbConfig.host
+                dialect: dbConfig.dialect
+                pool: dbConfig.pool
 
 module.exports = sequelize

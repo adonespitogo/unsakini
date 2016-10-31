@@ -1,0 +1,8 @@
+{
+  "development": {
+    "base_url": "http://localhost:3000"
+  },
+  "production": {
+    "base_url": "https://www.unsakini.com"
+  }
+}
