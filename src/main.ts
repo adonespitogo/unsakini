@@ -15,6 +15,8 @@ $(document).ready( () => {
   platformBrowserDynamic().bootstrapModule(AppModule);
   $('#app-root, #footer').hide();
   $('#loader').fadeOut(3000, () => {
-    $('#app-root, #footer').fadeIn();
+    $('#app-root, #footer').fadeIn(400, () => {
+      $('#loader, #loader-svg').remove();
+    });
   });
 });
