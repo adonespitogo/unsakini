@@ -9,7 +9,8 @@ User = sequelize.define('user', {
     validate: notEmpty: true
   email:
     type: Sequelize.STRING
-    validate: isEmail: true
+    validate:
+      isEmail: true
   encrypted_password:
     type: Sequelize.STRING
     notEmpty: true
