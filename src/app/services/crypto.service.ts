@@ -65,10 +65,6 @@ export class CryptoService {
   }
 
   static encrypt (msg: string) {
-    if (!msg) {
-      return '';
-    }
-    let err = '[encryption error]';
     let encrypted: any;
     let passphrase = CryptoService.getKey();
     let salt = CryptoJS.lib.WordArray.random(128/8);
@@ -81,8 +77,6 @@ export class CryptoService {
 // split key and IV
     let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize/32));
     let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize/32));
-    console.log('encrypt key: ' + key.toString());
-    console.log('encrypt iv: ' + iv.toString());
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key, {
         iv: iv,
@@ -94,7 +88,7 @@ export class CryptoService {
         CryptoService.validkey$.next({status: false, message: e.toString()});
       }
       CryptoService.valid = false;
-      return err;
+      return '';
     }
     encrypted = encrypted ? encrypted.toString() : '';
     let hmac = CryptoJS.HmacSHA256((salt.toString() + encrypted), CryptoJS.SHA256(passphrase)).toString();
@@ -107,26 +101,28 @@ export class CryptoService {
       return '';
     }
     if (!CryptoService.isPassphraseValid(transitmessage)) {
-      return '';
+      CryptoService.validkey$.next({
+        status: false,
+        message: 'Private key is invalid'
+      });
+      CryptoService.valid = false;
+      return false;
     }
-    let err = '[decryption error]';
     let passphrase = CryptoService.getKey();
     let saltHex = transitmessage.substr(64, 32);
     let salt = CryptoJS.enc.Hex.parse(saltHex);
     let ciphertext = transitmessage.substring(64 + 32);
+    let output = CryptoJS.PBKDF2(passphrase, salt, {
+        keySize: (CryptoService.keySize+CryptoService.ivSize)/32,
+        iterations: CryptoService.iterations
+    });
+// the underlying words arrays might have more content than was asked: remove insignificant words
+    output.clamp();
+// split key and IV
+    let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize/32));
+    let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize/32));
     let decrypted: any;
     try {
-      let output = CryptoJS.PBKDF2(passphrase, salt, {
-          keySize: (CryptoService.keySize+CryptoService.ivSize)/32,
-          iterations: CryptoService.iterations
-      });
-  // the underlying words arrays might have more content than was asked: remove insignificant words
-      output.clamp();
-  // split key and IV
-      let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize/32));
-      let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize/32));
-      console.log('decrypt key: ' + key.toString());
-      console.log('decrypt iv: ' + iv.toString());
       decrypted = CryptoJS.AES.decrypt(ciphertext, key, {
         iv: iv,
         mode: CryptoJS.mode.CBC,
@@ -138,7 +134,7 @@ export class CryptoService {
         CryptoService.validkey$.next({status: false, message: e.toString()});
       }
       CryptoService.valid = false;
-      return err;
+      return '';
     }
     try {
       decrypted = decrypted.toString(CryptoJS.enc.Utf8);
@@ -147,7 +143,7 @@ export class CryptoService {
         CryptoService.validkey$.next({status: false, message: e.toString()});
       }
       CryptoService.valid = false;
-      return err;
+      return '';
     }
     return decrypted;
 
@@ -155,19 +151,9 @@ export class CryptoService {
 
   private static isPassphraseValid (transitmessage: string) {
     let passphrase = CryptoService.getKey();
-    if (!passphrase && CryptoService.valid) {
-      CryptoService.validkey$.next({
-        status: false,
-        message: 'Unable to locate your private key.'
-      });
-      CryptoService.valid = false;
-      return false;
-    }
     let transithmac = transitmessage.substring(0, 64);
     let transitencrypted = transitmessage.substring(64);
     let decryptedhmac = CryptoJS.HmacSHA256(transitencrypted, CryptoJS.SHA256(passphrase)).toString();
-    console.log('transitencrypted: ->' + transitencrypted);
-    console.log('decryptedhmac: ->' + decryptedhmac);
     return (transithmac === decryptedhmac);
   }
 
