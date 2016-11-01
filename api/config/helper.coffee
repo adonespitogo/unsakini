@@ -1,7 +1,7 @@
 
 
-getConfigVal = (field, value) ->
-  val = value
+getConfigVal = (field, val) ->
+  return val if !val
   if typeof val['use_env_variable'] is 'string'
     envVal = process.env[val.use_env_variable]
     if !envVal

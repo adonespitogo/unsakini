@@ -1,5 +1,6 @@
 env = process.env.NODE_ENV || 'development'
 databaseConfig = require("../../config/#{env}/database.json")
+helper = require('./helper')
 Sequelize = require('sequelize')
 sequelize = null
 
@@ -12,9 +13,10 @@ if (typeof dbEnvName is 'string')
     throw new Error "Environment variable #{dbEnvName} is null!"
 
 else
-  sequelize = new Sequelize dbConfig.database, dbConfig.username, dbConfig.password,
-                host: dbConfig.host
-                dialect: dbConfig.dialect
+  config = helper(dbConfig)
+  sequelize = new Sequelize config.database, config.username, config.password,
+                host: config.host
+                dialect: config.dialect
                 pool: dbConfig.pool
 
 module.exports = sequelize
