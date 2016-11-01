@@ -17,7 +17,10 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "mobile": false,
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/crypto-js/crypto-js.js"
+      ],
       "styles": [
         "../node_modules/angular2-toaster/lib/toaster.css",
         "../node_modules/font-awesome/css/font-awesome.css",

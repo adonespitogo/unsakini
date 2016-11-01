@@ -13,7 +13,6 @@ exports.index = (req, res, next) ->
   })
   .then (result) ->
     res.json result
-    next()
   .catch (err) ->
     res.status(500).json err
 
