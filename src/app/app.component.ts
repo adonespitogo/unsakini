@@ -13,8 +13,7 @@ export class AppComponent {
   private hasAuthError = false;
 
   public toasterconfig: ToasterConfig = new ToasterConfig({
-    positionClass: 'toast-top-left',
-    timeout: 15000
+    positionClass: 'toast-top-left'
   });
 
   constructor(
