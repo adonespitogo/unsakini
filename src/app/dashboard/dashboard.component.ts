@@ -45,7 +45,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit () {
     this.listService.getLists().subscribe(() => {
       this.toaster.clear();
-      this.toaster.pop('success', 'Done loading', 'Dashboard loaded successfully.');
     });
   }
 
