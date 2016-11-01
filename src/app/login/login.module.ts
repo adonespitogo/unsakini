@@ -6,19 +6,30 @@ import { FormsModule } from '@angular/forms';
 
 import {LoginComponent} from './login.component';
 import {LoginService} from './login.service';
+import {LoginRouteGuard} from './login.route.guard';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forRoot([
+      {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: ['LoginRouteGuard'],
+      }
+    ]),
   ],
   declarations: [
     LoginComponent,
   ],
   providers: [
-    LoginService
+    LoginService,
+    {
+      provide: 'LoginRouteGuard',
+      useClass: LoginRouteGuard
+    }
   ]
 })
 
