@@ -9,9 +9,9 @@ exports.index = (req, res, next) ->
       list_id: list_id
   })
   .then (db_lists) ->
-    res.send db_lists
+    res.json db_lists
   .catch (err) ->
-    res.status(500).send(err)
+    res.status(500).json(err)
 
 exports.create = (req, res, next) ->
   Item.create({
@@ -20,9 +20,9 @@ exports.create = (req, res, next) ->
     list_id: req.body.list_id
   })
   .then (db_item) ->
-    res.send db_item
+    res.json db_item
   .catch (err) ->
-    res.status(422).send(err)
+    res.status(422).json(err)
 
 exports.show = (req, res, next) ->
   Item.findOne({
@@ -33,9 +33,9 @@ exports.show = (req, res, next) ->
     ]
   })
   .then (db_item) ->
-    res.send db_item
+    res.json db_item
   .catch (err) ->
-    res.status(500).send(err)
+    res.status(500).json(err)
 
 exports.update = (req, res, next) ->
   Item.update({
@@ -47,14 +47,14 @@ exports.update = (req, res, next) ->
     individualHooks: true
   })
   .then (result) ->
-    res.send result
+    res.json result
   .catch (err) ->
     console.log err
-    res.status(422).send(err)
+    res.status(422).json(err)
 
 exports.destroy = (req, res, next) ->
   Item.destroy({where: id: req.params.id})
   .then ->
-    res.status(200).send()
+    res.status(200).json()
   .catch (err) ->
-    res.status(422).send err
+    res.status(422).json err

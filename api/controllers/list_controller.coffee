@@ -12,10 +12,10 @@ exports.index = (req, res, next) ->
     ]
   })
   .then (result) ->
-    res.send result
+    res.json result
     next()
   .catch (err) ->
-    res.status(500).send err
+    res.status(500).json err
 
 exports.create = (req, res, next) ->
   List.create({
@@ -23,9 +23,9 @@ exports.create = (req, res, next) ->
     name: req.body.name
   })
   .then (db_list) ->
-    res.send db_list
+    res.json db_list
   .catch (err) ->
-    res.status(422).send(err)
+    res.status(422).json(err)
 
 exports.show = (req, res, next) ->
 
@@ -37,9 +37,9 @@ exports.show = (req, res, next) ->
     ]
   })
   .then (db_list) ->
-    res.send db_list
+    res.json db_list
   .catch (err) ->
-    res.status(500).send(err)
+    res.status(500).json(err)
 
 exports.update = (req, res, next) ->
   List.update({
@@ -51,15 +51,15 @@ exports.update = (req, res, next) ->
     individualHooks: true
   })
   .then (db_list) ->
-    res.send
+    res.json
       id: req.params.id
       name: req.body.name
   .catch (err) ->
-    res.status(422).send(err)
+    res.status(422).json(err)
 
 exports.destroy = (req, res, next) ->
   List.destroy({where: id: req.params.id})
   .then ->
-    res.status(200).send()
+    res.status(200).json()
   .catch (err) ->
-    res.status(422).send err
+    res.status(422).json err

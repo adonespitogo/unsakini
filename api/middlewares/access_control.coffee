@@ -10,6 +10,7 @@ exports.is_list_owner = (req, res, next) ->
     .then (db_list) ->
       if !db_list
         res.status(403).send 'NOT_LIST_OWNER'
+        return
       else
         next()
     .catch (err) ->
@@ -32,6 +33,7 @@ exports.is_item_owner = (req, res, next) ->
     .then (db_item) ->
       if !db_item
         res.status(403).send 'NOT_ITEM_OWNER'
+        return
       else
         next()
     .catch (err) ->
