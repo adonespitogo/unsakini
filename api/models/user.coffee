@@ -1,6 +1,6 @@
 Sequelize = require('sequelize')
 sequelize = require('../config/sequelize')
-bcrypt = require('bcrypt')
+bcrypt = require('bcrypt-nodejs')
 Q = require('q')
 
 User = sequelize.define('user', {
@@ -9,7 +9,8 @@ User = sequelize.define('user', {
     validate: notEmpty: true
   email:
     type: Sequelize.STRING
-    validate: isEmail: true
+    validate:
+      isEmail: true
   encrypted_password:
     type: Sequelize.STRING
     notEmpty: true
@@ -35,7 +36,7 @@ User = sequelize.define('user', {
       bcrypt.genSalt 10, (err, salt) ->
         if err
           return deferred.reject(err)
-        bcrypt.hash password, salt, (err, hash) ->
+        bcrypt.hash password, salt, null, (err, hash) ->
           if err
             return deferred.reject(err)
           user.setDataValue 'salt', salt

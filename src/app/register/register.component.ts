@@ -53,7 +53,11 @@ export class RegisterComponent {
       let err = res.json();
       let msg = [];
       for (let i = 0; i < err.length; ++i) {
-        msg.push(err[i].message);
+        let em = err[i].message;
+        if (em = 'email must be unique') {
+          em = 'Email is already taken';
+        }
+        msg.push(em);
       }
       self.error = msg.join(',') || 'Cannot process your input.';
       self.submitting = false;
