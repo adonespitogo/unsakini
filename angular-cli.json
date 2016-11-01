@@ -21,9 +21,12 @@
       "styles": [
         "../node_modules/angular2-toaster/lib/toaster.css",
         "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/bootstrap/dist/css/bootstrap-theme.css",
         "assets/css/ie10-viewport-bug-workaround.css",
         "assets/css/global.scss",
-        "assets/css/sticky-footer.css"
+        "assets/css/sticky-footer.css",
+        "assets/css/loading-animation.css"
       ],
       "environments": {
         "source": "environments/environment.ts",
