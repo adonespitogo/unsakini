@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
           <label for="password">Confirm Password</label>
-          <input type="password" class="form-control" id="password_confirmation" placeholder="password_confirmation" required [(ngModel)]="user.password_confirmation" name="password_confirmation" #password_confirmation="ngModel">
+          <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password" required [(ngModel)]="user.password_confirmation" name="password_confirmation" #password_confirmation="ngModel">
           <div [hidden]="password_confirmation.valid || password_confirmation.pristine" class="alert alert-danger">
             Password confirmation is required
           </div>
