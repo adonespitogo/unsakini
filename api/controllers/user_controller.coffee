@@ -64,7 +64,8 @@ exports.create = (req, res, next) ->
     .catch (err) ->
       err = err.errors or err
       res.status(422).json err
-  ).catch (err) ->
+  )
+  .catch (err) ->
     next err
 
 exports.update = (req, res, next) ->
