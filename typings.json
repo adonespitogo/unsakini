@@ -1,7 +1,6 @@
 {
   "globalDependencies": {
     "crypto-js": "registry:dt/crypto-js#3.1.4+20160708041433",
-    "jquery": "registry:dt/jquery#1.10.0+20160929162922",
-    "jstorage": "registry:dt/jstorage#0.3.0+20160316155526"
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922"
   }
 }
