@@ -87,7 +87,11 @@ Tests are not implemented yet since the app is still in architecture design proc
     - [Angular CLI](https://cli.angular.io/)
 
 ### Database Migration
- - To create a migration file using Sequelize CLI, run
+
+We make use of Sequelize CLI in managing the database state.
+
+
+ - To create a migration file, run
     ```
     $ sequelize migration:create --config ./config/development/database.json
     ```
@@ -99,6 +103,7 @@ Tests are not implemented yet since the app is still in architecture design proc
     ```
     $ sequelize db:migrate:undo --config ./config/development/database.json
     ```
+
 Alternatively, I created bash script files `db-migrate.sh` and `migration-create.sh` to make the command shorter. You'll just have to run `./db-migrate.sh` to run the new migration files and `./migration-create.sh` to create new migration files.
 
 Check out the [Sequelize CLI](http://docs.sequelizejs.com/en/latest/docs/migrations/) migrations docs on how to create migrations.
