@@ -12,6 +12,9 @@ if (environment.production) {
 
 
 $(document).ready( () => {
-  $("#footer").show();
   platformBrowserDynamic().bootstrapModule(AppModule);
+  $('#app-root, #footer').hide();
+  $('#loader').fadeOut(3000, () => {
+    $('#app-root, #footer').fadeIn();
+  });
 });

@@ -4,7 +4,7 @@ import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster
 import { AuthService, IAuthMessage } from './services/auth.service';
 
 @Component({
-  selector: 'app-root',
+  selector: '[appRootComponent]',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
