@@ -13,60 +13,59 @@ exports.get = (req, res, next) ->
     else
       res.json db_user
 
-exports.create = (app) ->
-  (req, res, next) ->
-    if !req.body.email
-      res.status(422).send [message: 'Email is required']
-      return
-    if !req.body.password
-      res.status(422).send [message: 'Password is required']
-      return
-    if req.body.password.length < 6
-      res.status(422).send [message: 'Password must be at least 6 characters']
-      return
-    if req.body.password != req.body.password_confirmation
-      res.status(422).send [message: 'Passwords didn\'t match.']
-      return
-    user = User.build(req.body)
-    user.setPassword(req.body.password).then((user) ->
-      user.save()
-      .then (user) ->
-        # create confirmation token
-        AcctConf.create({
-          user_id: user.id
-          token: crypto.createHmac('sha1', req.body.password).update("#{user.id}#{user.email}#{Math.random()}").digest('hex')
-        })
-        .then (acct_token) ->
-          app.mailer.send 'mails/confirm-account', {
-            # to: user.email
-            to: if process.env.NODE_ENV is 'production' then user.email else 'no-reply@unsakini.com'
-            subject: 'Confirm Your Account'
-            user: user
-            token: acct_token.token
-            globals: globals
-          },
-          (err, message) ->
-            if (err)
-              user.destroy()
-              .then ->
-                res.status(422).send([message: message])
+exports.create = (req, res, next) ->
+  if !req.body.email
+    res.status(422).send [message: 'Email is required']
+    return
+  if !req.body.password
+    res.status(422).send [message: 'Password is required']
+    return
+  if req.body.password.length < 6
+    res.status(422).send [message: 'Password must be at least 6 characters']
+    return
+  if req.body.password != req.body.password_confirmation
+    res.status(422).send [message: 'Passwords didn\'t match.']
+    return
+  user = User.build(req.body)
+  user.setPassword(req.body.password).then((user) ->
+    user.save()
+    .then (user) ->
+      # create confirmation token
+      AcctConf.create({
+        user_id: user.id
+        token: crypto.createHmac('sha1', req.body.password).update("#{user.id}#{user.email}#{Math.random()}").digest('hex')
+      })
+      .then (acct_token) ->
+        res.app.mailer.send 'mails/confirm-account', {
+          # to: user.email
+          to: if process.env.NODE_ENV is 'production' then user.email else 'no-reply@unsakini.com'
+          subject: 'Confirm Your Account'
+          user: user
+          token: acct_token.token
+          globals: globals
+        },
+        (err, message) ->
+          if (err)
+            user.destroy()
+            .then ->
+              res.status(422).send([message: message])
 
-              .catch (err) ->
-                res.status(422).send(err)
-            else
-              # If user created successfuly we return user and token as response
-              res.send user: user
-              next()
-        .catch (err) ->
-          user.destroy()
-          .then ->
-            return res.status(422).send (err)
-
+            .catch (err) ->
+              res.status(422).send(err)
+          else
+            # If user created successfuly we return user and token as response
+            res.send user: user
+            next()
       .catch (err) ->
-        err = err.errors or err
-        res.status(422).send err
-    ).catch (err) ->
-      next err
+        user.destroy()
+        .then ->
+          return res.status(422).send (err)
+
+    .catch (err) ->
+      err = err.errors or err
+      res.status(422).send err
+  ).catch (err) ->
+    next err
 
 exports.update = (req, res, next) ->
 
