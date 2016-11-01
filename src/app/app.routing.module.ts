@@ -1,12 +1,6 @@
 import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
-import { LoginRouteGuard } from './login/login.route.guard';
-import { RegisterComponent } from './register/register.component';
-import { DashboardRouteGuard } from './dashboard/dashboard.route.guard';
-
-
 @NgModule({
   imports: [
     RouterModule.forRoot(

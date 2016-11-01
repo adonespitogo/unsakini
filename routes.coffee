@@ -73,7 +73,7 @@ module.exports = (app) ->
           Auth,
           controllers.user_controller.get
 
-  app.get '/user/confirm/:token', controllers.user_controller.confirmAccount
+  app.post '/user/confirm', controllers.user_controller.confirmAccount
 
   app.get /.*\.(html|js|css|map|jpg|png|gif)/, (req, res, next) ->
     res.status(404).send()
