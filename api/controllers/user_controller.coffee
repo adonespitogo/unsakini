@@ -9,22 +9,22 @@ AcctConf = models.AccountConfirmation
 exports.get = (req, res, next) ->
   User.findById(req.user.id).then (db_user) ->
     if !db_user
-      res.sendStatus 404
+      res.status(404).send()
     else
       res.json db_user
 
 exports.create = (req, res, next) ->
   if !req.body.email
-    res.status(422).send [message: 'Email is required']
+    res.status(422).json [message: 'Email is required']
     return
   if !req.body.password
-    res.status(422).send [message: 'Password is required']
+    res.status(422).json [message: 'Password is required']
     return
   if req.body.password.length < 6
-    res.status(422).send [message: 'Password must be at least 6 characters']
+    res.status(422).json [message: 'Password must be at least 6 characters']
     return
   if req.body.password != req.body.password_confirmation
-    res.status(422).send [message: 'Passwords didn\'t match.']
+    res.status(422).json [message: 'Passwords didn\'t match.']
     return
   user = User.build(req.body)
   user.setPassword(req.body.password).then((user) ->
@@ -48,22 +48,22 @@ exports.create = (req, res, next) ->
           if (err)
             user.destroy()
             .then ->
-              res.status(422).send([message: message])
+              res.status(422).json([message: message])
 
             .catch (err) ->
-              res.status(422).send(err)
+              res.status(422).json(err)
           else
             # If user created successfuly we return user and token as response
-            res.send user: user
+            res.json user: user
             next()
       .catch (err) ->
         user.destroy()
         .then ->
-          return res.status(422).send (err)
+          return res.status(422).json (err)
 
     .catch (err) ->
       err = err.errors or err
-      res.status(422).send err
+      res.status(422).json err
   ).catch (err) ->
     next err
 
@@ -74,34 +74,34 @@ exports.update = (req, res, next) ->
     db_user.setDataValue 'email', req.body.email
     db_user.save()
     .then ->
-      return res.send(db_user)
+      return res.json(db_user)
     .catch (err) ->
-      return res.status(500).send err
+      return res.status(500).json err
 
   models.User.findById(req.user.id).then((db_user) ->
     db_user.comparePassword req.body.old_password, (err, match) ->
       if !match
-        return res.status(422).send [{message: 'Current password is invalid'}]
+        return res.status(422).json [{message: 'Current password is invalid'}]
       if !!err
-        return res.status(422).send [{message: 'Current password is invalid'}]
+        return res.status(422).json [{message: 'Current password is invalid'}]
 
       if !!req.body.new_password
         # lets validate new password
         if (req.body.new_password isnt req.body.confirm_password)
-          return res.status(422).send [message: 'Confirm password did not match password']
+          return res.status(422).json [message: 'Confirm password did not match password']
         if (req.body.new_password.length < 6)
-          return res.status(422).send [message: 'Password must be at least 6 characters']
+          return res.status(422).json [message: 'Password must be at least 6 characters']
         db_user.setPassword(req.body.new_password)
         .then (db_user) ->
           updateUser(db_user)
         .catch (err) ->
-          res.status(500).send err
+          res.status(500).json err
       else
         updateUser(db_user)
 
 
   ).catch (err) ->
-    res.status(500).send(err)
+    res.status(500).json(err)
 
 exports.confirmAccount = (req, res, next) ->
   AcctConf.findOne({
@@ -124,9 +124,9 @@ exports.confirmAccount = (req, res, next) ->
         .then ->
           res.render 'account-confirmed-success'
         .catch (err) ->
-          res.status(500).send err
+          res.status(500).json err
       .catch (err) ->
-        res.status(500).send err
+        res.status(500).json err
     else
       res.render 'account-confirmed-failed'
 

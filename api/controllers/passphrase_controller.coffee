@@ -97,4 +97,4 @@ exports.update = (req, res, next) ->
     if err
       return res.json(err)
     else
-      return res.sendStatus 200
+      return res.status(200).send()
