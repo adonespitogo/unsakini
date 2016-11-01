@@ -8,10 +8,8 @@ mailer = require('./api/config/express-mail')
 appconfig = require('./api/config/globals')
 env = process.env.NODE_ENV || 'development'
 
-if (appconfig['base_url'].indexOf('https') > -1)
-  app.use( forceDomain(appconfig['base_url']) )
-  app.use(forceSSL.HTTPS({ trustProtoHeader: true }))
-
+app.use( forceDomain(appconfig['base_url']) )
+app.use(forceSSL.HTTPS({ trustProtoHeader: true })) if (appconfig['base_url'].indexOf('https') > -1)
 app.set('view engine', 'ejs')
 app.set('views', "#{__dirname}/api/views")
 app.use(express.static('./dist'))
