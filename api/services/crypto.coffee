@@ -1,5 +1,11 @@
 
 # encrypts and decrypts data
+
+# References:
+# http://stackoverflow.com/questions/29807108/derive-key-and-iv-from-string-for-aes-encryption-in-cryptojs-and-php
+# http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
+# http://stackoverflow.com/questions/27179685/how-to-encrypt-a-message-at-client-side-using-crypto-js-library-and-decrypt-it-a
+
 CryptoJS = require('crypto-js')
 cryptoConfig = require('../config/crypto')
 iterations = 500
@@ -27,10 +33,7 @@ module.exports.encrypt = (text) ->
   .toString()
 
   # salt will be hex 32 in length
-  result = salt.toString() + encrypted
-  console.log "salt: #{salt.toString()}"
-  console.log "encrypted: #{encrypted}"
-  result
+  return salt.toString() + encrypted
 
 module.exports.decrypt = (text) ->
 
