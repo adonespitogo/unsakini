@@ -34,10 +34,10 @@
           Make sure you typed your key correctly. Once your private key is set. It will be the basis for the encryption and decryption of all your data. Make sure you don't lose it.
         </span>
         <div class="input-group">
-          <input type="{{showKey? 'text': 'password'}}" class="form-control" required [(ngModel)]="keyConfirm" name="keyConfirmInput" #keyConfirmInput="ngModel">
+          <input type="{{showConfirmKey? 'text': 'password'}}" class="form-control" required [(ngModel)]="keyConfirm" name="keyConfirmInput" #keyConfirmInput="ngModel">
           <span class="input-group-btn">
-                <button class="btn btn-default" type="button" *ngIf="showKey" (click)="showKey = false">Hide</button>
-                <button class="btn btn-default" type="button" *ngIf="!showKey" (click)="showKey = true">Show</button>
+                <button class="btn btn-default" type="button" *ngIf="showConfirmKey" (click)="showConfirmKey = false">Hide</button>
+                <button class="btn btn-default" type="button" *ngIf="!showConfirmKey" (click)="showConfirmKey = true">Show</button>
               </span>
         </div>
       </div>
@@ -55,7 +55,11 @@
       Deleting your private key from this browser will make sure no one can obtain your key while you're away. We will ask for it once you log in back.
     </p>
     <p>
-      If you decide to delete your key from this browser, you will also be <strong>LOGGED OUT</strong> automatically since you can't access your data without your private key. <a (click)="showKeyOnDelete = true">Show Key</a>
+      If you decide to delete your key from this browser, you will also be <strong>LOGGED OUT</strong> automatically since you can't access your data without your private key.
+    </p>
+    <p>
+      <a (click)="showKeyOnDelete = true" *ngIf="!showKeyOnDelete">Show Key</a>
+      <a (click)="showKeyOnDelete = false" *ngIf="showKeyOnDelete">Hide Key</a>
     </p>
     <div *ngIf="showKeyOnDelete">
       <hr />
@@ -68,9 +72,6 @@
           <button class="btn btn-default" type="button" [ngIIclipboard]="inputTarget" (click)="copied()">copy</button>
         </span>
       </div>
-      <p class="help-block">
-        <a (click)="showKeyOnDelete = false">Hide Key</a>
-      </p>
     </div>
     <hr>
     <button class="btn btn-danger" (click)="deleteKey()">

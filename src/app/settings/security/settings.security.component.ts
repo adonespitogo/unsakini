@@ -9,10 +9,12 @@ import {AuthService} from '../../services/auth.service';
 })
 
 export class SecuritySettingsComponent implements OnInit {
-  public key: string = '';
-  public keyConfirm: string = '';
-  public showKey: boolean = false;
-  public showKeyOnDelete: boolean = false;
+
+  key = '';
+  keyConfirm = '';
+  showKey = false;
+  showConfirmKey = false;
+  showKeyOnDelete = false;
 
   constructor (private toaster: ToasterService, private router: Router) {}
 
@@ -21,16 +23,24 @@ export class SecuritySettingsComponent implements OnInit {
   }
 
   onSubmit () {
-    CryptoService.setKey(this.key);
-    let toast: Toast = {
-      type: 'success',
-      title: 'Private Key Saved',
-      body: `Your private key has been successfully set in this browser.
-        <b>You can navigate to the dashboard now</b>.
-      `,
-      bodyOutputType: BodyOutputType.TrustedHtml
-    };
-    this.toaster.pop(toast);
+    let doconfirm = !CryptoService.valid || !CryptoService.getKey();
+    let dosave = true;
+    if (doconfirm) {
+      dosave = window.confirm('Are you sure you want to use this key?');
+    }
+    if (dosave) {
+      CryptoService.setKey(this.key);
+      let toast: Toast = {
+        timeout: 15000,
+        type: 'success',
+        title: 'Private Key Saved',
+        body: `Your private key has been successfully set in this browser.
+          <b>You can navigate to the dashboard now</b>.
+        `,
+        bodyOutputType: BodyOutputType.TrustedHtml
+      };
+      this.toaster.pop(toast);
+    }
   }
 
   copied () {

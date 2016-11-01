@@ -107,7 +107,7 @@ exports.update = (req, res, next) ->
 exports.confirmAccount = (req, res, next) ->
   AcctConf.findOne({
     where:
-      token: req.params.token
+      token: req.body.token
   })
   .then (acct_conf) ->
     if (acct_conf)
@@ -123,13 +123,13 @@ exports.confirmAccount = (req, res, next) ->
             user_id: acct_conf.user_id
         })
         .then ->
-          res.render 'account-confirmed-success'
+          res.json confirmed: true
         .catch (err) ->
           res.status(500).json err
       .catch (err) ->
         res.status(500).json err
     else
-      res.render 'account-confirmed-failed'
+      res.json confirmed: false
 
   .catch ->
-    res.render 'account-confirmed-failed'
+    res.json confirmed: false

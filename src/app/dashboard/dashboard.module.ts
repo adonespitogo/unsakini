@@ -38,8 +38,7 @@ import { DashboardRouteGuard } from './dashboard.route.guard';
     DashboardRouteGuard,
   ],
   exports: [
-    CommonModule,
-    FormsModule
+    DashboardRoutingModule
   ]
 })
 

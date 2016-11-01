@@ -7,11 +7,12 @@ import {ToasterModule} from 'angular2-toaster/angular2-toaster';
 
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routing';
+import { AppRoutingModule } from './app.routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SettingsModule } from './settings/settings.module';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
+import { ConfirmAccountModule } from './confirm-account/confirm-account.module';
 
 import { HttpService } from './services/http.service';
 import { UserService } from './services/user.service';
@@ -33,6 +34,7 @@ declare var $: any;
     SettingsModule,
     LoginModule,
     RegisterModule,
+    ConfirmAccountModule,
   ],
   declarations: [
     AppComponent,
