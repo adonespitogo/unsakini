@@ -75,6 +75,8 @@ Directory Structure
  - `./config` - Contains configuration files
  - `./migrations` - Contains Sequelize CLI migration files
 
+### Testing
+
 Tests are not implemented yet since the app is still in architecture design process. Tests will be added after the architecture design is finalized and that codes will not be prone to massive changes.
 
 ### Technologies
