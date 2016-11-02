@@ -9,29 +9,29 @@
 </ol>
 <h1 class="page-title">
   {{getList().name}}
-  <ul class="btn btn-group pull-right">
-    <a class="btn btn-primary" [routerLink]="['/dashboard/lists', getList().id, 'edit']">
-      Rename
-    </a>
-    <a class="btn btn-danger" (click)="doDeleteList(list)">
-      Delete
-    </a>
-  </ul>
 </h1>
 <hr>
+<a class="btn btn-primary" [routerLink]="['/dashboard/lists', getList().id, 'edit']">
+      Rename
+    </a>
+<a class="btn btn-danger" (click)="doDeleteList(list)">
+      Delete
+    </a>
+<hr>
 <h3>Items</h3>
-<div class="panel panel-default" *ngFor="let item of getList().items">
-  <div class="panel-heading clearfix" style="padding-top: 7.5px;">
-    <h1 class="panel-title pull-left"><a [routerLink]="['/dashboard/items', item.id]">{{item.title}}</a></h1>
-    <div class="btn-group btn-group-xs pull-right">
-      <a class="btn btn-xs btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']"> edit</a>
-      <a class="btn btn-xs btn-danger" appDeleteItem [item]="item"> delete</a>
-    </div>
-  </div>
+<hr>
+<div class="well" *ngFor="let item of getList().items">
+  <h4 class="lead">
+    Title: {{item.title}}
+  </h4>
+  <hr>
+  <a class="btn btn-sm btn-success" [routerLink]="['/dashboard/items', item.id]">View</a>
+  <a class="btn btn-sm btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
+  <a class="btn btn-sm btn-danger" appDeleteItem [item]="item">Delete</a>
+  <hr>
   <div class="panel-body" appMarkedText [text]="item.content">
   </div>
 </div>
-
 <div class="well" *ngIf="getList().items.length === 0">
   No items yet.
 </div>

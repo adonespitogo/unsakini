@@ -11,6 +11,7 @@ import {ToasterService}             from 'angular2-toaster/angular2-toaster';
 export class DashboardEditListComponent implements OnDestroy, OnInit {
   submitted = false;
   list: ListModel;
+  oldList: ListModel;
 
   constructor (
     private listService: ListService,
@@ -48,10 +49,6 @@ export class DashboardEditListComponent implements OnDestroy, OnInit {
         this.toaster.pop('success', 'List updated.');
       }
     );
-  }
-
-  onListDeleted () {
-    this.router.navigate(['/dashboard']);
   }
 
   ngOnDestroy () {

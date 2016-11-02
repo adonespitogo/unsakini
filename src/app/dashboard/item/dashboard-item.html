@@ -11,11 +11,10 @@
 </ol>
 <div>
   <h1 class="page-title">{{item.title}}
-  <div class="btn btn-group pull-right">
-    <a class="btn btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
-    <a class="btn btn-danger" appDeleteItem [item]="item" (onItemDeleted)="onItemDeleted($event)">Delete</a>
-  </div>
   </h1>
+  <hr>
+  <a class="btn btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
+  <a class="btn btn-danger" appDeleteItem [item]="item" (onItemDeleted)="onItemDeleted($event)">Delete</a>
   <hr>
   <div appMarkedText [text]="item.content"></div>
 </div>
