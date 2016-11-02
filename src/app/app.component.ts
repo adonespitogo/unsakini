@@ -6,7 +6,7 @@ import { AuthService, IAuthMessage } from './services/auth.service';
 @Component({
   selector: '[appRootComponent]',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 

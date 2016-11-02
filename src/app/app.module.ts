@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {ToasterModule} from 'angular2-toaster/angular2-toaster';
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 
 
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ declare var $: any;
     LoginModule,
     RegisterModule,
     ConfirmAccountModule,
+    SlimLoadingBarModule.forRoot(),
   ],
   declarations: [
     AppComponent,
@@ -56,7 +58,6 @@ declare var $: any;
   ],
   bootstrap: [ AppComponent ],
   exports: [
-    ToasterModule,
   ]
 })
 

@@ -1,5 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
+import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
+
 import {ListService} from '../services/list.service';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import { CryptoService, ICryptoObservable } from '../services/crypto.service';
@@ -19,7 +21,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor (
     private listService: ListService,
     private router: Router,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    private loader: SlimLoadingBarService
   ) {
 
     this.cryptosubs = CryptoService.validkey$.subscribe((crypto: ICryptoObservable) => {
@@ -43,8 +46,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit () {
+    this.loader.start();
     this.listService.getLists().subscribe(() => {
       this.toaster.clear();
+      this.loader.complete();
     });
   }
 
