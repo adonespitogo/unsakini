@@ -30,7 +30,6 @@ export class DashboardRouteGuard implements CanActivate, CanActivateChild {
     }
     return this.userService.getCurrentUser(true).map((user) => {
       if (!this.hasCryptoKey() || !CryptoService.valid) {
-        this.toaster.clear();
         this.router.navigate(['/settings/security']);
         this.toaster.pop(
           'error',

@@ -97,7 +97,7 @@ export class CryptoService {
 
 // base on http://stackoverflow.com/questions/23188593/cryptojs-check-if-aes-passphrase-is-correct
   static decrypt (transitmessage: string) {
-    if (!transitmessage) {
+    if (!transitmessage || !CryptoService.valid) {
       return '';
     }
     if (!CryptoService.isPassphraseValid(transitmessage)) {
