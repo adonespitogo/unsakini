@@ -20,4 +20,5 @@
           Name is required
         </div>
   <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!listForm.form.valid">Submit</button>
+  <a [routerLink]="['/dashboard']" class="btn btn-default">Cancel</a>
 </form>

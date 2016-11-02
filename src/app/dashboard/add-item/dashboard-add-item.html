@@ -32,4 +32,5 @@
     Content is required
   </div>
   <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!itemForm.form.valid">Submit</button>
+  <a class="btn btn-default" [routerLink]="['/dashboard/lists', list.id]">Cancel</a>
 </form>
