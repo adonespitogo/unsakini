@@ -50,7 +50,7 @@ export class DashboardAddItemComponent implements OnDestroy, OnInit {
     this.item.list = this.list;
     this.itemService.createItem(this.item).subscribe(
       (item) => {
-        this.router.navigate(['/dashboard/items', item.id]);
+        this.router.navigate(['/dashboard/lists', this.list.id]);
         this.toaster.pop('success', 'Item added.');
       }
     );
