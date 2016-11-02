@@ -75,6 +75,8 @@ Directory Structure
  - `./config` - Contains configuration files
  - `./migrations` - Contains Sequelize CLI migration files
 
+### Testing
+
 Tests are not implemented yet since the app is still in architecture design process. Tests will be added after the architecture design is finalized and that codes will not be prone to massive changes.
 
 ### Technologies
@@ -104,7 +106,7 @@ We make use of Sequelize CLI in managing the database state.
     $ sequelize db:migrate:undo --config ./config/development/database.json
     ```
 
-Alternatively, I created bash script files `db-migrate.js` and `migration-create.js` to make the command shorter. You'll just have to run `node db-migrate.js` to run the new migration files and `node migration-create.js` to create new migration files.
+Alternatively, I created node script files `db-migrate.js` and `migration-create.js` to make the command shorter. You'll just have to run `node db-migrate.js` to run the new migration files and `node migration-create.js` to create new migration files.
 
 Check out the [Sequelize CLI](http://docs.sequelizejs.com/en/latest/docs/migrations/) migrations docs on how to create migrations.
 
