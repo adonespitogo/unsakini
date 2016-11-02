@@ -17,7 +17,7 @@ export interface ICryptoObservable {
 
 export class CryptoService {
 
-  static iterations = 500
+  static iterations = 500;
   static keySize = 256;
   static ivSize = 128;
 
@@ -67,16 +67,16 @@ export class CryptoService {
   static encrypt (msg: string) {
     let encrypted: any;
     let passphrase = CryptoService.getKey();
-    let salt = CryptoJS.lib.WordArray.random(128/8);
+    let salt = CryptoJS.lib.WordArray.random( 128 / 8 );
     let output = CryptoJS.PBKDF2(passphrase, salt, {
-        keySize: (CryptoService.keySize+CryptoService.ivSize)/32,
+        keySize: (CryptoService.keySize + CryptoService.ivSize) / 32,
         iterations: CryptoService.iterations
     });
 // the underlying words arrays might have more content than was asked: remove insignificant words
     output.clamp();
 // split key and IV
-    let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize/32));
-    let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize/32));
+    let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize / 32));
+    let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize / 32));
     try {
       encrypted = CryptoJS.AES.encrypt(msg, key, {
         iv: iv,
@@ -113,14 +113,14 @@ export class CryptoService {
     let salt = CryptoJS.enc.Hex.parse(saltHex);
     let ciphertext = transitmessage.substring(64 + 32);
     let output = CryptoJS.PBKDF2(passphrase, salt, {
-        keySize: (CryptoService.keySize+CryptoService.ivSize)/32,
+        keySize: (CryptoService.keySize + CryptoService.ivSize) / 32,
         iterations: CryptoService.iterations
     });
 // the underlying words arrays might have more content than was asked: remove insignificant words
     output.clamp();
 // split key and IV
-    let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize/32));
-    let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize/32));
+    let key = CryptoJS.lib.WordArray.create(output.words.slice(0, CryptoService.keySize / 32));
+    let iv = CryptoJS.lib.WordArray.create(output.words.slice(CryptoService.keySize / 32));
     let decrypted: any;
     try {
       decrypted = CryptoJS.AES.decrypt(ciphertext, key, {

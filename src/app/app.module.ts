@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 import {ToasterModule} from 'angular2-toaster/angular2-toaster';
-import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import {SlimLoadingBarModule, SlimLoadingBarService} from 'ng2-slim-loading-bar';
 
 
 import { AppComponent } from './app.component';
@@ -48,12 +48,13 @@ declare var $: any;
     ItemService,
     AuthService,
     CryptoService,
+    SlimLoadingBarService,
     {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions) => {
-        return new HttpService(backend, options);
+      useFactory: (backend: XHRBackend, options: RequestOptions, loader) => {
+        return new HttpService(backend, options, loader);
       },
-      deps: [XHRBackend, RequestOptions]
+      deps: [XHRBackend, RequestOptions, SlimLoadingBarService]
     }
   ],
   bootstrap: [ AppComponent ],
