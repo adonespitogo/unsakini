@@ -16,6 +16,9 @@ a {
 
 ng2-slim-loading-bar {
   .slim-loading-bar-progress {
-    margin-bottom: -51px;
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
   }
 }
