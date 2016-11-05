@@ -36,7 +36,7 @@ export class LoginComponent {
     .catch(this.loginFailedHandler(this))
     .subscribe(
       (json) => {
-        this.toaster.pop('success', 'Login Successful', 'Loading dashboard...');
+        this.toaster.pop('success', 'Login Successful');
         AuthService.setAuthToken(json.token);
         CryptoService.setKeyName(json.user);
         this.router.navigate(['/dashboard']);
