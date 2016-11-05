@@ -22,7 +22,7 @@
 <hr>
 <div class="well" *ngFor="let item of getList().items">
   <h4 class="lead">
-    Title: {{item.title}}
+    {{item.title}}
   </h4>
   <hr>
   <a class="btn btn-sm btn-success" [routerLink]="['/dashboard/items', item.id]">View</a>
