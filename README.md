@@ -125,7 +125,7 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
  - Padding = `Pkcs7`
  - Key Derivation Function = `PBKDF2`
  - Key Size = `256`
- - Invialization Vector Size = `128`
+ - Initialization Vector Size = `128`
  - PBKDF2 iterations = `500`
 
 ### Author
