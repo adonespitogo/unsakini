@@ -30,16 +30,18 @@ export class SecuritySettingsComponent implements OnInit {
     }
     if (dosave) {
       CryptoService.setKey(this.key);
-      let toast: Toast = {
-        timeout: 15000,
-        type: 'success',
-        title: 'Private Key Saved',
-        body: `Your private key has been successfully set in this browser.
-          <b>You can navigate to the dashboard now</b>.
-        `,
-        bodyOutputType: BodyOutputType.TrustedHtml
-      };
-      this.toaster.pop(toast);
+      if (confirm('Private key has been set. Do you want to navigate to the dashboard now?')) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        let toast: Toast = {
+          timeout: 15000,
+          type: 'success',
+          title: 'Private Key Saved',
+          body: `Your private key has been successfully set in this browser.`,
+          bodyOutputType: BodyOutputType.TrustedHtml
+        };
+        this.toaster.pop(toast);
+      }
     }
   }
 

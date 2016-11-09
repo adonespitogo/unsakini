@@ -11,7 +11,7 @@
 <div class="row">
   <div class="col-md-6">
     <h3>Set your private key</h3>
-    <form #cryptoKeyForm="ngForm">
+    <form #cryptoKeyForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="key">Private Key</label>
         <span class="help-block">
@@ -44,7 +44,7 @@
       <div [hidden]="key === keyConfirm || !keyConfirm || cryptoKeyForm.form.pristine" class="alert alert-danger">
         Keys do not match.
       </div>
-      <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid || key !== keyConfirm">
+      <button type="submit" class="btn btn-primary" [disabled]="!cryptoKeyForm.form.valid || key !== keyConfirm">
         Set My Private Key
       </button>
     </form>

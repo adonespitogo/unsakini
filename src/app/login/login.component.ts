@@ -8,7 +8,6 @@ import 'rxjs/add/operator/catch';
 
 import {AuthService} from '../services/auth.service';
 import {CryptoService} from '../services/crypto.service';
-import {ToasterService} from 'angular2-toaster';
 
 @Component({
   templateUrl: './login.html'
@@ -22,8 +21,7 @@ export class LoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private router: Router,
-    private toaster: ToasterService
+    private router: Router
   ) {
     this.creds = {email: '', password: ''};
   }
@@ -36,7 +34,6 @@ export class LoginComponent {
     .catch(this.loginFailedHandler(this))
     .subscribe(
       (json) => {
-        this.toaster.pop('success', 'Login Successful');
         AuthService.setAuthToken(json.token);
         CryptoService.setKeyName(json.user);
         this.router.navigate(['/dashboard']);
