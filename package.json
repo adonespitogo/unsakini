@@ -85,7 +85,7 @@
     "tslint": "3.13.0",
     "typescript": "~2.0.3"
   },
-  "description": "This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.",
+  "description": "Open source web application for storing passwords, tokens, and licenses and many other sensitive data.",
   "main": "karma.conf.js",
-  "author": "Adones Pitogo"
+  "author": "Adones Pitogo <pitogo.adones@gmail.com>"
 }
