@@ -9,5 +9,5 @@ gulp.task 'init:config', ->
       ))
       .pipe(gulp.dest('./config'))
 
-gulp.task 'default', ['init:config'], (done) ->
+gulp.task 'default', ['build'], (done) ->
   done()

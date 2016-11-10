@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unsakini</title>
+  <title>SITE_NAME</title>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -14,6 +14,23 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- SEO and Social Media -->
+  <meta name="robots" content="SITE_ROBOTS">
+  <meta property="og:site_name" content="SITE_NAME">
+  <meta property="og:title" content="SITE_NAME">
+  <meta property="og:description" content="SITE_DESCRIPTION">
+  <meta property="og:image:secure_url" content="SITE_URL/assets/img/og-image.jpg">
+  <meta property="og:image" content="SITE_URL/assets/img/og-image.jpg">
+  <meta property="og:image:url" content="SITE_URL/assets/img/og-image.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="SITE_URL">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@adonespitogo">
+  <meta name="twitter:creator" content="@adonespitogo">
+  <meta name="twitter:title" content="SITE_NAME">
+  <meta name="twitter:description" content="SITE_DESCRIPTION">
+  <meta name="twitter:image" content="SITE_URL/assets/img/og-image.jpg">
 </head>
 
 <body>

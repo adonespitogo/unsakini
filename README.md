@@ -57,7 +57,7 @@ $ npm install
 
 Build the Angular2 app
 ```
-$ ng build
+$ gulp build
 ```
 
 Run the express server

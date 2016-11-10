@@ -37,3 +37,4 @@ Thumbs.db
 run.sh
 /config/development/*.json
 /config/test/*.json
+/src/index.html

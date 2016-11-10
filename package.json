@@ -43,6 +43,7 @@
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
     "jquery": "^3.1.1",
     "js2coffee": "^2.2.0",
     "jsonwebtoken": "^6.1.0",
