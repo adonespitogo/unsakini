@@ -3,6 +3,7 @@
 defaults =
   robots: 'index, follow'
   name: 'Unsakini'
+  title: 'Unsakini | Secure Information Storage'
   description: 'Your personal application for storing passwords, tokens, and licenses and many other sensitive data.'
   base_url: 'https://www.unsakini.com'
 
