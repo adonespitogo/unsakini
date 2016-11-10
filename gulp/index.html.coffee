@@ -1,7 +1,7 @@
 # init the index html using the config vars
 
 defaults =
-  robots: 'index, follow'
+  robots: 'index,follow'
   name: 'Unsakini'
   title: 'Unsakini | Secure Information Storage'
   description: 'Your personal application for storing passwords, tokens, and licenses and many other sensitive data.'
