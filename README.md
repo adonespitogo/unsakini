@@ -12,9 +12,7 @@ The source code is opensourced so you can review it and deploy it on your own se
 
 -------------------------
 ### Getting Started
-Configure your local development environment first. Rename the `config/development/*.json.sample` to `config/development/*.json` and modify accordingly.
-
-There are four configuration files for each environment namely:
+Configure your local development environment first. There are four configuration files for each environment namely:
  - `application.json` - Configuration for the application like base url
  - `database.json` - Database configuration
  - `express-mail.json` - Configuration for the [express-mail](https://github.com/sorich87/express-mail) plugin

@@ -17,5 +17,5 @@
   <a class="btn btn-sm btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
   <a class="btn btn-sm btn-danger" appDeleteItem [item]="item" (onItemDeleted)="onItemDeleted($event)">Delete</a>
   <hr>
-  <div appMarkedText [text]="item.content"></div>
+  <pre>{{item.content}}</pre>
 </div>

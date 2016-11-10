@@ -1,4 +1,13 @@
 gulp = require('gulp')
+rename = require('gulp-rename');
 
-gulp.task 'default', ->
-  console.warn 'No tasks yet!'
+# copy config files
+gulp.task 'init:config', ->
+  gulp.src('./config/**/*.sample')
+      .pipe(rename( (path) ->
+        path.extname = ''
+      ))
+      .pipe(gulp.dest('./config'))
+
+gulp.task 'default', ['init:config'], (done) ->
+  done()

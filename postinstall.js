@@ -6,3 +6,4 @@ exec('typings install');
 exec('npm rebuild node-sass');
 exec('node db-migrate.js');
 exec('ng build ' + (env === 'production' ? '--prod' : '') );
+exec('gulp init:config');

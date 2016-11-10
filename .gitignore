@@ -5,7 +5,6 @@
 /dist
 /public
 /tmp
-/api/config/mailer.config.json
 # dependencies
 /node_modules
 /bower_components

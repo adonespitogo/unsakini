@@ -29,7 +29,8 @@
   <a class="btn btn-sm btn-primary" [routerLink]="['/dashboard/items', item.id, 'edit']">Edit</a>
   <a class="btn btn-sm btn-danger" appDeleteItem [item]="item">Delete</a>
   <hr>
-  <div class="panel-body" appMarkedText [text]="item.content">
+  <div class="panel-body">
+    <pre>{{item.content}}</pre>
   </div>
 </div>
 <div class="well" *ngIf="getList().items.length === 0">
