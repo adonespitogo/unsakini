@@ -46,5 +46,4 @@ gulp.task 'init:index.html', ->
       .pipe replace 'SITE_TITLE', config.title
       .pipe replace 'SITE_DESCRIPTION', config.description
       .pipe replace 'SITE_URL', config.base_url
-
       .pipe gulp.dest './src'
