@@ -43,6 +43,7 @@ gulp.task 'init:index.html', ->
 
       .pipe replace 'SITE_ROBOTS', config.robots
       .pipe replace 'SITE_NAME', config.name
+      .pipe replace 'SITE_TITLE', config.title
       .pipe replace 'SITE_DESCRIPTION', config.description
       .pipe replace 'SITE_URL', config.base_url
 
