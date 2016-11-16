@@ -1,2 +1,6 @@
-class Board < ApplicationRecord
+class Board < ActiveRecord::Base
+  include Encryptable
+
+  encryptable_attributes [:name]
+
 end
