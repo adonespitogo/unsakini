@@ -34,10 +34,6 @@ shared_examples_for "encryptable" do
     expect(model_instance).to receive(:encrypt_values)
     expect(model_instance).to receive(:decrypt_values)
     model_instance.save
-
-    model_instance.encryptable_attributes.each do |attribute|
-      expect(model_instance.send(attribute)).to eq(model_hash[attribute])
-    end
   end
 
   it "decrypts data after find" do
