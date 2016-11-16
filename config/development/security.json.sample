@@ -1,5 +1,0 @@
-{
-  "jwt": "secret",
-  "passphrase": "secret",
-  "iv": "secret"
-}
