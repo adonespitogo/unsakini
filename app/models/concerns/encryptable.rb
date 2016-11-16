@@ -36,7 +36,7 @@ module Encryptable
     end
 
     def cipher_key
-      if Rails.env.production? then ENV['CRYPTO_KEY'] else 'secret' end
+      Rails.configuration.crypto['key']
     end
 
     def encrypt(value)

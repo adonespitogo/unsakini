@@ -41,5 +41,8 @@ module UnsakiniRails
       g.factory_girl false
       g.factory_girl dir: 'spec/factories'
     end
+
+    config.crypto = config_for(:crypto)
+
   end
 end
