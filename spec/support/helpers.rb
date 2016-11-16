@@ -1,12 +1,13 @@
 module Helpers
-  def sign_in(user)
-    request.headers.merge!(user.create_new_auth_token)
-    set_json_request_headers
+  def auth_headers(user)
+    user.create_new_auth_token.merge!(json_request_headers)
   end
 
-  def set_json_request_headers
-    request.headers.merge!({'Content-Type' => 'application/json'})
-    request.headers.merge!({'Accept' => 'application/json'})
+  def json_request_headers
+    {
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json'
+    }
   end
 
   def body_as_json
