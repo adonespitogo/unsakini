@@ -36,5 +36,10 @@ module UnsakiniRails
           :methods => [:get, :post, :options, :delete, :put]
       end
     end
+
+    config.generators do |g|
+      g.factory_girl false
+      g.factory_girl dir: 'spec/factories'
+    end
   end
 end
