@@ -22,3 +22,7 @@
 
 #angular app dist
 /public/app
+
+# yard doc
+/doc
+/.yardoc
