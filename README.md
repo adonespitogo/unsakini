@@ -1,22 +1,21 @@
 UNSAKINI
 -----------
 
-**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created to protect online activists from digital information surveillance. Made on top of [Rails 5](http://rubyonrails.org/) and [Angular 2](https://angular.io/).
+**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created to protect online activists from digital information surveillance and protect data secrecy. Made on top of [Rails 5](http://rubyonrails.org/) and [Angular 2](https://angular.io/).
 
------------------------
+### Features
+ - Encrypted Bulletin Boards
+ - Share Encrypted Files
+ - Group Forums
 
-If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before it leaves your computer. The key is stored in your browser and is never sent to the server. Only you have access to your private key.
+-------------------------
+
+### How it Works
+Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. If you look at the network traffic in the browser network tab (by pressing F12 and selecting network tab), you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before it leaves your computer. The key is stored in your browser and is never sent to the server. Only you have access to your private key.
 
 To increase the security, the data is also encrypted in the server before being saved to the database, which adds a second layer of encrypion.
 
 The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), the most widely used and trusted encryption algorithm.
-
-### Planned Features
-- [x] Encrypt data
-- [ ] Upload and encrypt files
-- [ ] Share encrypted data and files to other users
-
--------------------------
 
 ### System Requirements
  - Node.js < 7.0.0
@@ -70,9 +69,8 @@ Run angular tests
 Not yet implemented!
 ```
 
-### Encryption Algorithm
+### Encryption Specifications
 
-**Encryption Specifications**
   - server
     - Algorithm = `AES`
     - Mode = `CBC`
