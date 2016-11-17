@@ -21,6 +21,10 @@ configurations instructions here..
  - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the [YARD documentation](https://www.unsakini.com/docs/backend/).
  - The frontend is made of [Angular 2](https://angular.io/). See the [documentation](https://www.unsakini.com/docs/frontend/).
 
+### Testing
+ - Using [Rspec](http://rspec.info/) in testing Rails backend
+ - See [Angular 2 Testing Guide](https://angular.io/docs/ts/latest/guide/testing.html)
+
 ### Encryption and Decryption Process
 If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before being sent. The data is being decrypted in the client side using the same key you supplied. The key is stored in your browser's localStorage and is never sent to the server. Therefore, only you can be able to access your data.
 
