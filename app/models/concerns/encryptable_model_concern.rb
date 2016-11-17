@@ -11,7 +11,7 @@ module EncryptableModelConcern
   end
 
   module ClassMethods
-    #Sets the model encryptable_attributes. They are defined in the model using `encryptable_attributes`.
+    #Sets the model encryptable_attributes. They are defined in the model using `encryptable_attributes` class method.
     #
     # Example:
     # ```
