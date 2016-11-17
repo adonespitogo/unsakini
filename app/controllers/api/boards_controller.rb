@@ -1,4 +1,4 @@
-class Api::BoardsController < ApplicationController
+class Api::BoardsController < ApiBaseController
   before_action :authenticate_user!
   before_action :assign_user
 

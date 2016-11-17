@@ -1,4 +1,4 @@
-class BaseController < ActionController::Base
+class WebBaseController < ActionController::Base
   include ActionController::ImplicitRender
   include ActionView::Layouts
 

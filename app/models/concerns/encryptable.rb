@@ -18,11 +18,11 @@ module Encryptable
   # Returns the model's encryptable attributes. Encryptable attributes are encrypted before saving using `before_save` hook and decrypted
   # using `after_save` and `after_find` hooks. They are defined in the model using `encryptable_attributes` method that accepts
   # array of model attributes in symbol. Example:
-  #
+  # ```
   #   class Board < BaseModel
   #     encryptable_attributes [:name]
   #   end
-  #
+  # ```
   # @return [Array] array of model attribute names in symbol.
   def encryptable_attributes
     @@encrypted_attributes
