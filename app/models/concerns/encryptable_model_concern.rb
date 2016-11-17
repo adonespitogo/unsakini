@@ -1,7 +1,7 @@
 require 'openssl'
 require 'base64'
 
-module Encryptable
+module EncryptableModelConcern
   extend ActiveSupport::Concern
 
   included do
@@ -11,19 +11,22 @@ module Encryptable
   end
 
   module ClassMethods
+    #Sets the model encryptable_attributes. They are defined in the model using `encryptable_attributes`.
+    #
+    # Example:
+    # ```
+    #   class Board < BaseModel
+    #     encryptable_attributes :name, :title, :content
+    #   end
+    # ```
     def encryptable_attributes(*attrs)
       @encrypted_attributes = attrs
     end
   end
 
   # Returns the model's encryptable attributes. Encryptable attributes are encrypted before saving using `before_save` hook and decrypted
-  # using `after_save` and `after_find` hooks. They are defined in the model using `encryptable_attributes` method that accepts
-  # array of model attributes in symbol. Example:
-  # ```
-  #   class Board < BaseModel
-  #     encryptable_attributes [:name]
-  #   end
-  # ```
+  #
+  # using `after_save` and `after_find` hooks.
   # @return [Array] array of model attribute names in symbol.
   def encryptable_attributes
     self.class.instance_variable_get(:@encrypted_attributes)

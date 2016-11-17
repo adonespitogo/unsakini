@@ -1,5 +1,5 @@
 class BaseModel < ActiveRecord::Base
-  include Encryptable
+  include EncryptableModelConcern
 
   self.abstract_class = true
 end

@@ -3,6 +3,9 @@ class CatchJsonParseErrors
     @app = app
   end
 
+  # Rescues `ActionDispatch::ParamsParser::ParseError`
+  #
+  # Returns `400` status code
   def call(env)
     begin
       @app.call(env)

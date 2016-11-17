@@ -31,7 +31,7 @@ RSpec.describe "Boards API", type: :request do
       }
     }
     let(:invalid_attributes) {
-      {}
+      {name: ""}
     }
 
     it "returns http unauthorized" do
@@ -40,14 +40,17 @@ RSpec.describe "Boards API", type: :request do
     end
 
     it "returns http unprocessable_entity" do
-      post api_boards_path, params: invalid_attributes, headers: auth_headers(@user)
+      post api_boards_path, params: invalid_attributes, headers: auth_headers(@user), as: :json
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it "returns http created" do
-      post api_boards_path, params: valid_attributes, headers: auth_headers(@user), as: :json
       expect{post api_boards_path, params: valid_attributes, headers: auth_headers(@user), as: :json}
       .to change{@user.boards.count}.by(1)
+      @user.reload
+      serializer = UserBoardSerializer.new(@user.user_boards.last)
+      serialization = ActiveModelSerializers::Adapter.create(serializer)
+      expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
     end
   end
 

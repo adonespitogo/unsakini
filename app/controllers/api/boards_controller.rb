@@ -4,9 +4,9 @@ class Api::BoardsController < ApplicationController
   include ::ActionController::Serialization
 
   # Returns boards belonging to current user
-
-  # GET /api/boards
-
+  #
+  # `GET /api/boards`
+  #
   # Return format:
   # ```
   # [
@@ -27,10 +27,25 @@ class Api::BoardsController < ApplicationController
 
   # Creates board belonging to current user.
   #
-  # POST /api/boards
+  # `POST /api/boards`
   #
-  # Param format `{name: "sting"}`
+  # Param format
+  # ```
+  # {name: "sting"}
+  # ```
   #
+  # Return format:
+  # ```
+  #  {
+  #   id: 1,
+  #   name: 'board name',
+  #   created_at: ..,
+  #   updated_at: ..,
+  #   board_user: {
+  #    is_admin: true
+  #   }
+  #  }
+  # ```
   def create
     @board = Board.new(params.permit(:name))
     if @board.save
@@ -39,7 +54,7 @@ class Api::BoardsController < ApplicationController
         board_id: @board.id,
         is_admin: true
       })
-      render :json => @board
+      render :json => @user_board
     else
       render :json => @board.errors, status: 422
     end
