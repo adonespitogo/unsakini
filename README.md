@@ -34,8 +34,8 @@ $ npm install
 ```
 
 ### Configurations
- - Rails configurations can be found `./config` directory. Feel free to modify as needed, specially the database configuration. See the rails setup [documentation](./docs/rails.md).
- - Angular app is managed using [Angular CLI](https://github.com/angular/angular-cli). See the frontend [configuration](./docs/angular.md).
+ - Rails configurations can be found `./config` directory. Feel free to modify as needed, specially the database configuration. See the backend setup [documentation](./docs/rails.md).
+ - Angular app is managed using [Angular CLI](https://github.com/angular/angular-cli). See the frontend setup [documentation](./docs/angular.md).
 
 ### Running Local Server
 Navigate to project root directory
@@ -52,7 +52,7 @@ $ rails s
 ```
 Browse [http://localhost:3000](http://localhost:3000)
 
-### Documentations
+### Development
  - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the [YARD documentation](https://www.unsakini.com/docs/backend/).
  - The frontend is made of [Angular 2](https://angular.io/). See the [documentation](https://www.unsakini.com/docs/frontend/).
 
@@ -68,6 +68,9 @@ Run angular tests
 ```
 Not yet implemented!
 ```
+
+### Deployment
+Deployment instructions here...
 
 ### Encryption Specifications
 
