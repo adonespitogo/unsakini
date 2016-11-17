@@ -1,0 +1,2 @@
+class UserBoard < BaseModel
+end

@@ -1,0 +1,8 @@
+development:
+  key: 'secret'
+
+test:
+  key: 'test_secret'
+
+production:
+  key: <%= ENV['CRYPTO_KEY'] %>
