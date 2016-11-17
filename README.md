@@ -1,7 +1,7 @@
 UNSAKINI
 -----------
 
-**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created to protect online activists from digital information surveillance and protect data secrecy. Made on top of [Rails 5](http://rubyonrails.org/) and [Angular 2](https://angular.io/).
+**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created to protect online activists from digital information surveillance and uphold information security. Made on top of [Rails 5](http://rubyonrails.org/) and [Angular 2](https://angular.io/).
 
 ### Features
  - Encrypted Bulletin Boards
