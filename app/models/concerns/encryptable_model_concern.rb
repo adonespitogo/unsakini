@@ -20,7 +20,7 @@ module EncryptableModelConcern
     #   end
     # ```
     def encryptable_attributes(*attrs)
-      @encrypted_attributes = attrs
+      @encryptable_attributes = attrs
     end
   end
 
@@ -29,7 +29,7 @@ module EncryptableModelConcern
   # using `after_save` and `after_find` hooks.
   # @return [Array] array of model attribute names in symbol.
   def encryptable_attributes
-    self.class.instance_variable_get(:@encrypted_attributes)
+    self.class.instance_variable_get(:@encryptable_attributes)
   end
 
 
