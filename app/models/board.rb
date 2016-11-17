@@ -1,3 +1,3 @@
 class Board < BaseModel
-  encryptable_attributes [:name]
+  encryptable_attributes :name
 end

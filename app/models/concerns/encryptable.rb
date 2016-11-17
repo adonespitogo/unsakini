@@ -8,10 +8,11 @@ module Encryptable
     before_save :encrypt_values
     after_save :decrypt_values
     after_find :decrypt_values
+  end
 
-    @@encrypted_attributes = []
-    def self.encryptable_attributes(attrs)
-      @@encrypted_attributes = attrs
+  module ClassMethods
+    def encryptable_attributes(*attrs)
+      @encrypted_attributes = attrs
     end
   end
 
@@ -25,20 +26,22 @@ module Encryptable
   # ```
   # @return [Array] array of model attribute names in symbol.
   def encryptable_attributes
-    @@encrypted_attributes
+    self.class.instance_variable_get(:@encrypted_attributes)
   end
 
 
   # Encryptes the model's encryptable attributes before saving using Rails' `before_save` hook.
   def encrypt_values
-    @@encrypted_attributes.each do |k|
+    return if encryptable_attributes.nil?
+    encryptable_attributes.each do |k|
       self[k] = encrypt(self[k])
     end
   end
 
   # Decrypts the model's encryptable attributes using Rails' `after_save` and `after_find` hooks.
   def decrypt_values
-    @@encrypted_attributes.each do |k|
+    return if encryptable_attributes.nil?
+    encryptable_attributes.each do |k|
       self[k] = decrypt(self[k])
     end
   end
