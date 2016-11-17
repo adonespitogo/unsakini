@@ -3,7 +3,7 @@ class Api::BoardsController < ApiBaseController
   before_action :assign_user
 
   def index
-    render json: []
+    render json: @user.boards
   end
 
   private

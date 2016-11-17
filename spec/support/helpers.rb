@@ -15,7 +15,15 @@ module Helpers
   end
 
   def json_str_to_hash(str)
-    JSON.parse(str).with_indifferent_access
+    begin
+      JSON.parse(str).with_indifferent_access
+    rescue Exception => e
+      begin
+        JSON.parse(str)
+      rescue Exception => e
+        nil
+      end
+    end
   end
 end
 
