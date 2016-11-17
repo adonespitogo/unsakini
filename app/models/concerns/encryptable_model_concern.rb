@@ -12,7 +12,6 @@ module EncryptableModelConcern
 
   module ClassMethods
     # Sets the model `@encryptable_attributes` class instance variable.
-    # They are defined in the model using `encryptable_attributes` class method.
     # Encryptable attributes are encrypted before saving using `before_save` hook and decrypted using `after_save` and `after_find` hooks.
     # Example:
     # ```
