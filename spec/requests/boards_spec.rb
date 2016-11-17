@@ -55,5 +55,25 @@ RSpec.describe "Boards API", type: :request do
     end
   end
 
-  describe "POST /api/boards"
+  describe "GET /api/boards/:id" do
+
+    it "returns http unauthorized" do
+      get api_board_path(@board)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns http not_found" do
+      get api_board_path({id: 1000000}), params: nil, headers: auth_headers(@user)
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "returns board resource" do
+      get api_board_path(@board), params: nil, headers: auth_headers(@user)
+      expect(response).to have_http_status(:ok)
+      serializer = UserBoardSerializer.new(@user_board)
+      serialization = ActiveModelSerializers::Adapter.create(serializer)
+      expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
+    end
+
+  end
 end

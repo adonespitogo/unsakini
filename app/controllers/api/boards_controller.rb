@@ -34,17 +34,17 @@ class Api::BoardsController < ApplicationController
   # {name: "sting"}
   # ```
   #
-  # Return format:
+  # Success return format:
   # ```
-  #  {
-  #   id: 1,
-  #   name: 'board name',
-  #   created_at: ..,
-  #   updated_at: ..,
-  #   board_user: {
-  #    is_admin: true
+  # {
+  #   is_admin: true,
+  #   board: {
+  #     id: 1,
+  #     name: 'board name',
+  #     created_at: '..',
+  #     updated_at: '..'
   #   }
-  #  }
+  # }
   # ```
   def create
     @board = Board.new(params.permit(:name))
@@ -57,6 +57,31 @@ class Api::BoardsController < ApplicationController
       render :json => @user_board, status: :created
     else
       render :json => @board.errors, status: 422
+    end
+  end
+
+  # Creates board belonging to current user.
+  #
+  # `GET /api/boards/:id`
+  #
+  # Return format:
+  # ```
+  # {
+  #   is_admin: true,
+  #   board: {
+  #     id: 1,
+  #     name: 'board name',
+  #     created_at: '..',
+  #     updated_at: '..'
+  #   }
+  # }
+  # ```
+  def show
+    @user_board = UserBoard.where(user_id: @user.id, board_id: params[:id]).first
+    if @user_board
+      render :json => @user_board
+    else
+      render status: :not_found
     end
   end
 
