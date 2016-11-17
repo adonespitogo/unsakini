@@ -13,10 +13,14 @@ RSpec.describe "Boards API", type: :request do
       get api_boards_path
       expect(response).to have_http_status(:unauthorized)
     end
-    it "returns boards" do
+    it "returns current user's boards" do
       get api_boards_path, params: nil, headers: auth_headers(@user)
+      # debugger
       expect(response.body).to look_like_json
-      expect(body_as_json).to match(json_str_to_hash(@user.boards.all.to_json))
+      serializer = UserBoardSerializer.new(@user.user_boards.first)
+      serialization = ActiveModelSerializers::Adapter.create(serializer)
+      expect(body_as_json[0]).to match(json_str_to_hash(serialization.to_json))
+      expect(body_as_json[0]["board"]).not_to be_empty
     end
   end
 
