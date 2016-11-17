@@ -74,6 +74,62 @@ RSpec.describe "Boards API", type: :request do
       serialization = ActiveModelSerializers::Adapter.create(serializer)
       expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
     end
+  end
 
+  describe "PUT /api/boards/:id" do
+
+    it "returns http unauthorized" do
+      put api_board_path(@board)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns http not_found" do
+      put api_board_path({id: 1000000}), params: {name: 'board name'}, headers: auth_headers(@user), as: :json
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "returns http unprocessable_entity" do
+      put api_board_path(@board), params: {name: ''}, headers: auth_headers(@user), as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "updates the board resource" do
+      new_board = build(:board)
+      put api_board_path(@board), params: new_board, headers: auth_headers(@user), as: :json
+      expect(body_as_json["board"]["name"]).to eq(new_board.name)
+      @user.reload
+      @user_board.reload
+      @board.reload
+      serializer = UserBoardSerializer.new(@user_board)
+      serialization = ActiveModelSerializers::Adapter.create(serializer)
+      expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
+    end
+  end
+
+  describe "DELETE /api/boards/:id" do
+
+    it "returns http unauthorized" do
+      delete api_board_path(@board)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns http unauthorized if not board owner" do
+      not_owner = create(:user)
+      delete api_board_path(@board), headers: auth_headers(not_owner), as: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns http not_found" do
+      delete api_board_path({id: 1000000}), headers: auth_headers(@user), as: :json
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "deletes the board resource" do
+      expect{delete api_board_path(@board), headers: auth_headers(@user), as: :json}
+      .to change{@user.boards.count}.by(-1)
+      expect(response).to have_http_status(:ok)
+      expect(Board.find_by_id(@board.id)).to be_nil
+      expect(UserBoard.where(board_id: @board.id).all).to be_empty
+    end
   end
 end
