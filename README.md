@@ -1,11 +1,7 @@
 UNSAKINI
 -----------
 
-todo: Modify description
-
-**Unsakini** ("what is this") in Cebuano language is a bulletin board that encrypts data in the client-side and sends encrypted data to the server. This way, only you can access your data so it stays safe from everyone else, even when the server gets compromised.
-
-The source code is opensourced so you can review it and deploy it on your own server. Anyhow, you can always make use of the deployed app at [www.unsakini.com](https://www.unsakini.com).
+**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board that let's you collaborate, store and share information securely made on top of [Rails 5](http://rubyonrails.org/) and [Angular 2](https://angular.io/).
 
 ### Planned Features
 - [x] Encrypt data
@@ -21,6 +17,9 @@ Installation instructions here...
 
 configurations instructions here..
 
+### Documentation
+ - The backend is a traditional rails 5 app. See the [documentation](/docs/backend/).
+ - The frontend is made of [Angular 2](http://angular.io). See the [documentation](/docs/frontend).
 
 ### Encryption and Decryption Process
 If you look at the network traffic in the browser network tab, you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before being sent. The data is being decrypted in the client side using the same key you supplied. The key is stored in your browser's localStorage and is never sent to the server. Therefore, only you can be able to access your data.

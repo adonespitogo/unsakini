@@ -1,2 +1,2 @@
-class UserBoard < ApplicationRecord
+class UserBoard < BaseModel
 end
