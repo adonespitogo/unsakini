@@ -15,12 +15,9 @@ RSpec.describe "Boards API", type: :request do
     end
     it "returns current user's boards" do
       get api_boards_path, params: nil, headers: auth_headers(@user)
-      # debugger
       expect(response.body).to look_like_json
-      serializer = UserBoardSerializer.new(@user.user_boards.first)
-      serialization = ActiveModelSerializers::Adapter.create(serializer)
-      expect(body_as_json[0]).to match(json_str_to_hash(serialization.to_json))
-      expect(body_as_json[0]["board"]).not_to be_empty
+      expect(body_as_hash[0]).to match(model_as_hash(@user.user_boards.first))
+      expect(body_as_hash[0]["board"]).not_to be_empty
     end
   end
 
@@ -49,9 +46,7 @@ RSpec.describe "Boards API", type: :request do
       .to change{@user.boards.count}.by(1)
       @user.reload
       expect(response).to have_http_status(:created)
-      serializer = UserBoardSerializer.new(@user.user_boards.last)
-      serialization = ActiveModelSerializers::Adapter.create(serializer)
-      expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
+      expect(body_as_hash).to match(model_as_hash(@user.user_boards.last))
     end
   end
 
@@ -70,9 +65,7 @@ RSpec.describe "Boards API", type: :request do
     it "returns board resource" do
       get api_board_path(@board), params: nil, headers: auth_headers(@user)
       expect(response).to have_http_status(:ok)
-      serializer = UserBoardSerializer.new(@user_board)
-      serialization = ActiveModelSerializers::Adapter.create(serializer)
-      expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
+      expect(body_as_hash).to match(model_as_hash(@user_board))
     end
   end
 
@@ -96,13 +89,11 @@ RSpec.describe "Boards API", type: :request do
     it "updates the board resource" do
       new_board = build(:board)
       put api_board_path(@board), params: new_board, headers: auth_headers(@user), as: :json
-      expect(body_as_json["board"]["name"]).to eq(new_board.name)
+      expect(body_as_hash["board"]["name"]).to eq(new_board.name)
       @user.reload
       @user_board.reload
       @board.reload
-      serializer = UserBoardSerializer.new(@user_board)
-      serialization = ActiveModelSerializers::Adapter.create(serializer)
-      expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
+      expect(body_as_hash).to match(model_as_hash(@user_board))
     end
   end
 
