@@ -5,11 +5,13 @@ RSpec::Matchers.define :equal_model do |expected|
 
   match do |actual|
     actual == model_as_hash(expected)
-
   end
 
   failure_message do |actual|
-    "\"#{actual}\" is not equal to model #{expected.class.name}"
+    if actual.class.name.eql? "String"
+      actual = json_str_to_hash(actual)
+    end
+    "\"#{actual}\" is not equal to model #{expected.attributes}"
   end
 
   description do
