@@ -11,8 +11,9 @@ module EncryptableModelConcern
   end
 
   module ClassMethods
-    #Sets the model encryptable_attributes. They are defined in the model using `encryptable_attributes` class method.
-    #
+    # Sets the model `@encryptable_attributes` class instance variable.
+    # They are defined in the model using `encryptable_attributes` class method.
+    # Encryptable attributes are encrypted before saving using `before_save` hook and decrypted using `after_save` and `after_find` hooks.
     # Example:
     # ```
     #   class Board < BaseModel
@@ -24,10 +25,8 @@ module EncryptableModelConcern
     end
   end
 
-  # Returns the model's encryptable attributes. Encryptable attributes are encrypted before saving using `before_save` hook and decrypted
+  # Returns the model's `@encryptable_attributes` class instance variable.
   #
-  # using `after_save` and `after_find` hooks.
-  # @return [Array] array of model attribute names in symbol.
   def encryptable_attributes
     self.class.instance_variable_get(:@encryptable_attributes)
   end
