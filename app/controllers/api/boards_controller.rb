@@ -54,7 +54,7 @@ class Api::BoardsController < ApplicationController
         board_id: @board.id,
         is_admin: true
       })
-      render :json => @user_board
+      render :json => @user_board, status: :created
     else
       render :json => @board.errors, status: 422
     end

@@ -48,6 +48,7 @@ RSpec.describe "Boards API", type: :request do
       expect{post api_boards_path, params: valid_attributes, headers: auth_headers(@user), as: :json}
       .to change{@user.boards.count}.by(1)
       @user.reload
+      expect(response).to have_http_status(:created)
       serializer = UserBoardSerializer.new(@user.user_boards.last)
       serialization = ActiveModelSerializers::Adapter.create(serializer)
       expect(body_as_json).to match(json_str_to_hash(serialization.to_json))
