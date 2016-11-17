@@ -1,5 +1,5 @@
 # check response body equals model
-RSpec::Matchers.define :equal_model do |expected|
+RSpec::Matchers.define :equal_model_hash do |expected|
 
   include Helpers
 

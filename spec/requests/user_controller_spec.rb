@@ -14,7 +14,7 @@ RSpec.describe "User API", type: :request do
     it "returns current user" do
       get api_user_path(@user), params: nil, headers: auth_headers(@user)
       expect(response.body).to look_like_json
-      expect(body_as_json).to equal_model(@user)
+      expect(body_as_json).to equal_model_hash(@user)
     end
   end
 end
