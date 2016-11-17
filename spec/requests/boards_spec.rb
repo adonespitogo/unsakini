@@ -16,8 +16,8 @@ RSpec.describe "Boards API", type: :request do
     it "returns current user's boards" do
       get api_boards_path, params: nil, headers: auth_headers(@user)
       expect(response.body).to look_like_json
-      expect(body_as_hash[0]).to match(model_as_hash(@user.user_boards.first))
-      expect(body_as_hash[0]["board"]).not_to be_empty
+      expect(body_as_hash[0]).to equal_model(@user.user_boards.first)
+      expect(body_as_hash[0]["board"]).to equal_model(@board)
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe "Boards API", type: :request do
       .to change{@user.boards.count}.by(1)
       @user.reload
       expect(response).to have_http_status(:created)
-      expect(body_as_hash).to match(model_as_hash(@user.user_boards.last))
+      expect(body_as_hash).to equal_model(@user.user_boards.last)
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe "Boards API", type: :request do
     it "returns board resource" do
       get api_board_path(@board), params: nil, headers: auth_headers(@user)
       expect(response).to have_http_status(:ok)
-      expect(body_as_hash).to match(model_as_hash(@user_board))
+      expect(body_as_hash).to equal_model(@user_board)
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe "Boards API", type: :request do
       @user.reload
       @user_board.reload
       @board.reload
-      expect(body_as_hash).to match(model_as_hash(@user_board))
+      expect(body_as_hash).to equal_model(@user_board)
     end
   end
 

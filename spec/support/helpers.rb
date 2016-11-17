@@ -30,8 +30,12 @@ module Helpers
 
   def serialize(model_instance)
     # http://stackoverflow.com/questions/1235593/ruby-symbol-to-class
-    serializer = "#{model_instance.class.name}Serializer".constantize
-    ActiveModelSerializers::Adapter.create(serializer.new(model_instance))
+    begin
+      serializer = "#{model_instance.class.name}Serializer".constantize
+      ActiveModelSerializers::Adapter.create(serializer.new(model_instance))
+    rescue Exception => e
+      model_instance
+    end
   end
 
   def model_as_hash(model_instance)
