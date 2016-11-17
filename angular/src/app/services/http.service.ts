@@ -4,6 +4,7 @@ import {Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response,
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
+import { Angular2TokenService } from 'angular2-token';
 
 @Injectable()
 

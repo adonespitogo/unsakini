@@ -19,12 +19,8 @@ development:
 #   database: db/test.sqlite3
 
 test:
-  adapter: mysql2
-  encoding: utf8
+  <<: *default
   database: unsakini-test
-  pool: 5
-  username: root
-  password:
 
 production:
   url: <%= ENV['DATABASE_URL'] %>

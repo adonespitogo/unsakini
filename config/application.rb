@@ -16,6 +16,8 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require_relative "../lib/catch_json_parse_errors"
+
 module UnsakiniRails
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -26,6 +28,7 @@ module UnsakiniRails
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.middleware.use CatchJsonParseErrors
 
     config.middleware.use Rack::Cors do
       allow do
@@ -43,6 +46,7 @@ module UnsakiniRails
     end
 
     config.crypto = config_for(:crypto)
+
 
   end
 end

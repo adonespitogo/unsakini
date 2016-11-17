@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {ListModel} from '../models/list.model';
-import {HttpService} from './http.service';
+import {Angular2TokenService} from 'angular2-token';
 
 @Injectable()
 
@@ -24,10 +24,10 @@ export class ListService {
     return null;
   }
 
-  constructor (private http: HttpService) {}
+  constructor (private http: Angular2TokenService) {}
 
   getLists () {
-    return this.http.get('/lists').map(
+    return this.http.get('boards').map(
       (res) => {
         ListService.lists = [];
         let lists = res.json();
@@ -40,7 +40,7 @@ export class ListService {
   }
 
   getList (id: number) {
-    return this.http.get(`/lists/${id}`).map(
+    return this.http.get(`boards/${id}`).map(
       (res) => {
         let list = new ListModel(res.json());
         for (let i = ListService.lists.length - 1; i >= 0; i--) {
@@ -60,17 +60,18 @@ export class ListService {
   }
 
   createList (list: ListModel) {
-    return this.http.post('/lists', list.serialize()).map(
+    return this.http.post('boards', list.serialize()).map(
       (res) => {
         let newList = new ListModel(res.json());
         ListService.lists.push(newList);
+        console.log(ListService.lists)
         return newList;
       }
     );
   }
 
   updateList (list: ListModel) {
-    return this.http.put(`/lists/${list.id}`, list.serialize()).map(
+    return this.http.put(`boards/${list.id}`, list.serialize()).map(
       (res) => {
         for (let i = ListService.lists.length - 1; i >= 0; i--) {
           if (ListService.lists[i].id === list.id) {
@@ -85,7 +86,7 @@ export class ListService {
   }
 
   deleteList (list: ListModel) {
-    return this.http.delete(`/lists/${list.id}`).map(this._removeFromLists(list));
+    return this.http.delete(`boards/${list.id}`).map(this._removeFromLists(list));
   }
 
   private _removeFromLists (list) {

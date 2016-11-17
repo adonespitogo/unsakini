@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import {UserModel} from '../models/user.model';
 import {CryptoService} from './crypto.service';
 import {HttpService} from './http.service';
+import {Angular2TokenService} from 'angular2-token';
 
 @Injectable()
 
@@ -16,7 +17,7 @@ export class UserService {
   public currentUser$: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
   private fetchingCurrentUserObservable: any;
 
-  constructor (private http: HttpService) { }
+  constructor (private http: Angular2TokenService) { }
 
   setCurrentUser (user) {
     UserService.currentUser = user;
@@ -24,32 +25,31 @@ export class UserService {
   }
 
   getCurrentUser (cached?: boolean): Observable<UserModel> {
-    return Observable.of(UserService.currentUser || new UserModel());
-    // if (cached && UserService.currentUser) {
-    //   return Observable.of(UserService.currentUser);
-    // } else {
-    //   if (this.fetchingCurrentUserObservable) {
-    //     return this.fetchingCurrentUserObservable;
-    //   }
-    //   this.fetchingCurrentUserObservable = new Observable<UserModel>((observable) => {
-    //     this.http.get('/user').map(
-    //       (res) => {
-    //       if (!CryptoService.keyName) {
-    //         CryptoService.setKeyName(res.json());
-    //       }
-    //       UserService.currentUser = new UserModel(res.json());
-    //       this.currentUser$.next(UserService.currentUser);
-    //         return res.json();
-    //       }
-    //     ).subscribe((json) => {
-    //       observable.next(UserService.currentUser);
-    //       observable.complete();
-    //       this.fetchingCurrentUserObservable = null;
-    //       return UserService.currentUser;
-    //     });
-    //   });
-    //   return this.fetchingCurrentUserObservable;
-    // }
+    if (cached && UserService.currentUser) {
+      return Observable.of(UserService.currentUser);
+    } else {
+      if (this.fetchingCurrentUserObservable) {
+        return this.fetchingCurrentUserObservable;
+      }
+      this.fetchingCurrentUserObservable = new Observable<UserModel>((observable) => {
+        this.http.get('user/0').map(
+          (res) => {
+          if (!CryptoService.keyName) {
+            CryptoService.setKeyName(res.json());
+          }
+          UserService.currentUser = new UserModel(res.json());
+          this.currentUser$.next(UserService.currentUser);
+            return res.json();
+          }
+        ).subscribe((json) => {
+          observable.next(UserService.currentUser);
+          observable.complete();
+          this.fetchingCurrentUserObservable = null;
+          return UserService.currentUser;
+        });
+      });
+      return this.fetchingCurrentUserObservable;
+    }
   }
 
   updateUser (user) {

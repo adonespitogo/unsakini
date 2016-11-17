@@ -20,5 +20,32 @@ RSpec.describe "Boards API", type: :request do
     end
   end
 
+  describe "POST /api/boards" do
+    let(:valid_attributes) {
+      {
+        name: "sample"
+      }
+    }
+    let(:invalid_attributes) {
+      {}
+    }
+
+    it "returns http unauthorized" do
+      post api_boards_path
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns http unprocessable_entity" do
+      post api_boards_path, params: invalid_attributes, headers: auth_headers(@user)
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "returns http created" do
+      post api_boards_path, params: valid_attributes, headers: auth_headers(@user), as: :json
+      expect{post api_boards_path, params: valid_attributes, headers: auth_headers(@user), as: :json}
+      .to change{@user.boards.count}.by(1)
+    end
+  end
+
   describe "POST /api/boards"
 end

@@ -18,7 +18,7 @@ export class RegisterService {
   constructor (private http: Http) {}
 
   submit (user: IAuthUser) {
-    return this.http.post('/auth', user).map(
+    return this.http.post('/api/auth', user).map(
       (res) => {
         return res.json();
       }

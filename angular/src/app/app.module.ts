@@ -52,10 +52,7 @@ declare var $: any;
     Angular2TokenService,
     {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions, loader) => {
-        return new HttpService(backend, options, loader);
-      },
-      deps: [XHRBackend, RequestOptions, SlimLoadingBarService]
+      useClass: Angular2TokenService
     }
   ],
   bootstrap: [ AppComponent ],
