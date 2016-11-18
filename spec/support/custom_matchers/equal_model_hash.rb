@@ -11,7 +11,7 @@ RSpec::Matchers.define :equal_model_hash do |expected|
     if actual.class.name.eql? "String"
       actual = json_str_to_hash(actual)
     end
-    "\"#{actual}\" is not equal to model #{expected.attributes}"
+    "\"#{actual}\" is not equal to model #{expected}"
   end
 
   description do

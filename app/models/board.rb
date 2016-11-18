@@ -4,6 +4,6 @@ class Board < BaseModel
 
   has_many :user_boards, :dependent => :delete_all
   has_many :users, through: :user_boards
-  has_many :posts
+  has_many :posts, :dependent => :delete_all
 
 end

@@ -6,7 +6,15 @@ RSpec.describe "Api::Boards", type: :request do
     Timecop.freeze
     @user = create(:user)
     @board = create(:board, name: 'name ni')
-    @user_board = create(:user_board, {user_id: @user.id, board_id: @board.id, is_admin: true})
+    @user_board = create(:user_board, {
+      user_id: @user.id,
+      board_id: @board.id,
+      is_admin: true
+    })
+    @post = create(:post, {
+      user_id: @user.id,
+      board_id: @board.id
+    })
   end
 
   describe "GET /api/boards" do
@@ -59,12 +67,12 @@ RSpec.describe "Api::Boards", type: :request do
     end
 
     it "returns http not_found" do
-      get api_board_path({id: 1000000}), params: nil, headers: auth_headers(@user)
+      get api_board_path({id: 1000000}), headers: auth_headers(@user)
       expect(response).to have_http_status(:not_found)
     end
 
     it "returns board resource" do
-      get api_board_path(@board), params: nil, headers: auth_headers(@user)
+      get api_board_path(@board), headers: auth_headers(@user)
       expect(response).to have_http_status(:ok)
       expect(body_as_hash).to equal_model_hash(@user_board)
     end
@@ -122,6 +130,7 @@ RSpec.describe "Api::Boards", type: :request do
       expect(response).to have_http_status(:ok)
       expect(Board.find_by_id(@board.id)).to be_nil
       expect(UserBoard.where(board_id: @board.id).all).to be_empty
+      expect(Post.where(board_id: @board.id)).to be_empty
     end
   end
 end

@@ -1,6 +1,4 @@
 class Api::UsersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :assign_user
 
   # Renders the current user as json
   #
@@ -19,8 +17,4 @@ class Api::UsersController < ApplicationController
     render json: @user
   end
 
-  private
-    def assign_user
-      @user = current_user
-    end
 end

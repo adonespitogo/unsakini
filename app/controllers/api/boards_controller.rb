@@ -1,7 +1,6 @@
 class Api::BoardsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :assign_user
-  include ::ActionController::Serialization
+  include BoardOwnerConcern
+  before_action :is_board_owner, :only => [:show, :update, :destroy]
 
   # Returns boards belonging to current user
   #
@@ -77,12 +76,7 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def show
-    @user_board = UserBoard.where(user_id: @user.id, board_id: params[:id]).first
-    if @user_board
-      render :json => @user_board
-    else
-      render status: :not_found
-    end
+    render :json => @user_board
   end
 
   # Updates a single board.
@@ -102,15 +96,10 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def update
-    @user_board = UserBoard.where(user_id: @user.id, board_id: params[:id]).first
-    if @user_board
-      if @user_board.board.update(params.permit(:name))
-        render :json => @user_board
-      else
-        render @user_board.board.errors, status: 422
-      end
+    if @user_board.board.update(params.permit(:name))
+      render :json => @user_board
     else
-      render status: :not_found
+      render @user_board.board.errors, status: 422
     end
   end
 
@@ -125,22 +114,8 @@ class Api::BoardsController < ApplicationController
   # Returns `404` status code if resource is not found
 
   def destroy
-    @board = Board.find_by_id(params[:id])
-    if (@board)
-      @user_board = UserBoard.where(user_id: @user.id, board_id: params[:id]).first
-      if (@user_board)
-        @board.destroy
-        render status: :ok
-      else
-        render status: :unauthorized
-      end
-    else
-      render status: :not_found
-    end
+    @board.destroy
+    render status: :ok
   end
 
-  private
-    def assign_user
-      @user = current_user
-    end
 end

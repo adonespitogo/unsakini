@@ -32,14 +32,26 @@ module Helpers
     # http://stackoverflow.com/questions/1235593/ruby-symbol-to-class
     begin
       serializer = "#{model_instance.class.name}Serializer".constantize
-      ActiveModelSerializers::Adapter.create(serializer.new(model_instance))
+      begin
+        ActiveModelSerializers::Adapter.create(serializer.new(model_instance))
+      rescue Exception => e
+        model_instance
+      end
     rescue Exception => e
-      model_instance
+      if model_instance.class.name.eql? "ActiveRecord::AssociationRelation"
+        model_instances = Array.new
+        model_instance.each do |instance|
+          model_instances << serialize(instance)
+        end
+        model_instances
+      else
+        model_instance
+      end
     end
   end
 
-  def model_as_hash(model_instance)
-    json_str_to_hash(serialize(model_instance).to_json)
+  def model_as_hash(model_instance_or_instances)
+    json_str_to_hash(serialize(model_instance_or_instances).to_json)
   end
 end
 
