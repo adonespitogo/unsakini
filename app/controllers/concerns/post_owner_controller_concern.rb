@@ -5,7 +5,7 @@ module PostOwnerControllerConcern
   def ensure_post
     post_id = params[:post_id] || params[:id]
     @post = Post.where(id: post_id, board_id: params[:board_id], user_id: @user.id).first
-    render status: :unauthorized if @post.nil?
+    render status: :forbidden if @post.nil?
   end
 
 end

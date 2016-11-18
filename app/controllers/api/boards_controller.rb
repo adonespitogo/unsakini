@@ -103,7 +103,7 @@ class Api::BoardsController < ApplicationController
         render @user_board.board.errors, status: 422
       end
     else
-      render status: :unauthorized
+      render status: :forbidden
     end
   end
 
@@ -113,7 +113,7 @@ class Api::BoardsController < ApplicationController
 
   # Returns `200` status code on success
   #
-  # Returns `401` status code if unauthorized
+  # Returns `401` status code if forbidden
   #
   # Returns `404` status code if resource is not found
 
@@ -122,7 +122,7 @@ class Api::BoardsController < ApplicationController
       @board.destroy
       render status: :ok
     else
-      render status: :unauthorized
+      render status: :forbidden
     end
   end
 

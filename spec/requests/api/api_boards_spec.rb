@@ -85,9 +85,9 @@ RSpec.describe "Api::Boards", type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
-    it "returns http unauthorized" do
+    it "returns http forbidden" do
       get api_board_path(@my_board), headers: auth_headers(@user_2)
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it "returns board resource" do
@@ -106,9 +106,9 @@ RSpec.describe "Api::Boards", type: :request do
         expect(response).to have_http_status(:unauthorized)
       end
 
-      it "returns http unauthorized" do
+      it "returns http forbidden" do
         put api_board_path(@my_board), params: {name: 'asdadf'}, headers: auth_headers(@user_2), as: :json
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it "returns http not_found" do
@@ -139,9 +139,9 @@ RSpec.describe "Api::Boards", type: :request do
         expect(response).to have_http_status(:unauthorized)
       end
 
-      it "returns http unauthorized if not board owner" do
+      it "returns http forbidden if not board owner" do
         delete api_board_path(@my_board), headers: auth_headers(@user_2), as: :json
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it "returns http not_found" do
@@ -181,10 +181,9 @@ RSpec.describe "Api::Boards", type: :request do
     end
 
     describe "PUT /api/boards/:id" do
-
       it "updates the board resource" do
         put api_board_path(@shared_board), params: valid_attributes, headers: auth_headers(@user_2), as: :json
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
         @shared_board.reload
         expect(@shared_board.name).not_to eq(valid_attributes[:name])
       end
@@ -192,9 +191,9 @@ RSpec.describe "Api::Boards", type: :request do
 
     describe "DELETE /api/boards/:id" do
 
-      it "returns http unauthorized if not board owner" do
+      it "returns http forbidden if not board owner" do
         delete api_board_path(@shared_board), headers: auth_headers(@user_2), as: :json
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
         expect(Board.find(@shared_board.id)).not_to be_nil
       end
     end

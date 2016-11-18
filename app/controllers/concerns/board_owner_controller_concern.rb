@@ -14,7 +14,7 @@ module BoardOwnerControllerConcern
     if (@board)
       @user_board = UserBoard.where(user_id: @user.id, board_id: board_id).first
       if (@user_board.nil?)
-        render status: :unauthorized
+        render status: :forbidden
       end
     else
       render status: :not_found
