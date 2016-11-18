@@ -10,12 +10,11 @@ module BoardOwnerControllerConcern
       @board = Board.find_by_id(board_id)
     else
       render status: :bad_request
+      return
     end
     if (@board)
       @user_board = UserBoard.where(user_id: @user.id, board_id: board_id).first
-      if (@user_board.nil?)
-        render status: :forbidden
-      end
+      render status: :forbidden if @user_board.nil?
     else
       render status: :not_found
     end
