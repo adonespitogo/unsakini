@@ -125,6 +125,9 @@ RSpec.describe "Api::Boards", type: :request do
     end
 
     it "deletes the board resource" do
+      expect(Board.find_by_id(@board.id)).not_to be_nil
+      expect(UserBoard.where(board_id: @board.id).all).not_to be_empty
+      expect(Post.where(board_id: @board.id)).not_to be_empty
       expect{delete api_board_path(@board), headers: auth_headers(@user), as: :json}
       .to change{@user.boards.count}.by(-1)
       expect(response).to have_http_status(:ok)
