@@ -49,9 +49,9 @@ class Api::BoardsController < ApplicationController
     @board = Board.new(params.permit(:name))
     if @board.save
       @user_board = UserBoard.create({
-        user_id: @user.id,
-        board_id: @board.id,
-        is_admin: true
+                                       user_id: @user.id,
+                                       board_id: @board.id,
+                                       is_admin: true
       })
       render :json => @user_board, status: :created
     else
@@ -96,10 +96,14 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def update
-    if @user_board.board.update(params.permit(:name))
-      render :json => @user_board
+    if @user_board.is_admin
+      if @user_board.board.update(params.permit(:name))
+        render :json => @user_board
+      else
+        render @user_board.board.errors, status: 422
+      end
     else
-      render @user_board.board.errors, status: 422
+      render status: :unauthorized
     end
   end
 
@@ -114,8 +118,12 @@ class Api::BoardsController < ApplicationController
   # Returns `404` status code if resource is not found
 
   def destroy
-    @board.destroy
-    render status: :ok
+    if @user_board.is_admin
+      @board.destroy
+      render status: :ok
+    else
+      render status: :unauthorized
+    end
   end
 
 end

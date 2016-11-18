@@ -1,29 +1,30 @@
 require 'rails_helper'
 
+# test scope is @user is owner of the board and owner of the post/s
 RSpec.describe "Api::Board::Posts", type: :request do
 
   before(:each) do
     @user = create :user
     @board = create :board
     @user_board = create(:user_board, {
-      is_admin: true,
-      user_id: @user.id,
-      board_id: @board.id
+                           is_admin: true,
+                           user_id: @user.id,
+                           board_id: @board.id
     })
     @post = create(:post, {
-      user_id: @user.id,
-      board_id: @board.id
+                     user_id: @user.id,
+                     board_id: @board.id
     })
     @other_user = create :user
     @other_board = create :board
     @other_user_board = create(:user_board, {
-      is_admin: true,
-      user_id: @other_user.id,
-      board_id: @other_board.id
+                                 is_admin: true,
+                                 user_id: @other_user.id,
+                                 board_id: @other_board.id
     })
     @other_post = create(:post, {
-      user_id: @other_user.id,
-      board_id: @other_board.id
+                           user_id: @other_user.id,
+                           board_id: @other_board.id
     })
   end
 
@@ -43,8 +44,8 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unauthorized" do
-      get api_board_posts_path(@other_board), headers: auth_headers(@user)
-      expect(response).to have_http_status(:unauthorized)
+      get api_board_posts_path(@board)
+      expect(response).to have_http_status(:unauthorized), auth_headers(@other_user)
     end
     it "return board posts" do
       get api_board_posts_path(@board), headers: auth_headers(@user)
@@ -58,18 +59,10 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unauthorized" do
-      get api_board_post_path(@board, @other_post), headers: auth_headers(@user)
+      get api_board_post_path(@board, @post), headers: auth_headers(@other_user)
       expect(response).to have_http_status(:unauthorized)
     end
-    it "return http unauthorized" do
-      get api_board_post_path(@other_board, @post), headers: auth_headers(@user)
-      expect(response).to have_http_status(:unauthorized)
-    end
-    it "return http unauthorized" do
-      get api_board_post_path(@other_board, @other_post), headers: auth_headers(@user)
-      expect(response).to have_http_status(:unauthorized)
-    end
-    it "return board posts" do
+    it "return post" do
       get api_board_post_path(@board, @post), headers: auth_headers(@user)
       expect(response).to have_http_status(:ok)
       expect(body_as_hash).to equal_model_hash(@post)
@@ -83,7 +76,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unauthorized" do
-      post api_board_posts_path(@other_board), headers: auth_headers(@user), params: valid_attributes, as: :json
+      post api_board_posts_path(@board), headers: auth_headers(@other_user), params: valid_attributes, as: :json
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unprocessable_entity when invalid title" do
@@ -110,7 +103,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unauthorized" do
-      put api_board_post_path(@other_board, @post), headers: auth_headers(@user), params: valid_attributes, as: :json
+      put api_board_post_path(@board, @post), headers: auth_headers(@other_user), params: valid_attributes, as: :json
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unprocessable_entity when invalid title" do
@@ -121,7 +114,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
       put api_board_post_path(@board, @post), headers: auth_headers(@user), params: invalid_content_attribute, as: :json
       expect(response).to have_http_status(:unprocessable_entity)
     end
-    it "updates a post belonging to board" do
+    it "updates my post belonging to my board" do
       board_posts_count = @board.posts.count
       put api_board_post_path(@board, @post), headers: auth_headers(@user), params: valid_attributes, as: :json
       expect(response).to have_http_status(:ok)
@@ -137,15 +130,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
     it "return http unauthorized" do
-      delete api_board_post_path(@board, @other_post), headers: auth_headers(@user)
-      expect(response).to have_http_status(:unauthorized)
-    end
-    it "return http unauthorized" do
-      delete api_board_post_path(@other_board, @post), headers: auth_headers(@user)
-      expect(response).to have_http_status(:unauthorized)
-    end
-    it "return http unauthorized" do
-      delete api_board_post_path(@other_board, @other_post), headers: auth_headers(@user)
+      delete api_board_post_path(@board, @post), headers: auth_headers(@other_user)
       expect(response).to have_http_status(:unauthorized)
     end
     it "return board posts" do

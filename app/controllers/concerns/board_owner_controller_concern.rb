@@ -1,8 +1,8 @@
-#Ensure user is owner of the board and sets the `@board` variable in the controller
+#Ensure user has access to the board and sets the `@board` variable in the controller
 module BoardOwnerControllerConcern
   extend ActiveSupport::Concern
 
-  #Ensure user is owner of the board and sets the `@board` variable in the controller
+  #Ensure user has access to the board and sets the `@board` variable in the controller
   def ensure_board
     board_id = params[:board_id] || params[:id]
     @board = nil
