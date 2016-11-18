@@ -5,6 +5,7 @@ class Api::CommentsController < ApplicationController
 
   before_action :ensure_post, only: [:index, :create]
   before_action :ensure_comment, only: [:show, :update, :destroy]
+  before_action :ensure_comment_owner, only: [:update, :destroy]
 
 # Renders the comments belonging to the post
 #
@@ -34,7 +35,15 @@ class Api::CommentsController < ApplicationController
   def show
   end
 
+# Updates a comment
+#
+# `PUT /api/boards/:board_id/posts/:post_id/comments/:id`
   def update
+    if @comment.update(params.permit(:content))
+      render json: @comment
+    else
+      render json: @comment.errors, status: 422
+    end
   end
 
   def destroy

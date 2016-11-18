@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-shared_examples_for "encryptable" do
+shared_examples_for "encryptable" do |attributes|
   let(:model) { described_class } # the class that includes the concern
 
   let(:model_instance) {
@@ -9,6 +9,7 @@ shared_examples_for "encryptable" do
 
   it "has encryptable attributes" do
     expect(model_instance.encryptable_attributes).not_to be_empty
+    expect(model_instance.encryptable_attributes).to eq(attributes)
   end
 
   it "encrypts encryptable attributes" do
