@@ -1,4 +1,5 @@
 
+--private
 --markup-provider=redcarpet
 --markup=markdown
 --output-dir=public/docs/backend

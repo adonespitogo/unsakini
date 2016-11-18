@@ -1,3 +1,5 @@
+#Board model
+
 class Board < BaseModel
   encryptable_attributes :name
   validates :name, presence: true

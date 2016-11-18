@@ -1,3 +1,4 @@
+#User model
 class User < BaseModel
   # Include default devise modules.
   include DeviseTokenAuth::Concerns::User

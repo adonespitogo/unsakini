@@ -1,3 +1,5 @@
+# Base controller for web pages
+
 class WebBaseController < ActionController::Base
   include ActionController::ImplicitRender
   include ActionView::Layouts

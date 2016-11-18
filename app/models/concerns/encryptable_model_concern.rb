@@ -52,28 +52,33 @@ module EncryptableModelConcern
 
   private
 
-    def empty_val(value)
+    # Determins if the value being encrypted/decryped is empty.
+    def is_empty_val(value)
       !value or value.nil? or value.eql? ""
     end
 
+    # Returns the cipher algorithm used
     def cipher
       OpenSSL::Cipher::Cipher.new('aes-256-cbc')
     end
 
+    # Returns the encryption key from the `crypto` config
     def cipher_key
       Rails.configuration.crypto['key']
     end
 
+    # Encrypts model attribute value
     def encrypt(value)
-      return value if empty_val(value)
+      return value if is_empty_val(value)
       c = cipher.encrypt
       c.key = Digest::SHA256.digest(cipher_key)
       c.iv = iv = c.random_iv
       Base64.encode64(iv) + Base64.encode64(c.update(value.to_s) + c.final)
     end
 
+    # Decrypts model attribute value
     def decrypt(value)
-      return value if empty_val(value)
+      return value if is_empty_val(value)
       c = cipher.decrypt
       c.key = Digest::SHA256.digest(cipher_key)
       c.iv = Base64.decode64 value.slice!(0,25)

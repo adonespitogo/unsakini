@@ -1,3 +1,5 @@
+#Post model
+
 class Post < BaseModel
   encryptable_attributes :title, :content
   validates :title, presence: true
