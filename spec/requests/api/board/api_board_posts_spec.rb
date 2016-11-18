@@ -130,4 +130,30 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(body_as_hash[:content]).to eq(valid_attributes[:content])
     end
   end
+
+  describe "DELETE /api_board_post" do
+    it "return http unauthorized" do
+      delete api_board_post_path(@board, @post)
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it "return http unauthorized" do
+      delete api_board_post_path(@board, @other_post), headers: auth_headers(@user)
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it "return http unauthorized" do
+      delete api_board_post_path(@other_board, @post), headers: auth_headers(@user)
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it "return http unauthorized" do
+      delete api_board_post_path(@other_board, @other_post), headers: auth_headers(@user)
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it "return board posts" do
+      board_posts_count = @board.posts.count
+      delete api_board_post_path(@board, @post), headers: auth_headers(@user)
+      expect(response).to have_http_status(:ok)
+      expect(@board.posts.count).to eq(board_posts_count-1)
+      expect(Post.find_by_id(@post.id)).to be_nil
+    end
+  end
 end

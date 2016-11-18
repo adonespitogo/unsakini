@@ -3,7 +3,7 @@ class Api::PostsController < ApplicationController
   include PostOwnerControllerConcern
 
   before_action :ensure_board, only: [:index, :create]
-  before_action :ensure_post, only: [:show, :update]
+  before_action :ensure_post, only: [:show, :update, :destroy]
 
 # Renders the post belonging to the board
 #
@@ -41,6 +41,14 @@ class Api::PostsController < ApplicationController
     else
       render json: @post.errors, status: 422
     end
+  end
+
+# Deletes a single post belonging to the board
+#
+# `DELETE /api/boards/:board_id/posts/id`
+  def destroy
+    @post.destroy
+    render status: :ok
   end
 
 end
