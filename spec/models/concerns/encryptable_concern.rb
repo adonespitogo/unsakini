@@ -37,18 +37,15 @@ shared_examples_for "encryptable" do
 
   it "encrypts data before saving and decrypts it after saving" do
     model_hash = json_str_to_hash(model_instance.to_json)
-
     expect(model_instance).to receive(:encrypt_encryptable_attributes)
     expect(model_instance).to receive(:decrypt_encryptable_attributes)
-    model_instance.save
+    model_instance.save validate: false
   end
 
   it "decrypts data after find" do
     model_hash = json_str_to_hash(model_instance.to_json)
-
-    model_instance.save
-
-    find_model_instance = model.find(model_instance.id)
+    model_instance.save validate: false
+    find_model_instance = model.find_by_id(model_instance.id)
     find_model_instance.encryptable_attributes.each do |attribute|
       expect(find_model_instance.send(attribute)).to eq(model_hash[attribute])
     end
