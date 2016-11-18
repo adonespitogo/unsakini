@@ -99,6 +99,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
+# http://stackoverflow.com/questions/5608203/rspec-integration-test-not-cleaning-the-database
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
     DatabaseCleaner.strategy = :transaction
