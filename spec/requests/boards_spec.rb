@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Boards API", type: :request do
 
   before(:all) do
+    Timecop.freeze
     @user = create(:user)
     @board = create(:board, name: 'name ni')
     @user_board = create(:user_board, {user_id: @user.id, board_id: @board.id, is_admin: true})

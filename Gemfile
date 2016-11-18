@@ -39,6 +39,10 @@ group :development, :test do
   gem 'yard'
   gem 'redcarpet'
   gem 'github-markup'
+
+  #fix time inconsistencies
+  gem 'rspec-timecop'
+  gem 'database_cleaner'
 end
 
 group :development do

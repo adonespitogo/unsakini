@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "User API", type: :request do
 
   before(:all) do
+    Timecop.freeze
     @user = create(:user)
   end
 

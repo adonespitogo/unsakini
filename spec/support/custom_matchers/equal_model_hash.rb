@@ -15,6 +15,6 @@ RSpec::Matchers.define :equal_model_hash do |expected|
   end
 
   description do
-    "Expects to be Hash to equal model instance"
+    "Expects hash to equal model instance"
   end
 end
