@@ -275,6 +275,33 @@ RSpec.describe "Api::Board::Posts", type: :request do
           end
         end
       end
+
+      describe "Delete my post" do
+        it "return http unauthorized" do
+          delete api_board_post_path(@shared_board, @shared_post)
+          expect(response).to have_http_status(:unauthorized)
+        end
+        describe "Post owner" do
+          it "deletes own post" do
+            board_posts_count = @shared_board.posts.count
+            delete api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user)
+            expect(response).to have_http_status(:ok)
+            expect(@shared_board.posts.count).to eq(board_posts_count-1)
+            expect(Post.find_by_id(@shared_post.id)).to be_nil
+          end
+        end
+
+        describe "Shared user" do
+          it "return http forbidden" do
+            board_posts_count = @shared_board.posts.count
+            delete api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user_2)
+            expect(response).to have_http_status(:forbidden)
+            expect(board_posts_count).to eq(@shared_board.posts.count)
+            expect(Post.find_by_id(@shared_post.id)).not_to be_nil
+          end
+        end
+
+      end
     end
 
   end
