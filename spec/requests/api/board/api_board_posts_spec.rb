@@ -3,6 +3,11 @@ require 'rails_helper'
 # test scope is @user is owner of the board and owner of the post/s
 RSpec.describe "Api::Board::Posts", type: :request do
 
+  before(:all) do
+    Timecop.freeze
+    @user = create(:user)
+  end
+
   before(:each) do
     @user = create :user
     @user_2 = create :user
