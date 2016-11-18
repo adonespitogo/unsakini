@@ -9,6 +9,7 @@ class Api::UsersController < ApplicationController
   # {
   #   id: 1,
   #   name: 'Adones Pitogo',
+  #   email: 'pitogo.adones@gmail.com',
   #   created_at: '..',
   #   updated_at: '..'
   # }
