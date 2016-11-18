@@ -1,7 +1,7 @@
 # check response body equals model
 RSpec::Matchers.define :equal_model_hash do |expected|
 
-  include Helpers
+  include MatcherHelpers
 
   match do |actual|
     actual == model_as_hash(expected)

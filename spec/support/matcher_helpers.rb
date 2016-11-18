@@ -1,4 +1,4 @@
-module Helpers
+module MatcherHelpers
   def auth_headers(user)
     user.create_new_auth_token.merge!(json_request_headers)
   end
@@ -56,5 +56,5 @@ module Helpers
 end
 
 RSpec.configure do |config|
-  config.include Helpers
+  config.include MatcherHelpers
 end

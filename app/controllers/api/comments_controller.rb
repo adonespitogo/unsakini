@@ -27,6 +27,10 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+
+# Show single comment belonging to the post
+#
+# `GET /api/boards/:board_id/posts/:post_id/comments/:id`
   def show
   end
 
