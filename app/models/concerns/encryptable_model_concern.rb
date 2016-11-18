@@ -54,7 +54,7 @@ module EncryptableModelConcern
 
     # Determins if the value being encrypted/decryped is empty.
     def is_empty_val(value)
-      !value or value.nil? or value.eql? ""
+      !value or value.nil? or value == ""
     end
 
     # Returns the cipher algorithm used

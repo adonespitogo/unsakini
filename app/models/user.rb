@@ -1,5 +1,6 @@
 #User model
-class User < BaseModel
+class User < ApplicationRecord
+  include EncryptableModelConcern
   # Include default devise modules.
   include DeviseTokenAuth::Concerns::User
   devise :database_authenticatable, :registerable,

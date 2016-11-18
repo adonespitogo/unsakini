@@ -1,6 +1,7 @@
 #Board model
 
-class Board < BaseModel
+class Board < ApplicationRecord
+  include EncryptableModelConcern
   encryptable_attributes :name
   validates :name, presence: true
 

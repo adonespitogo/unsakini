@@ -19,24 +19,24 @@ shared_examples_for "encryptable" do
   end
 
   it "encrypts encryptable attributes" do
-    model_hash = json_str_to_hash(model_instance.to_json)
+    model_hash = model_as_hash(model_instance)
     model_instance.encrypt_encryptable_attributes
     model_instance.encryptable_attributes.each do |attribute|
-      expect(model_hash[attribute]).not_to eq(model_instance.send(attribute))
+      expect(model_hash[attribute]).not_to eq(model_as_hash(model_instance)[attribute])
     end
   end
 
   it "decrypts encryptable attributes" do
-    model_hash = json_str_to_hash(model_instance.to_json)
+    model_hash = model_as_hash(model_instance)
     model_instance.encrypt_encryptable_attributes
     model_instance.decrypt_encryptable_attributes
     model_instance.encryptable_attributes.each do |attribute|
-      expect(model_hash[attribute]).to eq(model_instance.send(attribute))
+      expect(model_hash[attribute]).to eq(model_as_hash(model_instance)[attribute])
     end
   end
 
   it "encrypts data before saving and decrypts it after saving" do
-    model_hash = json_str_to_hash(model_instance.to_json)
+    model_hash = model_as_hash(model_instance)
     expect(model_instance).to receive(:encrypt_encryptable_attributes)
     expect(model_instance).to receive(:decrypt_encryptable_attributes)
     model_instance.save validate: false

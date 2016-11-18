@@ -2,9 +2,5 @@ require 'rails_helper'
 require 'models/concerns/encryptable_concern'
 
 RSpec.describe Post, type: :model do
-
-  describe 'Post Model' do
-    it_behaves_like 'encryptable'
-  end
-
+  it_behaves_like 'encryptable'
 end
