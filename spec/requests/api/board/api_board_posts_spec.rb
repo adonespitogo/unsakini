@@ -28,8 +28,8 @@ RSpec.describe "Api::Board::Posts", type: :request do
                                     board_id: @shared_board.id
     })
     @shared_post = create(:post, {
-                           user_id: @user_2.id,
-                           board_id: @shared_board.id
+                            user_id: @user.id,
+                            board_id: @shared_board.id
     })
   end
 
@@ -174,6 +174,23 @@ RSpec.describe "Api::Board::Posts", type: :request do
         get api_board_posts_path(@shared_board), headers: auth_headers(@user_2)
         expect(response).to have_http_status(:ok)
         expect(body_as_hash).to equal_model_hash(@shared_board.posts.all)
+      end
+    end
+
+    describe "Get single post" do
+      it "return http unauthorized" do
+        get api_board_post_path(@shared_board, @shared_post)
+        expect(response).to have_http_status(:unauthorized)
+      end
+      it "renders post resource to first user" do
+        get api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user)
+        expect(response).to have_http_status(:ok)
+        expect(body_as_hash).to equal_model_hash(@shared_post)
+      end
+      it "renders post resource to 2nd user" do
+        get api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user_2)
+        expect(response).to have_http_status(:ok)
+        expect(body_as_hash).to equal_model_hash(@shared_post)
       end
     end
 
