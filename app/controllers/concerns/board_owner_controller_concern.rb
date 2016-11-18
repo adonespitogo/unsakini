@@ -1,15 +1,16 @@
 
-module BoardOwnerConcern
+module BoardOwnerControllerConcern
+  extend ActiveSupport::Concern
 
-  # Ensures user is owner of the board.
-  def is_board_owner
+
+  #Ensure user is owner of the board and set `@board` in the controller
+  def ensure_board_set
     board_id = params[:board_id] || params[:id]
     @board = nil
     if !board_id.nil?
       @board = Board.find_by_id(board_id)
     else
-      render status :bad_request, json: {errors: ["Param [:board_id] is nil"]}
-      return
+      render status: :bad_request
     end
     if (@board)
       @user_board = UserBoard.where(user_id: @user.id, board_id: board_id).first

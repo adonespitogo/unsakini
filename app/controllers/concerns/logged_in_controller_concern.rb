@@ -1,5 +1,5 @@
 # Ensures users are logged in
-module LoggedInConcern
+module LoggedInControllerConcern
   extend ActiveSupport::Concern
 
   included do

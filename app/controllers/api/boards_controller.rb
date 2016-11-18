@@ -1,6 +1,6 @@
 class Api::BoardsController < ApplicationController
-  include BoardOwnerConcern
-  before_action :is_board_owner, :only => [:show, :update, :destroy]
+  include BoardOwnerControllerConcern
+  before_action :ensure_board_set, :only => [:show, :update, :destroy]
 
   # Returns boards belonging to current user
   #
