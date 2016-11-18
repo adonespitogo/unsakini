@@ -192,6 +192,51 @@ RSpec.describe "Api::Board::Posts", type: :request do
         expect(response).to have_http_status(:ok)
         expect(body_as_hash).to equal_model_hash(@shared_post)
       end
+
+      describe "Create post" do
+
+        it "return http unauthorized" do
+          post api_board_posts_path(@shared_board), as: :json
+          expect(response).to have_http_status(:unauthorized)
+        end
+
+        describe "Board owner" do
+          it "return http unprocessable_entity when invalid title" do
+            post api_board_posts_path(@shared_board), headers: auth_headers(@user), params: invalid_title_attribute, as: :json
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+          it "return http unprocessable_entity when invalid content" do
+            post api_board_posts_path(@shared_board), headers: auth_headers(@user), params: invalid_content_attribute, as: :json
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+          it "successfully creates a post" do
+            board_posts_count = @shared_board.posts.count
+            post api_board_posts_path(@shared_board), headers: auth_headers(@user), params: valid_attributes, as: :json
+            expect(response).to have_http_status(:created)
+            expect(body_as_hash).to equal_model_hash(@shared_board.posts.last)
+            expect(@shared_board.posts.count).to eq(board_posts_count+1)
+          end
+        end
+
+        describe "Board shared user" do
+          it "return http unprocessable_entity when invalid title" do
+            post api_board_posts_path(@shared_board), headers: auth_headers(@user_2), params: invalid_title_attribute, as: :json
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+          it "return http unprocessable_entity when invalid content" do
+            post api_board_posts_path(@shared_board), headers: auth_headers(@user_2), params: invalid_content_attribute, as: :json
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+          it "successfully creates a post" do
+            board_posts_count = @shared_board.posts.count
+            post api_board_posts_path(@shared_board), headers: auth_headers(@user_2), params: valid_attributes, as: :json
+            expect(response).to have_http_status(:created)
+            expect(body_as_hash).to equal_model_hash(@shared_board.posts.last)
+            expect(@shared_board.posts.count).to eq(board_posts_count+1)
+          end
+        end
+
+      end
     end
 
   end
