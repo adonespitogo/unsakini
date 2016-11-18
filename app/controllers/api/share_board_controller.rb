@@ -43,29 +43,36 @@ class Api::ShareBoardController < ApplicationController
   # The `encrypted_password` param will be used to decrypt contents of this board. The encryption happens in the client so
   # the server don't really know what is the original password. The board creator will have to share it privately to other users whom he/she
   # shares the board with.
+  #
+  # `posts` and `comments` can be empty.
   def index
-
+    
   end
 
   # Validates the contents of params against the database records.
   def validate_params
     if params[:board]
 
-
-      s = has_board_access(params[:board][:id])
-      if s != :ok
-        render status: s
+      result = has_board_access(params[:board][:id])
+      if result[:status] != :ok
+        render status: result[:status]
         return
+      else
+        if !result[:user_board].is_admin
+          render status: :forbidden
+          return
+        end
       end
 
-
       if params[:posts]
+
         params[:posts].each do |post|
           s = has_post_access(params[:board][:id], post[:id])
           if s != :ok
             render status: s
             return
           end
+
           if post[:comments]
             post[:comments].each do |comment|
               s = has_comment_access post[:id], comment[:id]
@@ -75,7 +82,9 @@ class Api::ShareBoardController < ApplicationController
               end
             end
           end
+
         end
+
       end
 
       if params[:encrypted_password].nil? or params[:shared_user_ids].nil?

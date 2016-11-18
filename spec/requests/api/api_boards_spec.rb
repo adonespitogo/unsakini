@@ -31,14 +31,30 @@ RSpec.describe "Api::Boards", type: :request do
 
   let(:valid_attributes) {
     {
-      name: "sample"
+      board: {
+        name: "name"
+      },
+      encrypted_password: "some text"
     }
   }
+
   let(:invalid_attributes) {
-    {name: ""}
+    {
+      board: {
+        name: ""
+      },
+      encrypted_password: "some text"
+    }
   }
 
-
+  let(:invalid_key) {
+    {
+      board: {
+        name: "asdf"
+      },
+      encrypted_password: ""
+    }
+  }
 
   describe "GET /api/boards" do
     it "returns http unauthorized" do
@@ -60,8 +76,21 @@ RSpec.describe "Api::Boards", type: :request do
     end
 
     it "returns http unprocessable_entity" do
+      prev_boards_count = @user.boards.count
+      preve_user_boards_count = @user.user_boards.count
       post api_boards_path, params: invalid_attributes, headers: auth_headers(@user), as: :json
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(@user.boards.count).to eq(prev_boards_count)
+      expect(@user.user_boards.count).to eq(preve_user_boards_count)
+    end
+
+    it "returns http unprocessable_entity" do
+      prev_boards_count = @user.boards.count
+      preve_user_boards_count = @user.user_boards.count
+      post api_boards_path, params: invalid_key, headers: auth_headers(@user), as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(@user.boards.count).to eq(prev_boards_count)
+      expect(@user.user_boards.count).to eq(preve_user_boards_count)
     end
 
     it "returns http created" do
@@ -117,8 +146,21 @@ RSpec.describe "Api::Boards", type: :request do
       end
 
       it "returns http unprocessable_entity" do
-        put api_board_path(@my_board), params: {name: ''}, headers: auth_headers(@user), as: :json
+        put api_board_path(@my_board), params: invalid_attributes, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:unprocessable_entity)
+        @my_board.reload
+        @my_user_board.reload
+        expect(@my_board.name).not_to eq(invalid_attributes[:board][:name])
+        expect(@my_user_board.encrypted_password).not_to eq(invalid_attributes[:encrypted_password])
+      end
+
+      it "returns http unprocessable_entity" do
+        put api_board_path(@my_board), params: invalid_key, headers: auth_headers(@user), as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        @my_board.reload
+        @my_user_board.reload
+        expect(@my_board.name).not_to eq(invalid_attributes[:board][:name])
+        expect(@my_user_board.encrypted_password).not_to eq(invalid_attributes[:encrypted_password])
       end
 
       it "updates the board resource" do

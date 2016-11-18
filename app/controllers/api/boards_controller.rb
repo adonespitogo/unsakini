@@ -47,14 +47,19 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def create
-    @board = Board.new(params.permit(:name))
+    @board = Board.new(params.require(:board).permit(:name))
     if @board.save
-      @user_board = UserBoard.create({
-                                       user_id: @user.id,
-                                       board_id: @board.id,
-                                       is_admin: true
+      @user_board = UserBoard.new({
+                                    user_id: @user.id,
+                                    board_id: @board.id,
+                                    encrypted_password: params[:encrypted_password],
+                                    is_admin: true
       })
-      render :json => @user_board, status: :created
+      if @user_board.save
+        render :json => @user_board, status: :created
+      else
+        render json: @user_board.errors, status: 422
+      end
     else
       render :json => @board.errors, status: 422
     end
@@ -97,10 +102,14 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def update
-    if @user_board.board.update(params.permit(:name))
-      render :json => @user_board
+    if @user_board.board.update(name: params[:board][:name])
+      if @user_board.update(params.permit(:encrypted_password))
+        render :json => @user_board
+      else
+        render :json => @user_board.board.errors, status: 422
+      end
     else
-      render @user_board.board.errors, status: 422
+      render @user_board.board.errors
     end
   end
 
