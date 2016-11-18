@@ -81,7 +81,7 @@ class Api::BoardsController < ApplicationController
 
   # Updates a single board.
   #
-  # `GET /api/boards/:id`
+  # `PUT /api/boards/:id`
   #
   # Return format:
   # ```
