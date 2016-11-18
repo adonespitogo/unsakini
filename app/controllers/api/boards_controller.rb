@@ -1,6 +1,7 @@
 class Api::BoardsController < ApplicationController
   include BoardOwnerControllerConcern
   before_action :ensure_board, :only => [:show, :update, :destroy]
+  before_action :ensure_board_owner, :only => [:update, :destroy]
 
   # Returns boards belonging to current user
   #
@@ -96,14 +97,10 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def update
-    if @user_board.is_admin
-      if @user_board.board.update(params.permit(:name))
-        render :json => @user_board
-      else
-        render @user_board.board.errors, status: 422
-      end
+    if @user_board.board.update(params.permit(:name))
+      render :json => @user_board
     else
-      render status: :forbidden
+      render @user_board.board.errors, status: 422
     end
   end
 
@@ -118,12 +115,8 @@ class Api::BoardsController < ApplicationController
   # Returns `404` status code if resource is not found
 
   def destroy
-    if @user_board.is_admin
-      @board.destroy
-      render status: :ok
-    else
-      render status: :forbidden
-    end
+    @board.destroy
+    render status: :ok
   end
 
 end

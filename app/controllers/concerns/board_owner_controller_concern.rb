@@ -21,4 +21,9 @@ module BoardOwnerControllerConcern
     end
   end
 
+  #Ensures user is owner of the board.
+  def ensure_board_owner
+    render status: :forbidden if !@user_board.is_admin
+  end
+
 end

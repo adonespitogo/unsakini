@@ -11,4 +11,10 @@ module PostOwnerControllerConcern
     render status: :forbidden if @post.nil?
   end
 
+
+  # Ensures user is owner of the post.
+  def ensure_post_owner
+    render status: :forbidden if @post.user_id != @user.id
+  end
+
 end

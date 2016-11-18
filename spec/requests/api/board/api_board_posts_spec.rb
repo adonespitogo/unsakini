@@ -237,6 +237,44 @@ RSpec.describe "Api::Board::Posts", type: :request do
         end
 
       end
+
+      describe "Update my post" do
+
+        # owner of the post in the board should be able to update it
+        it "return http unauthorized" do
+          put api_board_post_path(@shared_board, @shared_post), as: :json
+          expect(response).to have_http_status(:unauthorized)
+        end
+
+        describe "Post owner" do
+          it "return http unprocessable_entity when invalid title" do
+            put api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user), params: invalid_title_attribute, as: :json
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+          it "return http unprocessable_entity when invalid content" do
+            put api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user), params: invalid_content_attribute, as: :json
+            expect(response).to have_http_status(:unprocessable_entity)
+          end
+          it "updates my post belonging to my board" do
+            put api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user), params: valid_attributes, as: :json
+            expect(response).to have_http_status(:ok)
+            expect(body_as_hash).to equal_model_hash(@shared_post.reload)
+            expect(body_as_hash[:title]).to eq(valid_attributes[:title])
+            expect(body_as_hash[:content]).to eq(valid_attributes[:content])
+          end
+        end
+
+        # while the shared user should not
+        describe "Shared user" do
+          it "cannot update the post" do
+            put api_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user_2), params: valid_attributes, as: :json
+            expect(response).to have_http_status(:forbidden)
+            @shared_post.reload
+            expect(@shared_post.title).to_not eq(valid_attributes[:title])
+            expect(@shared_post.content).to_not eq(valid_attributes[:content])
+          end
+        end
+      end
     end
 
   end

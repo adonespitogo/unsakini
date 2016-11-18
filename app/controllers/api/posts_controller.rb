@@ -4,6 +4,7 @@ class Api::PostsController < ApplicationController
 
   before_action :ensure_board, only: [:index, :create]
   before_action :ensure_post, only: [:show, :update, :destroy]
+  before_action :ensure_post_owner, only: [:update, :destroy]
 
 # Renders the post belonging to the board
 #
