@@ -5,9 +5,9 @@ module EncryptableModelConcern
   extend ActiveSupport::Concern
 
   included do
-    before_save :encrypt_encryptable_attributes, :unless => :no_encryptable_attributes
-    after_save :decrypt_encryptable_attributes, :unless => :no_encryptable_attributes
-    after_find :decrypt_encryptable_attributes, :unless => :no_encryptable_attributes
+    before_save :encrypt_encryptable_attributes
+    after_save :decrypt_encryptable_attributes
+    after_find :decrypt_encryptable_attributes
   end
 
   module ClassMethods
@@ -28,7 +28,7 @@ module EncryptableModelConcern
   # Returns the model's `@encryptable_attributes` class instance variable.
   #
   def encryptable_attributes
-    self.class.instance_variable_get(:@encryptable_attributes)
+    self.class.instance_variable_get(:@encryptable_attributes) || []
   end
 
 
@@ -51,10 +51,6 @@ module EncryptableModelConcern
   end
 
   private
-
-    def no_encryptable_attributes
-      encryptable_attributes.nil?
-    end
 
     def cipher
       OpenSSL::Cipher::Cipher.new('aes-256-cbc')
