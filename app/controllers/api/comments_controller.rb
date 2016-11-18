@@ -13,6 +13,9 @@ class Api::CommentsController < ApplicationController
     render json: @post.comments
   end
 
+# Creates new comment belonging to the post
+#
+# `POST /api/boards/:board_id/posts/:post_id/`
   def create
     @comment = Comment.new(params.permit(:content))
     @comment.user = @user
