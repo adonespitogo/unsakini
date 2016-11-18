@@ -27,6 +27,16 @@ RSpec.describe "Api::Board::Posts", type: :request do
     })
   end
 
+  let(:valid_attributes) {
+    {title: "my title", content: "my conetent"}
+  }
+  let(:invalid_title_attribute) {
+    {title: "", content: "asdfadfa"}
+  }
+  let(:invalid_content_attribute) {
+    {title: "afadsf", content: ""}
+  }
+
   describe "GET /api_board_posts" do
     it "return http unauthorized" do
       get api_board_posts_path(@board)
@@ -67,15 +77,6 @@ RSpec.describe "Api::Board::Posts", type: :request do
   end
 
   describe "POST /api_board_posts" do
-    let(:valid_attributes) {
-      {title: "my title", content: "my conetent"}
-    }
-    let(:invalid_title_attribute) {
-      {title: "", content: "asdfadfa"}
-    }
-    let(:invalid_content_attribute) {
-      {title: "afadsf", content: ""}
-    }
 
     it "return http unauthorized" do
       post api_board_posts_path(@board), as: :json
@@ -99,6 +100,34 @@ RSpec.describe "Api::Board::Posts", type: :request do
       expect(response).to have_http_status(:created)
       expect(body_as_hash).to equal_model_hash(@board.posts.last)
       expect(@board.posts.count).to eq(board_posts_count+1)
+    end
+  end
+
+  describe "PUT /api_board_posts" do
+
+    it "return http unauthorized" do
+      put api_board_post_path(@board, @post), as: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it "return http unauthorized" do
+      put api_board_post_path(@other_board, @post), headers: auth_headers(@user), params: valid_attributes, as: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it "return http unprocessable_entity when invalid title" do
+      put api_board_post_path(@board, @post), headers: auth_headers(@user), params: invalid_title_attribute, as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+    it "return http unprocessable_entity when invalid content" do
+      put api_board_post_path(@board, @post), headers: auth_headers(@user), params: invalid_content_attribute, as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+    it "updates a post belonging to board" do
+      board_posts_count = @board.posts.count
+      put api_board_post_path(@board, @post), headers: auth_headers(@user), params: valid_attributes, as: :json
+      expect(response).to have_http_status(:ok)
+      expect(body_as_hash).to equal_model_hash(@board.posts.last)
+      expect(body_as_hash[:title]).to eq(valid_attributes[:title])
+      expect(body_as_hash[:content]).to eq(valid_attributes[:content])
     end
   end
 end

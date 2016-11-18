@@ -3,7 +3,7 @@ class Api::PostsController < ApplicationController
   include PostOwnerControllerConcern
 
   before_action :ensure_board, only: [:index, :create]
-  before_action :ensure_post, only: [:show]
+  before_action :ensure_post, only: [:show, :update]
 
 # Renders the post belonging to the board
 #
@@ -27,6 +27,17 @@ class Api::PostsController < ApplicationController
     @post.user = @user
     if (@post.save)
       render json: @post, status: :created
+    else
+      render json: @post.errors, status: 422
+    end
+  end
+
+# Updates a single post belonging to the board
+#
+# `PUT /api/boards/:board_id/posts/id`
+  def update
+    if (@post.update(params.permit(:title, :content)))
+      render json: @post, status: :ok
     else
       render json: @post.errors, status: 422
     end
