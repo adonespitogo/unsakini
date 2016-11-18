@@ -7,14 +7,14 @@ shared_examples_for "encryptable" do
     build(described_class.to_s.underscore.to_sym)
   }
 
-  let(:valid_attributes) {
+  let(:valid_encryptable_attributes) {
     # exclude date and id fields
     cols = model.column_names.select { |c| !(c.include? "id" or c.include? "_at")}
     cols.map {|c| c.to_sym}
   }
 
   it "has encryptable attributes" do
-    model.encryptable_attributes *valid_attributes
+    model.encryptable_attributes *valid_encryptable_attributes
     expect(model_instance.encryptable_attributes).not_to be_empty
   end
 
