@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/app/*ngroute', to: 'web_base#app'
   # ng2 html5 pushState routes
 
-  namespace :api, :defaults => { :format => :json } do
+  namespace :api do
     resource :user
     resources :boards do
       resources :posts
