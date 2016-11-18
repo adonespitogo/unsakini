@@ -2,8 +2,8 @@ class Api::PostsController < ApplicationController
   include BoardOwnerControllerConcern
   include PostOwnerControllerConcern
 
-  before_action :ensure_board_set, only: [:index, :create]
-  before_action :ensure_post_set, only: [:show]
+  before_action :ensure_board, only: [:index, :create]
+  before_action :ensure_post, only: [:show]
 
 # Renders the post belonging to the board
 #

@@ -4,7 +4,7 @@ module BoardOwnerControllerConcern
 
 
   #Ensure user is owner of the board and set `@board` in the controller
-  def ensure_board_set
+  def ensure_board
     board_id = params[:board_id] || params[:id]
     @board = nil
     if !board_id.nil?
