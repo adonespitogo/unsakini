@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   # ng2 html5 pushState routes
 
   namespace :api, :defaults => { :format => :json } do
-    resources :user
-    resources :boards
+    resource :user
+    resources :boards do
+      resources :posts
+    end
   end
 
 end

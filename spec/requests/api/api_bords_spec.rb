@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Boards API", type: :request do
+RSpec.describe "Api::Boards", type: :request do
 
   before(:all) do
     Timecop.freeze

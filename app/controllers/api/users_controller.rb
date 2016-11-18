@@ -1,4 +1,4 @@
-class Api::UserController < ApplicationController
+class Api::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :assign_user
 
