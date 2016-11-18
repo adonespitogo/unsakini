@@ -85,9 +85,20 @@ RSpec.describe "Api::Board::Posts", type: :request do
       post api_board_posts_path(@other_board), headers: auth_headers(@user), params: valid_attributes, as: :json
       expect(response).to have_http_status(:unauthorized)
     end
-    it "return http unprocessable_entity" do
+    it "return http unprocessable_entity when invalid title" do
       post api_board_posts_path(@board), headers: auth_headers(@user), params: invalid_title_attribute, as: :json
       expect(response).to have_http_status(:unprocessable_entity)
+    end
+    it "return http unprocessable_entity when invalid content" do
+      post api_board_posts_path(@board), headers: auth_headers(@user), params: invalid_content_attribute, as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+    it "creates a post belonging to board" do
+      board_posts_count = @board.posts.count
+      post api_board_posts_path(@board), headers: auth_headers(@user), params: valid_attributes, as: :json
+      expect(response).to have_http_status(:created)
+      expect(body_as_hash).to equal_model_hash(@board.posts.last)
+      expect(@board.posts.count).to eq(board_posts_count+1)
     end
   end
 end

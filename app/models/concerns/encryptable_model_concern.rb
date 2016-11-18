@@ -52,6 +52,10 @@ module EncryptableModelConcern
 
   private
 
+    def empty_val(value)
+      !value or value.nil? or value.eql? ""
+    end
+
     def cipher
       OpenSSL::Cipher::Cipher.new('aes-256-cbc')
     end
@@ -61,6 +65,7 @@ module EncryptableModelConcern
     end
 
     def encrypt(value)
+      return value if empty_val(value)
       c = cipher.encrypt
       c.key = Digest::SHA256.digest(cipher_key)
       c.iv = iv = c.random_iv
@@ -68,6 +73,7 @@ module EncryptableModelConcern
     end
 
     def decrypt(value)
+      return value if empty_val(value)
       c = cipher.decrypt
       c.key = Digest::SHA256.digest(cipher_key)
       c.iv = Base64.decode64 value.slice!(0,25)

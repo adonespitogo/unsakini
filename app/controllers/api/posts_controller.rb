@@ -3,7 +3,7 @@ class Api::PostsController < ApplicationController
   include PostOwnerControllerConcern
 
   before_action :ensure_board_set, only: [:index, :create]
-  before_action :is_post_owner, only: [:show]
+  before_action :ensure_post_set, only: [:show]
 
 # Renders the post belonging to the board
 #
@@ -23,7 +23,13 @@ class Api::PostsController < ApplicationController
 #
 # `POST /api/boards/:board_id/posts/`
   def create
-    render status: :ok
+    @post = Post.new(params.permit(:title, :content, :board_id))
+    @post.user = @user
+    if (@post.save)
+      render json: @post, status: :created
+    else
+      render json: @post.errors, status: 422
+    end
   end
 
 end
