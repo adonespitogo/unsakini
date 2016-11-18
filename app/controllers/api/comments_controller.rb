@@ -28,13 +28,6 @@ class Api::CommentsController < ApplicationController
     end
   end
 
-
-# Show single comment belonging to the post
-#
-# `GET /api/boards/:board_id/posts/:post_id/comments/:id`
-  def show
-  end
-
 # Updates a comment
 #
 # `PUT /api/boards/:board_id/posts/:post_id/comments/:id`
@@ -46,6 +39,11 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+# Deletes a comment
+#
+# `DELETE /api/boards/:board_id/posts/:post_id/comments/:id`
   def destroy
+    @comment.destroy
+    render status: :ok
   end
 end

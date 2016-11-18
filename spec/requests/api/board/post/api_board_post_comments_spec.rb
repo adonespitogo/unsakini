@@ -155,6 +155,29 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           end
         end
 
+        describe "Deleting my comment on my post" do
+          it "returns http forbidden if not comment owner" do
+            prev_comment_count = @my_post.comments.count
+            delete(
+              api_board_post_comment_path(@my_board, @my_post, @my_comment),
+              headers:  auth_headers(@user_2),
+            )
+            expect(response).to have_http_status(:forbidden)
+            expect(@my_post.comments.count).to eq(prev_comment_count)
+            expect(Comment.find_by_id(@my_comment.id)).not_to be_nil
+          end
+          it "Deletes my comment if user is me" do
+            prev_comment_count = @my_post.comments.count
+            delete(
+              api_board_post_comment_path(@my_board, @my_post, @my_comment),
+              headers:  auth_headers(@user),
+            )
+            expect(response).to have_http_status(:ok)
+            expect(@my_post.comments.count).to eq(prev_comment_count-1)
+            expect(Comment.find_by_id(@my_comment.id)).to be_nil
+          end
+        end
+
       end
     end
   end
