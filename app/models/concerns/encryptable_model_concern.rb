@@ -5,9 +5,9 @@ module EncryptableModelConcern
   extend ActiveSupport::Concern
 
   included do
-    before_save :encrypt_values, :unless => :no_encryptable_attributes
-    after_save :decrypt_values, :unless => :no_encryptable_attributes
-    after_find :decrypt_values, :unless => :no_encryptable_attributes
+    before_save :encrypt_encryptable_attributes, :unless => :no_encryptable_attributes
+    after_save :decrypt_encryptable_attributes, :unless => :no_encryptable_attributes
+    after_find :decrypt_encryptable_attributes, :unless => :no_encryptable_attributes
   end
 
   module ClassMethods
@@ -35,7 +35,7 @@ module EncryptableModelConcern
   # Encryptes the model's encryptable attributes before saving using Rails' `before_save` hook.
   #
   # **Note: Be careful in calling this method manually as it can corrupt the data.**
-  def encrypt_values
+  def encrypt_encryptable_attributes
     encryptable_attributes.each do |k|
       self[k] = encrypt(self[k])
     end
@@ -44,7 +44,7 @@ module EncryptableModelConcern
   # Decrypts the model's encryptable attributes using Rails' `after_save` and `after_find` hooks.
   #
   # **Note: Be careful in calling this method manually as it can corrupt the data.**
-  def decrypt_values
+  def decrypt_encryptable_attributes
     encryptable_attributes.each do |k|
       self[k] = decrypt(self[k])
     end
