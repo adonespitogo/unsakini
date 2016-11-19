@@ -146,12 +146,12 @@ RSpec.describe "Api::Boards", type: :request do
       end
 
       it "returns http unprocessable_entity" do
-        put api_board_path(@my_board), params: invalid_attributes, headers: auth_headers(@user), as: :json
+        put api_board_path(@my_board), params: invalid_key, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         @my_board.reload
         @my_user_board.reload
-        expect(@my_board.name).not_to eq(invalid_attributes[:board][:name])
-        expect(@my_user_board.encrypted_password).not_to eq(invalid_attributes[:encrypted_password])
+        expect(@my_board.name).not_to eq(invalid_key[:board][:name])
+        expect(@my_user_board.encrypted_password).not_to eq(invalid_key[:encrypted_password])
       end
 
       it "returns http unprocessable_entity" do
@@ -164,9 +164,9 @@ RSpec.describe "Api::Boards", type: :request do
       end
 
       it "updates the board resource" do
-        new_board = build(:board)
-        put api_board_path(@my_board), params: new_board, headers: auth_headers(@user), as: :json
-        expect(body_as_hash["board"]["name"]).to eq(new_board.name)
+        put api_board_path(@my_board), params: valid_attributes, headers: auth_headers(@user), as: :json
+        expect(response).to have_http_status(:ok)
+        expect(body_as_hash[:board][:name]).to eq(valid_attributes[:board][:name])
         @user.reload
         @my_user_board.reload
         @my_board.reload

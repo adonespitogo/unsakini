@@ -102,14 +102,11 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def update
-    if @user_board.board.update(name: params[:board][:name])
-      if @user_board.update(params.permit(:encrypted_password))
-        render :json => @user_board
-      else
-        render :json => @user_board.board.errors, status: 422
-      end
+    saved = @user_board.set_name_and_password(params[:board][:name], params[:encrypted_password])
+    if saved
+      render json: @user_board
     else
-      render @user_board.board.errors
+      render json: @user_board.errors, status: 422
     end
   end
 
@@ -126,6 +123,11 @@ class Api::BoardsController < ApplicationController
   def destroy
     @board.destroy
     render status: :ok
+  end
+
+  private
+  def ensure_not_blank
+
   end
 
 end

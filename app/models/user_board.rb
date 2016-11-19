@@ -8,4 +8,15 @@ class UserBoard < ApplicationRecord
 
   belongs_to :user
   belongs_to :board, autosave: true
+
+  def set_name_and_password(name, password)
+    ActiveRecord::Base.transaction do
+      self.encrypted_password = password
+      self.save!
+      board.name = name
+      board.save!
+    end
+  rescue ActiveRecord::RecordInvalid => exception
+    return false
+  end
 end

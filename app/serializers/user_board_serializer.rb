@@ -3,6 +3,6 @@
 #
 
 class UserBoardSerializer < ActiveModel::Serializer
-  attributes :is_admin
+  attributes :is_admin, :encrypted_password
   belongs_to :board
 end
