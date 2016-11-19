@@ -76,6 +76,14 @@ GEM
       activesupport (>= 4.1.0)
     hashie (3.4.6)
     i18n (0.7.0)
+    json-schema (2.7.0)
+      addressable (>= 2.4)
+    json-schema-rspec (0.0.4)
+      json-schema (~> 2.5)
+      rspec
+    json_spec (1.1.4)
+      multi_json (~> 1.0)
+      rspec (>= 2.0, < 4.0)
     jsonapi (0.1.1.beta6)
       jsonapi-parser (= 0.1.1.beta3)
       jsonapi-renderer (= 0.1.1.beta1)
@@ -98,6 +106,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    multi_json (1.12.1)
     mysql2 (0.4.4)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
@@ -146,6 +155,10 @@ GEM
     redcarpet (3.3.4)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -210,6 +223,8 @@ DEPENDENCIES
   factory_girl_rails
   faker
   github-markup
+  json-schema-rspec
+  json_spec
   letter_opener
   listen (~> 3.0.5)
   mysql2

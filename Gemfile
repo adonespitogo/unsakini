@@ -42,7 +42,10 @@ group :development, :test do
 
   #fix time inconsistencies
   gem 'rspec-timecop'
+
   gem 'database_cleaner'
+  gem 'json_spec'
+  gem 'json-schema-rspec'
 end
 
 group :development do

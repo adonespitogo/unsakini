@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :board do
-    name "MyText"
+    name {Faker::Name.title}
   end
 end
