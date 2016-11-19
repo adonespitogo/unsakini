@@ -6,8 +6,5 @@ class UserBoardSerializer < ActiveModel::Serializer
   attributes :id, :is_admin, :encrypted_password, :created_at, :updated_at
   belongs_to :board
 
-  class BoardSerializer < ActiveModel::Serializer
-    attributes :name
-  end
 
 end
