@@ -108,12 +108,13 @@ RSpec.configure do |config|
 
   config.before(:each) do |group|
     # The strategy needs to be set before we call DatabaseCleaner.start
-    case group.metadata[:type]
-    when :feature
-      DatabaseCleaner.strategy = :truncation
-    else
-      DatabaseCleaner.strategy = :transaction
-    end
+    # case group.metadata[:type]
+    # when :feature
+    #   DatabaseCleaner.strategy = :truncation
+    # else
+    #   DatabaseCleaner.strategy = :transaction
+    # end
+    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start
   end
 

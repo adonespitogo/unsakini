@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "requires": ["id", "name", "email", "created_at", "updated_at"],
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  }
+}
