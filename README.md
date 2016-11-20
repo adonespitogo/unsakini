@@ -21,7 +21,7 @@ Hackers, surveillance and spy softwares and even the server host cannot read you
 
 To increase the security, your data is re-encrypted in the backend before being saved to the database, which adds a second layer of protection.
 
-So to access your data, the hacker needs to know two things - (1) your private key and (2) the server encryption key. That is, if they are able to compromise the server security and gets access to the database. Even so, they won't be able to read the data without these two elements.
+So to access your data, the hacker needs to know two things - (1) your private key and (2) the server encryption key. That is, if they are able to bypass the server security and gets access to the database. Even so, they won't be able to read the data without these two elements.
 
 The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), the most widely used and trusted encryption algorithm.
 
