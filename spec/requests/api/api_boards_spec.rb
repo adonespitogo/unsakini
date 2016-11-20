@@ -81,16 +81,10 @@ RSpec.describe "Api::Boards", type: :request do
   context "My Boards" do
 
     before(:all) do
-      user_has_board_scenario
-      @user_2 = create(:user)
+      user_has_shared_board_scenario
     end
 
     describe "GET /api/boards/:id" do
-
-      before(:all) do
-        user_has_board_scenario
-        @user_2 = create :user
-      end
 
       it "returns http unauthorized" do
         get api_board_path(@board)
@@ -154,10 +148,13 @@ RSpec.describe "Api::Boards", type: :request do
         put api_board_path(@board), params: valid_board_params, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:ok)
         expect(response.body).to match_json_schema(:board)
-        # debugger
         expect(parse_json(response.body)['board']['name']).to eq(valid_board_params[:board][:name])
+        expect(parse_json(response.body)['encrypted_password']).to eq(valid_board_params[:encrypted_password])
         @user_board.reload
         expect(response.body).to be_json_eql(serialize(@user_board))
+        expect(@board.user_boards.where.not(encrypted_password: '').first).to eq @user_board
+        expect(@board.user_boards.where.not(encrypted_password: '').count).to eq 1
+        expect(@shared_board.user_boards.where.not(encrypted_password: '').all).not_to be_nil
       end
     end
 

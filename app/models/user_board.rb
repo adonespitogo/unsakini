@@ -2,11 +2,16 @@
 
 class UserBoard < ApplicationRecord
   include EncryptableModelConcern
-  validates :encrypted_password, presence: true
+  validates :encrypted_password, presence: true, if: :admin?
   encryptable_attributes :encrypted_password
 
   belongs_to :user
   belongs_to :board, autosave: true
+  after_save :reset_user_boards_encrypted_password
+
+  def admin?
+    self.is_admin
+  end
 
   def create_with_board(board_name, password)
     ActiveRecord::Base.transaction do
@@ -32,5 +37,9 @@ class UserBoard < ApplicationRecord
     end
   rescue ActiveRecord::RecordInvalid => invalid
     false
+  end
+
+  def reset_user_boards_encrypted_password
+    UserBoard.where("board_id = ? AND user_id != ?", self.id, self.user_id).update_all(encrypted_password: nil)
   end
 end

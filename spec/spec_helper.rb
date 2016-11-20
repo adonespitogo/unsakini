@@ -16,7 +16,6 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'database_cleaner'
 
 RSpec.configure do |config|
 
@@ -99,28 +98,6 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-
-  # http://stackoverflow.com/questions/5608203/rspec-integration-test-not-cleaning-the-database
-  config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each) do |group|
-    # The strategy needs to be set before we call DatabaseCleaner.start
-    # case group.metadata[:type]
-    # when :feature
-    #   DatabaseCleaner.strategy = :truncation
-    # else
-    #   DatabaseCleaner.strategy = :transaction
-    # end
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
 
 
 end
