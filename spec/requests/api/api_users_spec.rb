@@ -24,8 +24,6 @@ RSpec.describe "Api::Users", type: :request do
 
     before(:all) do
       @user_2 = create(:user)
-      @user_3 = create(:user)
-      @user_4 = create(:user)
     end
 
     it "returns http unauthorized" do
