@@ -135,10 +135,6 @@ RSpec.describe "Api::ShareBoard", type: :request do
       expect(@user_3.boards.count).to eq(user_3_boards_count+1)
       expect(@user_4.boards.count).to eq(user_4_boards_count+1)
 
-      # expect(@post.reload.title).to eq @payload_wo_posts[:posts][0][:title.to_s]
-      # expect(@post.reload.content).to eq @payload_wo_posts[:posts][0][:content.to_s]
-      # expect(@comment.reload.content).to eq @payload_wo_posts[:posts][0][:comments][0][:content.to_s]
-
     end
 
     it "should successfully share valid payload" do |variable|
