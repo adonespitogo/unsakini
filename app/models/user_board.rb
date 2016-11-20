@@ -7,10 +7,14 @@ class UserBoard < ApplicationRecord
 
   belongs_to :user
   belongs_to :board, autosave: true
-  after_save :reset_user_boards_encrypted_password
+  after_save :reset_user_boards_encrypted_password, if: :encrypted_password_changed?
 
   def admin?
     self.is_admin
+  end
+
+  def encrypted_password_changed?
+    @old_key != self.encrypted_password
   end
 
   def create_with_board(board_name, password)
@@ -29,6 +33,8 @@ class UserBoard < ApplicationRecord
 
   # Updates the board name and encrypted_password within a transaction
   def update_password_and_board(board_name, password)
+    # debugger if password == self.encrypted_password
+    @old_key = self.encrypted_password
     ActiveRecord::Base.transaction do
       board.name = board_name
       board.save!
@@ -40,6 +46,6 @@ class UserBoard < ApplicationRecord
   end
 
   def reset_user_boards_encrypted_password
-    UserBoard.where("board_id = ? AND user_id != ?", self.id, self.user_id).update_all(encrypted_password: nil)
+    UserBoard.where("board_id = ? AND user_id != ?", self.board_id, self.user_id).update_all(encrypted_password: nil)
   end
 end

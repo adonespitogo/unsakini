@@ -73,7 +73,7 @@
           "type": "string"
         },
         "encrypted_password": {
-          "type": "string"
+          "type": "string|nil"
         },
         "created_at": {
           "type": "string"
