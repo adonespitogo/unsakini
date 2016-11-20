@@ -7,20 +7,6 @@ class Api::BoardsController < ApplicationController
   #
   # `GET /api/boards`
   #
-  # Return format:
-  # ```
-  # [
-  #  {
-  #   is_admin: true,
-  #   board: {
-  #     id: 1,
-  #     name: 'board name',
-  #     created_at: ..,
-  #     updated_at: ..,
-  #   }
-  #  }
-  # ]
-  # ```
   def index
     render json: @user.user_boards
   end
@@ -29,7 +15,6 @@ class Api::BoardsController < ApplicationController
   #
   # `POST /api/boards`
   #
-  # ```
   def create
     @user_board = UserBoard.new(user_id: @user.id, encrypted_password: params[:encrypted_password])
     if @user_board.create_with_board(params[:board][:name])
@@ -44,18 +29,6 @@ class Api::BoardsController < ApplicationController
   #
   # `GET /api/boards/:id`
   #
-  # Return format:
-  # ```
-  # {
-  #   is_admin: true,
-  #   board: {
-  #     id: 1,
-  #     name: 'board name',
-  #     created_at: '..',
-  #     updated_at: '..'
-  #   }
-  # }
-  # ```
   def show
     render :json => @user_board
   end
@@ -63,19 +36,6 @@ class Api::BoardsController < ApplicationController
   # Updates a single board.
   #
   # `PUT /api/boards/:id`
-  #
-  # Return format:
-  # ```
-  # {
-  #   is_admin: true,
-  #   board: {
-  #     id: 1,
-  #     name: 'board name',
-  #     created_at: '..',
-  #     updated_at: '..'
-  #   }
-  # }
-  # ```
   def update
     if @user_board.update_password_and_board(params[:board][:name], params[:encrypted_password])
       render json: @user_board
@@ -86,15 +46,8 @@ class Api::BoardsController < ApplicationController
   end
 
   # Deletes a board resource.
-
+  #
   # `DELETE /api/boards/:id`
-
-  # Returns `200` status code on success
-  #
-  # Returns `401` status code if forbidden
-  #
-  # Returns `404` status code if resource is not found
-
   def destroy
     @board.destroy
     render status: :ok
