@@ -123,11 +123,13 @@ RSpec.describe "Api::Board::Posts", type: :request do
         expect(response).to have_http_status(:forbidden)
       end
       it "removes my post" do
+        post_id = @post.id
         board_posts_count = @board.posts.count
         delete api_board_post_path(@board, @post), headers: auth_headers(@user)
         expect(response).to have_http_status(:ok)
         expect(@board.posts.count).to eq(board_posts_count-1)
-        expect(Post.find_by_id(@post.id)).to be_nil
+        expect(Post.find_by_id(post_id)).to be_nil
+        expect(Comment.where(post_id: post_id)).to be_empty
       end
     end
   end

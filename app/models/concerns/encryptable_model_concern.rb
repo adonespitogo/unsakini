@@ -12,13 +12,16 @@ module EncryptableModelConcern
 
   module ClassMethods
     # Sets the model `@encryptable_attributes` class instance variable.
+    #
     # Encryptable attributes are encrypted before saving using `before_save` hook and decrypted using `after_save` and `after_find` hooks.
+    #
     # Example:
     # ```
     #   class Board < BaseModel
     #     encryptable_attributes :name, :title, :content
     #   end
     # ```
+    # @param *attrs [Symbol] model attributes
     def encryptable_attributes(*attrs)
       @encryptable_attributes = attrs
     end
