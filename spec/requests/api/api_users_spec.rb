@@ -20,7 +20,7 @@ RSpec.describe "Api::Users", type: :request do
     end
   end
 
-  describe "GET /api/user/search" do
+  describe "GET /api/users/search" do
 
     before(:all) do
       @user_2 = create(:user)
