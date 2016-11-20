@@ -12,21 +12,14 @@ shared_examples_for "encryptable" do |attributes|
     expect(model_instance.encryptable_attributes).to eq(attributes)
   end
 
-  it "encrypts encryptable attributes" do
+  it "encrypts and decrypts encryptable attributes" do
     model_hash = parse_json(model_instance.to_json)
-    model_instance.encrypt_encryptable_attributes
-    model_instance.encryptable_attributes.each do |attribute|
-      expect(model_hash[attribute.to_s]).not_to eq(model_instance.send(attribute))
+    model_instance.save
+    where_param = Hash.new
+    model_instance.encryptable_attributes.each do |variable|
+      where_param[variable] = model_hash[variable.to_s]
     end
-  end
-
-  it "decrypts encryptable attributes" do
-    model_hash = parse_json(model_instance.to_json)
-    model_instance.encrypt_encryptable_attributes
-    model_instance.decrypt_encryptable_attributes
-    model_instance.encryptable_attributes.each do |attribute|
-      expect(model_hash[attribute.to_s]).to eq(model_instance.send(attribute))
-    end
+    expect(model.where(where_param).count).to eq 0
   end
 
   it "encrypts data before saving and decrypts it after saving" do
