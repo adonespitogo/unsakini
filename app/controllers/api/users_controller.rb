@@ -22,7 +22,7 @@ class Api::UsersController < ApplicationController
 #
 `GET /api/users/search`
   def search
-    user = User.where(email: params[:email]).first
+    user = User.where("email = ? AND email != ?", params[:email], @user.email).first
     if user
       render json: user
     else

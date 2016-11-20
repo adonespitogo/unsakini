@@ -38,6 +38,11 @@ RSpec.describe "Api::Users", type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
+    it "returns http not_found if my email" do
+      get api_user_search_path, params: {email: @user.email}, headers: auth_headers(@user)
+      expect(response).to have_http_status(:not_found)
+    end
+
     it "returns single user with by email" do
       get api_user_search_path, params: {email: @user_2.email}, headers: auth_headers(@user)
       expect(response).to have_http_status(:ok)
