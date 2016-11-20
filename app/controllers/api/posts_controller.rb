@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
 
 # Renders a single post belonging to the board
 #
-# `GET /api/boards/:board_id/posts/id`
+# `GET /api/boards/:board_id/posts/:id`
   def show
     render json: @post
   end
@@ -35,7 +35,7 @@ class Api::PostsController < ApplicationController
 
 # Updates a single post belonging to the board
 #
-# `PUT /api/boards/:board_id/posts/id`
+# `PUT /api/boards/:board_id/posts/:id`
   def update
     if (@post.update(params.permit(:title, :content)))
       render json: @post, status: :ok
@@ -46,7 +46,7 @@ class Api::PostsController < ApplicationController
 
 # Deletes a single post belonging to the board
 #
-# `DELETE /api/boards/:board_id/posts/id`
+# `DELETE /api/boards/:board_id/posts/:id`
   def destroy
     @post.destroy
     render status: :ok

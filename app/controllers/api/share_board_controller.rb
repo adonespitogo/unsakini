@@ -14,24 +14,18 @@ class Api::ShareBoardController < ApplicationController
   #   board: {
   #     id: 1,
   #     name: 'some encrypted text',
-  #     created_at: '..',
-  #     updated_at: '..'
   #   },
   #   posts: [
   #     {
   #       board_id: 1,
   #       title: 'some encrypted text',
   #       content: 'some encrypted text',
-  #       created_at: '..',
-  #       updated_at: '..',
   #       comments: [
   #         {
   #           id: 1,
   #           content: 'some encrypted text',
   #           user_id: 1,
   #           post_id: 1,
-  #           created_at: '..',
-  #           updated_at: '..',
   #         }
   #       ]
   #     }
@@ -41,38 +35,35 @@ class Api::ShareBoardController < ApplicationController
   # }
   # ```
   # The `encrypted_password` param will be used to decrypt contents of this board. The encryption happens in the client so
-  # the server don't really know what is the original password. The board creator will have to share it privately to other users whom he/she
-  # shares the board with.
+  # the server don't really know what is the original password. The board creator will have to share it privately to other users whom he/she shared it with so they can access the board.
   #
-  # `posts` and `comments` keys can be empty.
+  # `posts` and `comments` fields can be empty.
   def index
-    @board.name = params[:board][:name]
-    if @board.share(@user.id, params[:shared_user_ids], params[:encrypted_password])
-      ActiveRecord::Base.transaction do
-        if params[:posts]
-          params[:posts].each do |post|
-            p = Post.find(post[:id])
-            p.title = post[:title]
-            p.content = post[:content]
-            p.save!
+    ActiveRecord::Base.transaction do
+      if params[:posts]
+        params[:posts].each do |post|
+          p = Post.find(post[:id])
+          p.title = post[:title]
+          p.content = post[:content]
+          p.save!
 
-            if post[:comments] and p.valid?
-              post[:comments].each do |comment|
-                c = Comment.find(comment[:id])
-                c.content = comment[:content]
-                c.save!
-              end
+          if post[:comments] and p.valid?
+            post[:comments].each do |comment|
+              c = Comment.find(comment[:id])
+              c.content = comment[:content]
+              c.save!
             end
           end
         end
-        render status: :ok
       end
-    else
-      render status: 422, json: ["Some of the data can't be saved."]
+      if @user_board.share(params[:shared_user_ids], params[:encrypted_password])
+        render status: :ok
+      else
+        raise "An error occured"
+      end
     end
   rescue
     # clean up the created {UserBoard}s
-    @board.user_boards.where(board_id: @board.id, user_id: params[:shared_user_ids]).delete_all
     render status: 422, json: ["Some of the data can't be saved."]
   end
 
@@ -94,12 +85,13 @@ class Api::ShareBoardController < ApplicationController
         return
       end
       @board = result[:board]
+      @user_board = result[:user_board]
     end
 
     if params[:posts]
 
       params[:posts].each do |post|
-        s = has_post_access(params[:board][:id], post[:id])
+        s = has_post_access(params[:board][:id], post[:id])[:status]
         if s != :ok
           render status: s
           return
@@ -107,7 +99,7 @@ class Api::ShareBoardController < ApplicationController
 
         if post[:comments]
           post[:comments].each do |comment|
-            s = has_comment_access post[:id], comment[:id]
+            s = has_comment_access(post[:id], comment[:id])[:status]
             if s != :ok
               render status: s
               return
@@ -119,12 +111,6 @@ class Api::ShareBoardController < ApplicationController
 
     end
 
-    # validate_user_ids
-
   end
-
-  # def validate_user_ids
-  #   User.find(params[:shared_user_ids]).count
-  # end
 
 end

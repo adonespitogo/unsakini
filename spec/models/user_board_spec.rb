@@ -8,38 +8,90 @@ RSpec.describe UserBoard, type: :model do
     @user_2 = create(:user)
   end
 
-  it "creates user board and board" do
+  it "rejects nil board name" do
+    board_count = Board.count
+    user_board_count = UserBoard.count
+    my_board_count = @user.boards.count
+
+    user_board = UserBoard.new(
+      user_id: @user.id,
+      is_admin: true,
+      encrypted_password: Faker::Crypto.md5
+    )
+    expect(user_board.save).to be false
+    expect(@user.boards.count).to eq my_board_count
+    expect(Board.count).to eq(board_count)
+    expect(UserBoard.count).to eq(user_board_count)
+  end
+
+  it "rejects nil encrypted_password" do
+    board_count = Board.count
+    user_board_count = UserBoard.count
+    my_board_count = @user.boards.count
+
+    user_board = UserBoard.new(
+      user_id: @user.id,
+      name: Faker::Name.title,
+      is_admin: true
+    )
+    expect(user_board.save).to be false
+    expect(@user.boards.count).to eq my_board_count
+    expect(Board.count).to eq(board_count)
+    expect(UserBoard.count).to eq(user_board_count)
+  end
+
+  it "creates UserBoard and it's Board" do
     board_name = Faker::Name.title
-    encrypted_password = Faker::Crypto.md5
+    my_board_count = @user.boards.count
     board_count = Board.count
     user_board_count = UserBoard.count
 
-    user_board = UserBoard.new(user_id: @user.id, encrypted_password: encrypted_password)
-    expect(user_board.create_with_board(board_name)).to be true
-    # todo: check validation
-    user_board.reload
-    expect(@user.boards.count).to eq 1
+    user_board = UserBoard.new(name: board_name, user_id: @user.id, encrypted_password: Faker::Crypto.md5)
+    expect(user_board.save).to be true
+    expect(@user.boards.count).to eq my_board_count+1
     expect(Board.count).to eq(board_count+1)
     expect(UserBoard.count).to eq(user_board_count+1)
-    expect(user_board.board).not_to be_nil
-    expect(user_board.board.user_boards.count).to eq 1
+    expect(user_board.board.name).to eq board_name
   end
 
   it "updates the board name" do
     new_board_name = Faker::Name.title
-    key = Faker::Crypto.md5
-    board = create(:board)
-    user_board = create(:user_board, {
-                          user_id: @user.id,
-                          board_id: board.id,
-                          is_admin: true,
-                          encrypted_password: key
-    })
+    user_board = create(:user_board, {user_id: @user.id})
 
+    board = user_board.board
+    user_board.name = new_board_name
     expect(board.name).not_to eq new_board_name
-    user_board.update_password_and_board(new_board_name, key)
+    user_board.save
     board.reload
     expect(board.name).to eq new_board_name
+
+  end
+
+  it "updates the encrypted_password" do
+
+    user_board = create(:user_board, {user_id: @user.id, is_admin: true})
+
+    old_key = user_board.encrypted_password
+    new_key = Faker::Crypto.md5
+
+    expect(user_board.encrypted_password).not_to eq new_key
+    user_board.encrypted_password = new_key
+    expect(user_board.save).to be true
+    expect(user_board.encrypted_password).to eq new_key
+
+  end
+
+  it "rejects invalid encrypted_password" do
+
+    user_board = create(:user_board, {user_id: @user.id, is_admin: true})
+
+    old_key = user_board.encrypted_password
+
+    expect(old_key).not_to be_nil
+    user_board.encrypted_password = nil
+    expect(user_board.save).to be false
+    user_board.reload
+    expect(user_board.encrypted_password).to eq old_key
 
   end
 
@@ -58,14 +110,16 @@ RSpec.describe UserBoard, type: :model do
     })
 
     user_board_2 = create(:user_board, {
-                          user_id: @user_2.id,
-                          board_id: board.id,
-                          is_admin: false,
-                          encrypted_password: key2
+                            user_id: @user_2.id,
+                            board_id: board.id,
+                            is_admin: false,
+                            encrypted_password: key2
     })
 
     expect(user_board_2.encrypted_password).to eq key2
-    user_board.update_password_and_board(new_board_name, key)
+    user_board.name = new_board_name
+    user_board.encrypted_password = key
+    user_board.save
     user_board_2.reload
     expect(user_board_2.encrypted_password).to eq key2
 
@@ -85,16 +139,50 @@ RSpec.describe UserBoard, type: :model do
     })
 
     user_board_2 = create(:user_board, {
-                          user_id: @user_2.id,
-                          board_id: board.id,
-                          is_admin: false,
-                          encrypted_password: key2
+                            user_id: @user_2.id,
+                            board_id: board.id,
+                            is_admin: false,
+                            encrypted_password: key2
     })
 
     expect(user_board_2.encrypted_password).to eq key2
-    user_board.update_password_and_board(new_board_name, new_key)
+    user_board.name = new_board_name
+    user_board.encrypted_password = new_key
+    user_board.save
     user_board_2.reload
     expect(user_board_2.encrypted_password).to be_falsy
 
   end
+
+  it "can be shared to other users" do
+    user_is_sharing_a_board_scenario
+
+    new_key = Faker::Crypto.md5
+
+    user_2_boards_count = @user_2.boards.count
+    user_3_boards_count = @user_3.boards.count
+    user_4_boards_count = @user_4.boards.count
+
+    expect(@user_board.share([@user_2.id, @user_3.id, @user_4.id], new_key)).to be true
+    # todo: check validation
+
+    expect(@user_2.boards.count).to eq(user_2_boards_count+1)
+    expect(@user_3.boards.count).to eq(user_3_boards_count+1)
+    expect(@user_4.boards.count).to eq(user_4_boards_count+1)
+
+    # make sure none of them is assign admin
+    expect(UserBoard.where(
+             is_admin: true,
+             board_id: @board.id,
+             user_id: [@user_2.id, @user_3.id, @user_4.id]
+    ).count).to eq 0
+
+    # make sure all has been shared with
+    expect(UserBoard.where(
+             board_id: @board.id,
+             user_id: [@user_2.id, @user_3.id, @user_4.id]
+    ).count).to eq 3
+
+  end
+
 end

@@ -2,50 +2,70 @@
 
 class UserBoard < ApplicationRecord
   include EncryptableModelConcern
-  validates :encrypted_password, presence: true, if: :is_admin
   encryptable_attributes :encrypted_password
 
+  validates :encrypted_password, :presence => true, if: :is_admin
+
+  before_validation :validate_before_create, on: :create
+  before_validation :validate_before_update, on: :update
+
   belongs_to :user
-  belongs_to :board, autosave: true
+  belongs_to :board
 
-  # Creates {UserBoard} together with a new {Board}. This should be used when creating new board instead of the regular `save` method.
-  #
-  # @param board_name [String] name of the new board
-  #
-  def create_with_board(board_name)
-    ActiveRecord::Base.transaction do
-      b = Board.new(name: board_name)
-      if b.save!
-        self.is_admin = true
-        self.board_id = b.id
-        self.save!
-      end
+  def name=(str)
+    @name = str
+  end
+
+  def name
+    if !@name.nil?
+      @name
+    else
+      self.board.name
     end
+  end
+
+  def share(user_ids, new_key)
+    ActiveRecord::Base.transaction do
+      user_ids.each do |usr_id|
+        UserBoard.new({
+                        user_id: usr_id,
+                        board_id: self.board_id,
+                        encrypted_password: nil,
+                        is_admin: false
+        })
+        .save!
+      end
+      self.encrypted_password = new_key
+      self.save!
+    end
+    true
+
   rescue
+    self.errors[:base] << "Unable to share the this board"
     false
   end
 
-  # Updates its {Board}'s name and its `encrypted_password`. This should be used to update a board name or it's encrypted password.
-  #
-  # @param board_name [String] name of the new board
-  # @param encrypted_password [String] a new encrypted key used to encrypt contents of this board.
-  def update_password_and_board(board_name, encrypted_password)
-    encrypted_password_changed = self.encrypted_password != encrypted_password
-    ActiveRecord::Base.transaction do
-      board.name = board_name
-      board.save!
-      self.encrypted_password = encrypted_password
-      if self.save!
-        reset_user_boards_encrypted_password if encrypted_password_changed
-      end
-    end
-  rescue ActiveRecord::RecordInvalid => invalid
-    false
-  end
+  private
 
-  # Resets other {UserBoard} belonging to its {Board}. This is used after the board's encrypted password has been updated (see {UserBoard.update_password_and_board} )
   def reset_user_boards_encrypted_password
     UserBoard.where("board_id = ? AND user_id != ?", self.board_id, self.user_id).update_all(encrypted_password: nil)
+  end
+
+  def validate_before_create
+    if self.board.nil?
+      b = Board.new(name: @name)
+      if b.save
+        self.board_id = b.id
+      else
+        self.errors[:base] << "Board name is invalid"
+      end
+    end
+  end
+
+  def validate_before_update
+    self.board.name = @name if !@name.blank?
+    reset_user_boards_encrypted_password if self.encrypted_password_changed?
+    self.errors[:base] << "Board name is invalid" if !self.board.save
   end
 
 end

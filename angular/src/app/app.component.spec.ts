@@ -2,11 +2,17 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('App: UnsakiniWebpack', () => {
+describe('AppComponent', () => {
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
+      imports: [
+        RouterTestingModule
+      ],
+      declarations:
+      [
         AppComponent
       ],
     });
@@ -30,4 +36,12 @@ describe('App: UnsakiniWebpack', () => {
     let compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('app works!');
   }));
+
+  it('should have router outlet', async(() => {
+    let fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('router-outlet')).toBeTruthy()
+  }));
+
 });

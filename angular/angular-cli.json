@@ -1,7 +1,7 @@
 {
   "project": {
-    "version": "1.0.0-beta.18",
-    "name": "unsakini-webpack"
+    "version": "1.0.0-beta.20-4",
+    "name": "angular"
   },
   "apps": [
     {
@@ -17,19 +17,10 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "mobile": false,
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/crypto-js/crypto-js.js"
-      ],
       "styles": [
-        "../node_modules/angular2-toaster/lib/toaster.css",
-        "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/bootswatch/cyborg/bootstrap.css",
-        "assets/css/ie10-viewport-bug-workaround.css",
-        "assets/css/global.scss",
-        "assets/css/sticky-footer.css",
-        "assets/css/loading-animation.css"
+        "styles.css"
       ],
+      "scripts": [],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

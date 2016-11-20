@@ -33,7 +33,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
       it "return post" do
         get api_board_posts_path(@board), headers: auth_headers(@user)
         expect(response).to have_http_status(:ok)
-        expect(parse_json(response.body, '0')).to match_json_schema(:post)
+        expect(body_to_json('0')).to match_json_schema(:post)
         expect(response.body).to be_json_eql(serialize(@board.posts.all))
       end
     end
@@ -108,8 +108,8 @@ RSpec.describe "Api::Board::Posts", type: :request do
         put api_board_post_path(@board, @post), headers: auth_headers(@user), params: valid_attributes, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.body).to match_json_schema(:post)
-        expect(parse_json(response.body, 'title')).to eq(valid_attributes[:title])
-        expect(parse_json(response.body, 'content')).to eq(valid_attributes[:content])
+        expect(body_to_json('title')).to eq(valid_attributes[:title])
+        expect(body_to_json('content')).to eq(valid_attributes[:content])
       end
     end
 
@@ -144,13 +144,13 @@ RSpec.describe "Api::Board::Posts", type: :request do
       it "returns all posts for first user" do
         get api_board_posts_path(@shared_board), headers: auth_headers(@user)
         expect(response).to have_http_status(:ok)
-        expect(parse_json(response.body, '0')).to match_json_schema(:post)
+        expect(body_to_json('0')).to match_json_schema(:post)
         expect(response.body).to be_json_eql(serialize(@shared_board.posts.all))
       end
       it "returns all posts for second user" do
         get api_board_posts_path(@shared_board), headers: auth_headers(@user_2)
         expect(response).to have_http_status(:ok)
-        expect(parse_json(response.body, '0')).to match_json_schema(:post)
+        expect(body_to_json('0')).to match_json_schema(:post)
         expect(response.body).to be_json_eql(serialize(@shared_board.posts.all))
       end
     end
@@ -251,8 +251,8 @@ RSpec.describe "Api::Board::Posts", type: :request do
           expect(response.body).to match_json_schema(:post)
           @shared_post.reload
           expect(response.body).to be_json_eql(serialize(@shared_post))
-          expect(parse_json(response.body, 'title')).to eq(valid_attributes[:title])
-          expect(parse_json(response.body, 'content')).to eq(valid_attributes[:content])
+          expect(body_to_json('title')).to eq(valid_attributes[:title])
+          expect(body_to_json('content')).to eq(valid_attributes[:content])
         end
       end
 

@@ -46,6 +46,10 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'json_spec'
   gem 'json-schema-rspec'
+
+  # Needed to use debugger
+  # https://github.com/deivid-rodriguez/byebug/issues/289
+  gem 'rb-readline'
 end
 
 group :development do

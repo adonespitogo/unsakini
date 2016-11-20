@@ -23,7 +23,7 @@ module EncryptableModelConcern
     #     encryptable_attributes :name, :title, :content
     #   end
     # ```
-    # @param *attrs [Symbol] model attributes
+    # @param attrs [Symbol] model attributes
     #
     def encryptable_attributes(*attrs)
       @encryptable_attributes = attrs

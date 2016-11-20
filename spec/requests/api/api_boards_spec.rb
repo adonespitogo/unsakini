@@ -32,7 +32,7 @@ RSpec.describe "Api::Boards", type: :request do
     it "returns current user's boards" do
       get api_boards_path, headers: auth_headers(@user)
       expect(response).to have_http_status(:ok)
-      expect(parse_json(response.body, '0')).to match_json_schema(:board)
+      expect(body_to_json('0')).to match_json_schema(:board)
       expect(response.body).to be_json_eql(serialize(@user.user_boards.all))
     end
   end
@@ -135,21 +135,21 @@ RSpec.describe "Api::Boards", type: :request do
         expect(@user_board.encrypted_password).not_to eq(invalid_encrypted_password_param[:encrypted_password])
       end
 
-      it "rejects invalid board name" do
+      it "accepts invalid board name" do
         put api_board_path(@board), params: invalid_board_name_param, headers: auth_headers(@user), as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:ok)
         @board.reload
         @user_board.reload
-        expect(@board.name).not_to eq(invalid_board_name_param[:board][:name])
-        expect(@user_board.encrypted_password).not_to eq(invalid_board_name_param[:encrypted_password])
+        expect(@board.name).not_to be_falsy
+        expect(@user_board.encrypted_password).to eq(invalid_board_name_param[:encrypted_password])
       end
 
       it "updates the board resource" do
         put api_board_path(@board), params: valid_board_params, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:ok)
         expect(response.body).to match_json_schema(:board)
-        expect(parse_json(response.body)['board']['name']).to eq(valid_board_params[:board][:name])
-        expect(parse_json(response.body)['encrypted_password']).to eq(valid_board_params[:encrypted_password])
+        expect(body_to_json['board']['name']).to eq(valid_board_params[:board][:name])
+        expect(body_to_json['encrypted_password']).to eq(valid_board_params[:encrypted_password])
         @user_board.reload
         expect(response.body).to be_json_eql(serialize(@user_board))
         expect(@board.user_boards.where.not(encrypted_password: '').first).to eq @user_board
@@ -193,9 +193,9 @@ RSpec.describe "Api::Boards", type: :request do
 
   context "Shared Board" do
 
-  	before(:all) do
-  		user_has_shared_board_scenario
-  	end
+    before(:all) do
+      user_has_shared_board_scenario
+    end
 
     describe "GET /api/boards/:id" do
 
@@ -230,5 +230,7 @@ RSpec.describe "Api::Boards", type: :request do
         expect(Board.find(@shared_board.id)).not_to be_nil
       end
     end
+
   end
+
 end
