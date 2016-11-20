@@ -15,7 +15,8 @@ RSpec.describe UserBoard, type: :model do
     user_board_count = UserBoard.count
 
     user_board = UserBoard.new(user_id: @user.id, encrypted_password: encrypted_password)
-    user_board.create_with_board(board_name)
+    expect(user_board.create_with_board(board_name)).to be true
+    # todo: check validation
     user_board.reload
     expect(@user.boards.count).to eq 1
     expect(Board.count).to eq(board_count+1)

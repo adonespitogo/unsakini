@@ -67,6 +67,66 @@ module BoardSpecHelper
     })
   end
 
+  def user_is_sharing_a_board_scenario
+    @user ||= create(:user)
+    @user_2 ||= create(:user)
+    @user_3 ||= create(:user)
+    @user_4 ||= create(:user)
+    @board ||= create(:board)
+
+    @user_board ||= create(:user_board, {
+                             is_admin: true,
+                             user_id: @user.id,
+                             board_id: @board.id
+    })
+    @post ||= create(:post, {
+                       user_id: @user.id,
+                       board_id: @board.id
+    })
+    @post_2 ||= create(:post, {
+                         user_id: @user_2.id,
+                         board_id: @board.id
+    })
+    @comment ||= create(:comment, {
+                          user_id: @user.id,
+                          post_id: @post.id,
+    })
+    @comment_2 ||= create(:comment, {
+                            user_id: @user_2.id,
+                            post_id: @post.id,
+    })
+
+
+    @payload = make_payload
+
+    @payload_wo_comments = make_payload(comments: false)
+
+    @payload_wo_posts = make_payload(:posts => false)
+    @payload_wo_encrypted_password = make_payload(encrypted_password: false)
+    @payload_wo_shared_user_ids = make_payload(shared_user_ids: false)
+    @payload_w_invalid_post = make_payload[:posts] = [@post_2.attributes]
+    @payload_w_invalid_comment = make_payload[:posts][0][:comments] = [@comment_2.attributes]
+
+  end
+
+  def make_payload(opts_hash = {})
+    payload = {
+      board: @board.attributes
+    }
+    post_hash = @post.attributes
+    post_hash["title"] = Faker::Name.title
+    post_hash["content"] = Faker::Hacker.say_something_smart
+
+    comment_hash = @comment.attributes
+    comment_hash["content"] = Faker::Hacker.say_something_smart
+
+    payload[:posts] = [post_hash] if !(opts_hash[:posts] == false) || !(opts_hash[:comments] == false)
+    payload[:posts][0][:comments] = [comment_hash] if !(opts_hash[:comments] == false)
+    payload[:shared_user_ids] = [@user_2.id, @user_3.id, @user_4.id] if !(opts_hash[:shared_user_ids] == false)
+    payload[:encrypted_password] = Faker::Crypto.md5 if !(opts_hash[:encrypted_password] == false)
+    payload
+  end
+
 end
 
 RSpec.configure do |config|

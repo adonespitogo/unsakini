@@ -19,7 +19,7 @@ module CommentOwnerControllerConcern
     end
   end
 
-  # Ensures user is the owner of the comment. Must be run after `ensure_comment` method.
+  # Ensures user is the owner of the comment. Must be run after {#ensure_comment} method.
   def ensure_comment_owner
     render status: :forbidden if @comment.user_id != @user.id
   end

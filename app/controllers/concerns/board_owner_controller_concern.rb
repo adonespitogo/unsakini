@@ -26,7 +26,7 @@ module BoardOwnerControllerConcern
     end
   end
 
-  #Ensures user is owner of the board. Must be run after `ensure_board` method.
+  #Ensures user is owner of the board. Must be run after {#ensure_board} method.
   def ensure_board_owner
     render status: :forbidden if !@user_board.is_admin
   end

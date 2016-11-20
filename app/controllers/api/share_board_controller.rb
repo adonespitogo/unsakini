@@ -44,61 +44,87 @@ class Api::ShareBoardController < ApplicationController
   # the server don't really know what is the original password. The board creator will have to share it privately to other users whom he/she
   # shares the board with.
   #
-  # `posts` and `comments` can be empty.
+  # `posts` and `comments` keys can be empty.
   def index
-    
+    @board.name = params[:board][:name]
+    if @board.share(@user.id, params[:shared_user_ids], params[:encrypted_password])
+      ActiveRecord::Base.transaction do
+        if params[:posts]
+          params[:posts].each do |post|
+            p = Post.find(post[:id])
+            p.title = post[:title]
+            p.content = post[:content]
+            p.save!
+
+            if post[:comments] and p.valid?
+              post[:comments].each do |comment|
+                c = Comment.find(comment[:id])
+                c.content = comment[:content]
+                c.save!
+              end
+            end
+          end
+        end
+        render status: :ok
+      end
+    else
+      render status: 422, json: ["Some of the data can't be saved."]
+    end
+  rescue
+    # clean up the created {UserBoard}s
+    @board.user_boards.where(board_id: @board.id, user_id: params[:shared_user_ids]).delete_all
+    render status: 422, json: ["Some of the data can't be saved."]
   end
 
   # Validates the contents of params against the database records.
   def validate_params
-    if params[:board]
 
-      result = has_board_access(params[:board][:id])
-      if result[:status] != :ok
-        render status: result[:status]
+    if params[:encrypted_password].nil? or params[:shared_user_ids].nil? or params[:board].nil?
+      render status: 422
+      return
+    end
+
+    result = has_board_access(params[:board][:id])
+    if result[:status] != :ok
+      render status: result[:status]
+      return
+    else
+      if !result[:user_board].is_admin
+        render status: :forbidden
         return
-      else
-        if !result[:user_board].is_admin
-          render status: :forbidden
+      end
+      @board = result[:board]
+    end
+
+    if params[:posts]
+
+      params[:posts].each do |post|
+        s = has_post_access(params[:board][:id], post[:id])
+        if s != :ok
+          render status: s
           return
         end
-      end
 
-      if params[:posts]
-
-        params[:posts].each do |post|
-          s = has_post_access(params[:board][:id], post[:id])
-          if s != :ok
-            render status: s
-            return
-          end
-
-          if post[:comments]
-            post[:comments].each do |comment|
-              s = has_comment_access post[:id], comment[:id]
-              if s != :ok
-                render status: s
-                return
-              end
+        if post[:comments]
+          post[:comments].each do |comment|
+            s = has_comment_access post[:id], comment[:id]
+            if s != :ok
+              render status: s
+              return
             end
           end
-
         end
 
       end
 
-      if params[:encrypted_password].nil? or params[:shared_user_ids].nil?
-        render status: 422
-      end
-
-    else
-      render status: 422
     end
-  end
 
-  private
-  def validate_posts(posts)
+    # validate_user_ids
 
   end
+
+  # def validate_user_ids
+  #   User.find(params[:shared_user_ids]).count
+  # end
 
 end
