@@ -16,8 +16,13 @@ class Api::BoardsController < ApplicationController
   # `POST /api/boards`
   #
   def create
-    @user_board = UserBoard.new(user_id: @user.id, encrypted_password: params[:encrypted_password])
-    if @user_board.create_with_board(params[:board][:name])
+    @user_board = UserBoard.new(
+      name: params[:board][:name],
+      user_id: @user.id,
+      encrypted_password: params[:encrypted_password],
+      is_admin: true
+    )
+    if @user_board.save
       render json: @user_board, status: :created
     else
       render json: @user_board.errors.full_messages, status: 422
@@ -37,7 +42,7 @@ class Api::BoardsController < ApplicationController
   #
   # `PUT /api/boards/:id`
   def update
-    if @user_board.update_password_and_board(params[:board][:name], params[:encrypted_password])
+    if @user_board.update(name: params[:board][:name], encrypted_password: params[:encrypted_password])
       render json: @user_board
     else
       errors = @board.errors.full_messages.concat @user_board.errors.full_messages

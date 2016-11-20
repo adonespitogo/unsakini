@@ -135,13 +135,13 @@ RSpec.describe "Api::Boards", type: :request do
         expect(@user_board.encrypted_password).not_to eq(invalid_encrypted_password_param[:encrypted_password])
       end
 
-      it "rejects invalid board name" do
+      it "accepts invalid board name" do
         put api_board_path(@board), params: invalid_board_name_param, headers: auth_headers(@user), as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:ok)
         @board.reload
         @user_board.reload
-        expect(@board.name).not_to eq(invalid_board_name_param[:board][:name])
-        expect(@user_board.encrypted_password).not_to eq(invalid_board_name_param[:encrypted_password])
+        expect(@board.name).not_to be_falsy
+        expect(@user_board.encrypted_password).to eq(invalid_board_name_param[:encrypted_password])
       end
 
       it "updates the board resource" do

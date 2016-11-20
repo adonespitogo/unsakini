@@ -46,29 +46,28 @@ class Api::ShareBoardController < ApplicationController
   #
   # `posts` and `comments` keys can be empty.
   def index
-    @board.name = params[:board][:name]
-    if @board.share(@user.id, params[:shared_user_ids], params[:encrypted_password])
-      ActiveRecord::Base.transaction do
-        if params[:posts]
-          params[:posts].each do |post|
-            p = Post.find(post[:id])
-            p.title = post[:title]
-            p.content = post[:content]
-            p.save!
+    ActiveRecord::Base.transaction do
+      if params[:posts]
+        params[:posts].each do |post|
+          p = Post.find(post[:id])
+          p.title = post[:title]
+          p.content = post[:content]
+          p.save!
 
-            if post[:comments] and p.valid?
-              post[:comments].each do |comment|
-                c = Comment.find(comment[:id])
-                c.content = comment[:content]
-                c.save!
-              end
+          if post[:comments] and p.valid?
+            post[:comments].each do |comment|
+              c = Comment.find(comment[:id])
+              c.content = comment[:content]
+              c.save!
             end
           end
         end
-        render status: :ok
       end
-    else
-      render status: 422, json: ["Some of the data can't be saved."]
+      if @user_board.share(params[:shared_user_ids], params[:encrypted_password])
+        render status: :ok
+      else
+        raise "An error occured"
+      end
     end
   rescue
     # clean up the created {UserBoard}s

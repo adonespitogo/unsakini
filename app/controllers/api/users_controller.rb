@@ -4,23 +4,13 @@ class Api::UsersController < ApplicationController
   #
   # `GET /api/user/:id`
   #
-  # Return format:
-  # ```
-  # {
-  #   id: 1,
-  #   name: 'Adones Pitogo',
-  #   email: 'pitogo.adones@gmail.com',
-  #   created_at: '..',
-  #   updated_at: '..'
-  # }
-  # ```
   def show
     render json: @user
   end
 
 # Returns the user with matching email
 #
-`GET /api/users/search`
+# `GET /api/users/search`
   def search
     user = User.where("email = ? AND email != ?", params[:email], @user.email).first
     if user
