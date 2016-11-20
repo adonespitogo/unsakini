@@ -14,9 +14,8 @@ RSpec.describe UserBoard, type: :model do
     board_count = Board.count
     user_board_count = UserBoard.count
 
-    user_board = UserBoard.new
-    user_board.user_id = @user.id
-    user_board.create_with_board(board_name, encrypted_password)
+    user_board = UserBoard.new(user_id: @user.id, encrypted_password: encrypted_password)
+    user_board.create_with_board(board_name)
     user_board.reload
     expect(@user.boards.count).to eq 1
     expect(Board.count).to eq(board_count+1)
@@ -92,7 +91,6 @@ RSpec.describe UserBoard, type: :model do
     })
 
     expect(user_board_2.encrypted_password).to eq key2
-    # expect(user_board).not_to receive(:reset_user_boards_encrypted_password)
     user_board.update_password_and_board(new_board_name, new_key)
     user_board_2.reload
     expect(user_board_2.encrypted_password).to be_falsy

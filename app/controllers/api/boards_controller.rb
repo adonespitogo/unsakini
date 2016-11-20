@@ -47,8 +47,8 @@ class Api::BoardsController < ApplicationController
   # }
   # ```
   def create
-  	@user_board = UserBoard.new(user_id: @user.id)
-  	if @user_board.create_with_board(params[:board][:name], params[:encrypted_password])
+  	@user_board = UserBoard.new(user_id: @user.id, encrypted_password: params[:encrypted_password])
+  	if @user_board.create_with_board(params[:board][:name])
   		render json: @user_board, status: :created
   	else
   		render json: @user_board.errors.full_messages, status: 422
