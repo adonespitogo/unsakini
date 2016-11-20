@@ -1,19 +1,27 @@
 UNSAKINI
 -----------
+*Created by and for online activists, information security enthusiasts and government surveillance evaders.*
 
-**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created to protect online activists from digital information surveillance and uphold information security. Made on top of [Rails 5](http://rubyonrails.org/) and [Angular 2](https://angular.io/).
 
-### Features
- - Encrypted Bulletin Boards
- - Share Encrypted Files
- - Group Forums
+**[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created with the aim of evading global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity.
+
+Perfect for:
+
+ - group discussions on sensitive issues
+ - confidential conversations
+ - storing passwords, liscenses, credit card details, and other sensitive documents
+
 
 -------------------------
 
 ### How it Works
-Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. If you look at the network traffic in the browser network tab (by pressing F12 and selecting network tab), you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before it leaves your computer. The key is stored in your browser and is never sent to the server. Only you have access to your private key.
+Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. If you look at the network traffic in the browser network tab (by pressing F12 and selecting network tab), you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before it leaves your web browser. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
 
-To increase the security, the data is also encrypted in the server before being saved to the database, which adds a second layer of encrypion.
+Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer once you logout.
+
+To increase the security, your data is re-encrypted in the backend before being saved to the database, which adds a second layer of protection.
+
+So to access your data, the hacker needs to know two things - (1) your private key and (2) the server encryption key. That is, if they are able to compromise the server security and gets access to the database. Even so, they won't be able to read the data without these two elements.
 
 The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), the most widely used and trusted encryption algorithm.
 
