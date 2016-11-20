@@ -43,12 +43,12 @@ class UserBoard < ApplicationRecord
     false
   end
 
-  private
-  # Resets other {UserBoard} belonging to its {Board} when the encrypted_password is new. This is called on `after_save` hook.
+  # Resets other {UserBoard} belonging to its {Board}. This is used after the board's encrypted password has been updated (see {UserBoard.update_password_and_board} )
   def reset_user_boards_encrypted_password
     UserBoard.where("board_id = ? AND user_id != ?", self.board_id, self.user_id).update_all(encrypted_password: nil)
   end
 
+  private
   def admin?
     self.is_admin
   end
