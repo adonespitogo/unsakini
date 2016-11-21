@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class UnsakiniWebpackPage {
+export class AngularPage {
   navigateTo() {
     return browser.get('/');
   }

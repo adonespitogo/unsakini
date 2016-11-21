@@ -1,10 +1,10 @@
-import { UnsakiniWebpackPage } from './app.po';
+import { AngularPage } from './app.po';
 
-describe('unsakini-webpack App', function() {
-  let page: UnsakiniWebpackPage;
+describe('angular App', function() {
+  let page: AngularPage;
 
   beforeEach(() => {
-    page = new UnsakiniWebpackPage();
+    page = new AngularPage();
   });
 
   it('should display message saying app works', () => {
