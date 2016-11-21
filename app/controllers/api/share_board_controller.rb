@@ -14,24 +14,18 @@ class Api::ShareBoardController < ApplicationController
   #   board: {
   #     id: 1,
   #     name: 'some encrypted text',
-  #     created_at: '..',
-  #     updated_at: '..'
   #   },
   #   posts: [
   #     {
   #       board_id: 1,
   #       title: 'some encrypted text',
   #       content: 'some encrypted text',
-  #       created_at: '..',
-  #       updated_at: '..',
   #       comments: [
   #         {
   #           id: 1,
   #           content: 'some encrypted text',
   #           user_id: 1,
   #           post_id: 1,
-  #           created_at: '..',
-  #           updated_at: '..',
   #         }
   #       ]
   #     }
@@ -41,10 +35,9 @@ class Api::ShareBoardController < ApplicationController
   # }
   # ```
   # The `encrypted_password` param will be used to decrypt contents of this board. The encryption happens in the client so
-  # the server don't really know what is the original password. The board creator will have to share it privately to other users whom he/she
-  # shares the board with.
+  # the server don't really know what is the original password. The board creator will have to share it privately to other users whom he/she shared it with so they can access the board.
   #
-  # `posts` and `comments` keys can be empty.
+  # `posts` and `comments` fields can be empty.
   def index
     ActiveRecord::Base.transaction do
       if params[:posts]
