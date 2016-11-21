@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
     };
   }
 
-  doSubmit (user) {
+  doSubmit () {
     this.service.registerAccount(this.user).subscribe(
       (res) => {
         this.success = true;

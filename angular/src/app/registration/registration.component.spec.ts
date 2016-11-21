@@ -59,10 +59,10 @@ describe('RegistrationComponent', () => {
         {
           provide: Angular2TokenService,
           useClass: Angular2TokenServiceMock
-        }
+        },
       ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -94,25 +94,34 @@ describe('RegistrationComponent', () => {
     it('should handle http 422', () => {
       status = 422
       errors = ['some errors']
-      component.doSubmit(user)
+      component.user = user
+      component.doSubmit()
       expect(component.success).toBe(false)
       expect(component.errors).toEqual(errors)
+      fixture.detectChanges();
       expect(compiled.querySelector('.alert-success')).toBeFalsy()
+      expect(compiled.querySelector('.alert-danger').textContent).toContain('some errors')
     })
 
     it('should handle http 500 and other errors', () => {
       status = 500
-      component.doSubmit(user)
+      component.user = user
+      component.doSubmit()
       expect(component.success).toBe(false)
       expect(component.errors).toEqual(['Something went wrong.'])
+      fixture.detectChanges();
       expect(compiled.querySelector('.alert-success')).toBeFalsy()
+      expect(compiled.querySelector('.alert-danger').textContent).toContain('Something went wrong')
     })
 
     it('should notify when success', () => {
+      component.user = user
       status = 200
-      component.doSubmit(user)
+      component.doSubmit()
       expect(component.success).toBe(true)
-      expect(compiled.querySelector('.alert-success')).toBeFalsy()
+      fixture.detectChanges();
+      expect(compiled.querySelector('.alert-success')).toBeTruthy()
+      expect(compiled.querySelector('.alert-success').textContent).toContain('Registration successful')
     })
 
   });

@@ -1,14 +1,14 @@
-import { AngularPage } from './app.po';
+// import { AngularPage } from './app.po';
 
-describe('angular App', function() {
-  let page: AngularPage;
+// describe('angular App', function() {
+//   let page: AngularPage;
 
-  beforeEach(() => {
-    page = new AngularPage();
-  });
+//   beforeEach(() => {
+//     page = new AngularPage();
+//   });
 
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
-});
+//   it('should display message saying app works', () => {
+//     page.navigateTo();
+//     expect(page.getParagraphText()).toEqual('app works!');
+//   });
+// });
