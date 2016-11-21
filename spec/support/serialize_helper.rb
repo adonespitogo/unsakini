@@ -1,7 +1,7 @@
 module SerializeHelper
 
-  def body_to_json
-    parse_json(response.body)
+  def body_to_json(path = nil)
+    parse_json(response.body, path)
   end
 
   def serializer(model_instance)

@@ -35,8 +35,8 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "returns all comments" do
             get api_board_post_comments_path(@board, @post), headers: auth_headers(@user)
             expect(response).to have_http_status(:ok)
-            expect(parse_json(response.body, '0')).to match_json_schema(:comment)
-            expect(parse_json(response.body).count).to eq @post.comments.count
+            expect(body_to_json('0')).to match_json_schema(:comment)
+            expect(body_to_json.count).to eq @post.comments.count
           end
         end
 
@@ -84,9 +84,9 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:ok)
             expect(response.body).to match_json_schema(:comment)
-            expect(parse_json(response.body, 'id')).to eq @post.comments.last.id
-            expect(parse_json(response.body, 'user/id')).to eq @user.id
-            expect(Comment.find_by_id(parse_json(response.body, 'id'))).to eq @post.comments.last
+            expect(body_to_json('id')).to eq @post.comments.last.id
+            expect(body_to_json('user/id')).to eq @user.id
+            expect(Comment.find_by_id(body_to_json('id'))).to eq @post.comments.last
             expect(@post.comments.count).to eq(comment_count+1)
           end
         end
@@ -125,7 +125,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:ok)
             expect(response.body).to match_json_schema(:comment)
-            expect(parse_json(response.body, 'content')).to eq @comment.reload.content
+            expect(body_to_json('content')).to eq @comment.reload.content
             expect(@comment.content).to eq(valid_attributes[:content])
           end
         end
@@ -206,8 +206,8 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "returns all comments" do
             get api_board_post_comments_path(@shared_board, @shared_post), headers: auth_headers(@user)
             expect(response).to have_http_status(:ok)
-            expect(parse_json(response.body, '0')).to match_json_schema(:comment)
-            expect(parse_json(response.body).count).to eq @shared_post.comments.count
+            expect(body_to_json('0')).to match_json_schema(:comment)
+            expect(body_to_json.count).to eq @shared_post.comments.count
           end
 
         end
@@ -216,8 +216,8 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "returns all comments" do
             get api_board_post_comments_path(@shared_board, @shared_post), headers: auth_headers(@user_2)
             expect(response).to have_http_status(:ok)
-            expect(parse_json(response.body, '0')).to match_json_schema(:comment)
-            expect(parse_json(response.body).count).to eq @shared_post.comments.count
+            expect(body_to_json('0')).to match_json_schema(:comment)
+            expect(body_to_json.count).to eq @shared_post.comments.count
           end
         end
 
@@ -248,9 +248,9 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:ok)
             expect(response.body).to match_json_schema(:comment)
-            expect(parse_json(response.body, 'content')).to eq valid_attributes[:content]
-            expect(parse_json(response.body, 'user/id')).to eq @user.id
-            expect(Comment.find_by_id(parse_json(response.body, 'id'))).to eq @shared_post.comments.last
+            expect(body_to_json('content')).to eq valid_attributes[:content]
+            expect(body_to_json('user/id')).to eq @user.id
+            expect(Comment.find_by_id(body_to_json('id'))).to eq @shared_post.comments.last
             expect(@shared_post.comments.count).to eq(comment_count+1)
           end
 
@@ -279,9 +279,9 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:ok)
             expect(response.body).to match_json_schema(:comment)
-            expect(parse_json(response.body, 'content')).to eq valid_attributes[:content]
-            expect(parse_json(response.body, 'user/id')).to eq @user_2.id
-            expect(Comment.find_by_id(parse_json(response.body, 'id'))).to eq @shared_post.comments.last
+            expect(body_to_json('content')).to eq valid_attributes[:content]
+            expect(body_to_json('user/id')).to eq @user_2.id
+            expect(Comment.find_by_id(body_to_json('id'))).to eq @shared_post.comments.last
             expect(@shared_post.comments.count).to eq(comment_count+1)
           end
 
@@ -300,7 +300,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
               as:       :json
             )
             expect(response).to have_http_status(:ok)
-            expect(parse_json(response.body, 'content')).to eq(valid_attributes[:content])
+            expect(body_to_json('content')).to eq(valid_attributes[:content])
             expect(@shared_comment.reload.content).to eq valid_attributes[:content]
           end
         end
