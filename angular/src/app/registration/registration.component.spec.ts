@@ -139,6 +139,10 @@ describe('RegistrationComponent', () => {
       expect(compiled.querySelector('input[name="password_confirmation"][type="password"]')).toBeTruthy();
     });
 
+    it('should have submit button', () => {
+      expect(compiled.querySelector('button[type="submit"]')).toBeTruthy();
+    });
+
   });
 
 });
