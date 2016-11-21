@@ -10,9 +10,7 @@ class Api::UsersController < ApplicationController
 
 # Returns the user with matching email
 #
-# `GET /api/users/search`
-#
-# @param email [String] user email
+# `GET /api/users/search?email=xxx`
 #
   def search
     user = User.where("email = ? AND id != ?", params[:email], @user.id).first

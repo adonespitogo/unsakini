@@ -6,20 +6,25 @@ module PostOwnerControllerConcern
   def ensure_post
     post_id = params[:post_id] || params[:id]
     board_id = params[:board_id]
-    status = has_post_access(board_id, post_id)
+    result = has_post_access(board_id, post_id)
+    status = result[:status]
+    @post = result[:post]
     render status: status if status != :ok
   end
 
-  # Validate post access
+  # Validate if user has access to the post in the board
+  #
+  # @param board_id [Integer] board id
+  # @param post_id [Integer] post id
   def has_post_access(board_id, post_id)
-    @post = Post.where(id: post_id, board_id: board_id)
+    post = Post.where(id: post_id, board_id: board_id)
                 .joins("LEFT JOIN user_boards ON user_boards.board_id = posts.board_id")
                 .where("user_boards.user_id = ?", @user.id)
                 .first
-    if @post.nil?
-      return :forbidden
+    if post.nil?
+      return {status: :forbidden}
     else
-      return :ok
+      return {status: :ok, post: post}
     end
   end
 

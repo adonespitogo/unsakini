@@ -64,7 +64,6 @@ class Api::ShareBoardController < ApplicationController
     end
   rescue
     # clean up the created {UserBoard}s
-    @board.user_boards.where(board_id: @board.id, user_id: params[:shared_user_ids]).delete_all
     render status: 422, json: ["Some of the data can't be saved."]
   end
 
@@ -86,12 +85,13 @@ class Api::ShareBoardController < ApplicationController
         return
       end
       @board = result[:board]
+      @user_board = result[:user_board]
     end
 
     if params[:posts]
 
       params[:posts].each do |post|
-        s = has_post_access(params[:board][:id], post[:id])
+        s = has_post_access(params[:board][:id], post[:id])[:status]
         if s != :ok
           render status: s
           return
@@ -99,7 +99,7 @@ class Api::ShareBoardController < ApplicationController
 
         if post[:comments]
           post[:comments].each do |comment|
-            s = has_comment_access post[:id], comment[:id]
+            s = has_comment_access(post[:id], comment[:id])[:status]
             if s != :ok
               render status: s
               return
@@ -111,12 +111,6 @@ class Api::ShareBoardController < ApplicationController
 
     end
 
-    # validate_user_ids
-
   end
-
-  # def validate_user_ids
-  #   User.find(params[:shared_user_ids]).count
-  # end
 
 end
