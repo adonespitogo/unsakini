@@ -64,6 +64,7 @@ Browse [http://localhost:3000](http://localhost:3000)
 ### Development
  - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the [YARD documentation](https://www.unsakini.com/docs/backend/).
  - The frontend is made of [Angular 2](https://angular.io/). See the [documentation](https://github.com/angular/angular-cli).
+ - More [docs](./docs/development.md)
 
 ### Testing
  - Using [Rspec](http://rspec.info/) in testing Rails backend
@@ -87,7 +88,7 @@ $ ng e2e
 ```
 
 ### Deployment
-See the development [docs](./docs/development.md)
+**to do**
 
 ### Encryption Specifications
 
