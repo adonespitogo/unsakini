@@ -11,10 +11,11 @@ class Api::UsersController < ApplicationController
 # Returns the user with matching email
 #
 # `GET /api/users/search`
+#
 # @param email [String] user email
 #
   def search
-    user = User.where("email = ? AND email != ?", params[:email], @user.email).first
+    user = User.where("email = ? AND id != ?", params[:email], @user.id).first
     if user
       render json: user
     else
