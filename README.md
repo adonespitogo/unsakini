@@ -11,7 +11,7 @@ Perfect for:
 
  - group discussions on sensitive issues
  - confidential conversations
- - storing passwords, liscenses, credit card details, and other sensitive documents
+ - storing passwords, licenses, credit card details, and other sensitive documents
 
 
 -------------------------
@@ -102,4 +102,4 @@ TODO: Write deployment instructions
 [Adones Pitogo](http://adonespitogo.com)
 
 ### License
-Released under the terms of [MIT](https://opensource.org/licenses/MIT) License.
+Released under the terms of [MIT](./LICENSCE.txt) License.
