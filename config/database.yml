@@ -20,7 +20,7 @@ development:
 
 test:
   <<: *default
-  database: unsakini-test
+  database: unsakini_test
 
 production:
   url: <%= ENV['DATABASE_URL'] %>
