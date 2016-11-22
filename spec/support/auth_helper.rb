@@ -1,7 +1,12 @@
+
 module AuthHelper
 
   def auth_headers(user)
-    user.create_new_auth_token
+    token = Knock::AuthToken.new(payload: { sub: user.id }).token
+
+    {
+      'Authorization': "Bearer #{token}"
+    }
   end
 
 end

@@ -26,12 +26,14 @@ RSpec.describe UserBoard, type: :model do
   end
 
   it "rejects nil encrypted_password" do
-    board_count = Board.count
     user_board_count = UserBoard.count
     my_board_count = @user.boards.count
+    board = create(:board)
+    board_count = Board.count
 
     user_board = UserBoard.new(
       user_id: @user.id,
+      board_id: board.id,
       name: Faker::Name.title,
       is_admin: true
     )
@@ -70,8 +72,9 @@ RSpec.describe UserBoard, type: :model do
   end
 
   it "updates the encrypted_password" do
+    board = create(:board)
 
-    user_board = create(:user_board, {user_id: @user.id, is_admin: true})
+    user_board = create(:user_board, {user_id: @user.id, is_admin: true, board_id: board.id })
 
     old_key = user_board.encrypted_password
     new_key = Faker::Crypto.md5
@@ -84,8 +87,8 @@ RSpec.describe UserBoard, type: :model do
   end
 
   it "rejects invalid encrypted_password" do
-
-    user_board = create(:user_board, {user_id: @user.id, is_admin: true})
+    board = create(:board)
+    user_board = create(:user_board, {user_id: @user.id, is_admin: true, board_id: board.id})
 
     old_key = user_board.encrypted_password
 

@@ -4,12 +4,10 @@
 # Returns `401` error if user is not authenticated
 module LoggedInControllerConcern
   extend ActiveSupport::Concern
+  
+  include Knock::Authenticable
 
-  included do
-    include DeviseTokenAuth::Concerns::SetUserByToken
-    before_action :authenticate_user!
-    before_action :set_user
-  end
+  before_action :authenticate_user
 
   private
   # Sets the `@user` variable in the controllers
