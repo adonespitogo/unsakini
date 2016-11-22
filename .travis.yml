@@ -4,6 +4,11 @@ rvm:
  - jruby
  - rbx-2
 
+# https://github.com/travis-ci/travis-ci/issues/4090
+node_js:
+  - "5.5"
+  - "4.2"
+
 services:
   - mysql
 
