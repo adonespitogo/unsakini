@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adonespitogo/unsakini.svg?branch=master)](https://travis-ci.org/adonespitogo/unsakini)
+
 UNSAKINI
 -----------
 *Created by and for online activists, information security enthusiasts and government surveillance evaders.*
@@ -25,6 +27,8 @@ So to access your data, the hacker needs to know two things - (1) your private k
 
 The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), the most widely used and trusted encryption algorithm.
 
+------
+
 ### System Requirements
  - Node.js < 7.0.0
  - Ruby >= 2.2.2
@@ -36,33 +40,24 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
 $ git clone https://github.com/adonespitogo/unsakini.git my-project
 $ cd my-project
 $ bundle install
-$ cd angular
-$ npm install -g angular-cli gulp
-$ npm install
+$ rake ng:install
+$ rake ng:build
 ```
 
-### Configurations
- - Rails configurations can be found `./config` directory. Feel free to modify as needed, specially the database configuration. See the backend setup [documentation](./docs/rails.md).
- - Angular app is managed using [Angular CLI](https://github.com/angular/angular-cli). See the frontend setup [documentation](./docs/angular.md).
+Configure the database in [./config/database.yml](./config/database.yml). Provide the database name, user and password of the mysql database for each environment. Then run:
+```
+$ bundle exec rake db:setup
+```
 
-### Running Local Server
-Navigate to project root directory
+Run local rails server
 ```
-$ cd my-project
+$ bundle exec rails s
 ```
-Run setup database
-```
-$ rake db:setup
-```
-Run local Rails server
-```
-$ rails s
-```
-Browse [http://localhost:3000](http://localhost:3000)
+Now you will be able to see the application at [http://localhost:3000](http://localhost:3000)
 
 ### Development
- - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the [YARD documentation](https://www.unsakini.com/docs/backend/).
- - The frontend is made of [Angular 2](https://angular.io/). See the [documentation](https://www.unsakini.com/docs/frontend/).
+ - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the YARD [ documentation](https://www.unsakini.com/docs/backend/).
+ - The frontend is made of [Angular 2](https://angular.io/) and is located in the [./angular](./angular) directory.
 
 ### Testing
  - Using [Rspec](http://rspec.info/) in testing Rails backend
@@ -72,13 +67,17 @@ Run rails tests
 ```
 $ rspec
 ```
-Run angular tests
+Run angular unit tests
 ```
-Not yet implemented!
+$ rake ng:test
+```
+Run the angular end-to-end tests
+```
+$ rake ng:e2e
 ```
 
 ### Deployment
-Deployment instructions here...
+TODO: Write deployment instructions
 
 ### Encryption Specifications
 
