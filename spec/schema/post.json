@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "content",
+    "user",
+    "board",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "user": {
+      "type": "object",
+      "requires": [
+        "id",
+        "name",
+        "email",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "board": {
+      "type": "object",
+      "required": [
+        "id",
+        "is_admin",
+        "name",
+        "encrypted_password",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "is_admin": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "encrypted_password": {
+          "type": "string|nil"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

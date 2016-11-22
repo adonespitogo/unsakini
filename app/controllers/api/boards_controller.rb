@@ -1,5 +1,11 @@
 class Api::BoardsController < ApplicationController
+
+
+  include SerializerControllerConcern
+  include LoggedInControllerConcern
+
   include BoardOwnerControllerConcern
+
   before_action :ensure_board, :only => [:show, :update, :destroy]
   before_action :ensure_board_owner, :only => [:update, :destroy]
 

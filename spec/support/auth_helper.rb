@@ -2,6 +2,7 @@
 module AuthHelper
 
   def auth_headers(user)
+  	# debugger
     token = Knock::AuthToken.new(payload: { sub: user.id }).token
 
     {

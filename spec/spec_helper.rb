@@ -3,12 +3,13 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require 'rspec/rails'
 # require 'rspec/autorun'
+require 'byebug'
+require 'rb-readline'
 require 'factory_girl_rails'
 require 'json_spec'
 require 'json-schema-rspec'
 require 'faker'
 require 'database_cleaner'
-require 'knock'
 
 Rails.backtrace_cleaner.remove_silencers!
 

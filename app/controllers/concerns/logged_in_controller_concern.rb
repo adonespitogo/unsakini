@@ -4,15 +4,19 @@
 # Returns `401` error if user is not authenticated
 module LoggedInControllerConcern
   extend ActiveSupport::Concern
-  
-  include Knock::Authenticable
 
-  before_action :authenticate_user
+  included do
+    include Knock::Authenticable
+  	before_action :authenticate_user
+    before_action :set_user
+  end
+
 
   private
   # Sets the `@user` variable in the controllers
-    def set_user
-      @user = current_user
-    end
+  def set_user
+  	render status: :unauthorized if current_user.nil?
+    @user = current_user
+  end
 
 end

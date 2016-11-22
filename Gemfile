@@ -12,3 +12,10 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+
+# gem "rails", "~> 5.0.0", ">= 5.0.0.1"
+gem "active_model_serializers"
+gem 'bcrypt', '~> 3.1.7'
+gem "knock"
+gem "rack-cors"

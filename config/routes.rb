@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   post 'user_token' => 'user_token#create'
 
   # ng2 html5 pushState routes
