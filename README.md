@@ -38,9 +38,8 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
 $ git clone https://github.com/adonespitogo/unsakini.git my-project
 $ cd my-project
 $ bundle install
-$ cd angular
-$ npm install -g angular-cli gulp
-$ npm install
+$ rake ng:install
+$ rake ng:build
 ```
 
 ### Configuration
