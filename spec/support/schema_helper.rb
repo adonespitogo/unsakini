@@ -1,3 +1,5 @@
+require 'json-schema-rspec'
+
 RSpec.configure do |config|
   config.include JSON::SchemaMatchers
   config.json_schemas[:user] = "spec/schema/user.json"

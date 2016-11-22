@@ -1,23 +1,28 @@
 Rails.application.routes.draw do
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  mount_devise_token_auth_for 'User', at: 'api/auth'
-
-  # ng2 html5 pushState routes
-  get '/app/*ngroute', to: 'web_base#app'
 
   namespace :api do
-    resource :user
-    resources :boards do
-      resources :posts do
-        resources :comments, only: [:index, :create, :update, :destroy]
-      end
-    end
-
-    post '/api/share/board/', to: 'share_board#index', as: 'share_board'
-    get  '/api/users/search', to: 'users#search', as: 'user_search'
-
+    resources :boards
   end
 
+  # namespace :api do
+  #   get 'boards/index'
+  # end
+
+  # namespace :api do
+  #   get 'boards/show'
+  # end
+
+  # namespace :api do
+  #   get 'boards/update'
+  # end
+
+  # namespace :api do
+  #   get 'boards/destroy'
+  # end
+
+  # namespace :api do
+  #   get 'boards/create'
+  # end
 
 end

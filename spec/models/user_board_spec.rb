@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UserBoard, type: :model do
+
   it_behaves_like 'encryptable', [:encrypted_password]
 
   before(:each) do
@@ -56,7 +57,8 @@ RSpec.describe UserBoard, type: :model do
 
   it "updates the board name" do
     new_board_name = Faker::Name.title
-    user_board = create(:user_board, {user_id: @user.id})
+    board = create(:board)
+    user_board = create(:user_board, {user_id: @user.id, board_id: board.id})
 
     board = user_board.board
     user_board.name = new_board_name
