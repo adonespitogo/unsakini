@@ -12,6 +12,9 @@ before_script:
   - mysql -e 'create database unsakini_travis'
 
 script:
+
+- bin/rake angular:install
+
 - RAILS_ENV=test bundle exec rake db:migrate --trace
 - bundle exec rake db:test:prepare
 - bundle exec rake
