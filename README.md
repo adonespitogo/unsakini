@@ -27,6 +27,8 @@ So to access your data, the hacker needs to know two things - (1) your private k
 
 The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), the most widely used and trusted encryption algorithm.
 
+------
+
 ### System Requirements
  - Node.js < 7.0.0
  - Ruby >= 2.2.2
@@ -42,28 +44,20 @@ $ rake ng:install
 $ rake ng:build
 ```
 
-### Configuration
-Setup the database first. The DB configuration can be found in the [./config/database.yml](./config/database.yml). Provide the database name, user and password of the mysql database for each environment. Then run:
+Configure the database in [./config/database.yml](./config/database.yml). Provide the database name, user and password of the mysql database for each environment. Then run:
 ```
 $ bundle exec rake db:setup
 ```
 
-### Running Local Server
-Navigate to project root directory
+Run local rails server
 ```
-$ cd my-project
+$ bundle exec rails s
 ```
-
-Run local Rails server
-```
-$ rails s
-```
-Browse [http://localhost:3000](http://localhost:3000)
+Now you will be able to see the application at [http://localhost:3000](http://localhost:3000)
 
 ### Development
- - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the [YARD documentation](https://www.unsakini.com/docs/backend/).
- - The frontend is made of [Angular 2](https://angular.io/). See the [documentation](https://github.com/angular/angular-cli).
- - More [docs](./docs/development.md)
+ - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the YARD [ documentation](https://www.unsakini.com/docs/backend/).
+ - The frontend is made of [Angular 2](https://angular.io/) and is located in the [./angular](./angular) directory.
 
 ### Testing
  - Using [Rspec](http://rspec.info/) in testing Rails backend
@@ -73,21 +67,17 @@ Run rails tests
 ```
 $ rspec
 ```
-Run angular tests
+Run angular unit tests
 ```
-$ ng build
+$ rake ng:test
 ```
-Run the unit tests
+Run the angular end-to-end tests
 ```
-$ ng test
-```
-Run the end-to-end tests
-```
-$ ng e2e
+$ rake ng:e2e
 ```
 
 ### Deployment
-**to do**
+TODO: Write deployment instructions
 
 ### Encryption Specifications
 
