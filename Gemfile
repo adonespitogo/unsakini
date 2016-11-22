@@ -24,6 +24,11 @@ gem 'devise_token_auth'
 gem 'omniauth'
 gem 'rack'
 
+# yardoc
+gem 'yard'
+gem 'redcarpet'
+gem 'github-markup'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -35,11 +40,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   # gem 'rails-controller-testing'
-
-  # yardoc
-  gem 'yard'
-  gem 'redcarpet'
-  gem 'github-markup'
 
   #fix time inconsistencies
   gem 'rspec-timecop'

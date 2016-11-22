@@ -1,6 +1,6 @@
 
 test:
   adapter: mysql2
-  database: <%= ENV['DB_NAME'] %>
+  database: unsakini_travis
   username: travis
   encoding: utf8

@@ -4,15 +4,12 @@ rvm:
  - jruby
  - rbx-2
 
-env:
- - DB_NAME=unsakini_travis
-
 services:
   - mysql
 
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - mysql -e 'create database $DB_NAME;'
+  - mysql -e 'create database unsakini_travis'
 
 script:
 - RAILS_ENV=test bundle exec rake db:migrate --trace
