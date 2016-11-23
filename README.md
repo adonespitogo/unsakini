@@ -35,34 +35,15 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
  - `rails` and `bundler` gems
 
 ### Installation
-
+Create a new rails application named `my-app` or anything you like.
 ```
 $ rails new my-app
 $ cd my-app
 ```
-Add `gem 'unsakini'` to your Gemfile.
-```bash
+Add `gem 'unsakini'` to your `Gemfile`.
+```
 $ bundle install
-```
-Generate the `config/initializers/unsakini.rb`
-```
-$ rails g unsakini:config
-```
-Generate the frontend assets
-```
-$ rails g unsakini:angular 
-```
-Build the angular app
-```
-$ rake unsakini:build
-```
-Populate the db/migrations directory
-```
-$ rake unsakini_engine:install:migrations
-```
-Setup the database
-```
-$ rake db:migrate
+$ rake unsakini:install
 ```
 
 Run local rails server
