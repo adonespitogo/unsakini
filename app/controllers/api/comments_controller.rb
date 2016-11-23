@@ -1,22 +1,24 @@
 class Api::CommentsController < ApplicationController
+
+  include LoggedInControllerConcern
   include PostOwnerControllerConcern
   include CommentOwnerControllerConcern
-
+  include ::ActionController::Serialization
 
   before_action :ensure_post, only: [:index, :create]
   before_action :ensure_comment, only: [:show, :update, :destroy]
   before_action :ensure_comment_owner, only: [:update, :destroy]
 
-# Renders the comments belonging to the post
-#
-# `GET /api/boards/:board_id/posts/:post_id/`
+  # Renders the comments belonging to the post
+  #
+  # `GET /api/boards/:board_id/posts/:post_id/`
   def index
     render json: @post.comments
   end
 
-# Creates new comment belonging to the post
-#
-# `POST /api/boards/:board_id/posts/:post_id/`
+  # Creates new comment belonging to the post
+  #
+  # `POST /api/boards/:board_id/posts/:post_id/`
   def create
     @comment = Comment.new(params.permit(:content))
     @comment.user = @user
@@ -28,9 +30,9 @@ class Api::CommentsController < ApplicationController
     end
   end
 
-# Updates a comment
-#
-# `PUT /api/boards/:board_id/posts/:post_id/comments/:id`
+  # Updates a comment
+  #
+  # `PUT /api/boards/:board_id/posts/:post_id/comments/:id`
   def update
     if @comment.update(params.permit(:content))
       render json: @comment
@@ -39,9 +41,9 @@ class Api::CommentsController < ApplicationController
     end
   end
 
-# Deletes a comment
-#
-# `DELETE /api/boards/:board_id/posts/:post_id/comments/:id`
+  # Deletes a comment
+  #
+  # `DELETE /api/boards/:board_id/posts/:post_id/comments/:id`
   def destroy
     @comment.destroy
     render status: :ok

@@ -11,7 +11,6 @@ module LoggedInControllerConcern
     before_action :set_user
   end
 
-
   private
   # Sets the `@user` variable in the controllers
   def set_user

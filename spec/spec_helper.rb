@@ -22,7 +22,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
-  config.order = "random"
+  # config.order = "random"
 
   config.include JsonSpec::Helpers
   config.include FactoryGirl::Syntax::Methods

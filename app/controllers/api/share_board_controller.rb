@@ -1,4 +1,6 @@
 class Api::ShareBoardController < ApplicationController
+
+  include LoggedInControllerConcern
   include BoardOwnerControllerConcern
   include PostOwnerControllerConcern
   include CommentOwnerControllerConcern
