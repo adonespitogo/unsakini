@@ -10,14 +10,14 @@ UNSAKINI
 Perfect for:
 
  - group discussions on sensitive issues
- - confidential conversations
- - storing passwords, liscenses, credit card details, and other sensitive documents
+ - secretive conversations
+ - storing sensitive information and documents
 
 
 -------------------------
 
 ### How it Works
-Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. If you look at the network traffic in the browser network tab (by pressing F12 and selecting network tab), you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before it leaves your web browser. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
+Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
 
 Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer once you logout.
 
