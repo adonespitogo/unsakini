@@ -18,7 +18,7 @@ Features:
 ### How it Works
 Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
 
-Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer once you logout.
+Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer everytime you logout.
 
 To increase the security, your data is re-encrypted in the backend before being saved to the database, which adds a second layer of protection.
 
