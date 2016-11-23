@@ -22,7 +22,6 @@ module BoardOwnerControllerConcern
       return {status: :bad_request}
     end
     if (board)
-      debugger if @user.nil?
       user_board = UserBoard.where(user_id: @user.id, board_id: board_id).first
       return {status: :forbidden }if user_board.nil?
         return {status: :ok, board: board, user_board: user_board}

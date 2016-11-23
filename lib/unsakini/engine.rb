@@ -20,4 +20,11 @@ module Unsakini
     # end
 
   end
+
+  # http://stackoverflow.com/questions/4065699/rails-3-engine-provide-config-for-users
+  def self.setup(&block)
+    yield Engine.config if block
+    Engine.config
+  end
+
 end

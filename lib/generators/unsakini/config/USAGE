@@ -1,0 +1,8 @@
+Description:
+    Creates config initializer
+
+Example:
+    rails generate unsakini:config
+
+    This will create:
+        config/initializers/unsakini.rb
