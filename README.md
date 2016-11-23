@@ -7,12 +7,11 @@ UNSAKINI
 
 **[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created with the aim of evading global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity.
 
-Perfect for:
+Features:
 
- - group discussions on sensitive issues
- - secretive conversations
- - storing sensitive information and documents
-
+ - encrypted discussions boards
+ - encrypted chat
+ - encrypted file uploads
 
 -------------------------
 
