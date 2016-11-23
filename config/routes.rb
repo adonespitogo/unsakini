@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
 
   # ng2 html5 pushState routes
-  get '/app/*ngroute', to: 'web_base#app'
+  get 'app', to: 'web_base#app'
+  get 'app/*ngroute', to: 'web_base#app'
 
   namespace :api do
     resource :user
