@@ -9,6 +9,5 @@ before_script:
 script:
 
 - bin/rails g unsakini:config
-- RAILS_ENV=test bundle exec rake db:migrate --trace
-- bundle exec rake db:test:prepare
+- bin/rails db:migrate
 - bundle exec rake
