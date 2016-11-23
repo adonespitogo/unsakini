@@ -1,6 +1,9 @@
 class Api::PostsController < ApplicationController
+
+  include LoggedInControllerConcern
   include BoardOwnerControllerConcern
   include PostOwnerControllerConcern
+  include ::ActionController::Serialization
 
   before_action :ensure_board, only: [:index, :create]
   before_action :ensure_post, only: [:show, :update, :destroy]

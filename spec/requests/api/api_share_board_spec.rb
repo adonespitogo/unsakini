@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::ShareBoard", type: :request do
 
-  before(:all) do
-    Timecop.freeze
+  before(:each) do
     user_is_sharing_a_board_scenario
   end
 

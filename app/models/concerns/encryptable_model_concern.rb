@@ -66,9 +66,13 @@ module EncryptableModelConcern
     OpenSSL::Cipher::Cipher.new('aes-256-cbc')
   end
 
-  # Returns the encryption key from the `crypto` config
+  # Returns the encryption key from the `unsakini_crypto_key` config
   def cipher_key
-    Rails.configuration.crypto['key']
+    begin
+      Rails.configuration.unsakini_crypto_key
+    rescue Exception => e
+      raise 'Encryption key is not set! Please run `rails g unsakini:config` before you proceed.'
+    end
   end
 
   # Encrypts model attribute value

@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "Api::Board::Post::Comments", type: :request do
 
   before(:all) do
-    Timecop.freeze
     user_has_shared_board_with_posts_scenario
   end
 

@@ -22,7 +22,7 @@ RSpec.describe "Api::Boards", type: :request do
   }
 
   describe "GET /api/boards" do
-    before(:all) do
+    before(:each) do
       user_has_board_scenario
     end
     it "returns http unauthorized" do
@@ -39,7 +39,7 @@ RSpec.describe "Api::Boards", type: :request do
 
   describe "POST /api/boards" do
 
-    before(:all) do
+    before(:each) do
       create_board_scenario
     end
 
@@ -80,7 +80,7 @@ RSpec.describe "Api::Boards", type: :request do
 
   context "My Boards" do
 
-    before(:all) do
+    before(:each) do
       user_has_shared_board_scenario
     end
 
@@ -102,7 +102,9 @@ RSpec.describe "Api::Boards", type: :request do
       end
 
       it "returns board resource" do
+        # debugger
         get api_board_path(@board), headers: auth_headers(@user)
+        # debugger
         expect(response).to have_http_status(:ok)
         expect(response.body).to match_json_schema(:board)
         expect(response.body).to be_json_eql(serialize(@user_board))
@@ -193,7 +195,7 @@ RSpec.describe "Api::Boards", type: :request do
 
   context "Shared Board" do
 
-    before(:all) do
+    before(:each) do
       user_has_shared_board_scenario
     end
 

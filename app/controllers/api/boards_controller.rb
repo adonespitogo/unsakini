@@ -1,5 +1,11 @@
 class Api::BoardsController < ApplicationController
+
+
+  include LoggedInControllerConcern
+  include SerializerControllerConcern
   include BoardOwnerControllerConcern
+  include ::ActionController::Serialization
+
   before_action :ensure_board, :only => [:show, :update, :destroy]
   before_action :ensure_board_owner, :only => [:update, :destroy]
 
@@ -35,7 +41,7 @@ class Api::BoardsController < ApplicationController
   # `GET /api/boards/:id`
   #
   def show
-    render :json => @user_board
+    render json: @user_board
   end
 
   # Updates a single board.

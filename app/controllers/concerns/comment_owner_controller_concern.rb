@@ -1,6 +1,7 @@
 # Ensures user is owner of the comment and sets the `@comment` variable in the controllers
 module CommentOwnerControllerConcern
   extend ActiveSupport::Concern
+  
   # Ensures user is owner of the comment and sets the `@comment` variable in the controllers
   def ensure_comment
     post_id = params[:post_id]

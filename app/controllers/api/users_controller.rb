@@ -1,5 +1,8 @@
 class Api::UsersController < ApplicationController
 
+  include LoggedInControllerConcern
+  include ::ActionController::Serialization
+
   # Renders the current user as json
   #
   # `GET /api/user/:id`
