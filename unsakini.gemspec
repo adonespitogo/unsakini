@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Unsakini::VERSION
   s.authors     = ["Adones Pitogo"]
   s.email       = ["pitogo.adones@gmail.com"]
-  s.homepage    = "http://github.com/unsakini/unsakini"
+  s.homepage    = "http://github.com/adonespitogo/unsakini"
   s.summary     = \
     "Open source ruby BB created by and for online activists, information security enthusiasts and government surveillance evaders."
   s.description = \
