@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
 
   s.files = Dir["{angular,app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
-      !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil?
+      !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil? or !(path =~ /spec(\/|\\)dummy/).nil?
     end
 
   s.add_dependency "rails", "~> 5.0.0", ">= 5.0.0.1"
@@ -41,6 +41,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'json-schema-rspec'
   s.add_development_dependency 'database_cleaner'
 
-  s.test_files = Dir["spec/**/*"]
+  s.test_files = Dir["spec/**/*"].reject do |path|
+      !(path =~ /node_modules/).nil? or
+      !(path =~ /log/).nil?
+    end
 
 end
