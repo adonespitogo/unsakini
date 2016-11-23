@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.org/adonespitogo/unsakini.svg?branch=master)](https://travis-ci.org/adonespitogo/unsakini)
 
 UNSAKINI
 -----------
@@ -11,7 +11,7 @@ Perfect for:
 
  - group discussions on sensitive issues
  - confidential conversations
- - storing passwords, liscenses, credit card details, and other sensitive documents
+ - storing passwords, licenses, credit card details, and other sensitive documents
 
 
 -------------------------
@@ -30,48 +30,54 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
 ------
 
 ### System Requirements
- - Node.js
+ - Node.js < 7.0.0
  - Ruby >= 2.2.2
- - `rails` and `bundler` gems
+ - Mysql
 
 ### Installation
 
 ```
-$ rails new my-app
-$ cd my-app
-```
-Add `gem 'unsakini'` to your Gemfile.
-```bash
+$ git clone https://github.com/adonespitogo/unsakini.git my-project
+$ cd my-project
 $ bundle install
+$ rake ng:install
+$ rake ng:build
 ```
-Generate the `config/initializers/unsakini.rb`
+
+Configure the database in [./config/database.yml](./config/database.yml). Provide the database name, user and password of the mysql database for each environment. Then run:
 ```
-$ rails g unsakini:config # 
-```
-Generate the frontend assets
-```
-$ rails g unsakini:angular 
-```
-Build the angular app
-```
-$ rake unsakini:build
-```
-Populate the db/migrations directory
-```
-$ rake unsakini_engine:install:migrations
-```
-Setup the database
-```
-$ rake db:migrate
+$ bundle exec rake db:setup
 ```
 
 Run local rails server
 ```
-$ rails s
+$ bundle exec rails s
 ```
 Now you will be able to see the application at [http://localhost:3000](http://localhost:3000)
 
-------------------------------
+### Development
+ - The backend is a traditional [Rails 5](http://rubyonrails.org/) app. See the YARD [ documentation](https://www.unsakini.com/docs/backend/).
+ - The frontend is made of [Angular 2](https://angular.io/) and is located in the [./angular](./angular) directory.
+
+### Testing
+ - Using [Rspec](http://rspec.info/) in testing Rails backend
+ - See [Angular 2 Testing Guide](https://angular.io/docs/ts/latest/guide/testing.html)
+
+Run rails tests
+```
+$ rspec
+```
+Run angular unit tests
+```
+$ rake ng:test
+```
+Run the angular end-to-end tests
+```
+$ rake ng:e2e
+```
+
+### Deployment
+TODO: Write deployment instructions
 
 ### Encryption Specifications
 
@@ -95,5 +101,5 @@ Now you will be able to see the application at [http://localhost:3000](http://lo
 ### Author
 [Adones Pitogo](http://adonespitogo.com)
 
-## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+### License
+Released under the terms of [MIT](./LICENSCE.txt) License.
