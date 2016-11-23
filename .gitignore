@@ -11,3 +11,4 @@ config/initializers/unsakini.rb
 spec/dummy/config/initializers/
 spec/dummy/db/migrate/
 
+.byebug_history
