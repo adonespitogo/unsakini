@@ -9,9 +9,12 @@ Gem::Specification.new do |s|
   s.version     = Unsakini::VERSION
   s.authors     = ["Adones Pitogo"]
   s.email       = ["pitogo.adones@gmail.com"]
-  s.homepage    = "http://github.com"
-  s.summary     = "Summary of Unsakini."
-  s.description = "Description of Unsakini."
+  s.homepage    = "http://github.com/unsakini/unsakini"
+  s.summary     = \
+    "Open source ruby BB created by and for online activists, information security enthusiasts and government surveillance evaders."
+  s.description = \
+    "Unsakini is an open source encrypted bulletin board created with the aim of evading 
+    global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

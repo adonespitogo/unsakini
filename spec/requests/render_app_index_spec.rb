@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "WebBaseController", type: :request do
+
   describe 'catch html5 pushState routes' do
 
     def self.visit_app_urls(urls)
