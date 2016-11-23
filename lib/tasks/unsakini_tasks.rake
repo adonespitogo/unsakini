@@ -11,4 +11,13 @@ namespace :unsakini do
     system(cmd)
   end
 
+  # desc "test"
+  # task :test do
+  #   dirs = Dir["{angular,app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
+  #     !(path =~ /node_modules/).nil?
+  #   end
+
+  #   puts dirs
+  # end
+
 end

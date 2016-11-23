@@ -1,8 +1,4 @@
 
-require "active_model_serializers"
-require 'bcrypt'
-require "knock"
-# require "rack-cors"
 
 module Unsakini
   class Engine < ::Rails::Engine
