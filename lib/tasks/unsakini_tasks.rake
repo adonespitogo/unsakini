@@ -1,5 +1,16 @@
 namespace :unsakini do
 
+
+  desc "Runs `rails generate unsakini:config`"
+  task :config do
+    system('bundle exec rails g unsakini:config')
+  end
+
+  desc "Runs `rails generate unsakini:angular`"
+  task :angular do
+    system('bundle exec rails g unsakini:angular')
+  end
+
   desc "Initializes the angular app in ./angular directory."
   task :build do
 
@@ -21,7 +32,7 @@ namespace :unsakini do
       end
     rescue Exception => e
       puts \
-        "
+      "
 
         Please run `rails g unsakini:angular` before you proceed.
 
@@ -29,5 +40,29 @@ namespace :unsakini do
     end
 
   end
+
+  desc "One stop command to install unsakini."
+  task :install => [:config, :angular, :build] do
+    begin
+      system('bundle exec rake unsakini_engine:install:migrations')
+      system('bundle exec rake db:migrate')
+    rescue Exception => e
+      puts e.to_s
+      puts \
+      "
+        
+        An error occured. Please run the following commands in succession:
+
+        "
+      puts "1.) rails g unsakini:config"
+      puts "2.) rails g unsakini:angular"
+      puts "3.) bundle exec rake unsakini_engine:install:migrations"
+      puts "4.) bundle exec rake db:migrate"
+      puts ""
+    end
+  end
+
+
+
 
 end

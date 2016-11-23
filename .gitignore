@@ -8,4 +8,7 @@ spec/dummy/tmp/
 spec/dummy/angular/
 spec/dummy/public/app/
 config/initializers/unsakini.rb
+spec/dummy/config/initializers/
+spec/dummy/db/migrate/
 
+.byebug_history
