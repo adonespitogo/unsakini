@@ -95,5 +95,5 @@ Now you will be able to see the application at [http://localhost:3000](http://lo
 ### Author
 [Adones Pitogo](http://adonespitogo.com)
 
-## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+### License
+Released under the terms of [MIT](https://opensource.org/licenses/MIT) License.
