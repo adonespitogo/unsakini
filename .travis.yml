@@ -1,8 +1,8 @@
 language: ruby
 rvm:
 - 2.2.2
-- jruby-2.2.2
-- rbx-2.2.2
+# - jruby-2.2.2
+# - rbx-2.2.2
 
 bundler_args: --without production
 
