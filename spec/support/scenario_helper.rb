@@ -159,8 +159,25 @@ module BoardSpecHelper
 
   end
 
+  def user_has_many_posts
+    user_has_board_scenario
+    @num_posts = 35
+
+    @num_posts.times do
+
+      create(:post, {
+               user_id: @user.id,
+               board_id: @board.id
+      })
+    end
+
+    @num_posts = @board.posts.count
+  end
+
 end
 
+
+# include to spec env
 RSpec.configure do |config|
   config.include BoardSpecHelper
 end
