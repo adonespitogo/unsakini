@@ -5,7 +5,6 @@ spec/dummy/db/*.sqlite3
 spec/dummy/db/*.sqlite3-journal
 spec/dummy/log/*.log
 spec/dummy/tmp/
-spec/dummy/angular/
 spec/dummy/public/app/
 config/initializers/unsakini.rb
 spec/dummy/config/initializers/
