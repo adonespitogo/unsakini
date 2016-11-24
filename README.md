@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/unsakini/unsakini-engine.svg?branch=master)](https://travis-ci.org/unsakini/unsakini-engine)
 
+
 UNSAKINI
 -----------
 *Created by and for online activists, information security enthusiasts and government surveillance evaders.*
@@ -15,9 +16,9 @@ Features:
 -------------------------
 
 ### How it Works
-Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
+Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before they are sent to the server. The key is stored in your computer and is never sent to the server.
 
-Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer everytime you logout.
+Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer everytime you logout to ensure no one can obtain it while you're away.
 
 To increase the security, your data is re-encrypted in the backend before being saved to the database, which adds a second layer of protection.
 
@@ -42,6 +43,7 @@ Add the gem to your `Gemfile`.
 ```
 gem 'unsakini'
 ```
+Bundle install and initialize the application
 ```
 $ bundle install
 $ rake unsakini:install
