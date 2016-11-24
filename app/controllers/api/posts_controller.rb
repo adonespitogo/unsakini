@@ -52,7 +52,7 @@ class Api::PostsController < ApplicationController
 # `DELETE /api/boards/:board_id/posts/:id`
   def destroy
     @post.destroy
-    render status: :ok
+    render json: {}, status: :ok
   end
 
 end

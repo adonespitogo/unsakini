@@ -46,6 +46,6 @@ class Api::CommentsController < ApplicationController
   # `DELETE /api/boards/:board_id/posts/:post_id/comments/:id`
   def destroy
     @comment.destroy
-    render status: :ok
+    render json: {}, status: :ok
   end
 end

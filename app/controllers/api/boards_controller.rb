@@ -14,7 +14,13 @@ class Api::BoardsController < ApplicationController
   # `GET /api/boards`
   #
   def index
-    render json: @user.user_boards
+    admin = true
+    shared = false
+    admin = params[:is_admin] == 'true' if params[:admin]
+    shared = params[:shared] == 'true' if params[:shared]
+    result = @user.user_boards.shared(shared)
+    result = result.admin if admin
+    paginate json: result, per_page: 10
   end
 
   # Creates board belonging to current user.
@@ -61,7 +67,7 @@ class Api::BoardsController < ApplicationController
   # `DELETE /api/boards/:id`
   def destroy
     @board.destroy
-    render status: :ok
+    render json: {}, status: :ok
   end
 
 end

@@ -1,5 +1,9 @@
 module SerializeHelper
 
+  def get_header(h)
+    response.header[h]
+  end
+
   def body_to_json(path = nil)
     parse_json(response.body, path)
   end

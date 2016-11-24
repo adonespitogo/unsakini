@@ -2,6 +2,7 @@ module Unsakini
   class Engine < ::Rails::Engine
 
     config.generators.api_only = true
+    config.unsakini_crypto_key = 'secret'
 
     config.generators do |g|
       g.test_framework :rspec, :fixture => false

@@ -3,8 +3,9 @@
 #
 
 class UserBoardSerializer < ActiveModel::Serializer
-  attributes :id, :is_admin, :encrypted_password, :created_at, :updated_at
-  belongs_to :board
 
+  attributes :id, :is_admin, :encrypted_password, :created_at, :updated_at
+
+  belongs_to :board
 
 end

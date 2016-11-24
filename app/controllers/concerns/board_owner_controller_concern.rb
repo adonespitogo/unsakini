@@ -8,7 +8,7 @@ module BoardOwnerControllerConcern
     result = has_board_access(board_id)
     @board = result[:board]
     @user_board = result[:user_board]
-    render status: result[:status] if result[:status] != :ok
+    render json: {}, status: result[:status] if result[:status] != :ok
   end
 
   # Validate if user has access to board
@@ -32,7 +32,7 @@ module BoardOwnerControllerConcern
 
     #Ensures user is owner of the board. Must be run after {#ensure_board} method.
     def ensure_board_owner
-      render status: :forbidden if !@user_board.is_admin
+      render json: {}, status: :forbidden if !@user_board.is_admin
     end
 
   end
