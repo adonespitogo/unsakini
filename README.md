@@ -29,9 +29,9 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
 ------
 
 ### System Requirements
- - Node.js
  - Ruby >= 2.2.2
- - `rails` and `bundler` gems
+ - Rails >= 5.0
+ - Bunlder gem
 
 ### Installation
 Create a new rails application named `my-app` or anything you like.
@@ -39,7 +39,10 @@ Create a new rails application named `my-app` or anything you like.
 $ rails new my-app
 $ cd my-app
 ```
-Add `gem 'unsakini'` to your `Gemfile`.
+Add the gem to your `Gemfile`.
+```
+gem 'unsakini'
+```
 ```
 $ bundle install
 $ rake unsakini:install
