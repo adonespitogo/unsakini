@@ -3,7 +3,17 @@ namespace :unsakini do
 
   desc "Runs `rails generate unsakini:config`"
   task :config do
-    system('bundle exec rails g unsakini:config')
+    begin
+      Dir.chdir Rails.root do
+        system('bin/rails g unsakini:config')
+      end
+    rescue Exception => e
+      puts "
+
+      Please run `bin/rails g unsakini:config` before you proceed.
+
+      "
+    end
   end
 
   desc "Installs the Angular 2 web client to public/app"
