@@ -19,3 +19,5 @@ gem "active_model_serializers"
 gem 'bcrypt', '~> 3.1.7'
 gem "knock"
 gem "rack-cors"
+gem "kaminari"
+gem "api-pagination"

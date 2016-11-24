@@ -8,17 +8,17 @@ module BoardSpecHelper
     @user = create(:user)
     @board = create(:board)
     @user_board = create(:user_board, {
-                             user_id: @user.id,
-                             board_id: @board.id,
-                             is_admin: true,
+                           user_id: @user.id,
+                           board_id: @board.id,
+                           is_admin: true,
     })
     @post = create(:post, {
-                       user_id: @user.id,
-                       board_id: @board.id
+                     user_id: @user.id,
+                     board_id: @board.id
     })
     @comment = create(:comment, {
-                          user_id: @user.id,
-                          post_id: @post.id
+                        user_id: @user.id,
+                        post_id: @post.id
     })
   end
 
@@ -28,23 +28,23 @@ module BoardSpecHelper
 
     @shared_board = create(:board)
     @shared_user_board_1 = create(:user_board, {
-                                      user_id: @user.id,
-                                      board_id: @shared_board.id,
-                                      is_admin: true
+                                    user_id: @user.id,
+                                    board_id: @shared_board.id,
+                                    is_admin: true
     })
     @shared_user_board_2 = create(:user_board, {
-                                      user_id: @user_2.id,
-                                      board_id: @shared_board.id,
-                                      is_admin: false
+                                    user_id: @user_2.id,
+                                    board_id: @shared_board.id,
+                                    is_admin: false
     })
 
     @shared_post = create(:post, {
-                              user_id: @user.id,
-                              board_id: @shared_board.id
+                            user_id: @user.id,
+                            board_id: @shared_board.id
     })
     @shared_comment = create(:comment, {
-                                 user_id: @user.id,
-                                 post_id: @shared_post.id
+                               user_id: @user.id,
+                               post_id: @shared_post.id
     })
   end
 
@@ -52,18 +52,18 @@ module BoardSpecHelper
     user_has_shared_board_scenario
 
     @shared_post_2 = create(:post, {
-                                user_id: @user_2.id,
-                                board_id: @shared_board.id
+                              user_id: @user_2.id,
+                              board_id: @shared_board.id
     })
 
     @shared_comment_2 = create(:comment, {
-                                   user_id: @user_2.id,
-                                   post_id: @shared_post_2.id
+                                 user_id: @user_2.id,
+                                 post_id: @shared_post_2.id
     })
 
     @shared_comment_3 = create(:comment, {
-                                   user_id: @user.id,
-                                   post_id: @shared_post_2.id
+                                 user_id: @user.id,
+                                 post_id: @shared_post_2.id
     })
   end
 
@@ -75,25 +75,25 @@ module BoardSpecHelper
     @board = create(:board)
 
     @user_board = create(:user_board, {
-                             is_admin: true,
-                             user_id: @user.id,
-                             board_id: @board.id
+                           is_admin: true,
+                           user_id: @user.id,
+                           board_id: @board.id
     })
     @post = create(:post, {
-                       user_id: @user.id,
-                       board_id: @board.id
+                     user_id: @user.id,
+                     board_id: @board.id
     })
     @post_2 = create(:post, {
-                         user_id: @user_2.id,
-                         board_id: @board.id
+                       user_id: @user_2.id,
+                       board_id: @board.id
     })
     @comment = create(:comment, {
-                          user_id: @user.id,
-                          post_id: @post.id,
+                        user_id: @user.id,
+                        post_id: @post.id,
     })
     @comment_2 = create(:comment, {
-                            user_id: @user_2.id,
-                            post_id: @post.id,
+                          user_id: @user_2.id,
+                          post_id: @post.id,
     })
 
 
@@ -125,6 +125,38 @@ module BoardSpecHelper
     payload[:shared_user_ids] = [@user_2.id, @user_3.id, @user_4.id] if !(opts_hash[:shared_user_ids] == false)
     payload[:encrypted_password] = Faker::Crypto.md5 if !(opts_hash[:encrypted_password] == false)
     payload
+  end
+
+  def boards_pagination_scenario
+
+    @user = create(:user)
+    @num_boards = 50
+    @num_my_shared_boards = 20
+
+    @num_boards.times do
+      board = create(:board)
+      create(:user_board, {
+               user_id: @user.id,
+               board_id: board.id,
+               is_admin: true,
+               encrypted_password: Faker::Crypto.md5
+      })
+    end
+
+    @num_my_shared_boards.times do
+
+      shared_board = create(:board, {
+                              is_shared: true
+      })
+
+      create(:user_board, {
+               user_id: @user.id,
+               board_id: shared_board.id,
+               is_admin: true,
+               encrypted_password: Faker::Crypto.md5
+      })
+    end
+
   end
 
 end

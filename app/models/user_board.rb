@@ -12,6 +12,8 @@ class UserBoard < ApplicationRecord
   belongs_to :user
   belongs_to :board
 
+  scope :admin, -> { where(is_admin: true) }
+
   def name=(str)
     @name = str
   end
@@ -22,6 +24,14 @@ class UserBoard < ApplicationRecord
     else
       self.board.name
     end
+  end
+
+  # Returns user_boards where {Board} is `is_shared`
+  #
+  # @param is_shared [Boolean] wether to return shared or not shared boards
+  def self.shared(is_shared)
+    joins("LEFT JOIN boards ON user_boards.board_id = boards.id")
+    .where("boards.is_shared = ?", is_shared)
   end
 
   def share(user_ids, new_key)
@@ -35,6 +45,7 @@ class UserBoard < ApplicationRecord
         })
         .save!
       end
+      self.board.is_shared = true
       self.encrypted_password = new_key
       self.save!
     end

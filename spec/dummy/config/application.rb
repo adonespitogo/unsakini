@@ -16,7 +16,6 @@ module Dummy
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.crypto = config_for(:crypto)
   end
 end
 

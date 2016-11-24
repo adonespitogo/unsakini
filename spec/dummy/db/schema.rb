@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122211105) do
+ActiveRecord::Schema.define(version: 20161124102633) do
 
   create_table "boards", force: :cascade do |t|
     t.text     "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_shared",  default: false
   end
 
   create_table "comments", force: :cascade do |t|
