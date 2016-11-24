@@ -25,6 +25,14 @@ RSpec.describe "Api::Boards", type: :request do
           expect(get_header("Total").to_i).to eq @num_boards
         end
 
+        it "returns current user's boards last page" do
+          get api_boards_path, params: {page: 2}, headers: auth_headers(@user)
+          expect(response).to have_http_status(:ok)
+          expect(body_to_json.count).to eq @num_boards - num_per_page
+          expect(body_to_json('0')).to match_json_schema(:board)
+          expect(get_header("Total").to_i).to eq @num_boards
+        end
+
       end
 
     end
@@ -37,6 +45,14 @@ RSpec.describe "Api::Boards", type: :request do
           get api_boards_path, params: {page: 1, admin: true, shared: true}, headers: auth_headers(@user)
           expect(response).to have_http_status(:ok)
           expect(body_to_json.count).to eq num_per_page
+          expect(body_to_json('0')).to match_json_schema(:board)
+          expect(get_header("Total").to_i).to eq @num_my_shared_boards
+        end
+
+        it "returns current user's boards last page" do
+          get api_boards_path, params: {page: 2, admin: true, shared: true}, headers: auth_headers(@user)
+          expect(response).to have_http_status(:ok)
+          expect(body_to_json.count).to eq @num_my_shared_boards - num_per_page
           expect(body_to_json('0')).to match_json_schema(:board)
           expect(get_header("Total").to_i).to eq @num_my_shared_boards
         end

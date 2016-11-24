@@ -13,7 +13,7 @@ class Api::CommentsController < ApplicationController
   #
   # `GET /api/boards/:board_id/posts/:post_id/`
   def index
-    render json: @post.comments
+    paginate json: @post.comments.page(params[:page]), per_page: 20
   end
 
   # Creates new comment belonging to the post
