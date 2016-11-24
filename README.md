@@ -16,7 +16,7 @@ Perfect for:
 -------------------------
 
 ### How it Works
-Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before they are sent to the server. To make sure only you can access your data, the key is stored in your computer and is never sent to the server host.
+Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before they are sent to the server. The key is stored in your computer and is never sent to the server.
 
 Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer everytime you logout to ensure no one can obtain it while you're away.
 
