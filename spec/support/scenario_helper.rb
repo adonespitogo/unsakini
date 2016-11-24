@@ -130,8 +130,8 @@ module BoardSpecHelper
   def boards_pagination_scenario
 
     @user = create(:user)
-    @num_boards = 50
-    @num_my_shared_boards = 20
+    @num_boards = 15
+    @num_my_shared_boards = 17
 
     @num_boards.times do
       board = create(:board)
@@ -159,8 +159,40 @@ module BoardSpecHelper
 
   end
 
+  def user_has_many_posts_scenario
+    user_has_board_scenario
+    @num_posts = 35
+
+    @num_posts.times do
+
+      create(:post, {
+               user_id: @user.id,
+               board_id: @board.id
+      })
+    end
+
+    @num_posts = @board.posts.count
+  end
+
+  def post_has_many_comments_scenario
+    user_has_board_scenario
+    @num_comments = 35
+
+    @num_comments.times do
+
+      create(:comment, {
+               user_id: @user.id,
+               post_id: @post.id
+      })
+    end
+
+    @num_comments = @post.comments.count
+  end
+
 end
 
+
+# include to spec env
 RSpec.configure do |config|
   config.include BoardSpecHelper
 end

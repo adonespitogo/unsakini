@@ -18,20 +18,15 @@ namespace :unsakini do
 
   desc "Installs the Angular 2 web client to public/app"
   task :ng2 do
-    repo_name = "https://github.com/unsakini/unsakini-ng2"
-    tmp_dir = "#{Rails.root}/tmp/unsakini-ng2"
-    app_dir = "#{Rails.root}/public/app/"
     begin
       Dir.chdir Rails.root do
-        system("rm -rf #{tmp_dir} #{app_dir}")
-        system("git clone #{repo_name} #{tmp_dir}")
-        system("mv #{tmp_dir}/dist #{app_dir}")
+        system("bin/rails g unsakini:angular")
       end
     rescue Exception => e
       puts e.to_s
       raise "
 
-      Please clone #{repo_name} and extract dist folder to your projects public/app folder
+      Please clone #{repo_name} and extract angular/dist folder to your projects public/app folder
 
       "
     end
