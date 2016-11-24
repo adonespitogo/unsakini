@@ -1,8 +1,0 @@
-Description:
-    Generates the angular source files
-
-Example:
-    rails generate unsakini:angular
-
-    This will create:
-        angular/ directory in your project root directory
