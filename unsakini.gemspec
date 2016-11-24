@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
   # Needed to use debugger
   # https://github.com/deivid-rodriguez/byebug/issues/289
   s.add_development_dependency 'rb-readline'
-
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'faker'
