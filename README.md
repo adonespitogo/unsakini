@@ -12,7 +12,6 @@ Perfect for:
  - confidential conversations
  - storing passwords, liscenses, credit card details, and other sensitive documents
 
-
 -------------------------
 
 ### How it Works
