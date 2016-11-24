@@ -6,19 +6,18 @@ UNSAKINI
 
 **[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created with the aim of evading global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity.
 
-Perfect for:
+Features:
 
- - group discussions on sensitive issues
- - confidential conversations
- - storing passwords, liscenses, credit card details, and other sensitive documents
-
+ - encrypted discussions boards
+ - encrypted chat
+ - encrypted file uploads
 
 -------------------------
 
 ### How it Works
-Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. If you look at the network traffic in the browser network tab (by pressing F12 and selecting network tab), you'll see that sensitive data sent to the server are gibberesh. This is because they are encrypted using your private key before it leaves your web browser. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
+Upon using the system, you'll be asked to provide your private key. This key is used to encrypt your data before it is sent to the server. The key is stored in your computer and is never sent to the server. Only you have access to your private key, thus only you can read your data.
 
-Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer once you logout.
+Hackers, surveillance and spy softwares and even the server host cannot read your data, unless they are able to obtain your private key. Your private key is deleted from your computer everytime you logout.
 
 To increase the security, your data is re-encrypted in the backend before being saved to the database, which adds a second layer of protection.
 
