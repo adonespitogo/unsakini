@@ -42,10 +42,12 @@ namespace :unsakini do
   end
 
   desc "One stop command to install unsakini."
-  task :install => [:config, :angular, :build] do
+  task :install => [:config] do
     begin
-      system('bundle exec rake unsakini_engine:install:migrations')
-      system('bundle exec rake db:migrate')
+      Dir.chdir "#{Rails.root}" do
+        system("#{Rails.root}/bin/rake unsakini_engine:install:migrations")
+        system("#{Rails.root}/bin/rake db:migrate")
+      end
     rescue Exception => e
       puts e.to_s
       puts \

@@ -9,6 +9,6 @@ spec/dummy/angular/
 spec/dummy/public/app/
 config/initializers/unsakini.rb
 spec/dummy/config/initializers/
-spec/dummy/db/migrate/
+spec/dummy/db/
 
 .byebug_history
