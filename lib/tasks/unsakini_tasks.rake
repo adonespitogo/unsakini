@@ -8,7 +8,24 @@ namespace :unsakini do
 
   desc "Runs `rails generate unsakini:angular`"
   task :angular do
-    system('bundle exec rails g unsakini:angular')
+    repo_name = "https://github.com/unsakini/unsakini-ng2"
+    tmp_dir = "#{Rails.root}/tmp/unsakini-ng2"
+    app_dir = "#{Rails.root}/public/app/"
+    begin
+      Dir.chdir Rails.root do
+        system("rm -rf #{tmp_dir} #{app_dir}")
+        system("git clone #{repo_name} #{tmp_dir}")
+        system("mv #{tmp_dir}/dist #{app_dir}")
+        raise "test"
+      end
+    rescue Exception => e
+      puts e.to_s
+      raise "
+
+      Please clone #{repo_name} and extract dist folder to your projects public/app folder
+
+      "
+    end
   end
 
   desc "Initializes the angular app in ./angular directory."
