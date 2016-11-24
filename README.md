@@ -43,6 +43,7 @@ Add the gem to your `Gemfile`.
 ```
 gem 'unsakini'
 ```
+Bundle install and initialize the application
 ```
 $ bundle install
 $ rake unsakini:install
