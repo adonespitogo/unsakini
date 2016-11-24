@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
 
   s.files = Dir["{angular,app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
-      !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil? or !(path =~ /spec(\/|\\)dummy/).nil?
+      !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil?
     end
 
   s.add_dependency "rails", "~> 5.0.0", ">= 5.0.0.1"
