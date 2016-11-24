@@ -71,7 +71,7 @@ RSpec.describe "Api::Boards", type: :request do
     end
 
     it "returns http not_found" do
-      get api_board_path({id: 1000000}), headers: auth_headers(@user)
+      get api_board_path({id: 1000000}), headers: auth_headers(@user), as: :json
       expect(response).to have_http_status(:not_found)
     end
 

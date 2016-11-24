@@ -67,7 +67,7 @@ class Api::BoardsController < ApplicationController
   # `DELETE /api/boards/:id`
   def destroy
     @board.destroy
-    render status: :ok
+    render json: {}, status: :ok
   end
 
 end
