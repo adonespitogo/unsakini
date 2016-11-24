@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "WebBaseController", type: :request do
 
+
+  it "renders the welcome page" do
+    get "/"
+    expect(response).to have_http_status :ok
+  end
+
   describe 'catch html5 pushState routes' do
 
     def self.visit_app_urls(urls)
@@ -16,4 +22,6 @@ RSpec.describe "WebBaseController", type: :request do
     visit_app_urls(['/app', 'app/', 'app/*anything'])
 
   end
+
+
 end
