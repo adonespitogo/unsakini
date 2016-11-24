@@ -4,7 +4,6 @@ UNSAKINI
 -----------
 *Created by and for online activists, information security enthusiasts and government surveillance evaders.*
 
-
 **[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created with the aim of evading global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity.
 
 Perfect for:
