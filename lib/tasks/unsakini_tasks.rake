@@ -6,8 +6,8 @@ namespace :unsakini do
     system('bundle exec rails g unsakini:config')
   end
 
-  desc "Runs `rails generate unsakini:angular`"
-  task :angular do
+  desc "Installs the Angular 2 web client to public/app"
+  task :ng2 do
     repo_name = "https://github.com/unsakini/unsakini-ng2"
     tmp_dir = "#{Rails.root}/tmp/unsakini-ng2"
     app_dir = "#{Rails.root}/public/app/"
@@ -16,7 +16,6 @@ namespace :unsakini do
         system("rm -rf #{tmp_dir} #{app_dir}")
         system("git clone #{repo_name} #{tmp_dir}")
         system("mv #{tmp_dir}/dist #{app_dir}")
-        raise "test"
       end
     rescue Exception => e
       puts e.to_s
@@ -28,38 +27,8 @@ namespace :unsakini do
     end
   end
 
-  desc "Initializes the angular app in ./angular directory."
-  task :build do
-
-    ng_dir = 'angular'
-    lib_dir = "#{File.expand_path File.dirname(__FILE__)}"
-    lib_dir.slice!("/lib/tasks")
-
-    begin
-      Dir.chdir "#{Rails.root}/#{ng_dir}" do
-
-        cmd = ''
-        cmd += 'npm i;'
-        cmd += "#{Rails.root}/#{ng_dir}/node_modules/.bin/ng build"
-        cmd += " --prod" if Rails.env.production?
-        puts "Running #{cmd}"
-        system(cmd)
-
-        puts "Done installing angular assets."
-      end
-    rescue Exception => e
-      puts \
-      "
-
-        Please run `rails g unsakini:angular` before you proceed.
-
-        "
-    end
-
-  end
-
   desc "One stop command to install unsakini."
-  task :install => [:config] do
+  task :install => [:config, :ng2] do
     begin
       Dir.chdir "#{Rails.root}" do
         system("#{Rails.root}/bin/rake unsakini_engine:install:migrations")
