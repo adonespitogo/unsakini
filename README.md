@@ -1,9 +1,8 @@
-[![Build Status](https://travis-ci.org/adonespitogo/unsakini.svg?branch=master)](https://travis-ci.org/adonespitogo/unsakini)
+[![Build Status](https://travis-ci.org/unsakini/unsakini-engine.svg?branch=master)](https://travis-ci.org/unsakini/unsakini-engine)
 
 UNSAKINI
 -----------
 *Created by and for online activists, information security enthusiasts and government surveillance evaders.*
-
 
 **[Unsakini](https://www.unsakini.com)** is an open source encrypted bulletin board created with the aim of evading global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity.
 
