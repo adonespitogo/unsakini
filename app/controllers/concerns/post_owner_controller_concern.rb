@@ -9,7 +9,7 @@ module PostOwnerControllerConcern
     result = has_post_access(board_id, post_id)
     status = result[:status]
     @post = result[:post]
-    render status: status if status != :ok
+    render json: {}, status: status if status != :ok
   end
 
   # Validate if user has access to the post in the board
@@ -30,7 +30,7 @@ module PostOwnerControllerConcern
 
   # Ensures user is owner of the post. Must be run after {#ensure_post}`.
   def ensure_post_owner
-    render status: :forbidden if @post.user_id != @user.id
+    render json: {}, status: :forbidden if @post.user_id != @user.id
   end
 
 end

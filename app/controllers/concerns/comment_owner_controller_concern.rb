@@ -9,7 +9,7 @@ module CommentOwnerControllerConcern
     result = has_comment_access post_id, comment_id
     @comment = result[:comment]
     status = result[:status]
-    render status: status if status != :ok
+    render json: {}, status: status if status != :ok
   end
 
   # Validate if user has access to comment in the post
@@ -27,7 +27,7 @@ module CommentOwnerControllerConcern
 
   # Ensures user is the owner of the comment. Must be run after {#ensure_comment} method.
   def ensure_comment_owner
-    render status: :forbidden if @comment.user_id != @user.id
+    render json: {}, status: :forbidden if @comment.user_id != @user.id
   end
 
 end

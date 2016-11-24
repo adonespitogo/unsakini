@@ -3,49 +3,47 @@ namespace :unsakini do
 
   desc "Runs `rails generate unsakini:config`"
   task :config do
-    system('bundle exec rails g unsakini:config')
-  end
-
-  desc "Runs `rails generate unsakini:angular`"
-  task :angular do
-    system('bundle exec rails g unsakini:angular')
-  end
-
-  desc "Initializes the angular app in ./angular directory."
-  task :build do
-
-    ng_dir = 'angular'
-    lib_dir = "#{File.expand_path File.dirname(__FILE__)}"
-    lib_dir.slice!("/lib/tasks")
-
     begin
-      Dir.chdir "#{Rails.root}/#{ng_dir}" do
-
-        cmd = ''
-        cmd += 'npm i;'
-        cmd += "#{Rails.root}/#{ng_dir}/node_modules/.bin/ng build"
-        cmd += " --prod" if Rails.env.production?
-        puts "Running #{cmd}"
-        system(cmd)
-
-        puts "Done installing angular assets."
+      Dir.chdir Rails.root do
+        system('bin/rails g unsakini:config')
       end
     rescue Exception => e
-      puts \
+      puts "
+
+      Please run `bin/rails g unsakini:config` before you proceed.
+
       "
-
-        Please run `rails g unsakini:angular` before you proceed.
-
-        "
     end
+  end
 
+  desc "Installs the Angular 2 web client to public/app"
+  task :ng2 do
+    repo_name = "https://github.com/unsakini/unsakini-ng2"
+    tmp_dir = "#{Rails.root}/tmp/unsakini-ng2"
+    app_dir = "#{Rails.root}/public/app/"
+    begin
+      Dir.chdir Rails.root do
+        system("rm -rf #{tmp_dir} #{app_dir}")
+        system("git clone #{repo_name} #{tmp_dir}")
+        system("mv #{tmp_dir}/dist #{app_dir}")
+      end
+    rescue Exception => e
+      puts e.to_s
+      raise "
+
+      Please clone #{repo_name} and extract dist folder to your projects public/app folder
+
+      "
+    end
   end
 
   desc "One stop command to install unsakini."
-  task :install => [:config, :angular, :build] do
+  task :install => [:config, :ng2] do
     begin
-      system('bundle exec rake unsakini_engine:install:migrations')
-      system('bundle exec rake db:migrate')
+      Dir.chdir "#{Rails.root}" do
+        system("#{Rails.root}/bin/rake unsakini_engine:install:migrations")
+        system("#{Rails.root}/bin/rake db:migrate")
+      end
     rescue Exception => e
       puts e.to_s
       puts \

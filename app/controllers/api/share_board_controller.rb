@@ -59,31 +59,31 @@ class Api::ShareBoardController < ApplicationController
         end
       end
       if @user_board.share(params[:shared_user_ids], params[:encrypted_password])
-        render status: :ok
+        render json: {}, status: :ok
       else
         raise "An error occured"
       end
     end
   rescue
     # clean up the created {UserBoard}s
-    render status: 422, json: ["Some of the data can't be saved."]
+    render json: ["Some of the data can't be saved."], status: 422
   end
 
   # Validates the contents of params against the database records.
   def validate_params
 
     if params[:encrypted_password].nil? or params[:shared_user_ids].nil? or params[:board].nil?
-      render status: 422
+      render json: {}, status: 422
       return
     end
 
     result = has_board_access(params[:board][:id])
     if result[:status] != :ok
-      render status: result[:status]
+      render json: {}, status: result[:status]
       return
     else
       if !result[:user_board].is_admin
-        render status: :forbidden
+        render json: {}, status: :forbidden
         return
       end
       @board = result[:board]
@@ -95,7 +95,7 @@ class Api::ShareBoardController < ApplicationController
       params[:posts].each do |post|
         s = has_post_access(params[:board][:id], post[:id])[:status]
         if s != :ok
-          render status: s
+          render json: {}, status: s
           return
         end
 
@@ -103,7 +103,7 @@ class Api::ShareBoardController < ApplicationController
           post[:comments].each do |comment|
             s = has_comment_access(post[:id], comment[:id])[:status]
             if s != :ok
-              render status: s
+              render json: {}, status: s
               return
             end
           end

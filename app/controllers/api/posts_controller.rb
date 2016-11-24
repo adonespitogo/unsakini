@@ -13,7 +13,7 @@ class Api::PostsController < ApplicationController
 #
 # `GET /api/boards/:board_id/posts`
   def index
-    render json: @board.posts
+    paginate json: @board.posts.page(params[:page]), per_page: 20
   end
 
 # Renders a single post belonging to the board
@@ -52,7 +52,7 @@ class Api::PostsController < ApplicationController
 # `DELETE /api/boards/:board_id/posts/:id`
   def destroy
     @post.destroy
-    render status: :ok
+    render json: {}, status: :ok
   end
 
 end

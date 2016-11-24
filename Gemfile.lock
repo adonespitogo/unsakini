@@ -1,9 +1,11 @@
 PATH
   remote: .
   specs:
-    unsakini (0.0.1)
+    unsakini (0.0.2)
       active_model_serializers
+      api-pagination
       bcrypt (~> 3.1.7)
+      kaminari
       knock
       rack-cors
       rails (~> 5.0.0, >= 5.0.0.1)
@@ -54,6 +56,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    api-pagination (4.4.0)
     arel (7.1.4)
     bcrypt (3.1.11)
     builder (3.2.2)
@@ -84,6 +87,9 @@ GEM
     jsonapi (0.1.1.beta2)
       json (~> 1.8)
     jwt (1.5.6)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     knock (2.0)
       bcrypt (~> 3.1)
       jwt (~> 1.5)
@@ -174,6 +180,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  api-pagination
   bcrypt (~> 3.1.7)
   byebug
   database_cleaner
@@ -181,6 +188,7 @@ DEPENDENCIES
   faker
   json-schema-rspec
   json_spec
+  kaminari
   knock
   rack-cors
   rb-readline

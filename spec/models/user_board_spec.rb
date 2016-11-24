@@ -188,6 +188,8 @@ RSpec.describe UserBoard, type: :model do
              user_id: [@user_2.id, @user_3.id, @user_4.id]
     ).count).to eq 3
 
+    expect(@user_board.board.reload.is_shared).to be true
+
   end
 
 end

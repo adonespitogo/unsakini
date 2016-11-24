@@ -14,7 +14,7 @@ module LoggedInControllerConcern
   private
   # Sets the `@user` variable in the controllers
   def set_user
-  	render status: :unauthorized if current_user.nil?
+  	render json: {}, status: :unauthorized if current_user.nil?
     @user = current_user
   end
 

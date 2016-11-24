@@ -13,7 +13,7 @@ class Api::CommentsController < ApplicationController
   #
   # `GET /api/boards/:board_id/posts/:post_id/`
   def index
-    render json: @post.comments
+    paginate json: @post.comments.page(params[:page]), per_page: 20
   end
 
   # Creates new comment belonging to the post
@@ -46,6 +46,6 @@ class Api::CommentsController < ApplicationController
   # `DELETE /api/boards/:board_id/posts/:post_id/comments/:id`
   def destroy
     @comment.destroy
-    render status: :ok
+    render json: {}, status: :ok
   end
 end
