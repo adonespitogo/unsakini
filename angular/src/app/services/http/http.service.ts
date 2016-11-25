@@ -5,12 +5,12 @@ import { Http, Response } from '@angular/http';
 // import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
 
-export interface IAccount {
-	name: string
-	email: string
-	password: string
-	password_confirmation: string
-}
+// export interface IAccount {
+// 	name: string
+// 	email: string
+// 	password: string
+// 	password_confirmation: string
+// }
 
 @Injectable()
 export class HttpService {
