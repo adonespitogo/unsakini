@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
     "Unsakini is an open source encrypted bulletin board created with the aim of evading 
     global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity."
   s.license     = "MIT"
+  s.required_ruby_version = '>= 2.2.2'
+  s.requirements << 'rails, >= 5.0'
 
   s.files = Dir["{angular,app,config,db,lib,public}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
       !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil?
