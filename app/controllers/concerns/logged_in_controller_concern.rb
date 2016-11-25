@@ -5,16 +5,17 @@
 module LoggedInControllerConcern
   extend ActiveSupport::Concern
 
+  include Knock::Authenticable
+
   included do
-    include Knock::Authenticable
-  	before_action :authenticate_user
+    before_action :authenticate_user
     before_action :set_user
   end
 
   private
   # Sets the `@user` variable in the controllers
   def set_user
-  	render json: {}, status: :unauthorized if current_user.nil?
+    render json: {}, status: :unauthorized if current_user.nil?
     @user = current_user
   end
 

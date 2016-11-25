@@ -6,9 +6,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { Angular2TokenService } from 'angular2-token';
 
 import { RegistrationComponent } from './registration.component';
+import { RegistrationService } from './'
 
 let user = {
   name: 'first last',
@@ -20,7 +20,7 @@ let user = {
 let status = 0
 let errors = []
 
-class Angular2TokenServiceMock {
+class RegistrationServiceMock {
   registerAccount(user) {
 
     if (status === 200) {
@@ -56,10 +56,7 @@ describe('RegistrationComponent', () => {
       ],
       declarations: [RegistrationComponent],
       providers: [
-        {
-          provide: Angular2TokenService,
-          useClass: Angular2TokenServiceMock
-        },
+        {provide: RegistrationService, useClass: RegistrationServiceMock}
       ]
     })
     .compileComponents();

@@ -4,20 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppRoutesModule } from './app.routes.module';
-
 import { AppComponent } from './app.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationModule } from './registration/'
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+
     AppRoutesModule,
+    RegistrationModule,
   ],
   declarations: [
-    AppComponent,
-    RegistrationComponent
+    AppComponent
   ],
   providers: [
   ],

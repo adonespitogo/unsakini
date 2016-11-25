@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'app/*ngroute', to: 'web_base#app'
 
   namespace :api do
+
+    mount Knock::Engine => '/knock'
+
     resource :user
     resources :boards do
       resources :posts do

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Angular2TokenService } from 'angular2-token';
+import { RegistrationService } from './registration.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +12,7 @@ export class RegistrationComponent implements OnInit {
   errors: any;
   success = false;
 
-  constructor(public service: Angular2TokenService) {
+  constructor(public service: RegistrationService) {
     this.user = {
       name: '',
       email: '',
@@ -27,6 +27,7 @@ export class RegistrationComponent implements OnInit {
         this.success = true;
       },
       (res) => {
+        this.success = false;
         if (res.status == 422) {
           this.errors = res.json().errors
         } else {
