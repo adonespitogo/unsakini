@@ -61,6 +61,7 @@ RSpec.describe "Api::Users", type: :request do
       prev_user_count = User.count
       post api_user_path, params: invalid_name, as: :json
       expect(response).to have_http_status 422
+      expect(body_to_json('0')).to match_json_schema(:validation)
       expect(User.count).to eq prev_user_count
       expect(response.body).to include "Name can't be blank"
     end
@@ -68,6 +69,7 @@ RSpec.describe "Api::Users", type: :request do
     it "rejects invalid email" do
       prev_user_count = User.count
       post api_user_path, params: invalid_email, as: :json
+      expect(body_to_json('0')).to match_json_schema(:validation)
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
       expect(response.body).to include "Email is invalid"
@@ -77,6 +79,7 @@ RSpec.describe "Api::Users", type: :request do
       prev_user_count = User.count
       post api_user_path, params: invalid_password, as: :json
       expect(response).to have_http_status 422
+      expect(body_to_json('0')).to match_json_schema(:validation)
       expect(User.count).to eq prev_user_count
       expect(response.body).to include "Password is too short"
     end
@@ -85,6 +88,7 @@ RSpec.describe "Api::Users", type: :request do
       prev_user_count = User.count
       post api_user_path, params: invalid_password_confirmation, as: :json
       expect(response).to have_http_status 422
+      expect(body_to_json('0')).to match_json_schema(:validation)
       expect(User.count).to eq prev_user_count
       expect(response.body).to include "Password confirmation doesn't match Password"
     end
