@@ -26,11 +26,11 @@ describe('HttpService', () => {
     expect(service).toBeTruthy();
 	}));
 
-  describe('Append base api url to every request the base url /', () => {
+  describe('Append base api url /', () => {
 
     let expectMethod = (method: string) => {
   
-      it('appends base api url to the post request', inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
+      it(`appends base api url to the ${method} request`, inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
         
         service.base_url = '/'
         let request_url = '/hello/world'
@@ -44,7 +44,6 @@ describe('HttpService', () => {
           service[method](request_url, {}).subscribe()
         else
           service[method](request_url).subscribe()
-
       }));
 
     }
@@ -61,7 +60,7 @@ describe('HttpService', () => {
 
     let expectMethod = (method: string) => {
   
-      it('appends base api url to the post request', inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
+      it(`appends base api url to the ${method} request`, inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
         let domain = 'http://domain.com'
         service.base_url = domain
         let request_url = '/hello/world'
@@ -92,7 +91,7 @@ describe('HttpService', () => {
 
     let expectMethod = (method: string) => {
   
-      it('appends base api url to the post request', inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
+      it(`appends base api url to the ${method} request`, inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
         let domain = 'http://domain.com'
         service.base_url = domain + '/'
         let request_url = '/hello/world'
@@ -119,11 +118,11 @@ describe('HttpService', () => {
 
   })
 
-  describe('Request dont begin with forward slash (/)', () => {
+  describe('Base url dont begin with forward slash (/)', () => {
 
     let expectMethod = (method: string) => {
   
-      it('appends base api url to the post request', inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
+      it(`appends base api url to the ${method} request`, inject([HttpService, MockBackend], (service: HttpService, backend: MockBackend) => {
         let domain = 'http://domain.com'
         service.base_url = domain + '/'
         let request_url = 'hello/world'
