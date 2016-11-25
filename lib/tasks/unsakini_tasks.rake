@@ -16,24 +16,8 @@ namespace :unsakini do
     end
   end
 
-  desc "Installs the Angular 2 web client to public/app"
-  task :ng2 do
-    begin
-      Dir.chdir Rails.root do
-        system("bin/rails g unsakini:angular")
-      end
-    rescue Exception => e
-      puts e.to_s
-      raise "
-
-      Please clone #{repo_name} and extract angular/dist folder to your projects public/app folder
-
-      "
-    end
-  end
-
   desc "One stop command to install unsakini."
-  task :install => [:config, :ng2] do
+  task :install => [:config] do
     begin
       Dir.chdir "#{Rails.root}" do
         system("#{Rails.root}/bin/rake unsakini_engine:install:migrations")
