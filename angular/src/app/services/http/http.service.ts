@@ -41,6 +41,8 @@ export class HttpService {
 
   private buildUrl(url: string) {
     let new_url = `${this.base_url}/${url}`;
+    // remove multiple forward slash from the url like:
+    // http://domain.com//hello/world -> http://domain.com/hello/world
     return new_url.replace(/([^:]\/)\/+/g, "$1").replace(/(^\/)\/+/g, "$1");
   }
 
