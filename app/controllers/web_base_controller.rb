@@ -6,6 +6,14 @@ class WebBaseController < ActionController::Base
 
   # Renders welcome page
   def index
+  	@project = 'Unsakini'
+  	@description = 'Opensource Encrypted Bulletin Board'
+  	@version = Unsakini::VERSION
+  	@author = 'Adones Pitogo'
+  	@repository = 'https://github.com/adonespitogo/unsakini'
+  	@title = "#{@project} | #{@description}"
+  	@tagline = "Created by and for online activists, information security enthusiasts and government surveillance evaders."
+  	@keywords = "unsakini, encrypted, bulletin board, BB, ruby, rails"
   end
 
   # Renders the angular index view when request url is /app/* to enable html5 pushState capability of angularjs

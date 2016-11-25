@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
     global information surveillance and spying, preventing data leaks and promoting information confidentiality and integrity."
   s.license     = "MIT"
 
-  s.files = Dir["{angular,app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
+  s.files = Dir["{angular,app,config,db,lib,public}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
       !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil?
     end
 
