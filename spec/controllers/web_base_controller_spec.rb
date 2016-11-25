@@ -5,7 +5,7 @@ RSpec.describe "WebBaseController", type: :request do
   it "renders the welcome page" do
     get "/"
     expect(response).to have_http_status :ok
-    expect(response.body).to include('Welcome')
+    expect(response.body).to include('Unsakini')
   end
 
   describe 'catch html5 pushState routes' do
