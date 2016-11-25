@@ -9,7 +9,7 @@ RSpec.describe "Api::Users", type: :request do
   let(:valid_attributes) {
     {
       name: Faker::Name.name_with_middle,
-      email: "#{Faker::Internet.email}",
+      email: Faker::Internet.email,
       password: "12345678",
       password_confirmation: "12345678"
     }
@@ -18,7 +18,7 @@ RSpec.describe "Api::Users", type: :request do
   let(:invalid_name) {
     {
       name: "",
-      email: "#{Faker::Internet.email}",
+      email: Faker::Internet.email,
       password: "12345678",
       password_confirmation: "12345678"
     }
@@ -38,9 +38,9 @@ RSpec.describe "Api::Users", type: :request do
   let(:invalid_password) {
     {
       name: Faker::Name.name_with_middle,
-      email: "#{Faker::Internet.email}",
+      email: Faker::Internet.email,
       password: "123",
-      password_confirmation: "12345678"
+      password_confirmation: "123"
     }
 
   }
@@ -48,7 +48,7 @@ RSpec.describe "Api::Users", type: :request do
   let(:invalid_password_confirmation) {
     {
       name: Faker::Name.name_with_middle,
-      email: "",
+      email: Faker::Internet.email,
       password: "12345678",
       password_confirmation: "asdfasdf"
     }
@@ -62,6 +62,7 @@ RSpec.describe "Api::Users", type: :request do
       post api_user_path, params: invalid_name, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
+      expect(response.body).to include "Name can't be blank"
     end
 
     it "rejects invalid email" do
@@ -69,6 +70,7 @@ RSpec.describe "Api::Users", type: :request do
       post api_user_path, params: invalid_email, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
+      expect(response.body).to include "Email is invalid"
     end
 
     it "rejects invalid password" do
@@ -76,6 +78,7 @@ RSpec.describe "Api::Users", type: :request do
       post api_user_path, params: invalid_password, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
+      expect(response.body).to include "Password is too short"
     end
 
     it "rejects invalid password_confirmation" do
@@ -83,6 +86,7 @@ RSpec.describe "Api::Users", type: :request do
       post api_user_path, params: invalid_password_confirmation, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
+      expect(response.body).to include "Password confirmation doesn't match Password"
     end
 
     it "creates the user" do
@@ -91,6 +95,8 @@ RSpec.describe "Api::Users", type: :request do
       expect(response).to have_http_status :created
       expect(response.body).to match_json_schema :user
       expect(User.count).to eq prev_user_count+1
+      expect(body_to_json('name')).to eq valid_attributes[:name]
+      expect(body_to_json('email')).to eq valid_attributes[:email]
     end
 
   end
