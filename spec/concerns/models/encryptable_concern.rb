@@ -20,6 +20,7 @@ shared_examples_for "encryptable" do |attributes|
       where_param[variable] = model_hash[variable.to_s]
     end
     expect(model.where(where_param).count).to eq 0
+    expect(model.find(model_instance.id)).not_to be_nil
   end
 
   it "encrypts data before saving and decrypts it after saving" do
