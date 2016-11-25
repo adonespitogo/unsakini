@@ -14,7 +14,8 @@ RSpec.describe "WebBaseController", type: :request do
       urls.each do |url|
         it "renders app/index.html when visiting #{url}" do
           get "/#{url}"
-          expect(response.body).to match File.read(Rails.public_path.join("app","index.html"))
+          gem_root = File.expand_path '../../..', __FILE__
+          expect(response.body).to match File.read("#{gem_root}/public/app/index.html")
         end
       end
     end
