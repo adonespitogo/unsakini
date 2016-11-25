@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { environment } from '../../../environments/environment';
 
 export interface IAccount {
 	name: string
@@ -14,18 +15,36 @@ export interface IAccount {
 @Injectable()
 export class HttpService {
 
+  base_url = environment.api_base_url
+
   constructor(private http: Http) { }
 
-  registerAccount (acct: IAccount) {
-  	return this.http.post('/', acct).catch(this.handleError).map(this.extractData)
+  post (url: string, data: any) {
+    return this.http.post(this.buildUrl(url), data);
   }
 
-  private extractData(res: Response) {
-    return res.json();
+  put (url: string, data: any) {
+    return this.http.put(this.buildUrl(url), data);
   }
 
-  private handleError(res: Response) {
-  	return Observable.throw(res.json())
+  patch (url: string, data: any) {
+    return this.http.patch(this.buildUrl(url), data);
   }
 
+  get (url: string) {
+    return this.http.get(this.buildUrl(url));
+  }
+
+  delete (url: string) {
+    return this.http.delete(this.buildUrl(url));
+  }
+
+  private buildUrl(url: string) {
+    let new_url = `${this.base_url}/${url}`;
+    return new_url.replace(/([^:]\/)\/+/g, "$1").replace(/(^\/)\/+/g, "$1");
+  }
+
+  // registerAccount (acct: IAccount) {
+  //   return this.http.post(`$`, acct).catch(this.handleError).map(this.extractData)
+  // }
 }
