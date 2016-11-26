@@ -57,7 +57,8 @@ $ rake db:migrate                             # runs the migration files
 ```
 
 Lastly, install the newly added dependencies
-**Note: ** You might want to review your Gemfile first
+
+**Note:** You might want to review your Gemfile first
 ```
 $ bundle install
 ```

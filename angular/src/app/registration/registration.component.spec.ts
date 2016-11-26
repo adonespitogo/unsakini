@@ -21,6 +21,10 @@ let status = 0
 let errors = []
 
 class RegistrationServiceMock {
+  success = false
+  expect (success: boolean) {
+    this.success = success;
+  }
   registerAccount(user) {
 
     if (status === 200) {
@@ -71,12 +75,8 @@ describe('RegistrationComponent', () => {
 
   describe('Component', () => {
 
-    it('should create', () => {
+    it('should be defined', () => {
       expect(component).toBeTruthy();
-    });
-
-    it('should have token service', () => {
-      expect(component.service).toBeDefined();
     });
 
     it('should have user', () => {

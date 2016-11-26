@@ -30,13 +30,13 @@ export class RegistrationService {
   }
 
   private handleError(err: Response) {
+    console.log(err)
     let errors: any;
     try {
       errors = err.json();
     } catch (e) {
       errors = [err.text]
     }
-    return Observable.of(errors)
+    return Observable.throw(errors)
   }
-  
 }

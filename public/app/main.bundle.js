@@ -12559,7 +12559,7 @@ var Router = (function () {
             // this operation do not result in any side effects
             var urlAndSnapshot$;
             if (!precreatedState) {
-                var redirectsApplied$ = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__apply_redirects__["a" /* applyRedirects */])(_this.injector, _this.configLoader, url, _this.config);
+                var redirectsApplied$ = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__apply_redirects__["a" /* applyRedirects */])(_this.injector, _this.configLoader, _this.urlSerializer, url, _this.config);
                 urlAndSnapshot$ = __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_mergeMap__["mergeMap"].call(redirectsApplied$, function (appliedUrl) {
                     return __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_map__["map"].call(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_15__recognize__["a" /* recognize */])(_this.rootComponentType, _this.config, appliedUrl, _this.serializeUrl(appliedUrl)), function (snapshot) {
                         _this.routerEvents.next(new RoutesRecognized(id, _this.serializeUrl(url), _this.serializeUrl(appliedUrl), snapshot));
@@ -29313,12 +29313,7 @@ var RegistrationComponent = (function () {
             _this.success = true;
         }, function (res) {
             _this.success = false;
-            if (res.status == 422) {
-                _this.errors = res.json().errors;
-            }
-            else {
-                _this.errors = ['Something went wrong.'];
-            }
+            _this.errors = res;
         });
     };
     RegistrationComponent.prototype.ngOnInit = function () {
@@ -29383,6 +29378,7 @@ var RegistrationService = (function () {
         return res.json();
     };
     RegistrationService.prototype.handleError = function (err) {
+        console.log(err);
         var errors;
         try {
             errors = err.json();
@@ -29390,7 +29386,7 @@ var RegistrationService = (function () {
         catch (e) {
             errors = [err.text];
         }
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of(errors);
+        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].throw(errors);
     };
     RegistrationService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* Injectable */])(), 
@@ -30822,7 +30818,7 @@ var NumberFormatter = (function () {
 }());
 var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsazZEwGjJ']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|J+|j+|m+|s+|a|z|Z|G+|w+))(.*)/;
 var PATTERN_ALIASES = {
-    yMMMdjms: datePartGetterFactory(combine([
+    'yMMMdjms': datePartGetterFactory(combine([
         digitCondition('year', 1),
         nameCondition('month', 3),
         digitCondition('day', 1),
@@ -30830,19 +30826,19 @@ var PATTERN_ALIASES = {
         digitCondition('minute', 1),
         digitCondition('second', 1),
     ])),
-    yMdjm: datePartGetterFactory(combine([
+    'yMdjm': datePartGetterFactory(combine([
         digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1),
         digitCondition('hour', 1), digitCondition('minute', 1)
     ])),
-    yMMMMEEEEd: datePartGetterFactory(combine([
+    'yMMMMEEEEd': datePartGetterFactory(combine([
         digitCondition('year', 1), nameCondition('month', 4), nameCondition('weekday', 4),
         digitCondition('day', 1)
     ])),
-    yMMMMd: datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 4), digitCondition('day', 1)])),
-    yMMMd: datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 3), digitCondition('day', 1)])),
-    yMd: datePartGetterFactory(combine([digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1)])),
-    jms: datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('second', 1), digitCondition('minute', 1)])),
-    jm: datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('minute', 1)]))
+    'yMMMMd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 4), digitCondition('day', 1)])),
+    'yMMMd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 3), digitCondition('day', 1)])),
+    'yMd': datePartGetterFactory(combine([digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1)])),
+    'jms': datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('second', 1), digitCondition('minute', 1)])),
+    'jm': datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('minute', 1)]))
 };
 var DATE_FORMATS = {
     yyyy: datePartGetterFactory(digitCondition('year', 4)),
@@ -56299,27 +56295,31 @@ var NoMatch = (function () {
     return NoMatch;
 }());
 var AbsoluteRedirect = (function () {
-    function AbsoluteRedirect(segments) {
-        this.segments = segments;
+    function AbsoluteRedirect(urlTree) {
+        this.urlTree = urlTree;
     }
     return AbsoluteRedirect;
 }());
 function noMatch(segmentGroup) {
     return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (obs) { return obs.error(new NoMatch(segmentGroup)); });
 }
-function absoluteRedirect(segments) {
-    return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (obs) { return obs.error(new AbsoluteRedirect(segments)); });
+function absoluteRedirect(newTree) {
+    return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (obs) { return obs.error(new AbsoluteRedirect(newTree)); });
+}
+function namedOutletsRedirect(redirectTo) {
+    return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (obs) { return obs.error(new Error("Only absolute redirects can have named outlets. redirectTo: '" + redirectTo + "'")); });
 }
 function canLoadFails(route) {
     return new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (obs) { return obs.error(new __WEBPACK_IMPORTED_MODULE_10__shared__["b" /* NavigationCancelingError */]("Cannot load children because the guard of the route \"path: '" + route.path + "'\" returned false")); });
 }
-function applyRedirects(injector, configLoader, urlTree, config) {
-    return new ApplyRedirects(injector, configLoader, urlTree, config).apply();
+function applyRedirects(injector, configLoader, urlSerializer, urlTree, config) {
+    return new ApplyRedirects(injector, configLoader, urlSerializer, urlTree, config).apply();
 }
 var ApplyRedirects = (function () {
-    function ApplyRedirects(injector, configLoader, urlTree, config) {
+    function ApplyRedirects(injector, configLoader, urlSerializer, urlTree, config) {
         this.injector = injector;
         this.configLoader = configLoader;
+        this.urlSerializer = urlSerializer;
         this.urlTree = urlTree;
         this.config = config;
         this.allowRedirects = true;
@@ -56327,14 +56327,13 @@ var ApplyRedirects = (function () {
     ApplyRedirects.prototype.apply = function () {
         var _this = this;
         var expanded$ = this.expandSegmentGroup(this.injector, this.config, this.urlTree.root, __WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]);
-        var urlTrees$ = __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__["map"].call(expanded$, function (rootSegmentGroup) { return _this.createUrlTree(rootSegmentGroup); });
+        var urlTrees$ = __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__["map"].call(expanded$, function (rootSegmentGroup) { return _this.createUrlTree(rootSegmentGroup, _this.urlTree.queryParams, _this.urlTree.fragment); });
         return __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_catch__["_catch"].call(urlTrees$, function (e) {
             if (e instanceof AbsoluteRedirect) {
                 // after an absolute redirect we do not apply any more redirects!
                 _this.allowRedirects = false;
-                var group = new __WEBPACK_IMPORTED_MODULE_11__url_tree__["a" /* UrlSegmentGroup */]([], (_a = {}, _a[__WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]] = new __WEBPACK_IMPORTED_MODULE_11__url_tree__["a" /* UrlSegmentGroup */](e.segments, {}), _a));
                 // we need to run matching, so we can fetch all lazy-loaded modules
-                return _this.match(group);
+                return _this.match(e.urlTree);
             }
             else if (e instanceof NoMatch) {
                 throw _this.noMatchError(e);
@@ -56342,13 +56341,14 @@ var ApplyRedirects = (function () {
             else {
                 throw e;
             }
-            var _a;
         });
     };
-    ApplyRedirects.prototype.match = function (segmentGroup) {
+    ApplyRedirects.prototype.match = function (tree) {
         var _this = this;
-        var expanded$ = this.expandSegmentGroup(this.injector, this.config, segmentGroup, __WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]);
-        var mapped$ = __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__["map"].call(expanded$, function (rootSegmentGroup) { return _this.createUrlTree(rootSegmentGroup); });
+        var expanded$ = this.expandSegmentGroup(this.injector, this.config, tree.root, __WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]);
+        var mapped$ = __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_map__["map"].call(expanded$, function (rootSegmentGroup) {
+            return _this.createUrlTree(rootSegmentGroup, tree.queryParams, tree.fragment);
+        });
         return __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_catch__["_catch"].call(mapped$, function (e) {
             if (e instanceof NoMatch) {
                 throw _this.noMatchError(e);
@@ -56361,11 +56361,11 @@ var ApplyRedirects = (function () {
     ApplyRedirects.prototype.noMatchError = function (e) {
         return new Error("Cannot match any routes. URL Segment: '" + e.segmentGroup + "'");
     };
-    ApplyRedirects.prototype.createUrlTree = function (rootCandidate) {
+    ApplyRedirects.prototype.createUrlTree = function (rootCandidate, queryParams, fragment) {
         var root = rootCandidate.segments.length > 0 ?
             new __WEBPACK_IMPORTED_MODULE_11__url_tree__["a" /* UrlSegmentGroup */]([], (_a = {}, _a[__WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]] = rootCandidate, _a)) :
             rootCandidate;
-        return new __WEBPACK_IMPORTED_MODULE_11__url_tree__["b" /* UrlTree */](root, this.urlTree.queryParams, this.urlTree.fragment);
+        return new __WEBPACK_IMPORTED_MODULE_11__url_tree__["b" /* UrlTree */](root, queryParams, fragment);
         var _a;
     };
     ApplyRedirects.prototype.expandSegmentGroup = function (injector, routes, segmentGroup, outlet) {
@@ -56432,25 +56432,31 @@ var ApplyRedirects = (function () {
         }
     };
     ApplyRedirects.prototype.expandWildCardWithParamsAgainstRouteUsingRedirect = function (injector, routes, route, outlet) {
-        var newSegments = applyRedirectCommands([], route.redirectTo, {});
+        var _this = this;
+        var newTree = this.applyRedirectCommands([], route.redirectTo, {});
         if (route.redirectTo.startsWith('/')) {
-            return absoluteRedirect(newSegments);
+            return absoluteRedirect(newTree);
         }
         else {
-            var group = new __WEBPACK_IMPORTED_MODULE_11__url_tree__["a" /* UrlSegmentGroup */](newSegments, {});
-            return this.expandSegment(injector, group, routes, newSegments, outlet, false);
+            return __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_mergeMap__["mergeMap"].call(this.lineralizeSegments(route, newTree), function (newSegments) {
+                var group = new __WEBPACK_IMPORTED_MODULE_11__url_tree__["a" /* UrlSegmentGroup */](newSegments, {});
+                return _this.expandSegment(injector, group, routes, newSegments, outlet, false);
+            });
         }
     };
     ApplyRedirects.prototype.expandRegularSegmentAgainstRouteUsingRedirect = function (injector, segmentGroup, routes, route, segments, outlet) {
+        var _this = this;
         var _a = match(segmentGroup, route, segments), matched = _a.matched, consumedSegments = _a.consumedSegments, lastChild = _a.lastChild, positionalParamSegments = _a.positionalParamSegments;
         if (!matched)
             return noMatch(segmentGroup);
-        var newSegments = applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments);
+        var newTree = this.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments);
         if (route.redirectTo.startsWith('/')) {
-            return absoluteRedirect(newSegments);
+            return absoluteRedirect(newTree);
         }
         else {
-            return this.expandSegment(injector, segmentGroup, routes, newSegments.concat(segments.slice(lastChild)), outlet, false);
+            return __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_mergeMap__["mergeMap"].call(this.lineralizeSegments(route, newTree), function (newSegments) {
+                return _this.expandSegment(injector, segmentGroup, routes, newSegments.concat(segments.slice(lastChild)), outlet, false);
+            });
         }
     };
     ApplyRedirects.prototype.matchSegmentAgainstRoute = function (injector, rawSegmentGroup, route, segments) {
@@ -56517,6 +56523,74 @@ var ApplyRedirects = (function () {
             return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["of"])(new __WEBPACK_IMPORTED_MODULE_9__router_config_loader__["a" /* LoadedRouterConfig */]([], injector, null, null));
         }
     };
+    ApplyRedirects.prototype.lineralizeSegments = function (route, urlTree) {
+        var res = [];
+        var c = urlTree.root;
+        while (true) {
+            res = res.concat(c.segments);
+            if (c.numberOfChildren === 0) {
+                return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["of"])(res);
+            }
+            else if (c.numberOfChildren > 1 || !c.children[__WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]]) {
+                return namedOutletsRedirect(route.redirectTo);
+            }
+            else {
+                c = c.children[__WEBPACK_IMPORTED_MODULE_10__shared__["a" /* PRIMARY_OUTLET */]];
+            }
+        }
+    };
+    ApplyRedirects.prototype.applyRedirectCommands = function (segments, redirectTo, posParams) {
+        var t = this.urlSerializer.parse(redirectTo);
+        return this.applyRedirectCreatreUrlTree(redirectTo, this.urlSerializer.parse(redirectTo), segments, posParams);
+    };
+    ApplyRedirects.prototype.applyRedirectCreatreUrlTree = function (redirectTo, urlTree, segments, posParams) {
+        var newRoot = this.createSegmentGroup(redirectTo, urlTree.root, segments, posParams);
+        return new __WEBPACK_IMPORTED_MODULE_11__url_tree__["b" /* UrlTree */](newRoot, this.createQueryParams(urlTree.queryParams, this.urlTree.queryParams), urlTree.fragment);
+    };
+    ApplyRedirects.prototype.createQueryParams = function (redirectToParams, actualParams) {
+        var res = {};
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__utils_collection__["d" /* forEach */])(redirectToParams, function (v, k) {
+            if (v.startsWith(':')) {
+                res[k] = actualParams[v.substring(1)];
+            }
+            else {
+                res[k] = v;
+            }
+        });
+        return res;
+    };
+    ApplyRedirects.prototype.createSegmentGroup = function (redirectTo, group, segments, posParams) {
+        var _this = this;
+        var updatedSegments = this.createSegments(redirectTo, group.segments, segments, posParams);
+        var children = {};
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__utils_collection__["d" /* forEach */])(group.children, function (child, name) {
+            children[name] = _this.createSegmentGroup(redirectTo, child, segments, posParams);
+        });
+        return new __WEBPACK_IMPORTED_MODULE_11__url_tree__["a" /* UrlSegmentGroup */](updatedSegments, children);
+    };
+    ApplyRedirects.prototype.createSegments = function (redirectTo, redirectToSegments, actualSegments, posParams) {
+        var _this = this;
+        return redirectToSegments.map(function (s) { return s.path.startsWith(':') ? _this.findPosParam(redirectTo, s, posParams) :
+            _this.findOrReturn(s, actualSegments); });
+    };
+    ApplyRedirects.prototype.findPosParam = function (redirectTo, redirectToUrlSegment, posParams) {
+        var pos = posParams[redirectToUrlSegment.path.substring(1)];
+        if (!pos)
+            throw new Error("Cannot redirect to '" + redirectTo + "'. Cannot find '" + redirectToUrlSegment.path + "'.");
+        return pos;
+    };
+    ApplyRedirects.prototype.findOrReturn = function (redirectToUrlSegment, actualSegments) {
+        var idx = 0;
+        for (var _i = 0, actualSegments_1 = actualSegments; _i < actualSegments_1.length; _i++) {
+            var s = actualSegments_1[_i];
+            if (s.path === redirectToUrlSegment.path) {
+                actualSegments.splice(idx);
+                return s;
+            }
+            idx++;
+        }
+        return redirectToUrlSegment;
+    };
     return ApplyRedirects;
 }());
 function runGuards(injector, route) {
@@ -56554,38 +56628,6 @@ function match(segmentGroup, route, segments) {
         lastChild: res.consumed.length,
         positionalParamSegments: res.posParams
     };
-}
-function applyRedirectCommands(segments, redirectTo, posParams) {
-    var r = redirectTo.startsWith('/') ? redirectTo.substring(1) : redirectTo;
-    if (r === '') {
-        return [];
-    }
-    else {
-        return createSegments(redirectTo, r.split('/'), segments, posParams);
-    }
-}
-function createSegments(redirectTo, parts, segments, posParams) {
-    return parts.map(function (p) { return p.startsWith(':') ? findPosParam(p, posParams, redirectTo) :
-        findOrCreateSegment(p, segments); });
-}
-function findPosParam(part, posParams, redirectTo) {
-    var paramName = part.substring(1);
-    var pos = posParams[paramName];
-    if (!pos)
-        throw new Error("Cannot redirect to '" + redirectTo + "'. Cannot find '" + part + "'.");
-    return pos;
-}
-function findOrCreateSegment(part, segments) {
-    var idx = 0;
-    for (var _i = 0, segments_1 = segments; _i < segments_1.length; _i++) {
-        var s = segments_1[_i];
-        if (s.path === part) {
-            segments.splice(idx);
-            return s;
-        }
-        idx++;
-    }
-    return new __WEBPACK_IMPORTED_MODULE_11__url_tree__["c" /* UrlSegment */](part, {});
 }
 function split(segmentGroup, consumedSegments, slicedSegments, config) {
     if (slicedSegments.length > 0 &&
