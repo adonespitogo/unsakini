@@ -1,4 +1,4 @@
-class Api::ShareBoardController < ApiBaseController
+class ShareBoardController < ApiBaseController
 
   include LoggedInControllerConcern
   include BoardOwnerControllerConcern

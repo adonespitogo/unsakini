@@ -11,3 +11,5 @@ spec/dummy/config/initializers/
 spec/dummy/db/
 
 .byebug_history
+
+public/app/
