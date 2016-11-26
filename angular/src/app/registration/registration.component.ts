@@ -28,11 +28,7 @@ export class RegistrationComponent implements OnInit {
       },
       (res) => {
         this.success = false;
-        if (res.status == 422) {
-          this.errors = res.json().errors
-        } else {
-          this.errors = ['Something went wrong.']
-        }
+        this.errors = res;
       }
     );
   }

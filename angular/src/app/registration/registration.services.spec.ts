@@ -25,7 +25,6 @@ describe('RegistrationService', () => {
   });
 
   it(`handles error`, inject([MockBackend, RegistrationService], (backend: MockBackend, service: RegistrationService) => {
-    
     let errors = ['name is required']
     let mockResponse = new Response(new ResponseOptions({
       status: 422,
