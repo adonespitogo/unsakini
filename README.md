@@ -57,7 +57,8 @@ $ rake unsakini_engine:install:migrations     # copy the engine migrations to db
 $ rake db:migrate                             # runs the migration files
 ```
 
-Lastly, install the newly added dependencies:
+Lastly, install the newly added dependencies
+**Note: ** You might want to review your Gemfile first
 ```
 $ bundle install
 ```
