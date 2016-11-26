@@ -3,5 +3,6 @@ class Unsakini::ConfigGenerator < Rails::Generators::Base
 
   def copy_initializer_file
     copy_file "unsakini.rb", "config/initializers/unsakini.rb"
+    run 'rails generate knock:install'
   end
 end
