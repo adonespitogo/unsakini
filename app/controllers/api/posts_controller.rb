@@ -1,4 +1,4 @@
-class Api::PostsController < ApplicationController
+class Api::PostsController < ApiBaseController
 
   include LoggedInControllerConcern
   include BoardOwnerControllerConcern

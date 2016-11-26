@@ -1,4 +1,4 @@
-class Api::CommentsController < ApplicationController
+class Api::CommentsController < ApiBaseController
 
   include LoggedInControllerConcern
   include PostOwnerControllerConcern

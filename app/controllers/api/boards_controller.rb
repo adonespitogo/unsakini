@@ -1,4 +1,4 @@
-class Api::BoardsController < ApplicationController
+class Api::BoardsController < ApiBaseController
 
   include LoggedInControllerConcern
   include SerializerControllerConcern
