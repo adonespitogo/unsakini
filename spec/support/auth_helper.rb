@@ -2,12 +2,10 @@
 module AuthHelper
 
   def auth_headers(user)
-  	# debugger
-    token = Knock::AuthToken.new(payload: { sub: user.id }).token
-
-    {
-      'Authorization': "Bearer #{token}"
-    }
+    user.create_new_auth_token.merge!({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
   end
 
 end

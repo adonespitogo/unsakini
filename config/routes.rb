@@ -2,16 +2,15 @@ Rails.application.routes.draw do
   
   root to: 'web_base#index'
 
-  post 'user_token' => 'user_token#create'
-
   # ng2 html5 pushState routes
   get 'app', to: 'web_base#app'
   get 'app/*ngroute', to: 'web_base#app'
 
+
   namespace :api do
 
-    mount Knock::Engine => '/knock'
-
+    mount_devise_token_auth_for 'User', at: 'auth'
+    
     resource :user
     resources :boards do
       resources :posts do

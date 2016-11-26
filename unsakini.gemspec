@@ -25,11 +25,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 5.0.0", ">= 5.0.0.1"
   s.add_dependency "active_model_serializers"
-  s.add_dependency 'bcrypt', '~> 3.1.7'
-  s.add_dependency "knock"
   s.add_dependency "rack-cors"
   s.add_dependency "kaminari"
   s.add_dependency "api-pagination"
+  s.add_dependency "devise_token_auth"
+  s.add_dependency "omniauth"
 
   s.add_development_dependency "sqlite3"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'json_spec'
   s.add_development_dependency 'json-schema-rspec'
   s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'letter_opener'
 
   s.test_files = Dir["spec/**/*"].reject do |path|
       !(path =~ /node_modules/).nil? or

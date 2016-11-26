@@ -1,6 +1,5 @@
 class Api::BoardsController < ApplicationController
 
-
   include LoggedInControllerConcern
   include SerializerControllerConcern
   include BoardOwnerControllerConcern

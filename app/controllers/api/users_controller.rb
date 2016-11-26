@@ -1,12 +1,9 @@
 class Api::UsersController < ApplicationController
 
-  include Knock::Authenticable
-  before_action :authenticate_user
-  before_action :set_user
-  # include LoggedInControllerConcern
+  include LoggedInControllerConcern
   include ::ActionController::Serialization
 
-  skip_before_action :authenticate_user, only: [:create]
+  skip_before_action :authenticate_api_user!, only: [:create]
   skip_before_action :set_user, only: [:create]
 
   #Creates a new user
@@ -38,13 +35,6 @@ class Api::UsersController < ApplicationController
     else
       render json: {}, status: :not_found
     end
-  end
-
-  private
-  # Sets the `@user` variable in the controllers
-  def set_user
-    render json: {}, status: :unauthorized if current_user.nil?
-    @user = current_user
   end
 
 end

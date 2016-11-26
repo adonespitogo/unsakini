@@ -72,7 +72,7 @@ RSpec.describe "Api::Users", type: :request do
       expect(body_to_json('0')).to match_json_schema(:validation)
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
-      expect(response.body).to include "Email is invalid"
+      expect(response.body).to include "Email is not an email"
     end
 
     it "rejects invalid password" do

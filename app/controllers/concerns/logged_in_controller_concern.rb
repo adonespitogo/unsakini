@@ -5,18 +5,18 @@
 module LoggedInControllerConcern
   extend ActiveSupport::Concern
 
-  include Knock::Authenticable
-
   included do
-    before_action :authenticate_user
+    include DeviseTokenAuth::Concerns::SetUserByToken
+    before_action :authenticate_api_user!
     before_action :set_user
   end
 
   private
+
   # Sets the `@user` variable in the controllers
   def set_user
-    render json: {}, status: :unauthorized if current_user.nil?
-    @user = current_user
+    render json: {}, status: :unauthorized if current_api_user.nil?
+    @user = current_api_user
   end
 
 end
