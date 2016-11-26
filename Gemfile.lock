@@ -4,9 +4,9 @@ PATH
     unsakini (0.0.4.3)
       active_model_serializers
       api-pagination
-      bcrypt (~> 3.1.7)
+      bcrypt
+      jwt
       kaminari
-      knock
       rack-cors
       rails (~> 5.0.0, >= 5.0.0.1)
 
@@ -90,10 +90,10 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    knock (2.0)
-      bcrypt (~> 3.1)
-      jwt (~> 1.5)
-      rails (>= 4.2)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -181,15 +181,16 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   api-pagination
-  bcrypt (~> 3.1.7)
+  bcrypt
   byebug
   database_cleaner
   factory_girl_rails
   faker
   json-schema-rspec
   json_spec
+  jwt
   kaminari
-  knock
+  letter_opener
   rack-cors
   rb-readline
   rspec-rails

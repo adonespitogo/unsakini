@@ -7,11 +7,11 @@ import { RegistrationComponent } from './registration/registration.component'
 const routes = [
   {
     path: '',
-    redirectTo: 'registration',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
-    path: 'registration',
+    path: 'signup',
     component: RegistrationComponent
   }
 ];

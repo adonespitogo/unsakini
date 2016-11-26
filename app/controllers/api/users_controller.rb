@@ -1,18 +1,34 @@
+require 'json_web_token'
+
 class Api::UsersController < ApplicationController
 
   include LoggedInControllerConcern
   include ::ActionController::Serialization
 
-  skip_before_action :authenticate_user, only: [:create]
-  skip_before_action :set_user, only: [:create]
+  skip_before_action :authenticate_request!, only: [:create]
 
   #Creates a new user
   def create
-    @user = User.new(params.permit(:name, :email, :password, :password_confirmation))
-    if @user.save
-      render json: @user, status: :created
+    user = User.new(user_params)
+
+    if user.save
+      render json: user, status: :created
     else
-      render json: @user.errors.full_messages, status: 422
+      render json: user.errors.full_messages, status: 422
+    end
+  end
+
+  # confirm user account
+  def confirm
+    token = params[:token].to_s
+
+    user = User.find_by(confirmation_token: token)
+
+    if user.present? && user.confirmation_token_valid?
+      user.mark_as_confirmed!
+      render json: {status: 'User confirmed successfully'}, status: :ok
+    else
+      render json: ['Invalid token'], status: :not_found
     end
   end
 
@@ -34,6 +50,23 @@ class Api::UsersController < ApplicationController
       render json: user
     else
       render json: {}, status: :not_found
+    end
+  end
+
+  private
+
+  def user_params
+    params.permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def login
+    user = User.find_by(email: params[:email].to_s.downcase)
+
+    if user && user.authenticate(params[:password])
+      auth_token = JsonWebToken.encode({user_id: user.id})
+      render json: {auth_token: auth_token}, status: :ok
+    else
+      render json: ['Invalid username / password'], status: :unauthorized
     end
   end
 
