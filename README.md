@@ -47,7 +47,6 @@ Bundle install and initialize the application
 ```
 $ bundle install
 $ rake unsakini:install
-$ rake unsakini:install
 ```
 The `rake unsakini:install` command is just a super set of the following commands:
 ```
