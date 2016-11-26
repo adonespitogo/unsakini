@@ -1,6 +1,6 @@
 require 'json_web_token'
 
-class Api::UsersController < ApplicationController
+class Api::UsersController < ApiBaseController
 
   include LoggedInControllerConcern
   include ::ActionController::Serialization
