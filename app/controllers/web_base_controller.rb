@@ -7,7 +7,7 @@ class WebBaseController < ActionController::Base
   # Renders welcome page
   def index
   	@project = 'Unsakini'
-  	@description = 'Opensource Encrypted Bulletin Board'
+  	@description = 'Privacy. Confidentiality. Security.'
   	@version = Unsakini::VERSION
   	@author = 'Adones Pitogo'
   	@repository = 'https://github.com/adonespitogo/unsakini'
