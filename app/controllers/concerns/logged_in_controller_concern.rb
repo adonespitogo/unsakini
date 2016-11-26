@@ -6,17 +6,40 @@ module LoggedInControllerConcern
   extend ActiveSupport::Concern
 
   included do
-    include DeviseTokenAuth::Concerns::SetUserByToken
-    before_action :authenticate_api_user!
-    before_action :set_user
+    before_action :authenticate_request!
   end
 
   private
 
-  # Sets the `@user` variable in the controllers
-  def set_user
-    render json: {}, status: :unauthorized if current_api_user.nil?
-    @user = current_api_user
+
+  # Sets the @user with the user_id from payload
+  def load_current_user!
+    @user = User.find_by(id: payload[0]['user_id'])
+  end
+
+  protected
+  # Validates the token and user and sets the @current_user scope
+  def authenticate_request!
+    if !payload || !JsonWebToken.valid_payload(payload.first)
+      return invalid_authentication
+    end
+
+    load_current_user!
+    invalid_authentication unless @user
+  end
+
+  # Returns 401 response. To handle malformed / invalid requests.
+  def invalid_authentication
+    render json: {error: 'Invalid Request'}, status: :unauthorized
+  end
+
+  # Deconstructs the Authorization header and decodes the JWT token.
+  def payload
+    auth_header = request.headers['Authorization']
+    token = auth_header.split(' ').last
+    JsonWebToken.decode(token)
+  rescue
+    nil
   end
 
 end

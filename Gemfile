@@ -18,5 +18,5 @@ gem "active_model_serializers"
 gem "rack-cors"
 gem "kaminari"
 gem "api-pagination"
-gem 'devise_token_auth'
-gem 'omniauth'
+gem "bcrypt"
+gem 'jwt'

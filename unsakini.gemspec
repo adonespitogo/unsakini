@@ -28,8 +28,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-cors"
   s.add_dependency "kaminari"
   s.add_dependency "api-pagination"
-  s.add_dependency "devise_token_auth"
-  s.add_dependency "omniauth"
+  s.add_dependency "bcrypt"
+  s.add_dependency "jwt"
 
   s.add_development_dependency "sqlite3"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

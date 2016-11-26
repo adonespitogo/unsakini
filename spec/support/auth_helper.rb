@@ -1,11 +1,13 @@
+require 'json_web_token'
 
 module AuthHelper
 
   def auth_headers(user)
-    user.create_new_auth_token.merge!({
+    {
+      'Authorization': "Bearer #{JsonWebToken.encode({user_id: user.id})}",
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-    })
+    }
   end
 
 end
