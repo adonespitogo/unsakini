@@ -1,8 +1,5 @@
 Description:
-    Explain the generator
+    Add the needed dependencies to Gemfile. Review your Gemfile after running this command and before you do bundle install.
 
 Example:
-    rails generate dependencies Thing
-
-    This will create:
-        what/will/it/create
+    rails generate dependencies
