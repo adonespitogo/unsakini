@@ -1,12 +1,10 @@
-require 'json_web_token'
-
 module AuthHelper
 
   def auth_headers(user)
+    token = Knock::AuthToken.new(payload: { sub: user.id }).token
+
     {
-      'Authorization': "Bearer #{JsonWebToken.encode({user_id: user.id})}",
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Authorization': "Bearer #{token}"
     }
   end
 

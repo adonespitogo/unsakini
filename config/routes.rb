@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'api/auth_token' => 'api/auth_token#create'
   root to: 'web_base#index'
 
   # ng2 html5 pushState routes

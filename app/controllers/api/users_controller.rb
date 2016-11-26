@@ -1,11 +1,10 @@
-require 'json_web_token'
 
 class Api::UsersController < ApiBaseController
 
   include LoggedInControllerConcern
   include ::ActionController::Serialization
 
-  skip_before_action :authenticate_request!, only: [:create]
+  skip_before_action :ensure_logged_in, only: [:create]
 
   #Creates a new user
   def create
