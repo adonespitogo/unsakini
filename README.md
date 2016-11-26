@@ -47,12 +47,19 @@ Bundle install and initialize the application
 ```
 $ bundle install
 $ rake unsakini:install
+$ rake unsakini:install
 ```
 The `rake unsakini:install` command is just a super set of the following commands:
 ```
-$ rake unsakini:config                        # generates config/initializers/unsakini.rb
+$ rails generate unsakini:config              # generates config/initializers/unsakini.rb
+$ rails generate unsakini:dependencies        # add dependencies to Gemfile
 $ rake unsakini_engine:install:migrations     # copy the engine migrations to db/migrations directory
 $ rake db:migrate                             # runs the migration files
+```
+
+Lastly, install the newly added dependencies:
+```
+$ bundle install
 ```
 
 Run local rails server
