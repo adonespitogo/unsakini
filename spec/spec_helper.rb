@@ -35,6 +35,7 @@ RSpec.configure do |config|
     config.json_schemas[:post] = "spec/schema/post.json"
     config.json_schemas[:comment] = "spec/schema/comment.json"
     config.json_schemas[:validation] = "spec/schema/validation_message.json"
+    config.json_schemas[:jwt] = "spec/schema/jwt.json"
   end
 
 
