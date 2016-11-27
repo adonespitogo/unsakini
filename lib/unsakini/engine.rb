@@ -1,3 +1,5 @@
+require "unsakini/version"
+
 module Unsakini
   class Engine < ::Rails::Engine
 
