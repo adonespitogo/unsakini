@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserBoard, type: :model do
+RSpec.describe Unsakini::UserBoard, type: :model do
 
   it_behaves_like 'encryptable', [:encrypted_password]
 
@@ -10,28 +10,28 @@ RSpec.describe UserBoard, type: :model do
   end
 
   it "rejects nil board name" do
-    board_count = Board.count
-    user_board_count = UserBoard.count
+    board_count = Unsakini::Board.count
+    user_board_count = Unsakini::UserBoard.count
     my_board_count = @user.boards.count
 
-    user_board = UserBoard.new(
+    user_board = Unsakini::UserBoard.new(
       user_id: @user.id,
       is_admin: true,
       encrypted_password: Faker::Crypto.md5
     )
     expect(user_board.save).to be false
     expect(@user.boards.count).to eq my_board_count
-    expect(Board.count).to eq(board_count)
-    expect(UserBoard.count).to eq(user_board_count)
+    expect(Unsakini::Board.count).to eq(board_count)
+    expect(Unsakini::UserBoard.count).to eq(user_board_count)
   end
 
   it "rejects nil encrypted_password" do
-    user_board_count = UserBoard.count
+    user_board_count = Unsakini::UserBoard.count
     my_board_count = @user.boards.count
     board = create(:board)
-    board_count = Board.count
+    board_count = Unsakini::Board.count
 
-    user_board = UserBoard.new(
+    user_board = Unsakini::UserBoard.new(
       user_id: @user.id,
       board_id: board.id,
       name: Faker::Name.title,
@@ -39,21 +39,21 @@ RSpec.describe UserBoard, type: :model do
     )
     expect(user_board.save).to be false
     expect(@user.boards.count).to eq my_board_count
-    expect(Board.count).to eq(board_count)
-    expect(UserBoard.count).to eq(user_board_count)
+    expect(Unsakini::Board.count).to eq(board_count)
+    expect(Unsakini::UserBoard.count).to eq(user_board_count)
   end
 
-  it "creates UserBoard and it's Board" do
+  it "creates Unsakini::UserBoard and it's Board" do
     board_name = Faker::Name.title
     my_board_count = @user.boards.count
-    board_count = Board.count
-    user_board_count = UserBoard.count
+    board_count = Unsakini::Board.count
+    user_board_count = Unsakini::UserBoard.count
 
-    user_board = UserBoard.new(name: board_name, user_id: @user.id, encrypted_password: Faker::Crypto.md5)
+    user_board = Unsakini::UserBoard.new(name: board_name, user_id: @user.id, encrypted_password: Faker::Crypto.md5)
     expect(user_board.save).to be true
     expect(@user.boards.count).to eq my_board_count+1
-    expect(Board.count).to eq(board_count+1)
-    expect(UserBoard.count).to eq(user_board_count+1)
+    expect(Unsakini::Board.count).to eq(board_count+1)
+    expect(Unsakini::UserBoard.count).to eq(user_board_count+1)
     expect(user_board.board.name).to eq board_name
   end
 
@@ -176,14 +176,14 @@ RSpec.describe UserBoard, type: :model do
     expect(@user_4.boards.count).to eq(user_4_boards_count+1)
 
     # make sure none of them is assign admin
-    expect(UserBoard.where(
+    expect(Unsakini::UserBoard.where(
              is_admin: true,
              board_id: @board.id,
              user_id: [@user_2.id, @user_3.id, @user_4.id]
     ).count).to eq 0
 
     # make sure all has been shared with
-    expect(UserBoard.where(
+    expect(Unsakini::UserBoard.where(
              board_id: @board.id,
              user_id: [@user_2.id, @user_3.id, @user_4.id]
     ).count).to eq 3

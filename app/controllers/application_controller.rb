@@ -1,5 +1,5 @@
 # Base controller for API controllers
 
-class ApplicationController < ActionController::Base
+# class ApplicationController < ActionController::Base
 
-end
+# end

@@ -4,7 +4,7 @@ shared_examples_for "encryptable" do |attributes|
   let(:model) { described_class } # the class that includes the concern
 
   let(:model_instance) {
-    build(described_class.to_s.underscore.to_sym)
+    build(described_class.to_s.underscore.sub!('unsakini/', '').to_sym)
   }
 
   it "has encryptable attributes" do
@@ -14,7 +14,7 @@ shared_examples_for "encryptable" do |attributes|
 
   it "encrypts and decrypts encryptable attributes" do
     model_hash = parse_json(model_instance.to_json)
-    model_instance.save
+    model_instance.save validate: false
     where_param = Hash.new
     model_instance.encryptable_attributes.each do |variable|
       where_param[variable] = model_hash[variable.to_s]

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Board, type: :model do
+RSpec.describe Unsakini::Board, type: :model do
 
   let(:invalid_attributes) {
     {
@@ -11,7 +11,7 @@ RSpec.describe Board, type: :model do
   it_behaves_like 'encryptable', [:name]
 
   it "validates name" do
-    board = Board.new(invalid_attributes)
+    board = Unsakini::Board.new(invalid_attributes)
     board.save
     expect(board.errors.count).to be 1
   end

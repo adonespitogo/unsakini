@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/adonespitogo/knock
+  revision: 6bd39bc4a13067172e7bdd2d10bd0b31b89bcd2d
+  specs:
+    knock (2.0)
+      bcrypt (~> 3.1)
+      jwt (~> 1.5)
+      rails (>= 4.2)
+
 PATH
   remote: .
   specs:
@@ -89,10 +98,6 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    knock (2.0)
-      bcrypt (~> 3.1)
-      jwt (~> 1.5)
-      rails (>= 4.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -191,7 +196,7 @@ DEPENDENCIES
   json-schema-rspec
   json_spec
   kaminari
-  knock
+  knock!
   letter_opener
   rack-cors
   rb-readline
