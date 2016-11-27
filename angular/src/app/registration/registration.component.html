@@ -1,14 +1,61 @@
-
-<form (ngSubmit)="doSubmit()">
-  <div class="alert alert-success" *ngIf="success">Registration successful. Please confirm your email sent to {{user.email}} to proceed.</div>
-  <div class="alert alert-danger" *ngIf="errors">
-    <p *ngFor="let e of errors">{{e}}</p>
+<div class="container home-forms">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1 class="text-center">
+        <a href="/">
+          <img src="/images/unsakini.svg" width="300px" height="130px">
+        </a>
+      </h1>
+      <hr>
+      <p class="lead text-center">
+        Create Account
+      </p>
+      <form #regForm="ngForm" (ngSubmit)="doSubmit($event); false">
+        <div *ngIf="error" class="alert alert-danger">
+          {{error}}
+        </div>
+        <div *ngIf="success" class="alert alert-success">
+          <p>{{success}}</p>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Email" required [(ngModel)]="user.email" name="email" #email="ngModel">
+        </div>
+        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+          Email is required
+        </div>
+        <div class="form-group">
+          <label for="name">name</label>
+          <input type="text" class="form-control" id="name" placeholder="name" required [(ngModel)]="user.name" name="name" #name="ngModel">
+        </div>
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          name is required
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" required [(ngModel)]="user.password" name="password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            Password is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Confirm Password</label>
+          <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password" required [(ngModel)]="user.password_confirmation" name="password_confirmation" #password_confirmation="ngModel">
+          <div [hidden]="password_confirmation.valid || password_confirmation.pristine" class="alert alert-danger">
+            Password confirmation is required
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 20px;">
+          <button type="submit" class="btn btn-primary" [disabled]="!regForm.form.valid || submitting">
+            <span *ngIf="!submitting">Create Account</span>
+            <span *ngIf="submitting">Submitting...</span>
+          </button>
+        </div>
+      </form>
+      <hr>
+      <p>
+        Already have an account? <a [routerLink]="['/login']">Login</a>
+      </p>
+    </div>
   </div>
-  <input type="text" name="name">
-  <input type="email" name="email">
-  <input type="password" name="password">
-  <input type="password" name="password_confirmation">
-  <button type="submit">Sign Up</button>
-</form>
-
-<div (click)="doSubmit()">CLICK ME</div>
+</div>
