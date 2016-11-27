@@ -5,9 +5,9 @@ namespace :unsakini do
     begin
       Dir.chdir "#{Rails.root}" do
         system("#{Rails.root}/bin/rails g unsakini:config")
-        system("#{Rails.root}/bin/rails g unsakini:dependencies")
         system("#{Rails.root}/bin/rake unsakini_engine:install:migrations")
         system("#{Rails.root}/bin/rake db:migrate")
+        system("#{Rails.root}/bin/rails g unsakini:dependencies")
       end
     rescue Exception => e
       puts e.to_s
