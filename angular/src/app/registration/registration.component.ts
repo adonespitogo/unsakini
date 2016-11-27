@@ -9,7 +9,12 @@ import { RegistrationService } from './registration.service';
 export class RegistrationComponent implements OnInit {
 
   user: any;
-  errors: any;
+  errors = {
+    name: [],
+    email: [],
+    password: [],
+    password_confirmation: []
+  };
   success = false;
 
   constructor(public service: RegistrationService) {

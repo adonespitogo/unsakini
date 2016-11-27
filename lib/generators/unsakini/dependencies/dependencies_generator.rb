@@ -9,5 +9,11 @@ class Unsakini::DependenciesGenerator < Rails::Generators::Base
     gem 'api-pagination'
     gem 'knock'
 
+    gem_group :development, :test do
+      gem "rb-readline"
+      gem "byebug"
+      gem 'letter_opener'
+    end
+
   end
 end

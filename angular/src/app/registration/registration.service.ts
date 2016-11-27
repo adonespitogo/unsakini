@@ -34,6 +34,10 @@ export class RegistrationService {
     let errors: any;
     try {
       errors = err.json();
+      errors['name'] = errors['name'] || []
+      errors['email'] = errors['email'] || []
+      errors['password'] = errors['password'] || []
+      errors['password_confirmation'] = errors['password_confirmation'] || []
     } catch (e) {
       errors = [err.text]
     }
