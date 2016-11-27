@@ -6,7 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppRoutesModule } from './app.routes.module';
 import { AppComponent } from './app.component';
 import { RegistrationModule } from './registration/'
-import { LoginModule } from './login/login.module'
+import { LoginModule } from './login'
+import { ConfirmAccountModule } from './confirm-account'
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { LoginModule } from './login/login.module'
 
     AppRoutesModule,
     RegistrationModule,
+    ConfirmAccountModule,
     LoginModule,
   ],
   declarations: [

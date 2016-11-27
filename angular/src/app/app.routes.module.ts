@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { RegistrationComponent } from './registration/registration.component'
 import { LoginComponent } from './login/login.component'
+import { ConfirmAccountComponent } from './confirm-account/confirm-account.component'
 
 
 const routes = [
@@ -18,6 +19,10 @@ const routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'account/confirm/:token',
+    component: ConfirmAccountComponent
   }
 ];
 
