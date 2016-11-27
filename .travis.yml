@@ -10,6 +10,5 @@ before_script:
 
 script:
 
-- bin/rails g unsakini:config
 - bin/rails db:migrate
 - bundle exec rspec

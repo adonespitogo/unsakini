@@ -7,7 +7,6 @@ module Unsakini
 
     config.generators.api_only = true
     config.unsakini_crypto_key = 'secret'
-    config.action_mailer.delivery_method = :letter_opener
 
     config.generators do |g|
       g.test_framework :rspec, :fixture => false

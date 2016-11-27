@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  post 'api/auth_token' => 'api/auth_token#create'
   root to: 'web_base#index'
+
+  #knock route
+  post 'api/user_token' => 'api/user_token#create'
 
   # ng2 html5 pushState routes
   get 'app', to: 'web_base#app'
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
 
     post 'share/board/', to: 'share_board#index', as: 'share_board'
     get  'users/search', to: 'users#search', as: 'user_search'
+    get  'user/confirm/:token', to: 'users#confirm', as: 'confirm_account'
 
   end
 
