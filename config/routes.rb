@@ -16,8 +16,8 @@ Rails.application.routes.draw do
       end
     end
 
-    post '/api/share/board/', to: 'share_board#index', as: 'share_board'
-    get  '/api/users/search', to: 'users#search', as: 'user_search'
+    post 'share/board/', to: 'share_board#index', as: 'share_board'
+    get  'users/search', to: 'users#search', as: 'user_search'
 
   end
 

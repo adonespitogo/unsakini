@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppRoutesModule } from './app.routes.module';
 import { AppComponent } from './app.component';
 import { RegistrationModule } from './registration/'
+import { LoginModule } from './login/login.module'
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RegistrationModule } from './registration/'
 
     AppRoutesModule,
     RegistrationModule,
+    LoginModule,
   ],
   declarations: [
     AppComponent
