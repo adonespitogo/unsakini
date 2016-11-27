@@ -8,7 +8,6 @@ import 'rxjs/add/operator/catch';
 
 
 @Component({
-  // selector: 'login-app',
   templateUrl: './login.html'
 })
 export class LoginComponent {
@@ -34,7 +33,7 @@ export class LoginComponent {
         this.success = 'Login successful. Redirecting...';
         window.localStorage.setItem('auth_token', json.token);
         // this.router.navigate(['/dashboard']);
-        window.location.assign('/dashboard');
+        // window.location.assign('/dashboard');
       }
     );
     return false;
@@ -43,7 +42,11 @@ export class LoginComponent {
   private loginFailedHandler (self: LoginComponent) {
     return (err: any) => {
       console.log(err);
-      self.error = err.json().err || 'Invalid email and password combination.';
+      try {
+        self.error = err.json().err;
+      } catch (e) {
+        self.error = e.toString();
+      }
       return Observable.throw(err);
     };
   }

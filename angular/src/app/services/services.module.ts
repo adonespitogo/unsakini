@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
-import { provideAuth } from 'angular2-jwt';
 import { HttpService } from './http/http.service';
+import { AuthHttpService } from './auth-http/auth.http.service';
 
 @NgModule({
   imports: [
@@ -11,7 +11,20 @@ import { HttpService } from './http/http.service';
   declarations: [
   ],
   providers: [
-  	HttpService
+    {
+      provide: HttpService,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new HttpService(backend, options)
+      },
+      deps: [ XHRBackend, RequestOptions]
+    },
+    {
+      provide: AuthHttpService,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new HttpService(backend, options)
+      },
+      deps: [ XHRBackend, RequestOptions]
+    }
   ],
   exports: [
     HttpModule
