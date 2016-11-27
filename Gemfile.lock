@@ -1,5 +1,6 @@
-PATH
-  remote: ../knock
+GIT
+  remote: https://github.com/adonespitogo/knock
+  revision: 6bd39bc4a13067172e7bdd2d10bd0b31b89bcd2d
   specs:
     knock (2.0)
       bcrypt (~> 3.1)
