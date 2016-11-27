@@ -1,6 +1,7 @@
 
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {Response} from '@angular/http';
 import {ICredentials, LoginService} from './login.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -8,7 +9,6 @@ import 'rxjs/add/operator/catch';
 
 
 @Component({
-  // selector: 'login-app',
   templateUrl: './login.html'
 })
 export class LoginComponent {
@@ -34,16 +34,22 @@ export class LoginComponent {
         this.success = 'Login successful. Redirecting...';
         window.localStorage.setItem('auth_token', json.token);
         // this.router.navigate(['/dashboard']);
-        window.location.assign('/dashboard');
+        // window.location.assign('/dashboard');
       }
     );
     return false;
   }
 
   private loginFailedHandler (self: LoginComponent) {
-    return (err: any) => {
-      console.log(err);
-      self.error = err.json().err || 'Invalid email and password combination.';
+    return (err: Response) => {
+      console.log(err.headers.keys())
+      self.error = err.toString()
+
+      if (err.status === 404 && err.text.length === 0)
+        self.error = `Invalid email and password combination.`
+      else
+        self.error = `Uknown error occured. Please file a bug report at https://github.com/adonespitogo/unsakini/issues`
+
       return Observable.throw(err);
     };
   }

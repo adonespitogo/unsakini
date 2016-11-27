@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import { HttpService } from '../services/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -18,11 +18,11 @@ export interface IAuthUser {
 export class LoginService {
 
   constructor (
-    private http: Http
+    private http: HttpService
   ) {}
 
   login (creds: ICredentials) {
-    return this.http.post('/login', creds).map(
+    return this.http.post('/user_token', {auth: creds}).map(
       (res) => {
         return res.json();
       }

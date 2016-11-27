@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'web_base#index'
 
   #knock route
-  post 'api/user_token' => 'api/user_token#create'
+  post 'api/user_token' => 'user_token#create'
 
   # ng2 html5 pushState routes
   get 'app', to: 'web_base#app'

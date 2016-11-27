@@ -20,7 +20,7 @@ export class RegistrationService {
   constructor(private http: HttpService) {}
 
   registerAccount(acct: IAccount) {
-    return this.http.post('/api/user', acct)
+    return this.http.post('/user', acct)
                     .map(this.extractData)
                     .catch(this.handleError)
   }
