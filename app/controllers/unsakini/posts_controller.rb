@@ -1,4 +1,4 @@
-class Api::PostsController < ApiBaseController
+class Unsakini::PostsController < ApiBaseController
 
   include LoggedInControllerConcern
   include BoardOwnerControllerConcern

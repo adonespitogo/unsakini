@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::Board::Post::Comments", type: :request do
+RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
 
   before(:all) do
     user_has_shared_board_with_posts_scenario
@@ -23,7 +23,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
         describe "As a post owner" do
 
           it "returns all comments" do
-            get api_board_post_comments_path(@shared_board, @shared_post), headers: auth_headers(@user)
+            get unsakini_board_post_comments_path(@shared_board, @shared_post), headers: auth_headers(@user)
             expect(response).to have_http_status(:ok)
             expect(body_to_json('0')).to match_json_schema(:comment)
             expect(body_to_json.count).to eq @shared_post.comments.count
@@ -33,7 +33,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
         describe "As another user" do
           it "returns all comments" do
-            get api_board_post_comments_path(@shared_board, @shared_post), headers: auth_headers(@user_2)
+            get unsakini_board_post_comments_path(@shared_board, @shared_post), headers: auth_headers(@user_2)
             expect(response).to have_http_status(:ok)
             expect(body_to_json('0')).to match_json_schema(:comment)
             expect(body_to_json.count).to eq @shared_post.comments.count
@@ -48,7 +48,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
           it "returns http unprocessable_entity" do
             post(
-              api_board_post_comments_path(@shared_board, @shared_post),
+              unsakini_board_post_comments_path(@shared_board, @shared_post),
               headers:  auth_headers(@user),
               params:   invalid_attributes,
               as:       :json
@@ -60,7 +60,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "creates a new comment" do
             comment_count = @shared_post.comments.count
             post(
-              api_board_post_comments_path(@shared_board, @shared_post),
+              unsakini_board_post_comments_path(@shared_board, @shared_post),
               headers:    auth_headers(@user),
               params:     valid_attributes,
               as:         :json
@@ -79,7 +79,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
           it "returns http unprocessable_entity" do
             post(
-              api_board_post_comments_path(@shared_board, @shared_post),
+              unsakini_board_post_comments_path(@shared_board, @shared_post),
               headers:  auth_headers(@user_2),
               params:   invalid_attributes,
               as:       :json
@@ -91,7 +91,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "creates a new comment" do
             comment_count = @shared_post.comments.count
             post(
-              api_board_post_comments_path(@shared_board, @shared_post),
+              unsakini_board_post_comments_path(@shared_board, @shared_post),
               headers:    auth_headers(@user_2),
               params:     valid_attributes,
               as:         :json
@@ -113,7 +113,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
         context "As comment owner" do
           it "updates my comment if user is me" do
             put(
-              api_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
+              unsakini_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
               params:   valid_attributes,
               headers:  auth_headers(@user),
               as:       :json
@@ -128,7 +128,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
           it "returns http forbidden if not comment owner" do
             put(
-              api_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
+              unsakini_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
               params:   valid_attributes,
               headers:  auth_headers(@user_2),
               as:       :json
@@ -145,7 +145,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "Deletes my comment if user is me" do
             prev_comment_count = @shared_post.comments.count
             delete(
-              api_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
+              unsakini_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
               headers:  auth_headers(@user),
             )
             expect(response).to have_http_status(:ok)
@@ -160,7 +160,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "returns http forbidden if not comment owner" do
             prev_comment_count = @shared_post.comments.count
             delete(
-              api_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
+              unsakini_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
               headers:  auth_headers(@user_2),
             )
             expect(response).to have_http_status(:forbidden)
@@ -171,7 +171,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "Deletes my comment if user is me" do
             prev_comment_count = @shared_post.comments.count
             delete(
-              api_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
+              unsakini_board_post_comment_path(@shared_board, @shared_post, @shared_comment),
               headers:  auth_headers(@user),
             )
             expect(response).to have_http_status(:ok)

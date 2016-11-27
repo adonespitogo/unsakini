@@ -1,4 +1,4 @@
-class Api::CommentsController < ApiBaseController
+class Unsakini::CommentsController < ApiBaseController
 
   include LoggedInControllerConcern
   include PostOwnerControllerConcern

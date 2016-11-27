@@ -1,4 +1,4 @@
-class Api::BoardsController < ApiBaseController
+class Unsakini::BoardsController < ApiBaseController
 
   include LoggedInControllerConcern
   include SerializerControllerConcern

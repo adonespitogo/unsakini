@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::Boards", type: :request do
+RSpec.describe "Unsakini::Boards", type: :request do
 
   let(:valid_board_params) {
     {
@@ -27,26 +27,26 @@ RSpec.describe "Api::Boards", type: :request do
       user_has_shared_board_scenario
     end
 
-    describe "GET /api/boards/:id" do
+    describe "GET /unsakini/boards/:id" do
 
       it "returns http unauthorized" do
-        get api_board_path(@board)
+        get unsakini_board_path(@board)
         expect(response).to have_http_status(:unauthorized)
       end
 
       it "returns http not_found" do
-        get api_board_path({id: 1000000}), headers: auth_headers(@user)
+        get unsakini_board_path({id: 1000000}), headers: auth_headers(@user)
         expect(response).to have_http_status(:not_found)
       end
 
       it "returns http forbidden" do
-        get api_board_path(@board), headers: auth_headers(@user_2)
+        get unsakini_board_path(@board), headers: auth_headers(@user_2)
         expect(response).to have_http_status(:forbidden)
       end
 
       it "returns board resource" do
         # debugger
-        get api_board_path(@board), headers: auth_headers(@user)
+        get unsakini_board_path(@board), headers: auth_headers(@user)
         # debugger
         expect(response).to have_http_status(:ok)
         expect(response.body).to match_json_schema(:board)
@@ -54,25 +54,25 @@ RSpec.describe "Api::Boards", type: :request do
       end
     end
 
-    describe "PUT /api/boards/:id" do
+    describe "PUT /unsakini/boards/:id" do
 
       it "returns http unauthorized" do
-        put api_board_path(@board)
+        put unsakini_board_path(@board)
         expect(response).to have_http_status(:unauthorized)
       end
 
       it "returns http forbidden" do
-        put api_board_path(@board), params: valid_board_params, headers: auth_headers(@user_2), as: :json
+        put unsakini_board_path(@board), params: valid_board_params, headers: auth_headers(@user_2), as: :json
         expect(response).to have_http_status(:forbidden)
       end
 
       it "returns http not_found" do
-        put api_board_path({id: 1000000}), params: valid_board_params, headers: auth_headers(@user), as: :json
+        put unsakini_board_path({id: 1000000}), params: valid_board_params, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:not_found)
       end
 
       it "rejects invalide encrypted_password" do
-        put api_board_path(@board), params: invalid_encrypted_password_param, headers: auth_headers(@user), as: :json
+        put unsakini_board_path(@board), params: invalid_encrypted_password_param, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         @board.reload
         @user_board.reload
@@ -81,7 +81,7 @@ RSpec.describe "Api::Boards", type: :request do
       end
 
       it "accepts invalid board name" do
-        put api_board_path(@board), params: invalid_board_name_param, headers: auth_headers(@user), as: :json
+        put unsakini_board_path(@board), params: invalid_board_name_param, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:ok)
         @board.reload
         @user_board.reload
@@ -90,7 +90,7 @@ RSpec.describe "Api::Boards", type: :request do
       end
 
       it "updates the board resource" do
-        put api_board_path(@board), params: valid_board_params, headers: auth_headers(@user), as: :json
+        put unsakini_board_path(@board), params: valid_board_params, headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:ok)
         expect(response.body).to match_json_schema(:board)
         expect(body_to_json['board']['name']).to eq(valid_board_params[:board][:name])
@@ -103,20 +103,20 @@ RSpec.describe "Api::Boards", type: :request do
       end
     end
 
-    describe "DELETE /api/boards/:id" do
+    describe "DELETE /unsakini/boards/:id" do
 
       it "returns http unauthorized" do
-        delete api_board_path(@board)
+        delete unsakini_board_path(@board)
         expect(response).to have_http_status(:unauthorized)
       end
 
       it "returns http forbidden if not board owner" do
-        delete api_board_path(@board), headers: auth_headers(@user_2), as: :json
+        delete unsakini_board_path(@board), headers: auth_headers(@user_2), as: :json
         expect(response).to have_http_status(:forbidden)
       end
 
       it "returns http not_found" do
-        delete api_board_path({id: 1000000}), headers: auth_headers(@user), as: :json
+        delete unsakini_board_path({id: 1000000}), headers: auth_headers(@user), as: :json
         expect(response).to have_http_status(:not_found)
       end
 
@@ -125,7 +125,7 @@ RSpec.describe "Api::Boards", type: :request do
         expect(UserBoard.where(board_id: @board.id).all).not_to be_empty
         expect(Post.where(board_id: @board.id).all).not_to be_empty
         expect(Comment.where(post_id: @post.id).all).not_to be_empty
-        expect{delete api_board_path(@board), headers: auth_headers(@user), as: :json}
+        expect{delete unsakini_board_path(@board), headers: auth_headers(@user), as: :json}
         .to change{@user.boards.count}.by(-1)
         expect(response).to have_http_status(:ok)
         expect(Board.find_by_id(@board.id)).to be_nil

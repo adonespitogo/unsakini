@@ -59,7 +59,7 @@ RSpec.describe "Api::Users", type: :request do
 
     it "rejects invalid name" do
       prev_user_count = User.count
-      post api_user_path, params: invalid_name, as: :json
+      post unsakini_user_path, params: invalid_name, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
       expect(body_to_json('name/0')).to include "can't be blank"
@@ -67,7 +67,7 @@ RSpec.describe "Api::Users", type: :request do
 
     it "rejects invalid email" do
       prev_user_count = User.count
-      post api_user_path, params: invalid_email, as: :json
+      post unsakini_user_path, params: invalid_email, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
       expect(body_to_json('email/0')).to include "is invalid"
@@ -75,7 +75,7 @@ RSpec.describe "Api::Users", type: :request do
 
     it "rejects invalid password" do
       prev_user_count = User.count
-      post api_user_path, params: invalid_password, as: :json
+      post unsakini_user_path, params: invalid_password, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
       expect(body_to_json('password/0')).to include "is too short"
@@ -83,7 +83,7 @@ RSpec.describe "Api::Users", type: :request do
 
     it "rejects invalid password_confirmation" do
       prev_user_count = User.count
-      post api_user_path, params: invalid_password_confirmation, as: :json
+      post unsakini_user_path, params: invalid_password_confirmation, as: :json
       expect(response).to have_http_status 422
       expect(User.count).to eq prev_user_count
       expect(body_to_json('password_confirmation/0')).to include "doesn't match Password"
@@ -91,7 +91,7 @@ RSpec.describe "Api::Users", type: :request do
 
     it "creates the user" do
       prev_user_count = User.count
-      post api_user_path, params: valid_attributes, as: :json
+      post unsakini_user_path, params: valid_attributes, as: :json
       expect(response).to have_http_status :created
       expect(response.body).to match_json_schema :user
       expect(User.count).to eq prev_user_count+1

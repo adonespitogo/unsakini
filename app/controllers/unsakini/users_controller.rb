@@ -1,5 +1,5 @@
 
-class Api::UsersController < ApiBaseController
+class Unsakini::UsersController < ApiBaseController
 
   include LoggedInControllerConcern
   include ::ActionController::Serialization

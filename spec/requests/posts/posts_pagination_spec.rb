@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # test scope is @user is owner of the board and owner of the post/s
-RSpec.describe "Api::Board::Posts", type: :request do
+RSpec.describe "Usakini::Board::Posts", type: :request do
 
   before(:each) do
     user_has_many_posts_scenario
@@ -14,7 +14,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
   describe "Get Posts" do
 
     it "return posts" do
-      get api_board_posts_path(@board), headers: auth_headers(@user), params: {page: 1}
+      get unsakini_board_posts_path(@board), headers: auth_headers(@user), params: {page: 1}
       expect(response).to have_http_status(:ok)
       expect(body_to_json.count).to eq num_per_page
       expect(body_to_json('0')).to match_json_schema(:post)
@@ -22,7 +22,7 @@ RSpec.describe "Api::Board::Posts", type: :request do
     end
 
     it "return last page" do
-      get api_board_posts_path(@board), headers: auth_headers(@user), params: {page: 2}
+      get unsakini_board_posts_path(@board), headers: auth_headers(@user), params: {page: 2}
       expect(response).to have_http_status(:ok)
       expect(body_to_json.count).to eq @num_posts - num_per_page
       expect(body_to_json('0')).to match_json_schema(:post)

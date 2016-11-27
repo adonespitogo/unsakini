@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::Board::Post::Comments", type: :request do
+RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
 
   before(:all) do
     user_has_shared_board_with_posts_scenario
@@ -19,12 +19,12 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
     context "Comments on my post" do
 
       it "returns http unauthorized" do
-        get api_board_post_comments_path(@board, @post)
+        get unsakini_board_post_comments_path(@board, @post)
         expect(response).to have_http_status(:unauthorized)
       end
 
       it "returns http unauthorized" do
-        put api_board_post_comment_path(@board, @post, @comment), params: valid_attributes, as: :json
+        put unsakini_board_post_comment_path(@board, @post, @comment), params: valid_attributes, as: :json
         expect(response).to have_http_status(:unauthorized)
       end
 
@@ -32,7 +32,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
       describe "Get all comments on my post" do
         describe "As a post owner" do
           it "returns all comments" do
-            get api_board_post_comments_path(@board, @post), headers: auth_headers(@user)
+            get unsakini_board_post_comments_path(@board, @post), headers: auth_headers(@user)
             expect(response).to have_http_status(:ok)
             expect(body_to_json('0')).to match_json_schema(:comment)
             expect(body_to_json.count).to eq @post.comments.count
@@ -41,12 +41,12 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
         describe "As another user" do
           it "returns http forbidden" do
-            get api_board_post_comments_path(@board, @post), headers: auth_headers(@user_2)
+            get unsakini_board_post_comments_path(@board, @post), headers: auth_headers(@user_2)
             expect(response).to have_http_status(:forbidden)
           end
 
           it "returns http forbidden" do
-            get api_board_post_comments_path(@shared_board, @post), headers: auth_headers(@user_2)
+            get unsakini_board_post_comments_path(@shared_board, @post), headers: auth_headers(@user_2)
             expect(response).to have_http_status(:forbidden)
           end
         end
@@ -58,13 +58,13 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
         describe "As post owner" do
 
           it "returns http unauthorized" do
-            post api_board_post_comments_path(@board, @post), as: :json, params: valid_attributes
+            post unsakini_board_post_comments_path(@board, @post), as: :json, params: valid_attributes
             expect(response).to have_http_status(:unauthorized)
           end
 
           it "returns http unprocessable_entity" do
             post(
-              api_board_post_comments_path(@board, @post),
+              unsakini_board_post_comments_path(@board, @post),
               headers:  auth_headers(@user),
               params:   invalid_attributes,
               as:       :json
@@ -76,7 +76,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "creates a new comment" do
             comment_count = @post.comments.count
             post(
-              api_board_post_comments_path(@board, @post),
+              unsakini_board_post_comments_path(@board, @post),
               headers:    auth_headers(@user),
               params:     valid_attributes,
               as:         :json
@@ -93,13 +93,13 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
         describe "As another user" do
 
           it "returns http unauthorized" do
-            post api_board_post_comments_path(@board, @post), as: :json, params: valid_attributes
+            post unsakini_board_post_comments_path(@board, @post), as: :json, params: valid_attributes
             expect(response).to have_http_status(:unauthorized)
           end
 
           it "returns http forbidden" do
             post(
-              api_board_post_comments_path(@board, @post),
+              unsakini_board_post_comments_path(@board, @post),
               headers:  auth_headers(@user_2),
               params:   valid_attributes,
               as:       :json
@@ -117,7 +117,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
           it "updates my comment if user is me" do
             put(
-              api_board_post_comment_path(@board, @post, @comment),
+              unsakini_board_post_comment_path(@board, @post, @comment),
               params:   valid_attributes,
               headers:  auth_headers(@user),
               as:       :json
@@ -133,7 +133,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
 
           it "returns http forbidden if not comment owner" do
             put(
-              api_board_post_comment_path(@board, @post, @comment),
+              unsakini_board_post_comment_path(@board, @post, @comment),
               params:   valid_attributes,
               headers:  auth_headers(@user_2),
               as:       :json
@@ -152,7 +152,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "Deletes my comment if user is me" do
             prev_comment_count = @post.comments.count
             delete(
-              api_board_post_comment_path(@board, @post, @comment),
+              unsakini_board_post_comment_path(@board, @post, @comment),
               headers:  auth_headers(@user),
             )
             expect(response).to have_http_status(:ok)
@@ -167,7 +167,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "returns http forbidden if not comment owner" do
             prev_comment_count = @post.comments.count
             delete(
-              api_board_post_comment_path(@board, @post, @comment),
+              unsakini_board_post_comment_path(@board, @post, @comment),
               headers:  auth_headers(@user_2),
             )
             expect(response).to have_http_status(:forbidden)
@@ -178,7 +178,7 @@ RSpec.describe "Api::Board::Post::Comments", type: :request do
           it "Deletes my comment if user is me" do
             prev_comment_count = @post.comments.count
             delete(
-              api_board_post_comment_path(@board, @post, @comment),
+              unsakini_board_post_comment_path(@board, @post, @comment),
               headers:  auth_headers(@user),
             )
             expect(response).to have_http_status(:ok)

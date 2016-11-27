@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe "Api::ShareBoard", type: :request do
+RSpec.describe "Unsakini::ShareBoard", type: :request do
 
   before(:each) do
     user_is_sharing_a_board_scenario
   end
 
-  describe "POST /api/share/board/:id" do
+  describe "POST /unsakini/share/board/:id" do
 
     it "returns http unauthorized status" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         as: :json
       )
 
@@ -19,7 +19,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns http forbidden status when not board owner" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user_2),
         params: @payload,
         as: :json
@@ -29,7 +29,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns http forbidden status when not board owner" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user_2),
         params: @payload_wo_posts,
         as: :json
@@ -39,7 +39,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns unprocessable_entity http status if empty payload" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: {},
         as: :json
@@ -49,7 +49,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns unprocessable_entity http status if no encrypted_password" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload_wo_encrypted_password,
         as: :json
@@ -59,7 +59,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns unprocessable_entity http status if no shared user ids" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload_wo_shared_user_ids,
         as: :json
@@ -69,7 +69,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns unprocessable_entity http status if contains invalid post" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload_w_invalid_post,
         as: :json
@@ -79,7 +79,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
 
     it "returns unprocessable_entity http status if contains invalid comment" do
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload_w_invalid_comment,
         as: :json
@@ -97,7 +97,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
       prev_comment_hash = @comment.attributes
 
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload_wo_comments,
         as: :json
@@ -123,7 +123,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
       prev_comment_hash = @comment.attributes
 
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload_wo_posts,
         as: :json
@@ -145,7 +145,7 @@ RSpec.describe "Api::ShareBoard", type: :request do
       prev_comment_hash = @comment.attributes
 
       post(
-        api_share_board_path,
+        unsakini_share_board_path,
         headers: auth_headers(@user),
         params: @payload,
         as: :json
