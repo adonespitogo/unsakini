@@ -12,7 +12,7 @@ module Unsakini
       user = User.new(user_params)
 
       if user.save
-        UserMailer.confirm_account(user).deliver_now
+        Unsakini::UserMailer.confirm_account(user).deliver_now
         render json: user, status: :created
       else
         render json: user.errors, status: 422
