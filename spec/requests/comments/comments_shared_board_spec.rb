@@ -69,7 +69,7 @@ RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
             expect(response.body).to match_json_schema(:comment)
             expect(body_to_json('content')).to eq valid_attributes[:content]
             expect(body_to_json('user/id')).to eq @user.id
-            expect(Comment.find_by_id(body_to_json('id'))).to eq @shared_post.comments.last
+            expect(Unsakini::Comment.find_by_id(body_to_json('id'))).to eq @shared_post.comments.last
             expect(@shared_post.comments.count).to eq(comment_count+1)
           end
 
@@ -100,7 +100,7 @@ RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
             expect(response.body).to match_json_schema(:comment)
             expect(body_to_json('content')).to eq valid_attributes[:content]
             expect(body_to_json('user/id')).to eq @user_2.id
-            expect(Comment.find_by_id(body_to_json('id'))).to eq @shared_post.comments.last
+            expect(Unsakini::Comment.find_by_id(body_to_json('id'))).to eq @shared_post.comments.last
             expect(@shared_post.comments.count).to eq(comment_count+1)
           end
 
@@ -150,7 +150,7 @@ RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:ok)
             expect(@shared_post.comments.count).to eq(prev_comment_count-1)
-            expect(Comment.find_by_id(@shared_comment.id)).to be_nil
+            expect(Unsakini::Comment.find_by_id(@shared_comment.id)).to be_nil
           end
 
         end
@@ -165,7 +165,7 @@ RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:forbidden)
             expect(@shared_post.comments.count).to eq(prev_comment_count)
-            expect(Comment.find_by_id(@shared_comment.id)).not_to be_nil
+            expect(Unsakini::Comment.find_by_id(@shared_comment.id)).not_to be_nil
           end
 
           it "Deletes my comment if user is me" do
@@ -176,7 +176,7 @@ RSpec.describe "Unsakini::Board::Post::Comments", type: :request do
             )
             expect(response).to have_http_status(:ok)
             expect(@shared_post.comments.count).to eq(prev_comment_count-1)
-            expect(Comment.find_by_id(@shared_comment.id)).to be_nil
+            expect(Unsakini::Comment.find_by_id(@shared_comment.id)).to be_nil
           end
 
         end

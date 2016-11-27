@@ -1,3 +1,4 @@
+
 module Unsakini
   class BoardsController < BaseController
 

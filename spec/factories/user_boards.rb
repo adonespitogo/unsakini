@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :user_board do
+  factory :user_board, class: 'Unsakini::UserBoard' do
     name {Faker::Name.title}
     user_id 1
     board_id 1

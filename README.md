@@ -56,6 +56,18 @@ $ rake unsakini_engine:install:migrations     # copy the engine migrations to db
 $ rake db:migrate                             # runs the migration files
 ```
 
+These dependencies will be added to your Gemfile
+```bash
+gem "active_model_serializers"
+gem "rack-cors"
+gem "kaminari"
+gem "api-pagination"
+# As of Nov 28, 2016: waiting for my PR to be merged
+# https://github.com/nsarno/knock/pull/126
+gem 'knock', git: 'https://github.com/adonespitogo/knock'
+
+```
+
 Install the newly added dependencies
 
 **Note:** You might want to review your Gemfile first

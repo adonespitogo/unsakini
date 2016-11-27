@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 export class HttpService extends Http {
 
   base_url = environment.api_base_url;
+  engine_url = '/unsakini'
 
   constructor (backend: XHRBackend, options: RequestOptions) {
     super(backend, options);
@@ -30,7 +31,7 @@ export class HttpService extends Http {
   }
 
   buildUrl(url: string) {
-    let new_url = `${this.base_url}/unsakini/${url}`;
+    let new_url = `${this.base_url}/${this.engine_url}/${url}`;
     // remove multiple forward slash from the url like:
     // http://domain.com//hello/world -> http://domain.com/hello/world
     return new_url.replace(/([^:]\/)\/+/g, "$1").replace(/(^\/)\/+/g, "$1");

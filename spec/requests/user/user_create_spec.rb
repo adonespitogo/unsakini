@@ -58,43 +58,43 @@ RSpec.describe "Api::Users", type: :request do
   describe "Create User" do
 
     it "rejects invalid name" do
-      prev_user_count = User.count
+      prev_user_count = Unsakini::User.count
       post unsakini_user_path, params: invalid_name, as: :json
       expect(response).to have_http_status 422
-      expect(User.count).to eq prev_user_count
+      expect(Unsakini::User.count).to eq prev_user_count
       expect(body_to_json('name/0')).to include "can't be blank"
     end
 
     it "rejects invalid email" do
-      prev_user_count = User.count
+      prev_user_count = Unsakini::User.count
       post unsakini_user_path, params: invalid_email, as: :json
       expect(response).to have_http_status 422
-      expect(User.count).to eq prev_user_count
+      expect(Unsakini::User.count).to eq prev_user_count
       expect(body_to_json('email/0')).to include "is invalid"
     end
 
     it "rejects invalid password" do
-      prev_user_count = User.count
+      prev_user_count = Unsakini::User.count
       post unsakini_user_path, params: invalid_password, as: :json
       expect(response).to have_http_status 422
-      expect(User.count).to eq prev_user_count
+      expect(Unsakini::User.count).to eq prev_user_count
       expect(body_to_json('password/0')).to include "is too short"
     end
 
     it "rejects invalid password_confirmation" do
-      prev_user_count = User.count
+      prev_user_count = Unsakini::User.count
       post unsakini_user_path, params: invalid_password_confirmation, as: :json
       expect(response).to have_http_status 422
-      expect(User.count).to eq prev_user_count
+      expect(Unsakini::User.count).to eq prev_user_count
       expect(body_to_json('password_confirmation/0')).to include "doesn't match Password"
     end
 
     it "creates the user" do
-      prev_user_count = User.count
+      prev_user_count = Unsakini::User.count
       post unsakini_user_path, params: valid_attributes, as: :json
       expect(response).to have_http_status :created
       expect(response.body).to match_json_schema :user
-      expect(User.count).to eq prev_user_count+1
+      expect(Unsakini::User.count).to eq prev_user_count+1
       expect(body_to_json('name')).to eq valid_attributes[:name]
       expect(body_to_json('email')).to eq valid_attributes[:email]
     end

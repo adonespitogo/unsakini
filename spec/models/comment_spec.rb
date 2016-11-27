@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Comment, type: :model do
+RSpec.describe Unsakini::Comment, type: :model do
 
   before(:all) do
     user_is_sharing_a_board_scenario
@@ -18,7 +18,7 @@ RSpec.describe Comment, type: :model do
   it_behaves_like 'encryptable', [:content]
 
   it "validates title and content" do
-    comment = Comment.new(invalid_attributes)
+    comment = Unsakini::Comment.new(invalid_attributes)
     comment.save
     expect(comment.errors.count).to be 1
   end

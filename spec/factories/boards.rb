@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :board do
+  factory :board, class: "Unsakini::Board" do
     name {Faker::Name.title}
   end
 end

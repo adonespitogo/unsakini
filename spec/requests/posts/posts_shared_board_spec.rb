@@ -164,7 +164,7 @@ RSpec.describe "Unsakini::Board::Posts", type: :request do
           delete unsakini_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user)
           expect(response).to have_http_status(:ok)
           expect(@shared_board.posts.count).to eq(board_posts_count-1)
-          expect(Post.find_by_id(@shared_post.id)).to be_nil
+          expect(Unsakini::Post.find_by_id(@shared_post.id)).to be_nil
         end
       end
 
@@ -174,7 +174,7 @@ RSpec.describe "Unsakini::Board::Posts", type: :request do
           delete unsakini_board_post_path(@shared_board, @shared_post), headers: auth_headers(@user_2)
           expect(response).to have_http_status(:forbidden)
           expect(board_posts_count).to eq(@shared_board.posts.count)
-          expect(Post.find_by_id(@shared_post.id)).not_to be_nil
+          expect(Unsakini::Post.find_by_id(@shared_post.id)).not_to be_nil
         end
       end
 

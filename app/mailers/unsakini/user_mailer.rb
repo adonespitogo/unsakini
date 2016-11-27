@@ -1,5 +1,5 @@
 module Unsakini
-  class UserMailer < ActionMailer::Base
+  class UserMailer < ::ActionMailer::Base
     default from: 'notifications@example.com'
 
     def confirm_account(user)
@@ -9,4 +9,5 @@ module Unsakini
     end
 
   end
+
 end

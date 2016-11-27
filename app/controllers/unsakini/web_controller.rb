@@ -9,7 +9,7 @@ module Unsakini
     def index
       @project = 'Unsakini'
       @description = 'Privacy. Confidentiality. Security.'
-      @version = Unsakini::VERSION
+      @version = VERSION
       @author = 'Adones Pitogo'
       @repository = 'https://github.com/adonespitogo/unsakini'
       @title = "#{@project} | #{@description}"

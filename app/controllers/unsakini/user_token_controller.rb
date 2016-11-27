@@ -1,5 +1,5 @@
-
-class UserTokenController < Knock::AuthTokenController
+module Unsakini
+  class UserTokenController < Knock::AuthTokenController
     def create
       if entity.confirmed_at?
         render json: auth_token, status: :created
@@ -8,4 +8,10 @@ class UserTokenController < Knock::AuthTokenController
         render status: 401, json: res
       end
     end
+
+    def entity_name
+      self.class.name.split('TokenController').first
+    end
+
+  end
 end

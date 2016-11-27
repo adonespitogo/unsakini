@@ -57,7 +57,7 @@ RSpec.describe "Unsakini::Boards", type: :request do
       it "returns http forbidden if not board owner" do
         delete unsakini_board_path(@shared_board), headers: auth_headers(@user_2), as: :json
         expect(response).to have_http_status(:forbidden)
-        expect(Board.find(@shared_board.id)).not_to be_nil
+        expect(Unsakini::Board.find(@shared_board.id)).not_to be_nil
       end
     end
 

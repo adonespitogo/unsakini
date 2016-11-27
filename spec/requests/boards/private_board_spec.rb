@@ -121,17 +121,17 @@ RSpec.describe "Unsakini::Boards", type: :request do
       end
 
       it "deletes the board resource and its post and comments" do
-        expect(Board.find_by_id(@board.id)).not_to be_nil
-        expect(UserBoard.where(board_id: @board.id).all).not_to be_empty
-        expect(Post.where(board_id: @board.id).all).not_to be_empty
-        expect(Comment.where(post_id: @post.id).all).not_to be_empty
+        expect(Unsakini::Board.find_by_id(@board.id)).not_to be_nil
+        expect(Unsakini::UserBoard.where(board_id: @board.id).all).not_to be_empty
+        expect(Unsakini::Post.where(board_id: @board.id).all).not_to be_empty
+        expect(Unsakini::Comment.where(post_id: @post.id).all).not_to be_empty
         expect{delete unsakini_board_path(@board), headers: auth_headers(@user), as: :json}
         .to change{@user.boards.count}.by(-1)
         expect(response).to have_http_status(:ok)
-        expect(Board.find_by_id(@board.id)).to be_nil
-        expect(UserBoard.where(board_id: @board.id).all).to be_empty
-        expect(Post.where(board_id: @board.id).all).to be_empty
-        expect(Comment.where(post_id: @post.id).all).to be_empty
+        expect(Unsakini::Board.find_by_id(@board.id)).to be_nil
+        expect(Unsakini::UserBoard.where(board_id: @board.id).all).to be_empty
+        expect(Unsakini::Post.where(board_id: @board.id).all).to be_empty
+        expect(Unsakini::Comment.where(post_id: @post.id).all).to be_empty
       end
 
     end

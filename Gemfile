@@ -18,4 +18,4 @@ gem "active_model_serializers"
 gem "rack-cors"
 gem "kaminari"
 gem "api-pagination"
-gem 'knock'
+gem 'knock', git: 'https://github.com/adonespitogo/knock'
