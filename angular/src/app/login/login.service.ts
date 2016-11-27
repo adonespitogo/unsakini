@@ -22,7 +22,7 @@ export class LoginService {
   ) {}
 
   login (creds: ICredentials) {
-    return this.http.post('/api/user_token', {auth: creds}).map(
+    return this.http.post('/user_token', {auth: creds}).map(
       (res) => {
         return res.json();
       }
