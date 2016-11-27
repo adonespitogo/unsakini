@@ -12,15 +12,15 @@ RSpec.describe "WebBaseController", type: :request do
 
     def self.visit_app_urls(urls)
       urls.each do |url|
-        it "renders app/index.html when visiting #{url}" do
+        it "renders web app index.html when visiting #{url}" do
           get "/#{url}"
           gem_root = File.expand_path '../../..', __FILE__
-          expect(response.body).to match File.read("#{gem_root}/public/app/index.html")
+          expect(response.body).to match File.read("#{gem_root}/public/unsakini/app/index.html")
         end
       end
     end
 
-    visit_app_urls(['/app', 'app/', 'app/*anything'])
+    visit_app_urls(['/unsakini/app', 'unsakini/app/', 'unsakini/app/*anything'])
 
   end
 

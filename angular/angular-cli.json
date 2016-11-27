@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "../public/app/",
+      "outDir": "../public/unsakini/app/",
       "assets": [
         "assets",
         "favicon.ico"

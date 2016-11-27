@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
-  root to: 'web_base#index'
+  root to: 'unsakini/web#index'
 
   #knock route
   post 'unsakini/user_token' => 'user_token#create'
 
   # ng2 html5 pushState routes
-  get 'app', to: 'web_base#app'
-  get 'app/*ngroute', to: 'web_base#app'
+  get 'unsakini/app', to: 'unsakini/web#app'
+  get 'unsakini/app/*ngroute', to: 'unsakini/web#app'
 
   namespace :unsakini do
 
