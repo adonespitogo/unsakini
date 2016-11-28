@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { RegistrationComponent } from './registration.component';
-import { RegistrationService } from './'
+import { RegistrationService } from './registration.service';
 
 let user = {
   name: 'first last',
