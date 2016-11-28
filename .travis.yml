@@ -12,3 +12,6 @@ script:
 
 - bin/rails db:migrate
 - bundle exec rspec
+- cd angular
+- npm i
+- node_modules/.bin/ng test --single-run
