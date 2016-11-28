@@ -4,10 +4,6 @@ module Unsakini
   class Post < ApplicationRecord
     include EncryptableModelConcern
 
-    def self.table_name_prefix
-      self.tbl_prefix
-    end
-
     encryptable_attributes :title, :content
     validates :title, presence: true
     validates :content, presence: true

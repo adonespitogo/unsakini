@@ -2,10 +2,6 @@
 module Unsakini
   class Board < ApplicationRecord
 
-    def self.table_name_prefix
-      self.tbl_prefix
-    end
-
     include EncryptableModelConcern
     encryptable_attributes :name
 

@@ -3,13 +3,6 @@ module Unsakini
   class UserBoard < ApplicationRecord
     include EncryptableModelConcern
 
-    # def self.table_name_prefix
-    #   'unsakini_'
-    # end
-    def self.table_name_prefix
-      self.tbl_prefix
-    end
-
     encryptable_attributes :encrypted_password
 
     validates :encrypted_password, :presence => true, if: :is_admin

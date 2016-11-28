@@ -2,10 +2,6 @@
 module Unsakini
   class User < ApplicationRecord
 
-    def self.table_name_prefix
-      self.tbl_prefix
-    end
-
     has_secure_password
 
     validates_uniqueness_of :email, case_sensitive: false, on: [:create]
