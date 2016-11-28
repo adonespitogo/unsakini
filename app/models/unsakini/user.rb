@@ -1,5 +1,10 @@
+# module Unsakini
 module Unsakini
-  class User < ActiveRecord::Base
+  class User < ApplicationRecord
+
+    def self.table_name_prefix
+      self.tbl_prefix
+    end
 
     has_secure_password
 
@@ -37,5 +42,6 @@ module Unsakini
     end
 
   end
-
 end
+
+# end
