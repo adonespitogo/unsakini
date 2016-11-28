@@ -1,6 +1,6 @@
 
 import { environment } from '../../../environments/environment';
-import {HttpService} from '../http';
+import {HttpService} from '../http/http.service';
 import {Injectable} from '@angular/core';
 import {Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';

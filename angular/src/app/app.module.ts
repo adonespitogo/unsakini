@@ -5,9 +5,10 @@ import { HttpModule } from '@angular/http';
 
 import { AppRoutesModule } from './app.routes.module';
 import { AppComponent } from './app.component';
-import { RegistrationModule } from './registration/'
-import { LoginModule } from './login'
-import { ConfirmAccountModule } from './confirm-account'
+import { RegistrationModule } from './registration/registration.module';
+import { LoginModule } from './login/login.module';
+import { ConfirmAccountModule } from './confirm-account/confirm-account.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ConfirmAccountModule } from './confirm-account'
     RegistrationModule,
     ConfirmAccountModule,
     LoginModule,
+    DashboardModule,
   ],
   declarations: [
     AppComponent
