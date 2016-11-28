@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     #knock route
     post 'user_token' => 'user_token#create'
     # ng2 html5 pushState routes
-    get 'app', to: 'web#app'
-    get 'app/*ngroute', to: 'web#app'
+    # get 'app', to: 'web#app'
+    # get 'app/*ngroute', to: 'web#app'
 
     resource :user
     resources :boards do

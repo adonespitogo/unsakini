@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.2.2'
   s.requirements << 'rails, >= 5.0'
 
-  s.files = Dir["{angular,app,config,db,lib,public}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"].reject do |path|
       !(path =~ /node_modules/).nil? or !(path =~ /e2e/).nil?
     end
 
