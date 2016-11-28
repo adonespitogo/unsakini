@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    unsakini (0.0.4.pre.1)
+    unsakini (0.0.5.pre.1)
       active_model_serializers
       api-pagination
       kaminari
