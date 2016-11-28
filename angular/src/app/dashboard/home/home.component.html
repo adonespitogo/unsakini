@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <h2>Your Boards</h2>
+  <hr>
+<!--   <p>
+    <a href="" class="btn btn-primary btn-lg">New Board</a>
+  </p> -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3 class="text-center">
+          Add New Board
+        </h3>
+      </div>
+    </div>
+    <div class="col-md-4" *ngFor="let item of list" [routerLink]="['board']">
+      <div class="jumbotron bg-primary board">
+        <h3 class="text-center">
+          My Board Name
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
