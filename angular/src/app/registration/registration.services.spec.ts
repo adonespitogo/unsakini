@@ -3,8 +3,8 @@ import { inject, async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Http, BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
 
-import { HttpService } from '..';
-import { RegistrationService, IAccount } from '.'
+import { HttpService } from '../services/http/http.service';
+import { RegistrationService, IAccount } from './registration.service';
 
 describe('RegistrationService', () => {
 

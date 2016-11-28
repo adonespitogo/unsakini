@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { Http, BaseRequestOptions, Response, ResponseOptions, Headers, RequestMethod } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { HttpService} from '.';
+import { HttpService} from './http.service';
 import { environment } from '../../../environments/environment';
 
 describe('HttpService', () => {
