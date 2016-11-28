@@ -3,6 +3,8 @@ rvm:
 - 2.2.2
 # - jruby-2.2.2
 # - rbx-2.2.2
+node_js:
+- 6
 
 bundler_args: --without production
 
