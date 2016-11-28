@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  root to: 'unsakini/web#index'
-
   namespace :unsakini do
     #knock route
     post 'user_token' => 'user_token#create'

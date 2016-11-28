@@ -4,7 +4,7 @@ class Unsakini::DependenciesGenerator < Rails::Generators::Base
   def add_dependencies_to_host
 
     gem 'active_model_serializers'
-    gem 'rack-cors'
+    gem 'rack-cors', require: 'rack/cors'
     gem 'kaminari'
     gem 'api-pagination'
     gem 'knock', git: 'https://github.com/adonespitogo/knock'

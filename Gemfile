@@ -15,7 +15,7 @@ gemspec
 
 # gem "rails", "~> 5.0.0", ">= 5.0.0.1"
 gem "active_model_serializers"
-gem "rack-cors"
+gem 'rack-cors', require: 'rack/cors'
 gem "kaminari"
 gem "api-pagination"
 gem 'knock', git: 'https://github.com/adonespitogo/knock'
