@@ -34,52 +34,14 @@ The data is ecnrypted using [Advanced Encryption System (AES)](https://en.wikipe
  - Bunlder gem
 
 ### Installation
-Create a new rails application named `my-app` or anything you like.
-```
-$ rails new my-app
-$ cd my-app
-```
-Add the gem to your `Gemfile`.
-```
-gem 'unsakini'
-```
-Bundle install and initialize the application
-```
-$ bundle install
-$ rake unsakini:install
-```
-The `rake unsakini:install` command is just a super set of the following commands:
-```
-$ rails generate unsakini:config              # generates config/initializers/unsakini.rb
-$ rails generate unsakini:dependencies        # add dependencies to Gemfile
-$ rake unsakini_engine:install:migrations     # copy the engine migrations to db/migrations directory
-$ rake db:migrate                             # runs the migration files
-```
 
-These dependencies will be added to your Gemfile
-```bash
-gem "active_model_serializers"
-gem "rack-cors"
-gem "kaminari"
-gem "api-pagination"
-# As of Nov 28, 2016: waiting for my PR to be merged
-# https://github.com/nsarno/knock/pull/126
-gem 'knock', git: 'https://github.com/adonespitogo/knock'
+**Unsakini** is composed of 2 parts, the API and the client. The easiest way to get up and running Unsakini is to download the preconfigured client that uses an [existing API](https://www.unsakini.com).
 
-```
+The preconfigured client is in the [`./angular/bundled`](./angular/bundled) directory of this repo. Just download this repository and extract those files. These are plain html, css and js files which can be uploaded to any kind of server.
 
-Install the newly added dependencies
+You can even run it locally if you know how to setup a local http server. If you're on windows, take a look at [XAMPP](https://www.youtube.com/watch?v=kkSG19gQamc).
 
-**Note:** You might want to review your Gemfile first
-```
-$ bundle install
-```
-
-Run local rails server
-```
-$ rails s
-```
-Now you will be able to see the application at [http://localhost:3000](http://localhost:3000)
+See the [documentation](./docs) for more installation options.
 
 ------------------------------
 
