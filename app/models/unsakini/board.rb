@@ -1,6 +1,7 @@
 #Board model
 module Unsakini
-  class Board < ::ApplicationRecord
+  class Board < ApplicationRecord
+
     include EncryptableModelConcern
     encryptable_attributes :name
 

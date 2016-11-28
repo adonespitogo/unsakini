@@ -19,8 +19,8 @@ module Unsakini
     # @param post_id [Integer] post id
     def has_post_access(board_id, post_id)
       post = Unsakini::Post.where(id: post_id, board_id: board_id)
-      .joins("LEFT JOIN user_boards ON user_boards.board_id = posts.board_id")
-      .where("user_boards.user_id = ?", @user.id)
+      .joins("LEFT JOIN #{UserBoard.table_name} ON #{UserBoard.table_name}.board_id = #{Post.table_name}.board_id")
+      .where("#{UserBoard.table_name}.user_id = ?", @user.id)
       .first
       if post.nil?
         return {status: :forbidden}

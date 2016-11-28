@@ -1,5 +1,6 @@
+# module Unsakini
 module Unsakini
-  class User < ActiveRecord::Base
+  class User < ApplicationRecord
 
     has_secure_password
 
@@ -37,5 +38,6 @@ module Unsakini
     end
 
   end
-
 end
+
+# end

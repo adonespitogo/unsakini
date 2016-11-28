@@ -1,8 +1,8 @@
+# UserBoard model, links the user and it's boards
 module Unsakini
-  # UserBoard model, links the user and it's boards
-
   class UserBoard < ApplicationRecord
     include EncryptableModelConcern
+
     encryptable_attributes :encrypted_password
 
     validates :encrypted_password, :presence => true, if: :is_admin
@@ -31,8 +31,8 @@ module Unsakini
     #
     # @param is_shared [Boolean] wether to return shared or not shared boards
     def self.shared(is_shared)
-      joins("LEFT JOIN boards ON user_boards.board_id = boards.id")
-      .where("boards.is_shared = ?", is_shared)
+      joins("LEFT JOIN #{Board.table_name} ON #{self.table_name}.board_id = #{Board.table_name}.id")
+      .where("#{Board.table_name}.is_shared = ?", is_shared)
     end
 
     def share(user_ids, new_key)
@@ -81,5 +81,4 @@ module Unsakini
     end
 
   end
-
 end
