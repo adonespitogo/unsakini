@@ -1,4 +1,4 @@
 <h1>Confirm Your Account</h1>
 Click the link below: <br>
 
-<a href="<%= @url %>"><%= @url %></a>
+<%= link_to 'click me to confirm', unsakini_confirm_account_url(@user.confirmation_token) %>
