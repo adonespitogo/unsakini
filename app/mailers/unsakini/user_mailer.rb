@@ -4,7 +4,7 @@ module Unsakini
 
     def confirm_account(user)
       @user = user
-      @url  = "#{root_url}app/account/confirm/#{@user.confirmation_token}"
+      @url  = "#{root_url}unsakini/app/account/confirm/#{@user.confirmation_token}"
       mail(to: @user.email, subject: 'Unsakini - Account Confirmation')
     end
 

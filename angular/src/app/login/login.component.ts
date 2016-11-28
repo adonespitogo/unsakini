@@ -27,9 +27,8 @@ export class LoginComponent {
     .subscribe(
       (json) => {
         this.success = 'Login successful. Redirecting...';
-        window.localStorage.setItem('auth_token', json.token);
-        // this.router.navigate(['/dashboard']);
-        // window.location.assign('/dashboard');
+        window.localStorage.setItem('auth_token', json.jwt);
+        this.router.navigate(['/dashboard']);
       },
       (e) => {
         this.error = e;
