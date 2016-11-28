@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: 'unsakini/web#index'
+  root :to => "application#index"
 
   namespace :unsakini do
     #knock route

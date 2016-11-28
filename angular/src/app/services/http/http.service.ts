@@ -34,7 +34,7 @@ export class HttpService extends Http {
     let new_url = `${this.base_url}/${this.engine_url}/${url}`;
     // remove multiple forward slash from the url like:
     // http://domain.com//hello/world -> http://domain.com/hello/world
-    return new_url.replace(/([^:]\/)\/+/g, "$1").replace(/(^\/)\/+/g, "$1");
+    return new_url.replace(/([^:]\/)\/+/g, "$1");
   }
 
 }
