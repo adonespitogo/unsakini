@@ -6,14 +6,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
-  list = []
+  post = {
+    title: 'Post title',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos error magni eligendi magnam. Minus consectetur quidem, sapiente officiis, vel eos veniam blanditiis. Quam, ut non nesciunt aspernatur, cupiditate mollitia facilis.',
+    options: {
+      open: false
+    },
+    comments: [
+      {
+        user: 'Adones Pitogo',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum sit, expedita cum perspiciatis numquam nisi quis reiciendis culpa optio ratione sapiente saepe quod tempora quisquam commodi dolores ipsum, consectetur velit.',
+        options: {
+          open: false
+        }
+      }
+    ]
+  }
 
   public constructor() { }
 
   ngOnInit() {
-    for (let i = 0; i < 10; i ++ ) {
-      this.list.push(i);
-    }
+
   }
 
 }

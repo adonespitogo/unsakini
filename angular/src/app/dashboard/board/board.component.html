@@ -15,15 +15,25 @@
     <div class="col-md-10">
       <div class="row">
         <div class="col-md-6" *ngFor="let item of list">
-          <div class="panel panel-primary post" [routerLink]="['/dashboard', 'post']">
+          <div class="panel panel-primary post">
             <div class="panel-heading">
-              Hey
+              <strong class="pointer" [routerLink]="['/dashboard', 'post']">Hey</strong>
+              <span class="pull-right"  dropdown [(isOpen)]="item.options.open">
+                <span class="fa fa-angle-down pointer pull-right" dropdownToggle></span>
+                <ul dropdownMenu role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Create New +</a></li>
+                </ul>
+              </span>
             </div>
-            <div class="panel-body">
+            <div class="panel-body pointer" [routerLink]="['/dashboard', 'post']">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam tempore voluptatum, ipsum quis laborum quam sed quisquam, dicta dolorem fugiat debitis temporibus deserunt dolorum ipsa dolor quas. Repudiandae, omnis corporis.
             </div>
             <div class="panel-footer">
-              5 comments
+              <a [routerLink]="['/dashboard/post']">5 comments</a>
             </div>
           </div>
         </div>
