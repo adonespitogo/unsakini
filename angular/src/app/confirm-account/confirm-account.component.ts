@@ -9,19 +9,27 @@ import 'rxjs/add/operator/catch';
 })
 
 export class ConfirmAccountComponent {
-  confirming = true;
-  confirmed: boolean;
+
+  token = '';
+  confirming = false;
+  confirmed = false;
+  has_error = false;
+
   constructor(
     private confirmAccountService: ConfirmAccountService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {
-    this.route.params.forEach((params: Params) => {
-      let token = params['token'];
-      confirmAccountService.confirm(token).subscribe((json) => {
-        this.confirming = false;
-        this.confirmed = json.confirmed;
-      });
+
+  }
+
+  doConfirm () {
+    this.confirmAccountService.confirm(this.token).subscribe((confirmed) => {
+      this.confirming = false;
+      this.confirmed = confirmed;
+    }, (res) => {
+      this.confirming = false;
+      this.has_error = true;
     });
   }
+
 }

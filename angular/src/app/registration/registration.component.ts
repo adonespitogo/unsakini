@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RegistrationService } from './registration.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   };
   success = false;
 
-  constructor(public service: RegistrationService) {
+  constructor(private service: RegistrationService, private router: Router) {
     this.user = {
       name: '',
       email: '',
@@ -30,6 +31,7 @@ export class RegistrationComponent implements OnInit {
     this.service.registerAccount(this.user).subscribe(
       (res) => {
         this.success = true;
+        this.router.navigate(['account/confirm'])
       },
       (res) => {
         this.success = false;

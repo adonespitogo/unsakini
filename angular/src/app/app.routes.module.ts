@@ -21,7 +21,7 @@ const routes = [
     component: LoginComponent
   },
   {
-    path: 'account/confirm/:token',
+    path: 'account/confirm',
     component: ConfirmAccountComponent
   }
 ];
