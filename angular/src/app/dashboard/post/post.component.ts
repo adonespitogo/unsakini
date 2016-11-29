@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.css']
 })
-export class BoardComponent implements OnInit {
+export class PostComponent implements OnInit {
 
   list = []
 
