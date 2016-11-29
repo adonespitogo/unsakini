@@ -27,7 +27,7 @@ module Unsakini
 
       if user.present? && user.confirmation_token_valid?
         if user.mark_as_confirmed!
-          render json: {status: 'User confirmed successfully'}, status: :ok
+          render json: {status: 'Account confirmed successfully.'}
         else
           render json: user.errors, status: 422
         end

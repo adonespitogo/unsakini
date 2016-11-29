@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     # get 'app/*ngroute', to: 'web#app'
 
     resource :user
+
     resources :boards do
       resources :posts do
         resources :comments, only: [:index, :create, :update, :destroy]
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
 
     post 'share/board/', to: 'share_board#index', as: 'share_board'
     get  'users/search', to: 'users#search', as: 'user_search'
-    get  'user/confirm/:token', to: 'users#confirm', as: 'confirm_account'
+    post  'users/confirm', to: 'users#confirm', as: 'confirm_account'
 
   end
 

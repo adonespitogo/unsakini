@@ -8,34 +8,36 @@
       </h1>
     </div>
   </div>
-  <div class="jumbotron" *ngIf="confirming">
-    <h1>
-      Confirming your account. Please wait...
-    </h1>
-  </div>
-  <div class="jumbotron" *ngIf="confirmed && !confirming">
-    <div>
-      <h1>Success!</h1>
-      <hr>
-      <h3>Account activation succedded.</h3>
-      <p>
-        You can now sign in to the <a [routerLink]="['/login']">dashboard</a>.
-      </p>
-    </div>
-  </div>
-  <div class="jumbotron" *ngIf="!confirmed && !confirming">
-    <div>
-      <h1>Ouch!</h1>
-      <hr>
-      <h3>
-        Account confirmation failed.
-      </h3>
-      <p>
-        That token is already expired or non-existent.
-      </p>
-      <p>
-        No account yet? <a [routerLink]="['/signup']"><b>Sign up</b></a>.
-      </p>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="jumbotron" *ngIf="!confirmed">
+        <form #regForm="ngForm" (ngSubmit)="doConfirm($event); false" [ngClass]="(has_error) ? 'has-error' : ''">
+          <div class="form-group">
+            <input type="text" placeholder="Enter your confirmation token" name="token" required [(ngModel)]="token" class="form-control input-lg">
+            <span class="help-block" *ngIf="has_error">
+              That token is already expired or non-existent.
+            </span>
+          </div>
+          <button class="btn btn-success btn-lg" [disabled]="!regForm.form.valid || confirming">
+            <span *ngIf="!confirming">Confirm Account</span>
+            <span *ngIf="confirming">Confirming...</span>
+          </button>
+        </form>
+        <hr>
+        <p>
+          No account yet? <a [routerLink]="['/signup']"><b>Sign up</b></a>.
+        </p>
+      </div>
+      <div class="jumbotron" *ngIf="confirmed && !confirming">
+        <div>
+          <h1>Success!</h1>
+          <hr>
+          <h3>Account activation succedded.</h3>
+          <p>
+            You can now sign in to the <a [routerLink]="['/login']">dashboard</a>.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

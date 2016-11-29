@@ -10,18 +10,18 @@ export class ConfirmAccountService {
   constructor(private http: HttpService) { }
 
   confirm (token: string): Observable<any> {
-    return this.http.get(`/user/confirm/${token}`).map((res) => {
+    return this.http.post(`/users/confirm`, {token: token}).map((res) => {
       console.log(res)
       if (res.ok) {
-        return {confirmed: true}
+        return true;
       } else {
-        return {confirmed: false}
+        return false;
       }
     }).catch(this.catchError);
   }
 
   private catchError(res) {
-    return Observable.of({confirmed: false});
+    return Observable.throw(false);
   }
 
 }
