@@ -14,6 +14,9 @@
         <form #regForm="ngForm" (ngSubmit)="doConfirm($event); false" [ngClass]="(has_error) ? 'has-error' : ''">
           <div class="form-group">
             <input type="text" placeholder="Enter your confirmation token" name="token" required [(ngModel)]="token" class="form-control input-lg">
+            <span class="help-block" *ngIf="!has_error">
+              A confirmation token has been sent to your email.
+            </span>
             <span class="help-block" *ngIf="has_error">
               That token is already expired or non-existent.
             </span>
