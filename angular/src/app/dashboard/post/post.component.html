@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <strong class="pointer">{{post.title}}</strong>
+      <span class="pull-right" dropdown [(isOpen)]="post.options.open">
+        <span class="fa fa-angle-down pointer pull-right" dropdownToggle></span>
+      <ul dropdownMenu role="menu" aria-labelledby="single-button">
+        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Create New +</a></li>
+      </ul>
+      </span>
+    </div>
+    <div class="panel-body">
+      {{post.content}}
+    </div>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item" *ngFor="let comment of post.comments">
+      <h4 class="list-group-item-heading">
+        {{comment.user}}
+        <span class="pull-right"  dropdown [(isOpen)]="comment.options.open">
+          <span class="fa fa-angle-down pointer pull-right" dropdownToggle></span>
+          <ul dropdownMenu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Create New +</a></li>
+          </ul>
+        </span>
+      </h4>
+      <p class="list-group-item-text">
+        {{comment.content}}
+      </p>
+    </div>
+    <hr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Write Comment
+      </div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="Write comment..."></textarea>
+          </div>
+          <button class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

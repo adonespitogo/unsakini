@@ -1,15 +1,12 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-9">
-      <h2>Your Board Name</h2>
+  <h2>
+    Your Board Name
+
+    <div class="btn btn-group pull-right">
+      <div class="btn btn-success">Rename Board</div>
+      <div class="btn btn-danger">Delete Board</div>
     </div>
-    <div class="col-md-3">
-      <div class="btn btn-group pull-right">
-        <div class="btn btn-success">Rename Board</div>
-        <div class="btn btn-danger">Delete Board</div>
-      </div>
-    </div>
-  </div>
+  </h2>
   <hr>
   <p>
     <a href="#" class="btn btn-primary">New Post</a>
@@ -19,12 +16,24 @@
       <div class="row">
         <div class="col-md-6" *ngFor="let item of list">
           <div class="panel panel-primary post">
-            <div class="panel-heading">Hey</div>
-            <div class="panel-body">
+            <div class="panel-heading">
+              <strong class="pointer" [routerLink]="['/dashboard', 'post']">Hey</strong>
+              <span class="pull-right"  dropdown [(isOpen)]="item.options.open">
+                <span class="fa fa-angle-down pointer pull-right" dropdownToggle></span>
+                <ul dropdownMenu role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">Create New +</a></li>
+                </ul>
+              </span>
+            </div>
+            <div class="panel-body pointer" [routerLink]="['/dashboard', 'post']">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam tempore voluptatum, ipsum quis laborum quam sed quisquam, dicta dolorem fugiat debitis temporibus deserunt dolorum ipsa dolor quas. Repudiandae, omnis corporis.
             </div>
             <div class="panel-footer">
-              5 comments
+              <a [routerLink]="['/dashboard/post']">5 comments</a>
             </div>
           </div>
         </div>

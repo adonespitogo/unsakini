@@ -9,11 +9,13 @@ export class BoardComponent implements OnInit {
 
   list = []
 
-  constructor() { }
+  public constructor() { }
 
   ngOnInit() {
     for (let i = 0; i < 10; i ++ ) {
-      this.list.push(i);
+      this.list.push({options: {
+        open: false
+      }});
     }
   }
 
